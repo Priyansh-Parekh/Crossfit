@@ -1,4 +1,5 @@
 # Sporttellect
+<pre>
 🏠 Home Page
 ├── 📰 News Section
 │   ├── Football News Page
@@ -49,3 +50,5 @@
     └── League
         ├── Create & Manage Tournaments
         └── Moderate Participating Clubs
+
+    </pre>
