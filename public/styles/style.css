@@ -1,0 +1,478 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header Styles */
+#header-navbar {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.header-nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.header-nav-links a {
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.header-nav-links a:hover {
+    color: #3498db;
+}
+
+.header-dropdown {
+    position: relative;
+}
+
+.header-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.header-dropdown:hover .header-dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.header-dropdown-content a {
+    display: block;
+    padding: 8px 20px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.header-dropdown-content a:hover {
+    background: #f8f9fa;
+    color: #3498db;
+}
+
+.header-nav-cta {
+    background: #3498db;
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.header-nav-cta:hover {
+    background: #2980b9;
+}
+
+/* Mobile Menu */
+.header-mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.header-mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    transition: 0.3s ease;
+}
+
+.header-mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-mobile-menu-links {
+    list-style: none;
+    padding: 20px;
+}
+
+.header-mobile-menu-links li {
+    margin: 10px 0;
+}
+
+.header-mobile-menu-links a {
+    color: #555;
+    font-weight: 500;
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Main Content */
+main {
+    margin-top: 60px;
+}
+
+/* Hero Section */
+.home-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.home-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.home-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.home-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.home-cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.home-cta-btn {
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.home-primary {
+    background: #fff;
+    color: #667eea;
+}
+
+.home-primary:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.home-secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.home-secondary:hover {
+    background: #fff;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+/* Features Section */
+.home-features {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.home-features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.home-features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.home-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.home-feature-card {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.home-feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.home-feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.home-feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.home-feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Sports Section */
+.home-sports {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.home-sports h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.home-sports-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.home-sport-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.home-sport-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.home-sport-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.home-sport-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* User Roles Section */
+.home-user-roles {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.home-user-roles h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.home-roles-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.home-role-card {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.home-role-card:hover {
+    transform: translateY(-5px);
+}
+
+.home-role-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.home-role-features {
+    list-style: none;
+}
+
+.home-role-features li {
+    padding: 8px 0;
+    color: #666;
+    position: relative;
+    padding-left: 20px;
+}
+
+.home-role-features li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #bdc3c7;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #3498db;
+}
+
+footer p {
+    color: #95a5a6;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-nav-links {
+        display: none;
+    }
+    
+    .header-mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .home-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .home-hero p {
+        font-size: 1rem;
+    }
+    
+    .home-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .home-features h2,
+    .home-sports h2,
+    .home-user-roles h2 {
+        font-size: 2rem;
+    }
+    
+    .home-features-grid,
+    .home-sports-grid,
+    .home-roles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-nav-container {
+        padding: 0 15px;
+    }
+    
+    .home-hero {
+        padding: 60px 0;
+    }
+    
+    .home-features,
+    .home-sports,
+    .home-user-roles {
+        padding: 60px 0;
+    }
+    
+    .home-feature-card,
+    .home-sport-card,
+    .home-role-card {
+        padding: 20px;
+    }
+}

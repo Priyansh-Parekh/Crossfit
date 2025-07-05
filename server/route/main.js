@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const route = express.Router();
 const axios = require('axios');
-const udata = require("../models/userdata");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
