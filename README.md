@@ -51,4 +51,67 @@
         ├── Create & Manage Tournaments
         └── Moderate Participating Clubs
 
+
+
+
+# DataBase
+
+📦 Database: sports_platform
+├── 👤 users
+│   ├── _id
+│   ├── name
+│   ├── email
+│   ├── password
+│   ├── favoriteTeams     // [teamId] for individuals
+│   └── createdAt
+│
+├── 🏟 clubs
+│   ├── _id
+│   ├── name
+│   ├── logo
+│   ├── bio
+│   ├── players           // [players]
+│   ├── matchesPlayed     // [matchId]
+│   ├── sport    
+│   ├── merchandise       // [productId]
+│   ├── challenges        // [clubId]
+│   └── createdBy         // userId (admin of club)
+│
+├── 👤 players
+│   ├── _id
+│   ├── name
+│   ├── registerd club
+│   ├── favoriteTeams     // [teamId] for individuals
+│   └── createdAt
+│
+├── 🏆 tournaments
+│   ├── _id
+│   ├── name
+│   ├── schedule          // [matchId]
+│   ├── pointsTable       // [{ clubId, points, wins, draws, losses }]
+│   └── createdAt
+│
+├── 🛒 merchandise
+│   ├── _id
+│   ├── name
+│   ├── price
+│   ├── imageUrl
+│   ├── description
+│   ├── sport
+│   ├── clubId
+│   └── createdAt
+│
+├── 📈 matches
+│   ├── _id
+│   ├── clubA
+│   ├── clubB
+│   ├── leagueId
+│   ├── score             // { clubA: int, clubB: int }
+│   ├── events            // [{ time, player, type }]
+│   ├── playerStats       // [{ playerId, goals, assists, ... }]
+│   ├── heatmapData       // optional: chart visualization
+│   └── matchDate
+
+=======
     </pre>
+
