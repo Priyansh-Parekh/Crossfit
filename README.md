@@ -57,7 +57,7 @@
 # DataBase
 
 📦 Database: sports_platform
-├── 👤 users
+├── 👤 viewrs
 │   ├── _id
 │   ├── name
 │   ├── email
@@ -65,33 +65,37 @@
 │   ├── favoriteTeams     // [teamId] for individuals
 │   └── createdAt
 │
-├── 🏟 clubs
+├── 🏟 clubs(cricket)
 │   ├── _id
 │   ├── name
 │   ├── logo
 │   ├── bio
+│   ├── matchWon        //[]
+│   ├── matchLose       //[]
 │   ├── players           // [players]
 │   ├── matchesPlayed     // [matchId]
 │   ├── sport    
 │   ├── merchandise       // [productId]
-│   ├── challenges        // [clubId]
-│   └── createdBy         // userId (admin of club)
+│   ├── 
+│   └── 
+│ 
 │
-├── 👤 players
-│   ├── _id
-│   ├── name
-│   ├── registerd club
-│   ├── favoriteTeams     // [teamId] for individuals
-│   └── createdAt
-│
-├── 🏆 tournaments
+├── 🏆 tournaments League
 │   ├── _id
 │   ├── name
 │   ├── schedule          // [matchId]
 │   ├── pointsTable       // [{ clubId, points, wins, draws, losses }]
 │   └── createdAt
-│
-├── 🛒 merchandise
+
+
+👤 players
+│   ├── _id
+│   ├── name
+│   ├── registerd club
+│   ├── favoriteTeams     // [teamId] for individuals
+│   └── createdAt
+
+🛒 merchandise
 │   ├── _id
 │   ├── name
 │   ├── price
@@ -100,8 +104,8 @@
 │   ├── sport
 │   ├── clubId
 │   └── createdAt
-│
-├── 📈 matches
+
+📈 matches
 │   ├── _id
 │   ├── clubA
 │   ├── clubB
@@ -112,6 +116,5 @@
 │   ├── heatmapData       // optional: chart visualization
 │   └── matchDate
 
-=======
     </pre>
 
