@@ -1,4 +1,5 @@
 # Sporttellect
+<pre>
 🏠 Home Page
 ├── 📰 News Section
 │   ├── Football News Page
@@ -52,8 +53,9 @@
 
 
 
+
 # DataBase
-<pre>
+
 📦 Database: sports_platform
 ├── 👤 users
 │   ├── _id
@@ -109,4 +111,7 @@
 │   ├── playerStats       // [{ playerId, goals, assists, ... }]
 │   ├── heatmapData       // optional: chart visualization
 │   └── matchDate
-</pre>
+
+=======
+    </pre>
+
