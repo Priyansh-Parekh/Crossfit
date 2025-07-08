@@ -119,7 +119,6 @@
 ├── 👤 players
 │   ├── _id                // ObjectId
 │   ├── name               // String
-│   ├── email              // String (optional)
 │   ├── phone              // String
 │   ├── profile_picture    // String (URL)
 │   ├── registered_club    // ObjectId -> clubs._id
@@ -127,7 +126,14 @@
 │   ├── role               // "captain" | "vice_captain" | "player" | "wicket_keeper"
 │   ├── age                // Number
 │   ├── batting_style      // "right_handed" | "left_handed"
-│   ├── bowling_style      // "fast" | "medium" | "spin" | "off_spin" | "leg_spin"
+│   ├── total_runs                // Number
+│   ├── total_balls                // Number
+│   ├── SR                // float
+│   ├── bowling_style      // fast" | "medium" | "spin" | "off_spin" | "leg_spin"
+│   ├── wickets            // Number
+│   ├── overs_deliverd      // Number
+│   ├── runs_given      // Number
+│   ├── economy            // float
 │   ├── jersey_number      // Number
 │   ├── status             // "active" | "injured" | "retired"
 │   ├── createdAt          // Date
@@ -149,8 +155,8 @@
 │
 └── 📈 matches
     ├── _id                // ObjectId
-    ├── clubA              // ObjectId -> clubs._id
-    ├── clubB              // ObjectId -> clubs._id
+    ├── club1              // ObjectId -> clubs._id
+    ├── club2              // ObjectId -> clubs._id
     ├── league             // ObjectId -> leagues._id
     ├── venue              // String
     ├── match_type         // "T20" | "ODI" | "Test"
