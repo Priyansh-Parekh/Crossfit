@@ -11,7 +11,7 @@ html, body {
     background-color: #f8f9fa;
 }
 
-nav {
+header {
     display: flex;
     justify-content: space-between;
     padding: 1.2rem 1.1rem 1.1rem 1.1rem;
@@ -19,54 +19,54 @@ nav {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-nav a {
+header a {
     text-decoration: none;
     color: #333;
 }
 
-nav a:visited {
+header a:visited {
     color: inherit;
 }
 
-nav .logo-container {
+header .logo-container {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-nav .logo-container img {
+header .logo-container img {
     height: 4rem;
     border-radius: 50%;
 }
 
-nav .logo-container a {
+header .logo-container a {
     color: #5409b2;
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-nav .links {
+header .links {
     display: flex;
     align-items: center;
     font-size: 1.15rem;
 }
 
-nav .links ul {
+header .links ul {
     list-style: none;
 }
 
-nav .links li {
+header .links li {
     display: inline;
     margin-right: 1rem;
     cursor: pointer;
     transition: color 0.15s;
 }
 
-nav .links li:hover {
+header .links li:hover {
     color: #5409b2;
 }
 
-nav .links button {
+header .links button {
     background-color: #5409b2;
     color: #ffffff;
     border: none;
@@ -78,12 +78,12 @@ nav .links button {
     border-radius: 5px;
 }
 
-nav .links button:hover {
+header .links button:hover {
     background-color: #3f0685;
     transition: opacity 0.15s;
 }
 
-nav .links button:active {
+header .links button:active {
     opacity: 0.85;
 }
 
