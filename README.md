@@ -56,62 +56,121 @@
 
 # DataBase
 
-📦 Database: sports_platform
-├── 👤 users
-│   ├── _id
-│   ├── name
-│   ├── email
-│   ├── password
-│   ├── favoriteTeams     // [teamId] for individuals
-│   └── createdAt
+📦 sports_platform
+├── 👤 viewers
+│   ├── _id                 // ObjectId
+│   ├── name               // String
+│   ├── email              // String (unique)
+│   ├── password           // String (hashed)
+│   ├── profile_picture    // String (URL)
+│   ├── user_type          // "viewer"
+│   ├── status             // "active" | "inactive"
+│   ├── location           // String
+│   ├── favorite_teams     // [ObjectId] -> clubs._id
+│   ├── createdAt          // Date
+│   └── updatedAt          // Date
 │
 ├── 🏟 clubs
-│   ├── _id
-│   ├── name
-│   ├── logo
-│   ├── bio
-│   ├── players           // [players]
-│   ├── matchesPlayed     // [matchId]
-│   ├── sport    
-│   ├── merchandise       // [productId]
-│   ├── challenges        // [clubId]
-│   └── createdBy         // userId (admin of club)
+│   ├── _id                // ObjectId
+│   ├── name               // String
+│   ├── email              // String (unique)
+│   ├── password           // String (hashed)
+│   ├── phone              // String
+│   ├── logo               // String (URL)
+│   ├── bio                // String
+│   ├── user_type          // "club"
+│   ├── status             // "active" | "inactive"
+│   ├── location           // String
+│   ├── founded_year       // Number
+│   ├── sport              // "cricket"
+│   ├── match_won          // [ObjectId] -> matches._id
+│   ├── match_lose         // [ObjectId] -> matches._id
+│   ├── match_played         // [array] -> {True or False,Matched.id }
+│   ├── players            // [ObjectId] -> players._id
+│   ├── merchandise        // [ObjectId] -> merchandise._id
+│   ├── captain            // ObjectId -> players._id
+│   ├── vice_captain       // ObjectId -> players._id
+│   ├── wicket_keeper      // ObjectId -> players._id
+│   ├── bowlers            // [ObjectId] -> players._id
+│   ├── batsman            // [ObjectId] -> players._id
+│   ├── createdAt          // Date
+│   └── updatedAt          // Date
+│
+├── 🏆 leagues
+│   ├── _id                // ObjectId
+│   ├── name               // String
+│   ├── email              // String (unique)
+│   ├── password           // String (hashed)
+│   ├── phone              // String
+│   ├── logo               // String (URL)
+│   ├── description        // String
+│   ├── user_type          // "league"
+│   ├── status             // "active" | "inactive"
+│   ├── organizer_name     // String
+│   ├── start_date         // Date
+│   ├── end_date           // Date
+│   ├── sport              // "cricket"
+│   ├── participating_clubs // [ObjectId] -> clubs._id
+│   ├── schedule           // [ObjectId] -> matches._id
+│   ├── pointsTable        // [{ clubId: ObjectId, points: Number, wins: Number, draws: Number, losses: Number }]
+│   ├── createdAt          // Date
+│   └── updatedAt          // Date
 │
 ├── 👤 players
-│   ├── _id
-│   ├── name
-│   ├── registerd club
-│   ├── favoriteTeams     // [teamId] for individuals
-│   └── createdAt
-│
-├── 🏆 tournaments
-│   ├── _id
-│   ├── name
-│   ├── schedule          // [matchId]
-│   ├── pointsTable       // [{ clubId, points, wins, draws, losses }]
-│   └── createdAt
+│   ├── _id                // ObjectId
+│   ├── name               // String
+│   ├── phone              // String
+│   ├── profile_picture    // String (URL)
+│   ├── registered_club    // ObjectId -> clubs._id
+│   ├── type               // "batsman" | "bowler" | "wicket_keeper" | "all_rounder"
+│   ├── role               // "captain" | "vice_captain" | "player" | "wicket_keeper"
+│   ├── age                // Number
+│   ├── batting_style      // "right_handed" | "left_handed"
+│   ├── total_runs                // Number
+│   ├── total_balls                // Number
+│   ├── SR                // float
+│   ├── bowling_style      // fast" | "medium" | "spin" | "off_spin" | "leg_spin"
+│   ├── wickets            // Number
+│   ├── overs_deliverd      // Number
+│   ├── runs_given      // Number
+│   ├── economy            // float
+│   ├── jersey_number      // Number
+│   ├── status             // "active" | "injured" | "retired"
+│   ├── createdAt          // Date
+│   └── updatedAt          // Date
 │
 ├── 🛒 merchandise
-│   ├── _id
-│   ├── name
-│   ├── price
-│   ├── imageUrl
-│   ├── description
-│   ├── sport
-│   ├── clubId
-│   └── createdAt
+│   ├── _id                // ObjectId
+│   ├── name               // String
+│   ├── price              // Number
+│   ├── imageUrl           // String
+│   ├── description        // String
+│   ├── sport              // "cricket"
+│   ├── clubId             // ObjectId -> clubs._id
+│   ├── category           // "jersey" | "cap" | "accessories" | "equipment"
+│   ├── stock_quantity     // Number
+│   ├── status             // "available" | "out_of_stock"
+│   ├── createdAt          // Date
+│   └── updatedAt          // Date
 │
-├── 📈 matches
-│   ├── _id
-│   ├── clubA
-│   ├── clubB
-│   ├── leagueId
-│   ├── score             // { clubA: int, clubB: int }
-│   ├── events            // [{ time, player, type }]
-│   ├── playerStats       // [{ playerId, goals, assists, ... }]
-│   ├── heatmapData       // optional: chart visualization
-│   └── matchDate
-
-=======
+└── 📈 matches
+    ├── _id                // ObjectId
+    ├── club1              // ObjectId -> clubs._id
+    ├── club2              // ObjectId -> clubs._id
+    ├── league             // ObjectId -> leagues._id
+    ├── venue              // String
+    ├── match_type         // "T20" | "ODI" | "Test"
+    ├── status             // "upcoming" | "live" | "completed" | "cancelled"
+    ├── matchDate          // Date
+    ├── score              // { clubA: { runs: Number, wickets: Number, overs: Number }, clubB: { runs: Number, wickets: Number, overs: Number } }
+    ├── winner             // ObjectId -> clubs._id
+    ├── man_of_match       // ObjectId -> players._id
+    ├── toss_winner        // ObjectId -> clubs._id
+    ├── toss_decision      // "bat" | "bowl"
+    ├── events             // [{ time: String, player: ObjectId, description: String, type: String }]
+    ├── playerStats        // [{ playerId: ObjectId, clubId: ObjectId, batting: {}, bowling: {} }]
+    ├── heatmapData        // Object (optional)
+    ├── createdAt          // Date
+    └── updatedAt          // Date
     </pre>
 

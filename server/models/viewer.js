@@ -52,7 +52,6 @@ const Viewer = new mongoose.Schema({
 
 
 
-
 // Add indexes for better performance
 Viewer.index({ email: 1 });
 Club.index({ email: 1 });
