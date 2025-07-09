@@ -12,7 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(expressLayout);
 app.use(cookieParser());
-app.use('/',require('./server/route/main'));
+app.use('/',require('./server/route/main.js')); // ✅ Use main route
+app.use('/auth',require('./server/route/auth.js')); // ✅ Use auth route
+
+
+  res.render('index', { tasks }); // ✅ Pass tasks to EJS
 
 app.listen(port,()=>{
     console.log(`app is running on ${port} port`);
