@@ -1,0 +1,60 @@
+<div class="club-enlistpage-container">
+    <div class="club-enlistpage-header">
+        <h1 class="club-enlistpage-title">Sports Club Directory</h1>
+        <p class="club-enlistpage-subtitle">Discover and join amazing sports clubs in your area</p>
+    </div>
+
+    <div class="club-enlistpage-search-container">
+        <input type="text" class="club-enlistpage-searchbar" id="club-enlistpage-searchbar"
+            placeholder="Search clubs by name">
+    </div>
+
+    <div class="club-enlistpage-filter-buttons">
+        <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-cricket"
+            id="club-enlistpage-filter-cricket">🏏 Cricket</button>
+        <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-football"
+            id="club-enlistpage-filter-football">⚽ Football</button>
+        <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-basketball"
+            id="club-enlistpage-filter-basketball">🏀 Basketball</button>
+    </div>
+
+    <div class="club-enlistpage-clubs-grid" id="club-enlistpage-clubs-grid">
+        <!-- Cricket Clubs -->
+        <% clubs.forEach(club=> { %>
+            <div class="club-enlistpage-club-card" data-sport="<%=club.sport%>">
+                <div class="club-enlistpage-card-image club-enlistpage-card-image-<%= club.sport %>">
+                    <img src="/images/Crossfit.jpg" alt="<%= club.name %>-logo" class="club-enlistpage-club-logo">
+                </div>
+                <div class="club-enlistpage-card-content">
+                    <h3 class="club-enlistpage-club-name">
+                        <%= club.name %>
+                    </h3>
+                    <p class="club-enlistpage-club-description">
+                        <%= club.slogan %>
+                    </p>
+                    <div class="club-enlistpage-club-stats">
+                        <div class="club-enlistpage-stat-item">
+                            <div class="club-enlistpage-stat-number">245</div>
+                            <div>Players</div>
+                        </div>
+                        <div class="club-enlistpage-stat-item">
+                            <div class="club-enlistpage-stat-number">156</div>
+                            <div>Matches</div>
+                        </div>
+                        <div class="club-enlistpage-stat-item">
+                            <div class="club-enlistpage-stat-number">128</div>
+                            <div>Won</div>
+                        </div>
+                    </div>
+                    <button class="club-enlistpage-join-btn">View Club</button>
+                </div>
+            </div>
+            <% }) %>
+
+
+
+
+                <div class="club-enlistpage-no-results" id="club-enlistpage-no-results">
+                    <p>No clubs found matching your search criteria.</p>
+                </div>
+    </div>

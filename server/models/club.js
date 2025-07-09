@@ -24,6 +24,7 @@ const Club = new mongoose.Schema({
         type: String,
         trim: true
     },
+    slogan:  String,
     user_type: {
         type: String,
         default: 'club'
@@ -33,10 +34,7 @@ const Club = new mongoose.Schema({
         default: 'active',
         enum: ['active', 'inactive']
     },
-    location: {
-        type: String,
-        trim: true
-    },
+    location:String,
     founded_year: {
         type: Number,
         min: 1800,
