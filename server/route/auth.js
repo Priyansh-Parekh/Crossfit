@@ -1,6 +1,11 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const route = express.Router();
-const bcrypt = require('bcrypt');
+const axios = require('axios');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+
 
 //all 3 models
 const Viewer = require('../models/viewer');

@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 //live score  Page
 route.get('/', async (req, res) => {
-    res.render("live_score");
+    res.render("live_scores");
 })
 
 
