@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/style.css">
-    <title>Sportlect</title>
+    <title><%= title || 'Sporttellect' %></title>
+    <%- style || '' %>
 </head>
-
 <body>
-    <%- include("../partials/header.ejs") %>
+    <%- include('../partials/header') %>
+    <section class="main-content">
         <%- body %>
-            <%-include("../partials/footer.ejs") %>
-            <script src="/script/news_script.js"></script>
+    </section>
+    <%- include('../partials/footer') %>
+    <%- script || '' %>
+    <script src="/script/news_script.js"></script>
 </body>
-
 </html>

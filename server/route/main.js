@@ -10,11 +10,7 @@ const jwt = require('jsonwebtoken');
 //Home Page
 route.get('/', async (req, res) => {
     res.render("index");
-})
-
-
-
-
+});
 
 
 

@@ -777,3 +777,82 @@ footer {
         font-size: 2.5rem; /* Adjust emoji size */
     }
 }
+
+
+/* --- Login Page Styling --- */
+
+/* --- Login Page Styling --- */
+.login-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.login-button {
+    background-color: #5409b2;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.login-button:hover {
+    background-color: #3f0685;
+}
+
+/* --- Register Page Styling --- */
+.register-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.register-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.register-button {
+    background-color: #5409b2;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.register-button:hover {
+    background-color: #3f0685;
+}

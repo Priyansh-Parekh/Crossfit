@@ -1,0 +1,34 @@
+<%- include("partials/header") %>
+
+<main class="register-main">
+  <section class="register-section">
+    <h2 class="register-title">Create Account</h2>
+    <p class="register-subtitle">Sign up to get started</p>
+
+    <form class="register-form" action="/register" method="POST">
+      <div class="register-group">
+        <label for="username" class="register-label">Username</label>
+        <input type="text" name="username" id="username" class="register-input" required />
+      </div>
+
+      <div class="register-group">
+        <label for="email" class="register-label">Email</label>
+        <input type="email" name="email" id="email" class="register-input" required />
+      </div>
+
+      <div class="register-group">
+        <label for="password" class="register-label">Password</label>
+        <input type="password" name="password" id="password" class="register-input" required />
+      </div>
+
+      <button type="submit" class="register-button">Register</button>
+    </form>
+
+    <p class="register-footer-text">
+      Already have an account?
+      <a href="/login" class="register-link">Login here</a>
+    </p>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

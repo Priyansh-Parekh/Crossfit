@@ -1,67 +1,97 @@
 const express = require('express');
 const route = express.Router();
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
+
+//all 3 models
+const Viewer = require('../models/viewer');
+const Club = require('../models/club');
+const League = require('../models/league'); 
+
+//to get model by user type
+
+function getModel(user_type) {
+  switch (user_type) {
+    case 'viewer': return Viewer;
+    case 'club': return Club;
+    case 'league': return League;
+    default: return null;
+}
+}
 
 // Get Register Page
 route.get('/register', (req, res) => {
-  res.render('auth/register', { error: null });
+  res.render('register', { error: null });
 });
 
 // Post Register Page
 route.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, user_type } = req.body;
 
     // Input validation
-    if (!name || !email || !password) {
-      return res.render('auth/register', { error: 'All fields are required' });
+    if (!name || !email || !password || !user_type) {
+      return res.render('register', { error: 'All fields are required' });
     }
 
-    const userExists = await User.findOne({ email });
+    const Model = getModel(user_type);
+    if (!Model) { return res.render('register', { error: 'Invalid user type' }); }
 
-    if (userExists) {
-      return res.render('auth/register', { error: 'User already exists' });
+    // Check if user already exists
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.render('register', { error: 'Invalid email format' });
+    }
+
+    const userExists = await Viewer.findOne({ email });
+    if(userExists) {
+      return res.render('register', { error: 'User already exists' });
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ 
+    const newUser = new Model({ 
       name, 
       email, 
-      password: hashPassword 
+      password: hashPassword,
+      user_type
     });
     
     await newUser.save();
-    res.redirect('/auth/login');
+    res.redirect('/login');
+
   } catch (err) {
     console.error('Registration error:', err);
-    res.render('auth/register', { error: 'Registration failed. Please try again.' });
+    res.render('register', { error: 'Registration failed. Please try again.' });
   }
 });
 
 // GET login page
 route.get('/login', (req, res) => {
-  res.render('auth/login', { error: null });
+  res.render('login', {
+    title: 'Login to Sporttelect',
+     error: null });
 });
 
 // POST login page
 route.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, user_type } = req.body;
 
     // Input validation
-    if (!email || !password) {
-      return res.render('auth/login', { error: 'Email and password are required' });
+    if (!email || !password || !user_type) {
+      return res.render('login', { error: 'All fields are required' });
     }
 
-    const user = await User.findOne({ email });
+    const Model = getModel(user_type);
+    if(!Model) return res.render('login', {error: 'Invalid user type'});
+
+    const user = await Viewer.findOne({ email });
     if (!user) {
-      return res.render('auth/login', { error: 'Invalid email or password' });
+      return res.render('login', { error: 'Invalid email or password' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.render('auth/login', { error: 'Invalid email or password' });
+      return res.render('login', { error: 'Invalid email or password' });
     }
 
     // TODO: Implement session or JWT here
@@ -69,7 +99,7 @@ route.post('/login', async (req, res) => {
     
   } catch (err) {
     console.error('Login error:', err);
-    res.render('auth/login', { error: 'Login failed. Please try again.' });
+    res.render('login', { error: 'Login failed. Please try again.' });
   }
 });
 
