@@ -12,6 +12,12 @@
             <li><a href="/merchandise">Merchandise</a></li>
             <li><a href="/clubs">clubs</a></li>
         </ul>
+
+        <% let user = "none" %>
+        <% if(user === "none"){ %>
         <button><a href="#home-roles">Login</a></button>
+        <% }else{ %>
+             <button><a href="#home-roles"><%  %></a></button>
+            <% } %>
     </div>
 </header>

@@ -11,12 +11,10 @@ mongoose.connect('mongodb+srv://priyanshparekh24:Pass%4025@ace-up-data.wkfpvme.m
 const Viewer = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
         trim: true
     },
     email: {
         type: String,
-        required: true,
         unique: true,
         lowercase: true,
         trim: true
