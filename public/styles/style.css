@@ -142,14 +142,15 @@ section p {
 
 /* --- Hero Section --- */
 .home-hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1541253457199-a9c13b2c31e6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: linear-gradient(to right, #5409b2, #8A2BE2); /* Purple to Blue-Violet */
     color: white;
     padding: 8rem 2rem; /* Generous vertical padding for a grand feel */
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 70vh; /* Make hero section tall */
-    border-radius: 10px; /* Slightly rounded corners for visual appeal */
+    border-bottom-right-radius: 10px; /* Slightly rounded corners for visual appeal */
+    border-bottom-left-radius: 10px; /* Slightly rounded corners for visual appeal */
     box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Subtle shadow for depth */
 }
 
@@ -241,6 +242,7 @@ section p {
 .home-feature-card:hover {
     transform: translateY(-8px); /* Lift effect on hover */
     box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+    cursor:default;
 }
 
 .home-feature-icon {
@@ -288,7 +290,7 @@ section p {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: left; /* Align text to the left */
     width: 300px; /* Fixed width for consistency */
-    cursor: pointer;
+    cursor: default;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-left 0.2s ease-in-out;
     border-left: 5px solid transparent; /* Transparent border for hover effect */
 }
@@ -390,6 +392,87 @@ section p {
     flex-shrink: 0; /* Prevent checkmark from shrinking */
 }
 
+/* --- User Roles Section Buttons --- */
+
+/* Container for the buttons within role cards */
+.home-role-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons by default */
+    gap: 0.8rem; /* Space between buttons */
+    margin-top: 1.5rem; /* Space above buttons from list items */
+    width: 100%; /* Take full width of the card */
+}
+
+/* Base style for all buttons within role cards */
+.home-role-btn {
+    display: block; /* Make buttons take full width of their container */
+    width: 100%;
+    padding: 0.8rem 1.5rem; /* Consistent padding */
+    font-size: 1rem;
+    font-weight: 600;
+    border: none; /* Reset default button border */
+    border-radius: 8px; /* Slightly rounded corners */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Style for the Login button (Primary) */
+.home-role-login-btn {
+    background-color: #5409b2; /* Your primary accent color */
+    color: #ffffff;
+    border: 2px solid #5409b2; /* Solid border matching background */
+}
+
+.home-role-login-btn:hover {
+    background-color: #3f0685; /* Darker shade on hover */
+    border-color: #3f0685;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.home-role-login-btn:active {
+    background-color: #2b045e;
+    transform: translateY(0);
+}
+
+/* Style for the Register button (Secondary/Outline) */
+.home-role-register-btn {
+    background-color: transparent;
+    color: #5409b2; /* Text color matching primary accent */
+    border: 2px solid #5409b2; /* Outline border */
+}
+
+.home-role-register-btn:hover {
+    background-color: #5409b2; /* Fill with primary color on hover */
+    color: #ffffff; /* White text on hover */
+    transform: translateY(-2px);
+}
+
+.home-role-register-btn:active {
+    background-color: #3f0685;
+    border-color: #3f0685;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments for buttons within role cards */
+@media (min-width: 768px) {
+    /* For wider screens, make buttons side-by-side if desired, or keep stacked for cleaner look */
+    .home-role-buttons {
+        flex-direction: row; /* Layout buttons in a row */
+        justify-content: center; /* Center them if there's extra space */
+        gap: 1rem; /* Adjust spacing for row layout */
+    }
+    .home-role-btn {
+        width: auto; /* Allow buttons to size based on content + padding */
+        min-width: 120px; /* Ensure a minimum width */
+    }
+}
+
+@media (max-width: 480px) {
+    .home-role-btn {
+        padding: 0.7rem 1rem; /* Slightly less padding on very small screens */
+        font-size: 0.95rem;
+    }
+}
 
 /* --- Footer Styling --- */
 footer {
@@ -573,14 +656,14 @@ footer {
         width: 100%; /* Make navigation take full width */
         flex-direction: column; /* Stack nav links and button */
         align-items: center; /* Center items within the nav block */
-        gap: 1rem; /* Space between nav list and button */
+        gap: 0.05rem; /* Space between nav list and button */
     }
 
     header .links ul {
         flex-direction: column; /* Stack nav links vertically */
         align-items: center; /* Center stacked nav links */
         margin-right: 0; /* Remove horizontal margin */
-        gap: 0.75rem; /* Closer spacing for stacked links */
+        gap: 0.05rem; /* Closer spacing for stacked links */
         width: 100%; /* Take full width */
     }
 
@@ -591,7 +674,7 @@ footer {
     }
 
     header .links li a {
-        padding: 0.5rem 0; /* More clickable area */
+        padding: 0.05rem 0; /* More clickable area */
         display: block; /* Make anchor take full width */
     }
 
