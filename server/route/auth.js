@@ -66,7 +66,9 @@ route.post('/register', async (req, res) => {
 
 // GET login page
 route.get('/login', (req, res) => {
-  res.render('login', { error: null });
+  res.render('login', {
+    title: 'Login to Sporttelect',
+     error: null });
 });
 
 // POST login page

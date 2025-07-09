@@ -50,7 +50,7 @@ const Viewer = new mongoose.Schema({
 
 
 // Add indexes for better performance
-Viewer.index({ email: 1 });
+// Viewer.index({ email: 1 });    Redundant index as email is already unique
 // Club.index({ email: 1 });
 // League.index({ email: 1 });
 // Player.index({ registered_club: 1 });
