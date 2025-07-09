@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-// Clubs page
+// viewers page
 route.get('/login_viewers', async (req, res) => {
     res.render("login_viewers");
 })
@@ -19,7 +19,7 @@ route.get('/login_clubs', async (req, res) => {
 })
 
 
-// Clubs page
+// leagues page
 route.get('/login_leagues', async (req, res) => {
     res.render("login_leagues");
 })
