@@ -29,7 +29,7 @@ route.post('/register_viewers', async (req, res) => {
         let inviewer = await viewers.findOne({ email });
         let inleague = await leagues.findOne({ email });
 
-        let check = inclub && inviewer && inleague
+          let check = inclub || inviewer || inleague;
         if (check) {
             res.redirect("/error");
         } else {
@@ -60,20 +60,19 @@ route.post('/register_clubs', async (req, res) => {
     try {
 
         let { name, sport, email, password, bio, founded_year, founder_name, slogan } = req.body;
-        favourite_team = new mongoose.Types.ObjectId(favourite_team)
         //checking that user of this email already exist or not.
         let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
         let inleague = await leagues.findOne({ email });
 
-        let check = inclub && inviewer && inleague
+         let check = inclub || inviewer || inleague
         if (check) {
             res.redirect("/error");
         } else {
             //providing more sequrity to its password/
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(password, salt);
-            let user = await clubs.create({ name, sport, email, password, bio, founded_year, founder_name, slogan })
+            let user = await clubs.create({ name, sport, email, password:hash, bio, founded_year, founder_name, slogan })
 
             //providing cookies to keep him logged in//
             let token = jwt.sign({ email }, "secret-word");
@@ -97,20 +96,19 @@ route.post('/register_leagues', async (req, res) => {
     try {
 
         let { name, sport, email, password, bio, organizer_name,founded_year } = req.body;
-        favourite_team = new mongoose.Types.ObjectId(favourite_team)
         //checking that user of this email already exist or not.
         let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
         let inleague = await leagues.findOne({ email });
 
-        let check = inclub && inviewer && inleague
+        let check = inclub || inviewer || inleague
         if (check) {
             res.redirect("/error");
         } else {
             //providing more sequrity to its password/
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(password, salt);
-            let user = await leagues.create({ name, sport, email, password, bio, organizer_name,founded_year })
+            let user = await leagues.create({ name, sport, email, password:hash, bio, organizer_name,founded_year })
 
             //providing cookies to keep him logged in//
             let token = jwt.sign({ email }, "secret-word");
