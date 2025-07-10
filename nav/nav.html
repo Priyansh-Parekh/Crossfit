@@ -1,0 +1,67 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="./nav.css">
+
+<nav>
+    <div class="desktop-nav">
+      <div class="logo-container">
+        <img src="./logo.png" alt="logo-image">
+        <a href="">Crossfit</a>
+      </div>
+      
+      <div class="links">
+        <ul>
+          <li><a href="#">Live-Score</a></li>
+          <li><a href="#">Tournament</a></li>
+          <li><a href="#">Merchandise</a></li>
+          <li><a href="#">Clubs</a></li>
+        </ul>
+        <div class="user-menu">
+          <img src="./ball.jpg" alt="User Avatar" class="user-avatar">
+            <div class="dropdown hidden">
+              <a href="/settings" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <a href="/logout" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-nav">
+      <div class="logo-container">
+        <img src="./logo.png" alt="logo-image">
+        <a href="">Crossfit</a>
+      </div>
+      <div class="links">
+        <div class="user-menu">
+          <img src="./ball.jpg" alt="User Avatar" class="user-avatar">
+            <div class="dropdown hidden">
+              <a href="/settings" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <a href="/logout" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+        </div>
+        <div class="mobile-menu">
+          <div class="hamburger">
+            <i class="fas fa-bars"></i>
+          </div>
+          <div class="mobile-dropdown hidden">
+            <ul>
+              <li><a href="#">Live-Score</a></li>
+              <li><a href="#">Tournament</a></li>
+              <li><a href="#">Merchandise</a></li>
+              <li><a href="#">Clubs</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+<script src="./nav.js"></script>
