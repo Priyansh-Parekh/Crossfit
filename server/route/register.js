@@ -25,7 +25,7 @@ route.post('/register_viewers', async (req, res) => {
         let { name, email, password, favourite_team } = req.body;
         favourite_team = new mongoose.Types.ObjectId(favourite_team)
         ///checking that user of this email already exist or not.
-        let inclub = await clubs.findOne({ email });
+        let inclub = await clubs.findOne({ email }); 
         let inviewer = await viewers.findOne({ email });
         let inleague = await leagues.findOne({ email });
 
