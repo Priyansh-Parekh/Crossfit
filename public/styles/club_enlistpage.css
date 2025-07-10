@@ -50,8 +50,10 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-
-        .club-enlistpage-filter-btn {
+        .btn{
+            margin-left: 1vh;
+        }
+        .club-enlistpage-filter-btn,.btn {
             padding: 12px 25px;
             border: none;
             border-radius: 25px;
@@ -63,7 +65,7 @@
             letter-spacing: 1px;
         }
 
-        .club-enlistpage-filter-btn-cricket {
+        .club-enlistpage-filter-btn-cricket,.btn {
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
             color: white;
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);

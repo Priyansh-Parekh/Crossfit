@@ -12,6 +12,10 @@ route.get('/', async (req, res) => {
     res.render("index");
 });
 
+//News Page
+route.get('/news', async (req, res) => {
+    res.render("news");
+});
 
 
 module.exports = route;
