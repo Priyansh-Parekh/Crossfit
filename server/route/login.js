@@ -78,7 +78,7 @@ route.get('/login_leagues', async (req, res) => {
 
 route.post('/login_leagues', async (req, res) => {
     try {
-        const check = await leagues.findOne({ email : req.body.email });
+        const check = await leagues.findOne({ name : req.body.name });
         if(!check){
             res.send("User not found");
         }
@@ -86,7 +86,7 @@ route.post('/login_leagues', async (req, res) => {
         const isMatch = await bcrypt.compare(req.body.password, check.password);
         if(isMatch) {
             // If the password matches, create a JWT token
-            const token = jwt.sign({ email: check.email }, "secret-word");
+            const token = jwt.sign({ name: check.name }, "secret-word");
             res.cookie("token", token);
             res.redirect("/");
         } else {
