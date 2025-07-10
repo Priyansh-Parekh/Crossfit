@@ -1,0 +1,72 @@
+/* Full page layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f2f2; /* light grey background */
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Container card */
+.login-form-container {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Form groups */
+.login-form-group {
+  margin-bottom: 20px;
+}
+
+
+.login-form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+
+/* Submit button */
+.login-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Register link */
+.login-form-container p {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-form-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-form-container a:hover {
+  text-decoration: underline;
+}
