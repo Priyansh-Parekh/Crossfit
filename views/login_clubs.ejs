@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/styles/login.css">
-</head>
-<body>
-  
-  <div class ="login-form-container">
-    <h2>Login</h2>
-    <form action="/login" method="post">
-      <div class="login-form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="login-form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit" class="login-submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/register">Register</a></p>
-  </div>
-</body>
-</html> 
+<main class="login-clubs-main-content">
+    <section class="login-clubs-form-section">
+        <div class="login-clubs-container">
+            <h2 class="login-clubs-form-title">Welcome Back, Club!</h2>
+            <p class="login-clubs-form-subtitle">Log in to manage your club's profile and updates.</p>
+
+            <form class="login-clubs-form" id="login-clubs-form">
+                <div class="login-clubs-form-group">
+                    <label for="login-clubs-email" class="login-clubs-label">Club Email:</label>
+                    <input type="email" id="login-clubs-email" class="login-clubs-input" name="club_email" required>
+                </div>
+
+                <div class="login-clubs-form-group">
+                    <label for="login-clubs-password" class="login-clubs-label">Club Password:</label>
+                    <input type="password" id="login-clubs-password" class="login-clubs-input" name="club_password" required>
+                </div>
+
+                <button type="submit" class="login-clubs-submit-btn">Log In</button>
+            </form>
+        </div>
+    </section>
+</main>

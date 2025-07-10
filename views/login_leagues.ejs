@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/styles/login.css">
-</head>
-<body>
-  
-  <div class ="login-form-container">
-    <h2>Login</h2>
-    <form action="/login" method="post">
-      <div class="login-form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="login-form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit" class="login-submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/register">Register</a></p>
-  </div>
-</body>
-</html> 
+<main class="login-leagues-main-content">
+    <section class="login-leagues-form-section">
+        <div class="login-leagues-container">
+            <h2 class="login-leagues-form-title">Welcome Back, League!</h2>
+            <p class="login-leagues-form-subtitle">Log in to manage your league's schedule, results, and announcements.</p>
+
+            <form class="login-leagues-form" id="login-leagues-form">
+                <div class="login-leagues-form-group">
+                    <label for="login-leagues-name" class="login-leagues-label">League Name:</label>
+                    <input type="text" id="login-leagues-name" class="login-leagues-input" name="league_name" required>
+                </div>
+
+                <div class="login-leagues-form-group">
+                    <label for="login-leagues-password" class="login-leagues-label">League Password:</label>
+                    <input type="password" id="login-leagues-password" class="login-leagues-input" name="league_password" required>
+                </div>
+
+                <button type="submit" class="login-leagues-submit-btn">Log In</button>
+            </form>
+        </div>
+    </section>
+</main>

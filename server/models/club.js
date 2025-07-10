@@ -6,6 +6,10 @@ const Club = new mongoose.Schema({
         type: String,
         trim: true
     },
+    founder_name: {
+        type: String,
+        trim: true
+    },
     email: {
         type: String,
         unique: true,

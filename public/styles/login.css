@@ -1,15 +1,4 @@
-/* Full page layout */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f2f2f2; /* light grey background */
-  color: #333333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+
 
 /* Container card */
 .login-form-container {

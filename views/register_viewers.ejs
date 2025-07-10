@@ -1,26 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-  <link rel="stylesheet" href="/styles/login.css">
-</head>
-<body>
-  
-  <div class ="login-form-container">
-    <h2>REGISTER</h2>
-    <form action="/register" method="post">
-      <div class="login-form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="login-form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit" class="login-submit">Register</button>
-    </form>
-  </div>
-</body>
-</html>
+<main class="register-viewers-main-content">
+  <section class="register-viewers-form-section">
+    <div class="register-viewers-container">
+      <h2 class="register-viewers-form-title">Join Our Sports Community!</h2>
+      <p class="register-viewers-form-subtitle">Register or log in to get exclusive updates and personalize your feed.</p>
+
+      <form class="register-viewers-form" id="register-viewers-registration-form">
+        <div class="register-viewers-form-group">
+          <label for="register-viewers-name" class="register-viewers-label">Name:</label>
+          <input type="text" id="register-viewers-name" class="register-viewers-input" name="name" required>
+        </div>
+
+        <div class="register-viewers-form-group">
+          <label for="register-viewers-email" class="register-viewers-label">Email:</label>
+          <input type="email" id="register-viewers-email" class="register-viewers-input" name="email" required>
+        </div>
+
+        <div class="register-viewers-form-group">
+          <label for="register-viewers-password" class="register-viewers-label">Password:</label>
+          <input type="password" id="register-viewers-password" class="register-viewers-input" name="password" required>
+        </div>
+
+        <div class="register-viewers-form-group">
+          <label for="register-viewers-favorite-teams" class="register-viewers-label">Favorite Teams:</label>
+          <select id="register-viewers-favorite-teams" class="register-viewers-select" name="favorite_teams" >
+           <option value="">--select--</option>
+          </select>
+        </div>
+
+        <button type="submit" class="register-viewers-submit-btn">Register</button>
+      </form>
+    </div>
+  </section>
+</main>

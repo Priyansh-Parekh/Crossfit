@@ -1,0 +1,157 @@
+/* --- League Login Form Styling --- */
+
+/* Main content container */
+.login-leagues-main-content {
+    /* Inherits from 'main' tag: flex-grow: 1, width: 100%, max-width: 1200px, margin: 0 auto, padding: 2rem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height, 90px) - var(--footer-height, 200px)); /* Adjust based on your header/footer heights */
+    background-color: #f8f9fa; /* Matches body background */
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Section containing the form */
+.login-leagues-form-section {
+    width: 60%;
+    max-width: fit-content; /* Consistent width with other login forms */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-top: 5px solid #5409b2; /* Accent top border */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.login-leagues-form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Title and subtitle */
+.login-leagues-form-title {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.login-leagues-form-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Form styling */
+.login-leagues-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form group (label + input) */
+.login-leagues-form-group {
+    text-align: left;
+}
+
+.login-leagues-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #333;
+    font-weight: 600;
+}
+
+.login-leagues-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #fdfdfd;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.login-leagues-input:focus {
+    border-color: #5409b2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
+}
+
+/* Submit button */
+.login-leagues-submit-btn {
+    background-color: #5409b2;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.login-leagues-submit-btn:hover {
+    background-color: #3f0685;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.login-leagues-submit-btn:active {
+    background-color: #2b045e;
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* --- Responsive Adjustments for League Login Form --- */
+@media (max-width: 768px) {
+    .login-leagues-main-content {
+        padding: 1.5rem;
+    }
+    .login-leagues-form-section {
+        padding: 30px;
+        margin: 0 15px;
+    }
+
+    .login-leagues-form-title {
+        font-size: 1.8em;
+    }
+
+    .login-leagues-form-subtitle {
+        font-size: 1em;
+    }
+
+    .login-leagues-input,
+    .login-leagues-submit-btn {
+        font-size: 0.95em;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-leagues-form-section {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    .login-leagues-form-title {
+        font-size: 1.6em;
+    }
+
+    .login-leagues-form-subtitle {
+        font-size: 0.9em;
+    }
+
+    .login-leagues-submit-btn {
+        padding: 12px 20px;
+    }
+}

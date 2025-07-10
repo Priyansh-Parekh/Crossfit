@@ -1,0 +1,195 @@
+/* --- League Registration Form Styling --- */
+
+/* Main content container - using existing 'main' styles but adding specific overrides */
+.register-leagues-main-content {
+    /* Inherits from 'main' tag: flex-grow: 1, width: 100%, max-width: 1200px, margin: 0 auto, padding: 2rem */
+    display: flex;
+    /* Override to ensure direct children are centered */
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height, 90px) - var(--footer-height, 200px));
+    /* Example heights, adjust if needed */
+    background-color: #f8f9fa;
+    /* Matches body background */
+    padding: 2rem;
+    /* Ensure consistent padding with other sections */
+    box-sizing: border-box;
+    /* Crucial for consistent sizing */
+}
+
+/* Section containing the form */
+.register-leagues-form-section {
+    width: 100%;
+    max-width: 600px;
+    /* Consistent width with club registration */
+    background-color: #ffffff;
+    /* White background for the form card */
+    padding: 40px;
+    border-radius: 10px;
+    /* Consistent border-radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    text-align: center;
+    border-top: 5px solid #5409b2;
+    /* Accent top border, consistent with other forms */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    /* Add hover effects */
+}
+
+.register-leagues-form-section:hover {
+    transform: translateY(-5px);
+    /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* Enhanced shadow on hover */
+}
+
+/* Title and subtitle */
+.register-leagues-form-title {
+    font-size: 2.2em;
+    color: #2c3e50;
+    /* Dark heading color from your theme */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.register-leagues-form-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    /* Softer text color from your theme */
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Form styling */
+.register-leagues-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Spacing between form groups */
+}
+
+/* Form group (label + input/textarea) */
+.register-leagues-form-group {
+    text-align: left;
+}
+
+.register-leagues-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #333;
+    /* Default text color */
+    font-weight: 600;
+}
+
+.register-leagues-input,
+.register-leagues-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    /* Use Poppins font */
+    color: #333;
+    background-color: #fdfdfd;
+    /* Slightly off-white for input fields */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Subtle inner shadow */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    /* Include padding in width */
+}
+
+.register-leagues-input:focus,
+.register-leagues-textarea:focus {
+    border-color: #5409b2;
+    /* Primary accent color on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
+    /* Soft shadow on focus */
+}
+
+.register-leagues-textarea {
+    resize: vertical;
+    /* Allow vertical resizing */
+    min-height: 100px;
+    /* Minimum height for textarea */
+}
+
+/* Submit button */
+.register-leagues-submit-btn {
+    background-color: #5409b2;
+    /* Primary accent color */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-leagues-submit-btn:hover {
+    background-color: #3f0685;
+    /* Darker shade on hover */
+    transform: translateY(-2px);
+    /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.register-leagues-submit-btn:active {
+    background-color: #2b045e;
+    /* Even darker on click */
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Responsive Adjustments for League Form --- */
+@media (max-width: 768px) {
+    .register-leagues-main-content {
+        padding: 1.5rem;
+    }
+
+    .register-leagues-form-section {
+        padding: 30px;
+        margin: 0 15px;
+    }
+
+    .register-leagues-form-title {
+        font-size: 1.8em;
+    }
+
+    .register-leagues-form-subtitle {
+        font-size: 1em;
+    }
+
+    .register-leagues-input,
+    .register-leagues-textarea,
+    .register-leagues-submit-btn {
+        font-size: 0.95em;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-leagues-form-section {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    .register-leagues-form-title {
+        font-size: 1.6em;
+    }
+
+    .register-leagues-form-subtitle {
+        font-size: 0.9em;
+    }
+
+    .register-leagues-submit-btn {
+        padding: 12px 20px;
+    }
+}

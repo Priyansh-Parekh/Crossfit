@@ -92,10 +92,10 @@
             <% let user = "none" %>
              <div class="home-role-buttons">
                      <% if(user==="none" ){ %>
-                    <form action="" method="">
+                    <form action="/login/login_viewers" method="get">
                         <button class="home-role-btn home-role-login-btn">Login</button>
                     </form>
-                    <form action="" method="">
+                    <form action="/register/register_viewers" method="get">
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                     <%}else if(user.user_type=="viewer"){%>
@@ -116,10 +116,10 @@
             </ul>
               <div class="home-role-buttons">
                      <% if(user==="none" ){ %>
-                    <form action="" method="">
+                    <form action="/login/login_clubs" method="get">
                         <button class="home-role-btn home-role-login-btn">Login</button>
                     </form>
-                    <form action="" method="">
+                    <form action="/register/register_clubs" method="get">
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                      <%}else if(user.user_type=="club"){%>
@@ -141,10 +141,10 @@
            
                 <div class="home-role-buttons">
                      <% if(user==="none" ){ %>
-                    <form action="" method="">
+                    <form action="/login/login_leagues" method="get">
                         <button class="home-role-btn home-role-login-btn">Login</button>
                     </form>
-                    <form action="" method="">
+                    <form action="/register/register_leagues" method="get">
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                     <%}else if(user.user_type=="league"){%>

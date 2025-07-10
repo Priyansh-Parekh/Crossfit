@@ -21,7 +21,9 @@ body {
     flex-direction: column; /* For sticky footer */
     line-height: 1.6; /* Default line height for better readability */
 }
-
+body::-webkit-scrollbar{
+    display: none;
+}
 /* --- Global Utilities / Resets --- */
 a {
     text-decoration: none;
@@ -122,7 +124,7 @@ main {
 }
 
 section {
-    padding: 4rem 0; /* Vertical spacing between sections */
+    padding: 1rem 0; /* Vertical spacing between sections */
     text-align: center;
 }
 

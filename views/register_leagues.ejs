@@ -1,0 +1,49 @@
+<main class="register-leagues-main-content">
+    <section class="register-leagues-form-section">
+        <div class="register-leagues-container">
+            <h2 class="register-leagues-form-title">Register Your Sports League!</h2>
+            <p class="register-leagues-form-subtitle">Bring your league to a wider audience. Provide the details below to get started.</p>
+
+            <form class="register-leagues-form" id="register-leagues-registration-form">
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-name" class="register-leagues-label">League Name:</label>
+                    <input type="text" id="register-leagues-name" class="register-leagues-input" name="league_name" required>
+                </div>
+
+                 <div class="register-leagues-form-group">
+                    <label for="register-leagues-sport" class="register-club-label">Sport:</label>
+                    <select id="register-leagues-founder-register" class="register-leagues-input" name="sport" required>
+                        <option value="">--select--</option>
+                    </select>
+                </div>
+
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-email" class="register-leagues-label">League Email:</label>
+                    <input type="email" id="register-leagues-email" class="register-leagues-input" name="league_email" required>
+                </div>
+
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-password" class="register-leagues-label">League Password:</label>
+                    <input type="password" id="register-leagues-password" class="register-leagues-input" name="league_password" required>
+                </div>
+
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-bio" class="register-leagues-label">League Bio:</label>
+                    <textarea id="register-leagues-bio" class="register-leagues-textarea" name="league_bio" rows="5" placeholder="Describe your league's format, vision, and key features..." required></textarea>
+                </div>
+
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-organizer-name" class="register-leagues-label">Organizer Name:</label>
+                    <input type="text" id="register-leagues-organizer-name" class="register-leagues-input" name="organizer_name" required>
+                </div>
+
+                <div class="register-leagues-form-group">
+                    <label for="register-leagues-founded-year" class="register-leagues-label">Founded Year:</label>
+                    <input type="number" id="register-leagues-founded-year" class="register-leagues-input" name="founded_year" min="1800" max="2025" required>
+                </div>
+
+                <button type="submit" class="register-leagues-submit-btn">Register League</button>
+            </form>
+        </div>
+    </section>
+</main>

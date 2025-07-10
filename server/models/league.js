@@ -11,10 +11,10 @@ const League = new mongoose.Schema({
         minlength: 6
     },
     logo: {
-        type: String,
+        type: Image,
         default: null
     },
-    description: {
+    bio: {
         type: String,
         trim: true
     },
