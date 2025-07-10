@@ -1,0 +1,41 @@
+<main class="merchandise-main-content">
+  <section class="merchandise-section">
+    <div class="merchandise-container">
+      <h2 class="merchandise-title">Explore Our Merchandise</h2>
+      <p class="merchandise-subtitle">Choose your sport and shop the best gear!</p>
+
+      <div class="merchandise-filter">
+        <label for="sport-filter" class="merchandise-label">Filter by Sport:</label>
+        <select id="sport-filter" class="merchandise-dropdown">
+          <option value="all">All</option>
+          <option value="cricket">Cricket</option>
+          <option value="football">Football</option>
+          <option value="basketball">Basketball</option>
+        </select>
+      </div>
+
+      <div class="merchandise-grid" id="merchandise-list">
+        <% merchandise.forEach(item => { %>
+          <div class="merchandise-card" data-sport="<%= item.sport %>">
+            <img src="<%= item.image %>" alt="<%= item.name %>" class="merchandise-img" />
+            <h3 class="merchandise-name"><%= item.name %></h3>
+            <p class="merchandise-price">₹<%= item.price %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.getElementById('sport-filter').addEventListener('change', function () {
+    const value = this.value;
+    document.querySelectorAll('.merchandise-card').forEach(card => {
+      if (value === 'all' || card.dataset.sport === value) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script>
