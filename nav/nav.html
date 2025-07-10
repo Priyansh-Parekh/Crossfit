@@ -1,65 +1,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="./nav.css">
-<header class="header-main-header">
-    <nav class="header-desktop-nav">
-        <div class="header-logo-container">
-            <img src="./logo.png" alt="Crossfit Logo" class="header-logo-image">
-            <a href="#" class="header-logo-text">Crossfit</a>
-        </div>
-        
-        <div class="header-links">
-            <ul class="header-nav-list">
-                <li class="header-nav-item"><a href="#" class="header-nav-link">Live-Score</a></li>
-                <li class="header-nav-item"><a href="#" class="header-nav-link">Tournament</a></li>
-                <li class="header-nav-item"><a href="#" class="header-nav-link">Merchandise</a></li>
-                <li class="header-nav-item"><a href="#" class="header-nav-link">Clubs</a></li>
-            </ul>
-            <div class="header-user-menu" id="header-desktop-user-menu">
-                <img src="./ball.jpg" alt="User Avatar" class="header-user-avatar">
-                <div class="header-dropdown header-hidden" id="header-desktop-dropdown">
-                    <a href="/settings" class="header-dropdown-item">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                    <a href="/logout" class="header-dropdown-item header-logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </div>
+
+<nav>
+    <div class="desktop-nav">
+      <div class="logo-container">
+        <img src="./logo.png" alt="logo-image">
+        <a href="">Crossfit</a>
+      </div>
+      
+      <div class="links">
+        <ul>
+          <li><a href="#">Live-Score</a></li>
+          <li><a href="#">Tournament</a></li>
+          <li><a href="#">Merchandise</a></li>
+          <li><a href="#">Clubs</a></li>
+        </ul>
+        <div class="user-menu">
+          <img src="./ball.jpg" alt="User Avatar" class="user-avatar">
+            <div class="dropdown hidden">
+              <a href="/settings" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <a href="/logout" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
             </div>
         </div>
-    </nav>
+      </div>
+    </div>
     
-    <nav class="header-mobile-nav">
-        <div class="header-logo-container">
-            <img src="./logo.png" alt="Crossfit Logo" class="header-logo-image">
-            <a href="#" class="header-logo-text">Crossfit</a>
-        </div>
-        <div class="header-links">
-            <div class="header-user-menu" id="header-mobile-user-menu">
-                <img src="./ball.jpg" alt="User Avatar" class="header-user-avatar">
-                <div class="header-dropdown header-hidden" id="header-mobile-dropdown">
-                    <a href="/settings" class="header-dropdown-item">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                    <a href="/logout" class="header-dropdown-item header-logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </div>
-            </div>
-            <div class="header-mobile-menu">
-                <div class="header-hamburger" id="header-hamburger-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <div class="header-mobile-dropdown header-hidden" id="header-mobile-links-dropdown">
-                    <ul class="header-nav-list">
-                        <li class="header-nav-item"><a href="#" class="header-nav-link">Live-Score</a></li>
-                        <li class="header-nav-item"><a href="#" class="header-nav-link">Tournament</a></li>
-                        <li class="header-nav-item"><a href="#" class="header-nav-link">Merchandise</a></li>
-                        <li class="header-nav-item"><a href="#" class="header-nav-link">Clubs</a></li>
-                    </ul>
-                </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-nav">
+      <div class="logo-container">
+        <img src="./logo.png" alt="logo-image">
+        <a href="">Crossfit</a>
+      </div>
+      <div class="links">
+        <div class="user-menu">
+          <img src="./ball.jpg" alt="User Avatar" class="user-avatar">
+            <div class="dropdown hidden">
+              <a href="/settings" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <a href="/logout" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
             </div>
         </div>
-    </nav>
-</header>
+        <div class="mobile-menu">
+          <div class="hamburger">
+            <i class="fas fa-bars"></i>
+          </div>
+          <div class="mobile-dropdown hidden">
+            <ul>
+              <li><a href="#">Live-Score</a></li>
+              <li><a href="#">Tournament</a></li>
+              <li><a href="#">Merchandise</a></li>
+              <li><a href="#">Clubs</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
 <script src="./nav.js"></script>
