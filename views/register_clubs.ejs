@@ -5,10 +5,10 @@
             <p class="register-club-form-subtitle">Showcase your club to the world. Fill in the details below to get
                 started.</p>
 
-            <form class="register-club-form" id="register-club-registration-form">
+            <form class="register-club-form" id="register-club-registration-form" action="/register/register_clubs">
                 <div class="register-club-form-group">
                     <label for="register-club-name" class="register-club-label">Club Name:</label>
-                    <input type="text" id="register-club-name" class="register-club-input" name="club_name" required>
+                    <input type="text" id="register-club-name" class="register-club-input" name="name" required>
                 </div>
 
                 <div class="register-club-form-group">
@@ -20,18 +20,18 @@
 
                 <div class="register-club-form-group">
                     <label for="register-club-email" class="register-club-label">Club Email:</label>
-                    <input type="email" id="register-club-email" class="register-club-input" name="club_email" required>
+                    <input type="email" id="register-club-email" class="register-club-input" name="email" required>
                 </div>
 
                 <div class="register-club-form-group">
                     <label for="register-club-password" class="register-club-label">Club Password:</label>
-                    <input type="password" id="register-club-password" class="register-club-input" name="club_password"
+                    <input type="password" id="register-club-password" class="register-club-input" name="password"
                         required>
                 </div>
 
                 <div class="register-club-form-group">
                     <label for="register-club-bio" class="register-club-label">Club Bio:</label>
-                    <textarea id="register-club-bio" class="register-club-textarea" name="club_bio" rows="5"
+                    <textarea id="register-club-bio" class="register-club-textarea" name="bio" rows="5"
                         placeholder="Tell us about your club's history, achievements, and mission..."
                         required></textarea>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="register-club-form-group">
                     <label for="register-club-founding-year" class="register-club-label">Founding Year:</label>
                     <input type="number" id="register-club-founding-year" class="register-club-input"
-                        name="founding_year" min="1800" max="2025" required>
+                        name="founded_year" min="1800" max="2025" required>
                 </div>
 
                 <div class="register-club-form-group">
@@ -50,7 +50,7 @@
 
                 <div class="register-club-form-group">
                     <label for="register-club-slogan" class="register-club-label">Club Slogan:</label>
-                    <input type="text" id="register-club-slogan" class="register-club-input" name="club_slogan"
+                    <input type="text" id="register-club-slogan" class="register-club-input" name="slogan"
                         placeholder="E.g., 'Unity Through Sport', 'Passion. Dedication. Victory.'">
                 </div>
 

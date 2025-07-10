@@ -45,8 +45,7 @@ const Club = new mongoose.Schema({
         max: new Date().getFullYear()
     },
     sport: {
-        type: String,
-        default: 'cricket'
+        type: String
     },
     match_won: [{
         type: mongoose.Schema.Types.ObjectId,
