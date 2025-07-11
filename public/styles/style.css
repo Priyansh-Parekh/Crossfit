@@ -91,7 +91,7 @@ header .links li a:hover {
     color: #5409b2; /* Primary accent color on hover */
 }
 
-header .links button {
+header .links-button {
     background-color: #5409b2;
     color: #ffffff;
     border: none;
@@ -104,12 +104,12 @@ header .links button {
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-header .links button:hover {
+header .links-button:hover {
     background-color: #3f0685; /* Darker shade on hover */
     transform: translateY(-2px); /* Slight lift effect */
 }
 
-header .links button:active {
+header .links-button:active {
     background-color: #2b045e; /* Even darker on click */
     transform: translateY(0); /* Return to original position */
 }
@@ -456,6 +456,7 @@ section p {
 }
 /* Style for the Log Out button (Primary) */
 .home-role-logout-btn {
+     margin-left: 2px;
     background-color: #d90d0d; /* Your primary accent color */
     color: #ffffff;
     border: 2px solid #d90d0d; /* Solid border matching background */

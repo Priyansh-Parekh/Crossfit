@@ -12,15 +12,19 @@
       <li><a href="/merchandise">Merchandise</a></li>
       <li><a href="/clubs">clubs</a></li>
     </ul>
-    
+
     <% if(user === "none"){ %>
-    <button><a href="/#home-roles">Login</a></button>
+    <button class="home-role-btn><a href="/#home-roles">Login</a></button>
     <% }else if(user.user_type ==="club"){ %>
-    <button><a href="/dashboard/clubs"><%= user.name  %></a></button>
+    <button class='links-button '><a href="/dashboard/clubs"><%= user.name  %></a></button>
+    <button class="home-role-btn home-role-logout-btn"><a href="/#home-roles">Log Out</a></button>
     <% }else if(user.user_type ==="league"){ %>
-    <button><a href="/dashboard/league"><%=user.name  %></a></button>
+    <button class='links-button '><a href="/dashboard/league"><%=user.name  %></a></button>
+      <button   class="home-role-btn home-role-logout-btn"><a href="/#home-roles">Log Out</a></button>
+    
     <% }else if(user.user_type ==="viewer"){ %>
-    <button><a href="/dashboard/viewer"><%=user.name  %></a></button>
+    <button class="links-button "><a href="/dashboard/viewer"><%=user.name  %></a></button>
+      <button  class="home-role-btn home-role-logout-btn"><a href="/#home-roles">Log Out</a></button>
     <% } %>
   </div>
 </header>

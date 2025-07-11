@@ -57,7 +57,7 @@ route.post('/viewer', login, async (req, res) => {
     try {
         res.clearCookie("token");
         let user = "none"
-        res.redirect("/",{user});
+        res.redirect("/");
     } catch (error) {
         console.log(error);
     }
@@ -67,8 +67,7 @@ route.post('/viewer', login, async (req, res) => {
 route.post('/clubs', login, async (req, res) => {
     try {
         res.clearCookie("token");
-       let user = "none"
-        res.redirect("/",{user});
+        res.redirect("/");
     } catch (error) {
         console.log(error);
     }
@@ -78,8 +77,7 @@ route.post('/clubs', login, async (req, res) => {
 route.post('/leagues', login, async (req, res) => {
     try {
         res.clearCookie("token");
-        let user = "none"
-        res.redirect("/",{user});
+        res.redirect("/");
     } catch (error) {
         console.log(error);
     }

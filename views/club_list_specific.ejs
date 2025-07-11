@@ -1,9 +1,12 @@
  <main class="club-list-info-main">
-   <% console.log(club.sport) %>
    <% if (club.sport==="cricket") { %>
    <section class="club-list-info-hero">
      <div class="club-list-info-hero-content">
-       <img src="" alt="Club Logo" class="club-list-info-logo">
+      <% if (club.image===undefined) { %>
+        <img src="/images/avatar.png" alt="Club Logo" class="club-list-info-logo">
+      <% }else{ %>
+         <img src="<%= club.image %>" alt="Club Logo" class="club-list-info-logo">
+         <% } %>
        <div class="club-list-info-basic">
          <h1 class="club-list-info-name"><%= club.name %></h1>
          <p class="club-list-info-founded">🏏 Founded in <%= club.founded_year %></p>

@@ -20,6 +20,9 @@ const Club = new mongoose.Schema({
         type: String,
         minlength: 6
     },
+    image:{
+        type: String
+    },
     logo: {
         type: String,
         default: null
@@ -77,7 +80,7 @@ const Club = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
-    captain: {
+    vice_captain: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
