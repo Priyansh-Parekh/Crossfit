@@ -90,10 +90,9 @@ const login = async (req, res, next) => {
 
 route.get('/', login,datas, async (req, res) => {
     try {
-        let user = req.user;
-        let data = req.data;
-        const allMerchandise = await merchandise.find(); // fetch all merchandise
-        res.render('merchandise', { merchandise: data.merchandise , user }); // ✅ pass to EJS
+        let user = req.user
+        let data = req.data
+        res.render('merchandise', { merchandise: data.merchandise, user }); // ✅ pass to EJS
     } catch (error) {
         console.error("Error fetching merchandise:", error);
         res.status(500).send("Internal Server Error");
