@@ -85,6 +85,20 @@ const login = async (req, res, next) => {
     next();
 };
 
+//club thinngs populate
+const populate_cricket_club_data = async (club) => {
+    await club.populate('match_won');
+    await club.populate('match_lose');
+    await club.populate('match_played.matchId');
+    await club.populate('players');
+    await club.populate('captain');
+    await club.populate({ path: 'vice_captain', strictPopulate: false });
+    await club.populate('wicket_keeper');
+    await club.populate('bowlers');
+    await club.populate('batsman');
+};
+
+
 // Clubs list page
 route.get('/', login, datas, async (req, res) => {
     let user = req.user;
@@ -98,7 +112,8 @@ route.get('/list/:_id', login, datas, async (req, res) => {
     let data = req.data;
     let id = req.params._id;
     id = new mongoose.Types.ObjectId(id);
-    let club_data = clubs.findOne({ _id: id })
+    let club_data = await clubs.findOne({ _id: id })
+    await populate_cricket_club_data(club_data)
     res.render("club_list_specific", { user, club: club_data });
 })
 

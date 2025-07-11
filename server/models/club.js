@@ -77,7 +77,7 @@ const Club = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
-    vice_captain: {
+    captain: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
