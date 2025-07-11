@@ -14,7 +14,7 @@
     </ul>
 
     <% if(user === "none"){ %>
-    <button class="home-role-btn><a href="/#home-roles">Login</a></button>
+    <button class="home-role-btn links-button"><a href="/#home-roles">Login</a></button>
     <% }else if(user.user_type ==="club"){ %>
     <button class='links-button '><a href="/dashboard/clubs"><%= user.name  %></a></button>
     <button class="home-role-btn home-role-logout-btn"><a href="/#home-roles">Log Out</a></button>
