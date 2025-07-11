@@ -89,7 +89,6 @@
                 <li>Comment on news articles</li>
                 <li>Access live scores and stats</li>
             </ul>
-            <% let user = "none" %>
              <div class="home-role-buttons">
                      <% if(user==="none" ){ %>
                     <form action="/login/login_viewers" method="get">
@@ -99,7 +98,7 @@
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                     <%}else if(user.user_type=="viewer"){%>
-                        <form action="" method="">
+                        <form action="/logout/viewer" method="post">
                             <button class="home-role-btn home-role-logout-btn">Log Out</button>
                         </form>
                         <%} %>
@@ -123,7 +122,7 @@
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                      <%}else if(user.user_type=="club"){%>
-                        <form action="" method="">
+                        <form action="/logout/clubs" method="post">
                             <button class="home-role-btn home-role-logout-btn">Log Out</button>
                         </form>
                         <%} %>
@@ -148,7 +147,7 @@
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
                     <%}else if(user.user_type=="league"){%>
-                        <form action="" method="">
+                        <form action="/logout/league" method="post">
                             <button class="home-role-btn home-role-logout-btn">Log Out</button>
                         </form>
                         <%} %>

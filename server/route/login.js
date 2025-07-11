@@ -14,9 +14,51 @@ const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
 
+// login middelware
+const login = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        if (!token || token === "none") {
+            req.user = "none";
+            return next();
+        }
+
+        const decoded = jwt.verify(token, "secret-word");
+
+        // Try to find the user in each collection
+        let user = await viewers.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        user = await clubs.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        user = await leagues.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        // If not found in any collection
+        req.user = "none";
+    } catch (err) {
+        console.error("Authentication error:", err);
+        req.user = "none";
+    }
+    next();
+};
+
+
+
 // viewers page
-route.get('/login_viewers', async (req, res) => {
-    res.render("login_viewers");
+route.get('/login_viewers',login, async (req, res) => {
+    let user = req.user
+    res.render("login_viewers",{user});
 })
 
 route.post('/login_viewers', async (req, res) => {
@@ -44,8 +86,9 @@ route.post('/login_viewers', async (req, res) => {
 
 
 // Clubs page
-route.get('/login_clubs', async (req, res) => {
-    res.render("login_clubs");
+route.get('/login_clubs',login, async (req, res) => {
+    let user = req.user;
+    res.render("login_clubs",{user});
 })
 
 route.post('/login_clubs', async (req, res) => {
@@ -72,8 +115,9 @@ route.post('/login_clubs', async (req, res) => {
 })
 
 // leagues page
-route.get('/login_leagues', async (req, res) => {
-    res.render("login_leagues");
+route.get('/login_leagues',login, async (req, res) => {
+    let user = req.user;
+    res.render("login_leagues",{user});
 })
 
 route.post('/login_leagues', async (req, res) => {

@@ -19,8 +19,9 @@ app.use('/leagues',require('./server/route/leagues')); // ✅ Use leagues route
 app.use('/live_scores',require('./server/route/live_scores')); // ✅ Use live_scores route
 app.use('/merchandise',require('./server/route/merchandise')); // ✅ Use merchandise route
 app.use('/login',require('./server/route/login')); // ✅ Use login route
+app.use('/logout',require('./server/route/logout')); // ✅ Use logout route
 app.use('/register',require('./server/route/register')); // ✅ Use register route
-app.use('/dashboard',require('./server/route/dashboard')); // ✅ Use register route
+app.use('/dashboard',require('./server/route/dashboard')); // ✅ Use dashboard route
 
 
  
