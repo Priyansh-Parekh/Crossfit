@@ -1,24 +1,26 @@
 <header>
-    <div class="logo-container">
-        <img src="/images/Crossfit.jpg"
-            alt="logo-image">
-        <a href="/">Crossfit</a>
-  
-    </div>
-    <div class="links">
-        <ul>
-            <li><a href="/news">News</a></li>
-            <li><a href="/live_scores">Live-Score</a></li>
-            <li><a href="/leagues">Leagues</a></li>
-            <li><a href="/merchandise">Merchandise</a></li>
-            <li><a href="/clubs">clubs</a></li>
-        </ul>
+  <div class="logo-container">
+    <img src="/images/Crossfit.jpg" alt="logo-image">
+    <a href="/">Crossfit</a>
 
-        <% let user = "none" %>
-        <% if(user === "none"){ %>
-        <button><a href="/#home-roles">Login</a></button>
-        <% }else{ %>
-             <button><a href="/#home-roles"><%  %></a></button>
-            <% } %>
-    </div>
+  </div>
+  <div class="links">
+    <ul>
+      <li><a href="/news">News</a></li>
+      <li><a href="/live_scores">Live-Score</a></li>
+      <li><a href="/leagues">Leagues</a></li>
+      <li><a href="/merchandise">Merchandise</a></li>
+      <li><a href="/clubs">clubs</a></li>
+    </ul>
+    
+    <% if(user === "none"){ %>
+    <button><a href="/#home-roles">Login</a></button>
+    <% }else if(user.user_type ==="club"){ %>
+    <button><a href="/dashboard/clubs"><%= user.name  %></a></button>
+    <% }else if(user.user_type ==="league"){ %>
+    <button><a href="/dashboard/league"><%=user.name  %></a></button>
+    <% }else if(user.user_type ==="viewer"){ %>
+    <button><a href="/dashboard/viewer"><%=user.name  %></a></button>
+    <% } %>
+  </div>
 </header>

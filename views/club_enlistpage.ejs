@@ -35,19 +35,21 @@
                     </p>
                     <div class="club-enlistpage-club-stats">
                         <div class="club-enlistpage-stat-item">
-                            <div class="club-enlistpage-stat-number">245</div>
+                            <div class="club-enlistpage-stat-number">
+                                <%= club.players.length %>
+                            </div>
                             <div>Players</div>
                         </div>
                         <div class="club-enlistpage-stat-item">
-                            <div class="club-enlistpage-stat-number">156</div>
+                            <div class="club-enlistpage-stat-number"><%= club.match_played.length %></div>
                             <div>Matches</div>
                         </div>
                         <div class="club-enlistpage-stat-item">
-                            <div class="club-enlistpage-stat-number">128</div>
+                            <div class="club-enlistpage-stat-number"><%= club.match_won.length %></div>
                             <div>Won</div>
                         </div>
                     </div>
-                    <button class="club-enlistpage-join-btn">View Club</button>
+                    <button class="club-enlistpage-join-btn"><a href="/clubs/list/<%= club._id %>">View Club</a></button>
                 </div>
             </div>
             <% }) %>
