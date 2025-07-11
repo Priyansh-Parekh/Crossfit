@@ -88,11 +88,12 @@ const login = async (req, res, next) => {
 };
 
 
-route.get('/', login, async (req, res) => {
+route.get('/', login,datas, async (req, res) => {
     try {
-        let user = req.user
+        let user = req.user;
+        let data = req.data;
         const allMerchandise = await merchandise.find(); // fetch all merchandise
-        res.render('merchandise', { merchandise: allMerchandise, user }); // ✅ pass to EJS
+        res.render('merchandise', { merchandise: data.merchandise , user }); // ✅ pass to EJS
     } catch (error) {
         console.error("Error fetching merchandise:", error);
         res.status(500).send("Internal Server Error");

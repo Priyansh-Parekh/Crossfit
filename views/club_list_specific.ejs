@@ -75,17 +75,20 @@
        <div class="club-list-info-player-group">
          <h3 class="club-list-info-player-group-title">
            🏏 Batsmen
-            <% if(club.batsman===undefined){ %>
-            <span class="club-list-info-player-count">0</span>
+           <% if(club.batsman.length===0){ %>
+           <span class="club-list-info-player-count">0</span>
            <% }else{ %>
            <span class="club-list-info-player-count"><%= club.batsman.length %></span>
            <% } %>
          </h3>
          <div class="club-list-info-player-list">
-           <% if(club.batsman===undefined){ %>
+           %>
+           <% if(club.batsman.length===0){ %>
            <span class="club-list-info-player-tag">Not Assigned</span>
            <% }else{ %>
-           <span class="club-list-info-player-tag"><%= club.batsman.name %></span>
+           <% club.batsman.forEach(batsman => { %>
+           <span class="club-list-info-player-tag"><%= batsman.name %></span>
+           <% }) %>
            <% } %>
          </div>
        </div>
@@ -93,17 +96,19 @@
        <div class="club-list-info-player-group">
          <h3 class="club-list-info-player-group-title">
            ⚡ Bowlers
-           <% if(club.bowlers===undefined){ %>
-            <span class="club-list-info-player-count">0</span>
+           <% if(club.bowlers.length===0){ %>
+           <span class="club-list-info-player-count">0</span>
            <% }else{ %>
            <span class="club-list-info-player-count"><%= club.bowlers.length %></span>
            <% } %>
          </h3>
          <div class="club-list-info-player-list">
-          <% if(club.bowlers===undefined){ %>
+           <% if(club.bowlers.length===0){ %>
            <span class="club-list-info-player-tag">Not Assigned</span>
            <% }else{ %>
-           <span class="club-list-info-player-tag"><%= club.bowlers.name %></span>
+           <% club.bowlers.forEach(bowler => { %>
+           <span class="club-list-info-player-tag"><%= bowler.name %></span>
+           <% }) %>
            <% } %>
          </div>
        </div>
