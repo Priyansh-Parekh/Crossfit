@@ -86,11 +86,22 @@ const login = async (req, res, next) => {
 };
 
 //Dashboard club Page
-route.get('/club', login, async (req, res) => {
+route.get('/clubs', login, async (req, res) => {
     let user = req.user;
     res.render("club_dashboard", { user });
 });
 
+//Dashboard Leagues Page
+route.get('/league', login, async (req, res) => {
+    let user = req.user;
+    res.render("league_dashboard", { user });
+});
+
+//Dashboard viewers Page
+route.get('/viewer', login, async (req, res) => {
+    let user = req.user;
+    res.render("viewer_dashboard", { user });
+});
 
 
 
