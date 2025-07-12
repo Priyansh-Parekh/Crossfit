@@ -1,0 +1,673 @@
+<div class="club-dashboard-option-bar">
+  <div class="club-dashboard-option-menu">
+    <button onclick="showSection('club-dashboard-dashboard', this)">
+      <i class="fas fa-home"></i> Dashboard
+    </button>
+    <button onclick="showSection('club-dashboard-players', this)">
+      <i class="fas fa-users"></i> Players
+    </button>
+    <button onclick="showSection('club-dashboard-live-updates', this)">
+      <i class="fas fa-broadcast-tower"></i> Live Updates
+    </button>
+    <button onclick="showSection('club-dashboard-merchandise', this)">
+      <i class="fas fa-shopping-bag"></i> Merchandise
+    </button>
+    <button onclick="showSection('club-dashboard-matches', this)">
+      <i class="fas fa-history"></i> Matches
+    </button>
+    <button onclick="showSection('club-dashboard-challenges', this)">
+      <i class="fa-solid fa-crosshairs"></i> Challenges
+    </button>
+    <button onclick="showSection('club-dashboard-club-profile', this)">
+      <i class="fas fa-cog"></i> Club Profile
+    </button>
+  </div>
+</div>
+
+<div id="club-dashboard-dashboard" class="club-dashboard-current club-dashboard-active">
+  <div class="club-dashboard-cards">
+    <div class="club-dashboard-card" onclick="goToSection('club-dashboard-players')">
+      <div class="club-dashboard-card-header">
+        <div class="club-dashboard-card-title">Total Players</div>
+        <div class="club-dashboard-card-icon">
+          <i class="fas fa-users"></i>
+        </div>
+      </div>
+      <div class="club-dashboard-card-value">18</div>
+      <div class="club-dashboard-card-change">+2 new signings</div>
+    </div>
+    <div class="club-dashboard-card" onclick="goToSection('club-dashboard-matches')">
+      <div class="club-dashboard-card-header">
+        <div class="club-dashboard-card-title">Matches Won</div>
+        <div class="club-dashboard-card-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+      </div>
+      <div class="club-dashboard-card-value">7</div>
+      <div class="club-dashboard-card-change">Last match won</div>
+    </div>
+    <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
+      <div class="club-dashboard-card-header">
+        <div class="club-dashboard-card-title">Total Revenue</div>
+        <div class="club-dashboard-card-icon">
+          <i class="fas fa-rupee-sign"></i>
+        </div>
+      </div>
+      <div class="club-dashboard-card-value">₹45,000</div>
+      <div class="club-dashboard-card-change">+₹5,000 this month</div>
+    </div>
+    <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
+      <div class="club-dashboard-card-header">
+        <div class="club-dashboard-card-title">Merchandise Sold</div>
+        <div class="club-dashboard-card-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+      </div>
+      <div class="club-dashboard-card-value">124</div>
+      <div class="club-dashboard-card-change">+24 this week</div>
+    </div>
+  </div>
+
+  <div class="club-dashboard-action-buttons">
+    <button class="club-dashboard-btn club-dashboard-btn-primary" onclick="showSection('club-dashboard-players')">
+      <i class="fas fa-plus"></i>
+      Add Player
+    </button>
+    <button class="club-dashboard-btn club-dashboard-btn-secondary"
+      onclick="showSection('club-dashboard-live-updates')">
+      <i class="fas fa-broadcast-tower"></i>
+      Update Live Score
+    </button>
+    <button class="club-dashboard-btn club-dashboard-btn-secondary" onclick="showSection('club-dashboard-merchandise')">
+      <i class="fas fa-upload"></i>
+      Upload Merchandise
+    </button>
+  </div>
+
+  <div class="club-dashboard-content-grid">
+    <div class="club-dashboard-section">
+      <div class="club-dashboard-section-header">
+        <h2 class="club-dashboard-section-title">Recent Matches</h2>
+        <button class="club-dashboard-btn club-dashboard-btn-secondary">View All</button>
+      </div>
+      <table class="club-dashboard-table">
+        <thead>
+          <tr>
+            <th>Opponent</th>
+            <th>Date</th>
+            <th>Result</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Eagles FC</td>
+            <td>Jul 08, 2025</td>
+            <td><span class="club-dashboard-status-badge club-dashboard-status-active">Won</span></td>
+            <td>165/4 vs 162/8</td>
+          </tr>
+          <tr>
+            <td>Tigers XI</td>
+            <td>Jul 05, 2025</td>
+            <td><span class="club-dashboard-status-badge club-dashboard-status-injured">Lost</span></td>
+            <td>140/9 vs 142/6</td>
+          </tr>
+          <tr>
+            <td>Lions Club</td>
+            <td>Jul 02, 2025</td>
+            <td><span class="club-dashboard-status-badge club-dashboard-status-active">Won</span></td>
+            <td>180/5 vs 175/7</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="club-dashboard-section">
+      <div class="club-dashboard-section-header">
+        <h2 class="club-dashboard-section-title">Top Performers</h2>
+      </div>
+      <div style="margin-top: 1rem;">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
+          <div>
+            <h4>Rahul Sharma</h4>
+            <p style="color: #666; margin: 0;">Batsman</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">342 runs</div>
+            <div style="font-size: 0.9rem; color: #666;">Avg: 42.7</div>
+          </div>
+        </div>
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
+          <div>
+            <h4>Amit Patel</h4>
+            <p style="color: #666; margin: 0;">Bowler</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">15 wickets</div>
+            <div style="font-size: 0.9rem; color: #666;">Eco: 6.2</div>
+          </div>
+        </div>
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+          <div>
+            <h4>Vikram Singh</h4>
+            <p style="color: #666; margin: 0;">All-rounder</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">245 runs</div>
+            <div style="font-size: 0.9rem; color: #666;">8 wickets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-players" class="club-dashboard-current">
+  <div class="club-dashboard-page-header">
+    <h1 class="club-dashboard-page-title">Players Management</h1>
+    <p class="club-dashboard-page-subtitle">Add, edit, and manage your team players</p>
+  </div>
+
+  <div class="club-dashboard-action-buttons">
+    <button class="club-dashboard-btn club-dashboard-btn-primary">
+      <i class="fas fa-plus"></i>
+      Add New Player
+    </button>
+    <button class="club-dashboard-btn club-dashboard-btn-secondary">
+      <i class="fas fa-download"></i>
+      Export Player List
+    </button>
+  </div>
+
+  <div class="club-dashboard-player-grid">
+    <div class="club-dashboard-player-card">
+      <div class="club-dashboard-player-info">
+        <div class="club-dashboard-player-avatar">RS</div>
+        <div class="club-dashboard-player-details">
+          <h4>Rahul Sharma</h4>
+          <p>Batsman • #12 • Captain</p>
+        </div>
+      </div>
+      <div class="club-dashboard-player-stats">
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">342</div>
+          <div class="club-dashboard-stat-label">Runs</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">42.7</div>
+          <div class="club-dashboard-stat-label">Average</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">128.5</div>
+          <div class="club-dashboard-stat-label">Strike Rate</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">
+            <span class="club-dashboard-status-badge club-dashboard-status-active">Active</span>
+          </div>
+          <div class="club-dashboard-stat-label">Status</div>
+        </div>
+      </div>
+      <div class="club-dashboard-player-actions">
+        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+      </div>
+    </div>
+
+    <div class="club-dashboard-player-card">
+      <div class="club-dashboard-player-info">
+        <div class="club-dashboard-player-avatar">AP</div>
+        <div class="club-dashboard-player-details">
+          <h4>Amit Patel</h4>
+          <p>Bowler • #7 • Fast Bowler</p>
+        </div>
+      </div>
+      <div class="club-dashboard-player-stats">
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">15</div>
+          <div class="club-dashboard-stat-label">Wickets</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">6.2</div>
+          <div class="club-dashboard-stat-label">Economy</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">24</div>
+          <div class="club-dashboard-stat-label">Overs</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">
+            <span class="club-dashboard-status-badge club-dashboard-status-active">Active</span>
+          </div>
+          <div class="club-dashboard-stat-label">Status</div>
+        </div>
+      </div>
+      <div class="club-dashboard-player-actions">
+        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+      </div>
+    </div>
+
+    <div class="club-dashboard-player-card">
+      <div class="club-dashboard-player-info">
+        <div class="club-dashboard-player-avatar">VS</div>
+        <div class="club-dashboard-player-details">
+          <h4>Vikram Singh</h4>
+          <p>All-rounder • #23 • Vice Captain</p>
+        </div>
+      </div>
+      <div class="club-dashboard-player-stats">
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">245</div>
+          <div class="club-dashboard-stat-label">Runs</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">8</div>
+          <div class="club-dashboard-stat-label">Wickets</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">35.2</div>
+          <div class="club-dashboard-stat-label">Average</div>
+        </div>
+        <div class="club-dashboard-stat-item">
+          <div class="club-dashboard-stat-value">
+            <span class="club-dashboard-status-badge club-dashboard-status-injured">Injured</span>
+          </div>
+          <div class="club-dashboard-stat-label">Status</div>
+        </div>
+      </div>
+      <div class="club-dashboard-player-actions">
+        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-live-updates" class="club-dashboard-current">
+  <div class="club-dashboard-page-header">
+    <h1 class="club-dashboard-page-title">Live Match Updates</h1>
+    <p class="club-dashboard-page-subtitle">Update live scores and match progress</p>
+  </div>
+
+  <div class="club-dashboard-score-panel">
+    <div class="club-dashboard-score-header">
+      <h3>Update Live Score</h3>
+      <button class="club-dashboard-btn club-dashboard-btn-primary">Save Score</button>
+    </div>
+
+    <div class="club-dashboard-match-selector">
+      <div class="club-dashboard-form-group" style="margin-bottom: 0; flex: 1;">
+        <label class="club-dashboard-form-label">Select Match</label>
+        <select class="club-dashboard-form-select">
+          <option>Warriors FC vs Eagles FC - Jul 09, 2025</option>
+          <option>Warriors FC vs Tigers XI - Jul 12, 2025</option>
+        </select>
+      </div>
+      <div class="club-dashboard-form-group" style="margin-bottom: 0; flex: 1;">
+        <label class="club-dashboard-form-label">Match Status</label>
+        <select class="club-dashboard-form-select">
+          <option>Live</option>
+          <option>Completed</option>
+          <option>Upcoming</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="club-dashboard-score-inputs">
+      <div class="club-dashboard-team-score">
+        <div class="club-dashboard-team-name">Warriors FC</div>
+        <div class="club-dashboard-score-input-group">
+          <input type="number" class="club-dashboard-score-input" placeholder="Runs" value="165">
+          <input type="number" class="club-dashboard-score-input" placeholder="Wickets" value="4">
+          <input type="number" class="club-dashboard-score-input" placeholder="Overs" value="18.2">
+        </div>
+      </div>
+      <div class="club-dashboard-team-score">
+        <div class="club-dashboard-team-name">Eagles FC</div>
+        <div class="club-dashboard-score-input-group">
+          <input type="number" class="club-dashboard-score-input" placeholder="Runs" value="162">
+          <input type="number" class="club-dashboard-score-input" placeholder="Wickets" value="8">
+          <input type="number" class="club-dashboard-score-input" placeholder="Overs" value="20">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-merchandise" class="club-dashboard-current">
+  <div class="club-dashboard-section">
+    <div class="club-dashboard-section-header">
+      <h2 class="club-dashboard-section-title">Upload New Merchandise</h2>
+    </div>
+
+    <div class="club-dashboard-upload-area">
+      <div class="club-dashboard-upload-icon">
+        <i class="fas fa-cloud-upload-alt"></i>
+      </div>
+      <div class="club-dashboard-upload-text">
+        <strong>Click to upload</strong> or drag and drop product images here
+      </div>
+      <input type="file" class="club-dashboard-file-input" accept="image/*" multiple>
+      <button class="club-dashboard-btn club-dashboard-btn-primary">Choose Files</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div class="club-dashboard-form-group">
+        <label class="club-dashboard-form-label">Product Name</label>
+        <input type="text" class="club-dashboard-form-control" placeholder="Enter product name">
+      </div>
+      <div class="club-dashboard-form-group">
+        <label class="club-dashboard-form-label">Price (₹)</label>
+        <input type="number" class="club-dashboard-form-control" placeholder="Enter price">
+      </div>
+      <div class="club-dashboard-form-group">
+        <label class="club-dashboard-form-label">Category</label>
+        <select class="club-dashboard-form-select">
+          <option>Jersey</option>
+          <option>Cap</option>
+          <option>Accessories</option>
+          <option>Equipment</option>
+        </select>
+      </div>
+      <div class="club-dashboard-form-group">
+        <label class="club-dashboard-form-label">Stock Quantity</label>
+        <input type="number" class="club-dashboard-form-control" placeholder="Enter quantity">
+      </div>
+    </div>
+
+    <div class="club-dashboard-form-group">
+      <label class="club-dashboard-form-label">Description</label>
+      <textarea class="club-dashboard-form-control" rows="4" placeholder="Enter product description"></textarea>
+    </div>
+
+    <button class="club-dashboard-btn club-dashboard-btn-primary">Upload Merchandise</button>
+  </div>
+
+  <div class="club-dashboard-section" style="margin-top: 2rem;">
+    <div class="club-dashboard-section-header">
+      <h2 class="club-dashboard-section-title">Current Merchandise</h2>
+    </div>
+
+    <div class="club-dashboard-merchandise-grid">
+      <div class="club-dashboard-merchandise-card">
+        <div class="club-dashboard-merchandise-image">
+          <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="club-dashboard-merchandise-info">
+          <div class="club-dashboard-merchandise-title">Warriors FC Jersey</div>
+          <div class="club-dashboard-merchandise-price">₹899</div>
+          <div class="club-dashboard-merchandise-category">Jersey</div>
+          <div style="margin-top: 1rem;">
+            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="club-dashboard-merchandise-card">
+        <div class="club-dashboard-merchandise-image">
+          <i class="fas fa-hat-cowboy"></i>
+        </div>
+        <div class="club-dashboard-merchandise-info">
+          <div class="club-dashboard-merchandise-title">Team Cap</div>
+          <div class="club-dashboard-merchandise-price">₹299</div>
+          <div class="club-dashboard-merchandise-category">Cap</div>
+          <div style="margin-top: 1rem;">
+            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="club-dashboard-merchandise-card">
+        <div class="club-dashboard-merchandise-image">
+          <i class="fas fa-baseball-ball"></i>
+        </div>
+        <div class="club-dashboard-merchandise-info">
+          <div class="club-dashboard-merchandise-title">Cricket Ball</div>
+          <div class="club-dashboard-merchandise-price">₹199</div>
+          <div class="club-dashboard-merchandise-category">Equipment</div>
+          <div style="margin-top: 1rem;">
+            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-matches" class="club-dashboard-current">
+  <div class="club-dashboard-section">
+    <div class="club-dashboard-section-header">
+      <h2 class="club-dashboard-section-title">Match Events</h2>
+      <button class="club-dashboard-btn club-dashboard-btn-secondary">Add Event</button>
+    </div>
+
+    <div class="club-dashboard-events-wrapper">
+      <div class="club-dashboard-event-item">
+        <strong>18.2 overs:</strong> Rahul Sharma hits a boundary! 4 runs scored.
+      </div>
+      <div class="club-dashboard-event-item">
+        <strong>17.5 overs:</strong> WICKET! Amit Patel takes the catch. Eagles FC 158/8
+      </div>
+      <div class="club-dashboard-event-item">
+        <strong>17.1 overs:</strong> Single run taken. Eagles FC 154/7
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-challenges" class="club-dashboard-current">
+  <div class="club-dashboard-section">
+    <div class="club-dashboard-section-header">
+      <h2 class="club-dashboard-section-title">Club Challenges</h2>
+      <button class="club-dashboard-btn club-dashboard-btn-primary" id="createChallengeBtn">
+        <i class="fas fa-plus"></i> Create Challenge
+      </button>
+    </div>
+
+    <div class="club-dashboard-challenges-grid">
+      <!-- Active Challenge -->
+      <div class="club-dashboard-challenge-card club-dashboard-active">
+        <div class="club-dashboard-challenge-status">
+          <span class="club-dashboard-status-badge club-dashboard-status-active">Active</span>
+          <span class="club-dashboard-challenge-date">Jul 15, 2025</span>
+        </div>
+        <div class="club-dashboard-challenge-teams">
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Warriors FC" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Warriors FC</span>
+          </div>
+          <div class="club-dashboard-vs">VS</div>
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Tigers XI" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Tigers XI</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-details">
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Mumbai Cricket Ground</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-clock"></i>
+            <span>2:30 PM</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-trophy"></i>
+            <span>Prize Pool: ₹10,000</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-actions">
+          <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
+          <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View Details</button>
+        </div>
+      </div>
+
+      <!-- Pending Challenge -->
+      <div class="club-dashboard-challenge-card club-dashboard-pending">
+        <div class="club-dashboard-challenge-status">
+          <span class="club-dashboard-status-badge club-dashboard-status-pending">Pending</span>
+          <span class="club-dashboard-challenge-date">Jul 18, 2025</span>
+        </div>
+        <div class="club-dashboard-challenge-teams">
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Warriors FC" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Warriors FC</span>
+          </div>
+          <div class="club-dashboard-vs">VS</div>
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Eagles FC" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Eagles FC</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-details">
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Central Stadium</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-clock"></i>
+            <span>5:00 PM</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-trophy"></i>
+            <span>Prize Pool: ₹15,000</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-actions">
+          <button class="club-dashboard-btn club-dashboard-btn-success club-dashboard-btn-sm">Accept</button>
+          <button class="club-dashboard-btn club-dashboard-btn-danger club-dashboard-btn-sm">Decline</button>
+        </div>
+      </div>
+
+      <!-- Completed Challenge -->
+      <div class="club-dashboard-challenge-card club-dashboard-completed">
+        <div class="club-dashboard-challenge-status">
+          <span class="club-dashboard-status-badge club-dashboard-status-completed">Completed</span>
+          <span class="club-dashboard-challenge-date">Jul 10, 2025</span>
+        </div>
+        <div class="club-dashboard-challenge-teams">
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Warriors FC" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Warriors FC</span>
+          </div>
+          <div class="club-dashboard-vs">VS</div>
+          <div class="club-dashboard-team">
+            <img src="../images/ball.jpg" alt="Lions Club" class="club-dashboard-team-logo">
+            <span class="club-dashboard-team-name">Lions Club</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-details">
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Sports Complex</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-trophy"></i>
+            <span>Won: ₹12,000</span>
+          </div>
+          <div class="club-dashboard-detail-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Score: 165/4 vs 162/8</span>
+          </div>
+        </div>
+        <div class="club-dashboard-challenge-actions">
+          <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View Summary</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="club-dashboard-club-profile" class="club-dashboard-current">
+  <div class="club-dashboard-profile-flex">
+    <div class="club-dashboard-profile-left">
+      <img id="clubLogo" src="../images/ball.jpg" alt="Club Logo" class="club-dashboard-profile-logo-img" />
+      <input type="file" id="clubLogoInput" accept="image/*" style="display:none;">
+      <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-logo" id="changeLogoBtn">
+        <i class="fas fa-upload"></i> Change Logo
+      </button>
+      <div class="club-dashboard-profile-edit-btns">
+        <button class="club-dashboard-btn club-dashboard-btn-primary" id="editProfileBtn">Edit</button>
+        <button class="club-dashboard-btn club-dashboard-btn-primary" id="saveProfileBtn"
+          style="display:none;">Save</button>
+        <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelProfileBtn"
+          style="display:none;">Cancel</button>
+      </div>
+    </div>
+
+    <div class="club-dashboard-profile-right">
+      <div class="club-dashboard-profile-body" id="profileView">
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Club
+            Name:</span><span id="clubNameView">Warriors FC</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Email:</span><span
+            id="clubEmailView">warriorsfc@email.com</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Phone:</span><span
+            id="clubPhoneView">+91
+            9876543210</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Location:</span><span
+            id="clubLocationView">Mumbai,
+            India</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founded
+            Year:</span><span id="clubFoundedView">2005</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Created
+            At:</span><span id="clubCreatedView">12/03/2022</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Updated
+            At:</span><span id="clubUpdatedView">05/07/2025</span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Bio:</span><span
+            id="clubBioView">Warriors FC is a passionate football club aiming for excellence and
+            inspiring future
+            generations.</span></div>
+      </div>
+      <form class="club-dashboard-profile-body" id="profileEdit" style="display:none;">
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label" for="clubNameInput">Club
+            Name:</label><input type="text" id="clubNameInput" class="club-dashboard-input" maxlength="50" required
+            value="Warriors FC"></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubEmailInput">Email:</label><input type="email" id="clubEmailInput" class="club-dashboard-input"
+            required value="warriorsfc@email.com"><span class="club-dashboard-error" id="emailError"></span></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubPhoneInput">Phone:</label><input type="tel" id="clubPhoneInput" class="club-dashboard-input"
+            required value="+91 9876543210"><span class="club-dashboard-error" id="phoneError"></span></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubLocationInput">Location:</label><input type="text" id="clubLocationInput"
+            class="club-dashboard-input" maxlength="50" required value="Mumbai, India"></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubFoundedInput">Founded Year:</label><input type="number" id="clubFoundedInput"
+            class="club-dashboard-input" min="1800" max="2099" required value="2005"></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label">Created
+            At:</label><span id="clubCreatedEdit">12/03/2022</span></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubUpdatedInput">Updated At:</label><input type="text" id="clubUpdatedInput"
+            class="club-dashboard-input" required value="05/07/2025" readonly></div>
+        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
+            for="clubBioInput">Bio:</label><textarea id="clubBioInput" class="club-dashboard-input" rows="4"
+            maxlength="500"
+            required>Warriors FC is a passionate football club aiming for excellence and inspiring future generations.</textarea><span
+            class="club-dashboard-error" id="bioError"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="club-dashboard-modal-bg" id="passwordModalBg" style="display:none;">
+    <div class="club-dashboard-modal">
+      <h3 class="club-dashboard-modal-title">Confirm Changes</h3>
+      <p class="club-dashboard-modal-desc">Please enter your password to save changes.</p>
+      <input type="password" id="passwordInput" class="club-dashboard-input club-dashboard-modal-input"
+        placeholder="Password">
+      <span class="club-dashboard-error" id="passwordError"></span>
+      <div class="club-dashboard-modal-actions">
+        <button class="club-dashboard-btn club-dashboard-btn-primary" id="confirmPasswordBtn">Confirm</button>
+        <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelPasswordBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/script/club_dashboard.js"></script>
