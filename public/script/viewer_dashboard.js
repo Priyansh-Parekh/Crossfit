@@ -25,3 +25,5 @@ rembtn.addEventListener('click', () => {
         remform.style.display = 'none';
     }
 });
+
+upload.single('profile_picture')

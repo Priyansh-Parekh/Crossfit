@@ -1,5 +1,5 @@
 <div class="viewers-dashboard-main-content">
-  <h2>Welcome, <%= user.name %> 👋</h2>
+  <h2>Welcome, <%= user.name %> </h2>
 
   <!-- Dashboard Summary Cards -->
   <div class="viewers-dashboard-dashboard-cards">
@@ -11,10 +11,34 @@
       </div>
       <div class="viewers-dashboard-card-value">
         <% if (user.profile_picture) { %>
-          <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
+          
+          <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
+            <label for="viewers-dashboard-profile-picture-input">
+              <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;" requierd="true">
+            </label>
+            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" >
+            <button>Update Profile Picture</button>
+          </form>
         <% } else { %>
-          <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;">
+          <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
+            <label for="viewers-dashboard-profile-picture-input">
+              <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;" required>
+            </label>
+            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" >
+            <button>Add Profile Picture</button>
+          </form>
         <% } %>
+      </div>
+    </div>
+
+   <div id="viewer-dashboard-div-wrapper">
+     <!-- Balance -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Balance</div>
+      </div>
+      <div class="viewers-dashboard-card-value">
+        ₹<%= user.balance?.toFixed(2) || '0.00' %>
       </div>
     </div>
 
@@ -26,31 +50,24 @@
       <div class="viewers-dashboard-card-value"><%= user.email %></div>
     </div>
 
+   </div>
     <!-- Status -->
     <div class="viewers-dashboard-card">
       <div class="viewers-dashboard-card-header">
         <div class="viewers-dashboard-card-title">Status</div>
       </div>
-      <div class="viewers-dashboard-card-value">
+      <div class="viewers-dashboard-card-value " id="viewers-dashboard-status-card">
         <span class="viewers-dashboard-status-badge <%= user.status === 'active' ? 'viewers-dashboard-status-active' : 'viewers-dashboard-status-retired' %>">
           <%= user.status %>
         </span>
-        <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/status" method="post">
+      </div>
+       <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/viewer/status" method="post">
           <input type="hidden" name="status" value="<%= user.status %>">
           <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
         </form>
-      </div>
     </div>
 
-    <!-- Balance -->
-    <div class="viewers-dashboard-card">
-      <div class="viewers-dashboard-card-header">
-        <div class="viewers-dashboard-card-title">Balance</div>
-      </div>
-      <div class="viewers-dashboard-card-value">
-        ₹<%= user.balance?.toFixed(2) || '0.00' %>
-      </div>
-    </div>
+    
 
   </div>
 
@@ -93,7 +110,7 @@
     <!-- Add/Remove Club Forms -->
     <div id="viewers-dashboard-form-grouping">
       <!-- Add Favorite Team Form -->
-      <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/add_fav_club" method="post">
+      <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/viewer/add_fav_club" method="post">
         <label for="viewers-dashboard-fav-add-select" class="viewers-dashboard-label">Select Club to Add it to Favourite:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-add-select" class="viewers-dashboard-select">
           <option value="">-- Select --</option>
@@ -105,7 +122,7 @@
       </form>
 
       <!-- Remove Favorite Team Form -->
-      <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/remove_fav_club" method="post">
+      <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/viewer/remove_fav_club" method="post">
         <label for="viewers-dashboard-fav-remove-select" class="viewers-dashboard-label">Select Favorite Club to Remove:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-remove-select" class="viewers-dashboard-select">
           <option value="">-- Select --</option>

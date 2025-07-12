@@ -4,7 +4,9 @@ const route = express.Router();
 const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const fs = require('fs');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // store files in /uploads temporarily
 
 //fetching models
 const matches = require("../models/match");
@@ -120,7 +122,7 @@ route.get('/viewer', login, datas, async (req, res) => {
     res.render("viewer_dashboard", { user, clubs: data.clubs, refinedclubs });
 });
 
-route.post('/add_fav_club', login, async (req, res) => {
+route.post('/viewer/add_fav_club', login, async (req, res) => {
     try {
         let user = req.user;
         let favorite_team_id = req.body.favorite_teams;  // make sure form uses name="favorite_teams"
@@ -138,7 +140,7 @@ route.post('/add_fav_club', login, async (req, res) => {
     }
 });
 
-route.post('/remove_fav_club', login, async (req, res) => {
+route.post('/viewer/remove_fav_club', login, async (req, res) => {
     try {
         let user = req.user;
         let favorite_team_id = req.body.favorite_teams;  // make sure form uses name="favorite_teams"
@@ -156,16 +158,16 @@ route.post('/remove_fav_club', login, async (req, res) => {
     }
 });
 
-route.post('/status', login, async (req, res) => {
+route.post('/viewer/status', login, async (req, res) => {
     try {
         let user = req.user;
         let status = req.body.status;
 
-        if (status==='active') {
-           user.status = 'inactive';
-           await user.save();
+        if (status === 'active') {
+            user.status = 'inactive';
+            await user.save();
 
-        }else{
+        } else {
             user.status = 'active';
             await user.save();
         }
@@ -177,6 +179,25 @@ route.post('/status', login, async (req, res) => {
 });
 
 
+route.post('/viewer/add_profile_picture', login, upload.single('profile_picture'), async (req, res) => {
+    try {
+        let user = req.user;
+        let profile_picture = req.body.profile_picture;
+        if (profile_picture) {
+            const imagePath = req.file.path;
+            // Read and convert to Base64
+            const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
+            const mimeType = req.file.mimetype; // e.g., 'image/png'
+            const dataURI = `data:${mimeType};base64,${base64Image}`;
+            user.profile_picture = dataURI;
+            await user.save();
+        }
+        res.redirect('/dashboard/viewer');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error adding favorite team");
+    }
+});
 
 
 module.exports = route;
