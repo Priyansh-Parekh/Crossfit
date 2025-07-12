@@ -33,8 +33,10 @@
           <i class="fas fa-users"></i>
         </div>
       </div>
-      <div class="club-dashboard-card-value">18</div>
-      <div class="club-dashboard-card-change">+2 new signings</div>
+      <div class="club-dashboard-card-value">
+        <%= user.match_played.length %>
+      </div>
+      <div class="club-dashboard-card-change">Always Manage Them</div>
     </div>
     <div class="club-dashboard-card" onclick="goToSection('club-dashboard-matches')">
       <div class="club-dashboard-card-header">
@@ -43,8 +45,10 @@
           <i class="fas fa-trophy"></i>
         </div>
       </div>
-      <div class="club-dashboard-card-value">7</div>
-      <div class="club-dashboard-card-change">Last match won</div>
+      <div class="club-dashboard-card-value">
+        <%= user.match_won.length %>
+      </div>
+      <div class="club-dashboard-card-change">Keep It Up</div>
     </div>
     <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
       <div class="club-dashboard-card-header">
@@ -53,8 +57,13 @@
           <i class="fas fa-rupee-sign"></i>
         </div>
       </div>
-      <div class="club-dashboard-card-value">₹45,000</div>
-      <div class="club-dashboard-card-change">+₹5,000 this month</div>
+      <% if (user.revenue) { %>
+        <div class="club-dashboard-card-value">₹<%= user.revenue %>
+        </div>
+        <% }else{ %>
+          <div class="club-dashboard-card-value">₹0</div>
+          <% } %>
+            <div class="club-dashboard-card-change">Make your Mark</div>
     </div>
     <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
       <div class="club-dashboard-card-header">
@@ -63,8 +72,10 @@
           <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
-      <div class="club-dashboard-card-value">124</div>
-      <div class="club-dashboard-card-change">+24 this week</div>
+      <div class="club-dashboard-card-value">
+        <%= user.merchandise.length %>
+      </div>
+      <div class="club-dashboard-card-change">Keep in Stock</div>
     </div>
   </div>
 
@@ -101,65 +112,123 @@
         </thead>
         <tbody>
           <tr>
-            <td>Eagles FC</td>
-            <td>Jul 08, 2025</td>
-            <td><span class="club-dashboard-status-badge club-dashboard-status-active">Won</span></td>
-            <td>165/4 vs 162/8</td>
+            <% if ( user.match_played.length>0) { %>
+              <% user.match_played.matchId.forEach(match=> { %>
+                <% let Opponent=match.club1===user._id? match.club2:match.club1; %>
+                  <td>
+                    <%= Opponent %>
+                  </td>
+                  <td>
+                    <%= match.matchDate %>
+                  </td>
+                  <td><span class="club-dashboard-status-badge club-dashboard-status-active">
+                      <% match.result %>
+                    </span></td>
+                  <td>
+                    <%=match.score.clubA.runs %>/<%= match.score.clubA.wickets %> vs <%= match.score.clubB.runs %>/<%=
+                            match.score.clubB.wickets %>
+                  </td>
+                  <% }) %>
+                    <% } else{%>
+                      <td colspan="4">No Matches Played Yet</td>
+                      <% } %>
+
           </tr>
-          <tr>
-            <td>Tigers XI</td>
-            <td>Jul 05, 2025</td>
-            <td><span class="club-dashboard-status-badge club-dashboard-status-injured">Lost</span></td>
-            <td>140/9 vs 142/6</td>
-          </tr>
-          <tr>
-            <td>Lions Club</td>
-            <td>Jul 02, 2025</td>
-            <td><span class="club-dashboard-status-badge club-dashboard-status-active">Won</span></td>
-            <td>180/5 vs 175/7</td>
-          </tr>
+
         </tbody>
       </table>
     </div>
 
     <div class="club-dashboard-section">
       <div class="club-dashboard-section-header">
-        <h2 class="club-dashboard-section-title">Top Performers</h2>
+        <h2 class="club-dashboard-section-title">Your Team Leaders</h2>
       </div>
       <div style="margin-top: 1rem;">
         <div
           style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
           <div>
-            <h4>Rahul Sharma</h4>
-            <p style="color: #666; margin: 0;">Batsman</p>
+            <% if (user.captain) { %>
+              <h4>
+                <%= user.captain %>
+              </h4>
+              <% }else{ %>
+                <h4>Not Assigned</h4>
+                <% } %>
+                  <p style="color: #666; margin: 0;">Captain</p>
           </div>
           <div style="text-align: right;">
-            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">342 runs</div>
-            <div style="font-size: 0.9rem; color: #666;">Avg: 42.7</div>
+            <% if (user.captain) { %>
+              <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                <%= user.captain.total_runs %> runs
+              </div>
+              <div style="font-size: 0.9rem; color: #666;">SR: <%= user.captain.SR %> %</div>
+              <% }else{ %>
+                <div style="font-size: 1.2rem; font-weight: 600; color: #333;">No Data For Runs</div>
+                <div style="font-size: 0.9rem; color: #666;">SR: No Data</div>
+                <% } %>
           </div>
         </div>
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
-          <div>
-            <h4>Amit Patel</h4>
-            <p style="color: #666; margin: 0;">Bowler</p>
+        <% if (user.vice_captain) { %>
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
+            <div>
+              <h4>
+                <%= user.vice_captain.name %>
+              </h4>
+              <p style="color: #666; margin: 0;">Vice Captain</p>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                <%= user.vice_captain.wickets %> wickets
+              </div>
+              <div style="font-size: 0.9rem; color: #666;">Eco: <%= user.vice_captain.economy %>
+              </div>
+            </div>
           </div>
-          <div style="text-align: right;">
-            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">15 wickets</div>
-            <div style="font-size: 0.9rem; color: #666;">Eco: 6.2</div>
-          </div>
-        </div>
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
-          <div>
-            <h4>Vikram Singh</h4>
-            <p style="color: #666; margin: 0;">All-rounder</p>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 1.2rem; font-weight: 600; color: #333;">245 runs</div>
-            <div style="font-size: 0.9rem; color: #666;">8 wickets</div>
-          </div>
-        </div>
+          <% }else{ %>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
+              <div>
+                <h4>
+                 Not Assigned
+                </h4>
+                <p style="color: #666; margin: 0;">Vice Captain</p>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                  No Record for wickets
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">Eco: No Record
+                </div>
+              </div>
+            </div>
+            <% } %>
+              <% if (user.wicket_keeper) { %>
+               <div
+                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div>
+                  <h4><%= user.wicket_keeper.name %></h4>
+                  <p style="color: #666; margin: 0;">Wicket Keeper</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 1.2rem; font-weight: 600; color: #333;"><%= user.wicket_keeper.total_runs %> runs</div>
+                  <div style="font-size: 0.9rem; color: #666;">SR: <%= user.wicket_keeper.SR  %></div>
+                </div>
+              </div>
+             
+              <% } else { %>
+                <div
+                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div>
+                  <h4>Not Assigned</h4>
+                  <p style="color: #666; margin: 0;">Wicket Keeper</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 1.2rem; font-weight: 600; color: #333;">No Record for runs</div>
+                  <div style="font-size: 0.9rem; color: #666;">SR: No Record</div>
+                </div>
+              </div>
+               <% } %>
       </div>
     </div>
   </div>

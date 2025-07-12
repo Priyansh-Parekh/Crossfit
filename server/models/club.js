@@ -73,6 +73,9 @@ const Club = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Merchandise_DATA'
     }],
+    revenue:{
+        type: Number
+    },
     captain: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'

@@ -62,6 +62,10 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
+    result:{
+        type: String,
+        enum : ['Won','Lose']
+    },
     man_of_match: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'

@@ -94,14 +94,31 @@ const populate_viewer = async (viewer) => {
 
 };
 
+//club thinngs populate
+const populate_cricket_club_data = async (club) => {
+    await club.populate('match_won');
+    await club.populate('match_lose');
+    await club.populate('match_played.matchId');
+    await club.populate('players');
+    await club.populate('captain');
+    await club.populate({ path: 'vice_captain', strictPopulate: false });
+    await club.populate('wicket_keeper');
+    await club.populate('bowlers');
+    await club.populate('batsman');
+};
+
 
 
 
 //Dashboard club Page
 route.get('/clubs', login, async (req, res) => {
     let user = req.user;
+    populate_cricket_club_data(user);
     res.render("club_dashboard", { user });
 });
+
+
+
 
 //Dashboard Leagues Page
 route.get('/league', login, async (req, res) => {
