@@ -2,10 +2,10 @@
    <% if (club.sport==="cricket") { %>
    <section class="club-list-info-hero">
      <div class="club-list-info-hero-content">
-      <% if (club.image===undefined) { %>
+      <% if (club.logo===null) { %>
         <img src="/images/avatar.png" alt="Club Logo" class="club-list-info-logo">
       <% }else{ %>
-         <img src="<%= club.image %>" alt="Club Logo" class="club-list-info-logo">
+         <img src="<%= club.logo %>" alt="Club Logo" class="club-list-info-logo">
          <% } %>
        <div class="club-list-info-basic">
          <h1 class="club-list-info-name"><%= club.name %></h1>

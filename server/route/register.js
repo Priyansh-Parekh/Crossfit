@@ -54,39 +54,68 @@ const login = async (req, res, next) => {
 };
 
 
+// data middelware
+const datas = async (req, res, next) => {
+    try {
+
+        // fetching data
+        const [clubData, matchData, playerData, merchData, leagueData, viewerData] = await Promise.all([
+            clubs.find({}),
+            matches.find({}),
+            players.find({}),
+            merchandise.find({}),
+            leagues.find({}),
+            viewers.find({})
+        ]);
+
+        req.data = {
+            clubs: clubData,
+            matches: matchData,
+            players: playerData,
+            merchandise: merchData,
+            leagues: leagueData,
+            viewers: viewerData
+        };
+
+        next();
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 // viewers page
-route.get('/register_viewers',login, async (req, res) => {
+route.get('/register_viewers', login,datas, async (req, res) => {
     let user = req.user;
-    res.render("register_viewers",{user});
+    let data = req.data
+    res.render("register_viewers", { user,clubs: data.clubs });
 })
 
 route.post('/register_viewers', async (req, res) => {
     try {
 
         let { name, email, password, favourite_team } = req.body;
-        favourite_team = new mongoose.Types.ObjectId(favourite_team)
+        favourite_team = new mongoose.Types.ObjectId(favourite_team);
         ///checking that user of this email already exist or not.
-        let inclub = await clubs.findOne({ email }); 
+        let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
         let inleague = await leagues.findOne({ email });
 
-          let check = inclub || inviewer || inleague;
+        let check = inclub || inviewer || inleague;
         if (check) {
             res.redirect("/error");
         } else {
             //providing more sequrity to its password/
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(password, salt);
-            let user = await viewers.create({ name, email, password: hash, favourite_team })
+            let user = await viewers.create({ name, email, password: hash,  favorite_teams: [favourite_team] })
 
-            //providing cookies to keep him logged in//
-            let token = jwt.sign({ email }, "secret-word");
-            res.cookie("token", token);
-            res.redirect("/");
+            res.redirect("/login/login_viewers");
         }
     } catch (error) {
-         console.error(error);
+        console.error(error);
         res.status(500).send("Error creating user");
     }
 
@@ -94,52 +123,15 @@ route.post('/register_viewers', async (req, res) => {
 
 
 // Clubs page
-route.get('/register_clubs',login, async (req, res) => {
+route.get('/register_clubs', login, async (req, res) => {
     let user = req.user;
-    res.render("register_clubs",{user});
+    res.render("register_clubs", { user });
 })
 
 route.post('/register_clubs', async (req, res) => {
     try {
 
         let { name, sport, email, password, bio, founded_year, founder_name, slogan } = req.body;
-        //checking that user of this email already exist or not.
-        let inclub = await clubs.findOne({ email });
-        let inviewer = await viewers.findOne({ email });
-        let inleague = await leagues.findOne({ email });
-
-         let check = inclub || inviewer || inleague
-        if (check) {
-            res.redirect("/error");
-        } else {
-            //providing more sequrity to its password/
-            let salt = await bcrypt.genSalt(10);
-            let hash = await bcrypt.hash(password, salt);
-            let user = await clubs.create({ name, sport, email, password:hash, bio, founded_year, founder_name, slogan })
-
-            //providing cookies to keep him logged in//
-            let token = jwt.sign({ email }, "secret-word");
-            res.cookie("token", token);
-            res.redirect("/");
-        }
-    } catch (error) {
-         console.error(error);
-        res.status(500).send("Error creating user");
-    }
-
-})
-
-
-// leagues page
-route.get('/register_leagues',login, async (req, res) => {
-    let user = req.user;
-    res.render("register_leagues",{user});
-})
-
-route.post('/register_leagues', async (req, res) => {
-    try {
-
-        let { name, sport, email, password, bio, organizer_name,founded_year } = req.body;
         //checking that user of this email already exist or not.
         let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
@@ -152,15 +144,46 @@ route.post('/register_leagues', async (req, res) => {
             //providing more sequrity to its password/
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(password, salt);
-            let user = await leagues.create({ name, sport, email, password:hash, bio, organizer_name,founded_year })
+            let user = await clubs.create({ name, sport, email, password: hash, bio, founded_year, founder_name, slogan })
 
-            //providing cookies to keep him logged in//
-            let token = jwt.sign({ email }, "secret-word");
-            res.cookie("token", token);
-            res.redirect("/");
+            res.redirect("/login/login_clubs");
         }
     } catch (error) {
-         console.error(error);
+        console.error(error);
+        res.status(500).send("Error creating user");
+    }
+
+})
+
+
+// leagues page
+route.get('/register_leagues', login, async (req, res) => {
+    let user = req.user;
+    res.render("register_leagues", { user });
+})
+
+route.post('/register_leagues', async (req, res) => {
+    try {
+
+        let { name, sport, email, password, bio, organizer_name, founded_year } = req.body;
+        //checking that user of this email already exist or not.
+        let inclub = await clubs.findOne({ email });
+        let inviewer = await viewers.findOne({ email });
+        let inleague = await leagues.findOne({ email });
+
+        let check = inclub || inviewer || inleague
+        if (check) {
+            res.redirect("/error");
+        } else {
+            //providing more sequrity to its password/
+            let salt = await bcrypt.genSalt(10);
+            let hash = await bcrypt.hash(password, salt);
+            let user = await leagues.create({ name, sport, email, password: hash, bio, organizer_name, founded_year })
+
+            res.redirect("/register/register_leagues");
+        }
+    } catch (error) {
+        console.error(error);
         res.status(500).send("Error creating user");
     }
 

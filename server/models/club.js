@@ -20,9 +20,6 @@ const Club = new mongoose.Schema({
         type: String,
         minlength: 6
     },
-    image:{
-        type: String
-    },
     logo: {
         type: String,
         default: null

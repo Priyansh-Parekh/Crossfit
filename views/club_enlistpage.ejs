@@ -24,12 +24,12 @@
         <% clubs.forEach(club=> { %>
             <div class="club-enlistpage-club-card" data-sport="<%=club.sport%>">
                 <div class="club-enlistpage-card-image club-enlistpage-card-image-<%= club.sport %>">
-                    <% console.log(club.image);
+                    <% console.log(club.logo);
                      %>
-                    <% if (club.image=== undefined) { %>
+                    <% if (club.logo=== null) { %>
                      <img src="/images/avatar.png" alt="<%= club.name %>-logo" class="club-enlistpage-club-logo">
                     <% }else{ %>
-                    <img src="<%= club.image %>" alt="<%= club.name %>-logo" class="club-enlistpage-club-logo">
+                    <img src="<%= club.logo %>" alt="<%= club.name %>-logo" class="club-enlistpage-club-logo">
                     <% } %>
                 </div>
                 <div class="club-enlistpage-card-content">

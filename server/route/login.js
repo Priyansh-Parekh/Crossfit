@@ -73,7 +73,7 @@ route.post('/login_viewers', async (req, res) => {
             // If the password matches, create a JWT token
             const token = jwt.sign({ email: check.email }, "secret-word");
             res.cookie("token", token);
-            res.redirect("/");
+            res.redirect("/dashboard/viewer");
         } else {
             res.status(401).send("Incorrect password");
         }
@@ -103,7 +103,7 @@ route.post('/login_clubs', async (req, res) => {
             // If the password matches, create a JWT token
             const token = jwt.sign({ email: check.email }, "secret-word");
             res.cookie("token", token);
-            res.redirect("/");
+            res.redirect("/dashboard/clubs");
         } else {
             res.status(401).send("Incorrect password");
         }
@@ -132,7 +132,7 @@ route.post('/login_leagues', async (req, res) => {
             // If the password matches, create a JWT token
             const token = jwt.sign({ name: check.name }, "secret-word");
             res.cookie("token", token);
-            res.redirect("/");
+            res.redirect("/dashboard/leagues");
         } else {
             res.status(401).send("Incorrect password");
         }

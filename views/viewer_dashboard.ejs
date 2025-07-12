@@ -1,0 +1,141 @@
+<div class="viewers-dashboard-main-content">
+  <h2>Welcome, <%= user.name %> 👋</h2>
+
+  <!-- Dashboard Summary Cards -->
+  <div class="viewers-dashboard-dashboard-cards">
+
+    <!-- Profile Picture -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Profile Picture</div>
+      </div>
+      <div class="viewers-dashboard-card-value">
+        <% if (user.profile_picture) { %>
+          <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
+        <% } else { %>
+          <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;">
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Email</div>
+      </div>
+      <div class="viewers-dashboard-card-value"><%= user.email %></div>
+    </div>
+
+    <!-- Status -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Status</div>
+      </div>
+      <div class="viewers-dashboard-card-value">
+        <span class="viewers-dashboard-status-badge <%= user.status === 'active' ? 'viewers-dashboard-status-active' : 'viewers-dashboard-status-retired' %>">
+          <%= user.status %>
+        </span>
+        <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/status" method="post">
+          <input type="hidden" name="status" value="<%= user.status %>">
+          <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Balance -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Balance</div>
+      </div>
+      <div class="viewers-dashboard-card-value">
+        ₹<%= user.balance?.toFixed(2) || '0.00' %>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Favorite Teams Section -->
+  <div class="viewers-dashboard-section">
+    <div class="viewers-dashboard-section-header">
+      <h3 class="viewers-dashboard-section-title">Favorite Teams</h3>
+    </div>
+
+    <% if (user.favorite_teams.length > 0) { %>
+      <div class="viewers-dashboard-merchandise-grid">
+        <% user.favorite_teams.forEach(team => { %>
+          <div class="viewers-dashboard-merchandise-card">
+            <div class="viewers-dashboard-merchandise-image">
+              <% if (team.logo) { %>
+                <img src="<%= team.logo %>" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: contain;">
+              <% } else { %>
+                <img src="/images/avatar.png" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: contain;">
+              <% } %>
+            </div>
+            <div class="viewers-dashboard-merchandise-info">
+              <div class="viewers-dashboard-merchandise-title">
+                <a href="/clubs/list/<%= team._id %>"><%= team.name %></a>
+              </div>
+              <div class="viewers-dashboard-merchandise-category">
+                <%= team.sport || 'Sport' %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>No favorite teams added yet.</p>
+    <% } %>
+
+    <!-- Add/Remove Club Buttons -->
+    <button class="viewers-dashboard-fav-add">Add New Fav Club</button>
+    <button class="viewers-dashboard-fav-remove-trigger">Remove Fav Club</button>
+
+    <!-- Add/Remove Club Forms -->
+    <div id="viewers-dashboard-form-grouping">
+      <!-- Add Favorite Team Form -->
+      <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/add_fav_club" method="post">
+        <label for="viewers-dashboard-fav-add-select" class="viewers-dashboard-label">Select Club to Add it to Favourite:</label>
+        <select name="favorite_teams" id="viewers-dashboard-fav-add-select" class="viewers-dashboard-select">
+          <option value="">-- Select --</option>
+          <% refinedclubs.forEach(club => { %>
+            <option value="<%= club._id %>"><%= club.name %></option>
+          <% }) %>
+        </select>
+        <button type="submit" class="viewers-dashboard-add-button">Add Club</button>
+      </form>
+
+      <!-- Remove Favorite Team Form -->
+      <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/remove_fav_club" method="post">
+        <label for="viewers-dashboard-fav-remove-select" class="viewers-dashboard-label">Select Favorite Club to Remove:</label>
+        <select name="favorite_teams" id="viewers-dashboard-fav-remove-select" class="viewers-dashboard-select">
+          <option value="">-- Select --</option>
+          <% user.favorite_teams.forEach(club => { %>
+            <option value="<%= club._id %>"><%= club.name %></option>
+          <% }) %>
+        </select>
+        <button type="submit" class="viewers-dashboard-remove-button">Remove Club</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Account Info Section -->
+  <div class="viewers-dashboard-section">
+    <div class="viewers-dashboard-section-header">
+      <h3 class="viewers-dashboard-section-title">Account Info</h3>
+    </div>
+    <table class="viewers-dashboard-table">
+      <tr>
+        <th>User Type</th>
+        <td><%= user.user_type %></td>
+      </tr>
+      <tr>
+        <th>Created At</th>
+        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+      </tr>
+      <tr>
+        <th>Last Updated</th>
+        <td><%= new Date(user.updatedAt).toLocaleDateString() %></td>
+      </tr>
+    </table>
+  </div>
+</div>

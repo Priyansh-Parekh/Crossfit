@@ -85,6 +85,16 @@ const login = async (req, res, next) => {
     next();
 };
 
+
+//club thinngs populate
+const populate_viewer = async (viewer) => {
+    await viewer.populate('favorite_teams');
+
+};
+
+
+
+
 //Dashboard club Page
 route.get('/clubs', login, async (req, res) => {
     let user = req.user;
@@ -98,10 +108,74 @@ route.get('/league', login, async (req, res) => {
 });
 
 //Dashboard viewers Page
-route.get('/viewer', login, async (req, res) => {
+route.get('/viewer', login, datas, async (req, res) => {
     let user = req.user;
-    res.render("viewer_dashboard", { user });
+    await populate_viewer(user);
+    let data = req.data
+    let refinedclubs = data.clubs.filter(club =>
+        !user.favorite_teams.some(fav => fav._id.toString() === club._id.toString())
+    );
+
+
+    res.render("viewer_dashboard", { user, clubs: data.clubs, refinedclubs });
 });
+
+route.post('/add_fav_club', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let favorite_team_id = req.body.favorite_teams;  // make sure form uses name="favorite_teams"
+
+        if (favorite_team_id) {
+            const favTeamObjId = new mongoose.Types.ObjectId(favorite_team_id);
+            user.favorite_teams.push(favTeamObjId);
+            await user.save();
+
+        }
+        res.redirect('/dashboard/viewer');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error adding favorite team");
+    }
+});
+
+route.post('/remove_fav_club', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let favorite_team_id = req.body.favorite_teams;  // make sure form uses name="favorite_teams"
+
+        if (favorite_team_id) {
+            const favTeamObjId = new mongoose.Types.ObjectId(favorite_team_id);
+            user.favorite_teams.pull(favTeamObjId);
+            await user.save();
+
+        }
+        res.redirect('/dashboard/viewer');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error adding favorite team");
+    }
+});
+
+route.post('/status', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let status = req.body.status;
+
+        if (status==='active') {
+           user.status = 'inactive';
+           await user.save();
+
+        }else{
+            user.status = 'active';
+            await user.save();
+        }
+        res.redirect('/dashboard/viewer');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error adding favorite team");
+    }
+});
+
 
 
 
