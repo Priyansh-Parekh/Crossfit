@@ -1,7 +1,7 @@
 <header>
   <div class="header-desktop-nav">
     <div class="header-logo-container">
-      <img src="/images/logo.png" alt="logo-image">
+      <img src="/images/Crossfit.jpg" alt="logo-image">
       <a href="/">Crossfit</a>
     </div>
 
@@ -17,19 +17,19 @@
         <button class="links-button"><a href="/#home-roles">Login</a></button>
       <% } else { %>
         <div class="header-user-menu">
-          <img src="/images/user-image.jpg" alt="User Avatar" class="header-user-avatar">
+          <img src="/images/ball.jpg" alt="User Avatar" class="header-user-avatar">
           <div class="header-dropdown header-hidden">
             <% if( user.user_type==="club" ) { %>
               <a href="/dashboard/clubs" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Dashboard
               </a>
             <% } else if( user.user_type==="league" ) { %>
               <a href="/dashboard/league" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Dashboard
               </a>
             <% } else { %>
               <a href="/dashboard/viewer" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Dashboard
               </a>
             <% } %>
             <a href="/#home-roles" class="header-dropdown-item header-logout">
@@ -43,7 +43,7 @@
 
   <div class="header-mobile-nav">
     <div class="header-logo-container">
-      <img src="/images/logo.png" alt="logo-image">
+      <img src="/images/Crossfit.jpg" alt="logo-image">
       <a href="">Crossfit</a>
     </div>
     <div class="header-links">
@@ -55,15 +55,15 @@
           <div class="header-dropdown header-hidden">
             <% if( user.user_type==="club" ) { %>
               <a href="/dashboard/clubs" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Settings
               </a>
             <% } else if( user.user_type==="league" ) { %>
               <a href="/dashboard/league" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Settings
               </a>
             <% } else { %>
               <a href="/dashboard/viewer" class="header-dropdown-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fa-solid fa-user-tie"></i> Settings
               </a>
             <% } %>
             <a href="/#home-roles" class="header-dropdown-item header-logout">
@@ -90,4 +90,4 @@
   </div>
 </header>
 
-<script src="script/header.js"></script>
+
