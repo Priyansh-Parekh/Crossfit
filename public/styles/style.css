@@ -36,82 +36,212 @@ a:visited {
 
 /* --- Header Styling --- */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Vertically align items */
-    padding: 1rem 2.5rem; /* More generous horizontal padding */
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky; /* Make header sticky */
-    top: 0;
-    z-index: 1000; /* Ensure it stays on top */
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  padding: 1rem 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 0.1rem #5409b2 solid;
 }
 
-header .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* Spacing between logo image and text */
+.header-desktop-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header .logo-container img {
-    height: 3rem; /* Slightly smaller logo for better integration */
-    width: 3rem;
-    border-radius: 50%;
-    object-fit: cover;
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-header .logo-container a {
-    color: #5409b2; /* Primary color for logo text */
-    font-size: 1.8rem; /* Prominent font size for logo text */
-    font-weight: 700;
-    white-space: nowrap; /* Prevent logo text from wrapping */
+header img {
+  height: 3.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
-header .links {
-    display: flex;
-    align-items: center;
-    font-size: 1rem; /* Standard font size for navigation links */
+header img:hover {
+  transform: scale(1.1);
 }
 
-header .links ul {
-    list-style: none;
-    display: flex; /* Display navigation links in a row */
-    gap: 1.8rem; /* Spacing between individual nav links */
-    margin-right: 2.5rem; /* Space before the Sign Up button */
-    padding: 0; /* Ensure no default padding from ul */
+.header-logo-container a {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5409b2;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
 }
 
-header .links li a { /* Targeting the anchor tags inside list items */
-    color: #555; /* Softer color for nav links */
-    transition: color 0.2s ease-in-out;
-    padding: 0.25rem 0; /* Small padding for click area, visual consistency */
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
-header .links li a:hover {
-    color: #5409b2; /* Primary accent color on hover */
+.header-desktop-nav .header-links ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+header li {
+  margin-left: 1.2rem;
+}
+
+header li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.15rem;
+  transition: color 0.15s;
+}
+
+header li a:hover {
+  color: #5409b2;
 }
 
 header .links-button {
-    background-color: #5409b2;
-    color: #ffffff;
-    border: none;
-    font-size: 1rem;
-    padding: 0.75rem 1.75rem; /* Generous padding for the button */
-    font-weight: 600; /* Medium bold for readability */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out; /* Smooth hover effects */
-    border-radius: 8px; /* Moderately rounded corners */
-    white-space: nowrap; /* Prevent button text from wrapping */
+  background-color: #5409b2;
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  border-radius: 8px;
+  white-space: nowrap;
 }
 
 header .links-button:hover {
-    background-color: #3f0685; /* Darker shade on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+  background-color: #3f0685;
+  transform: translateY(-2px);
 }
 
 header .links-button:active {
-    background-color: #2b045e; /* Even darker on click */
-    transform: translateY(0); /* Return to original position */
+  background-color: #2b045e;
+  transform: translateY(0);
+}
+
+.header-user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.header-user-avatar {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  border: 0.125rem solid #5409b2;
+}
+
+.header-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  width: 12rem;
+  z-index: 999;
+}
+
+.header-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.header-dropdown a:hover {
+  background: #f2f2f2;
+}
+
+.header-dropdown a.header-logout {
+  color: #d63031;
+}
+
+.header-hidden {
+  display: none;
+}
+
+/* Mobile styles */
+.header-mobile-nav {
+  display: none;
+}
+
+.header-mobile-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.header-hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: #5409b2;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header-hamburger:hover {
+  transform: scale(1.1);
+}
+
+.header-hamburger:active {
+  opacity: 0.95;
+}
+
+.header-mobile-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  width: 14rem;
+  z-index: 999;
+}
+
+.header-mobile-dropdown ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Toggle helper class */
+.header-hidden {
+  display: none !important;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .header-desktop-nav {
+    display: none;
+  }
+
+  .header-hamburger {
+    display: block;
+  }
+
+  .header-mobile-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 /* --- Main Content Area --- */
@@ -774,13 +904,13 @@ footer {
 
 /* For very small mobile devices */
 @media (max-width: 480px) {
-    header .logo-container a {
-        font-size: 1.5rem; /* Even smaller logo text */
+/*  header .logo-container a {
+        font-size: 1.5rem; 
     }
-    header .logo-container img {
+     header .logo-container img {
         height: 2.5rem;
         width: 2.5rem;
-    }
+    } */ 
     .home-hero h1 {
         font-size: 2.5rem;
     }
