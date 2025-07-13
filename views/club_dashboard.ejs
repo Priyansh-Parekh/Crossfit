@@ -99,7 +99,6 @@
     <div class="club-dashboard-section">
       <div class="club-dashboard-section-header">
         <h2 class="club-dashboard-section-title">Recent Matches</h2>
-        <button class="club-dashboard-btn club-dashboard-btn-secondary">View All</button>
       </div>
       <table class="club-dashboard-table">
         <thead>
@@ -112,28 +111,37 @@
         </thead>
         <tbody>
           <tr>
-            <% if ( user.match_played.length>0) { %>
-              <% user.match_played.matchId.forEach(match=> { %>
-                <% let Opponent=match.club1===user._id? match.club2:match.club1; %>
-                  <td>
-                    <%= Opponent %>
-                  </td>
-                  <td>
-                    <%= match.matchDate %>
-                  </td>
-                  <td><span class="club-dashboard-status-badge club-dashboard-status-active">
-                      <% match.result %>
-                    </span></td>
-                  <td>
-                    <%=match.score.clubA.runs %>/<%= match.score.clubA.wickets %> vs <%= match.score.clubB.runs %>/<%=
-                            match.score.clubB.wickets %>
-                  </td>
-                  <% }) %>
-                    <% } else{%>
-                      <td colspan="4">No Matches Played Yet</td>
-                      <% } %>
 
+            <% if ( user.match_played.length>0) { %>
+              <% let recent_match_count=0; %>
+                <% user.match_played.matchId.forEach(match=> { %>
+                  <% if (recent_match_count>= 5) return; %>
+                    <% recent_match_count++; %>
+                      <% let Opponent=match.club1===user._id ? match.club2 : match.club1; %>
+          <tr>
+            <td>
+              <%= Opponent %>
+            </td>
+            <td>
+              <%= match.matchDate %>
+            </td>
+            <td>
+              <span class="club-dashboard-status-badge club-dashboard-status-active">
+                <%= match.result %>
+              </span>
+            </td>
+            <td>
+              <%= match.score.clubA.runs %>/<%= match.score.clubA.wickets %> vs
+                  <%= match.score.clubB.runs %>/<%= match.score.clubB.wickets %>
+            </td>
           </tr>
+          <% }) %>
+
+            <% } else{%>
+              <td colspan="4">No Matches Played Yet</td>
+              <% } %>
+
+                </tr>
 
         </tbody>
       </table>
@@ -190,7 +198,7 @@
               style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
               <div>
                 <h4>
-                 Not Assigned
+                  Not Assigned
                 </h4>
                 <p style="color: #666; margin: 0;">Vice Captain</p>
               </div>
@@ -204,32 +212,37 @@
             </div>
             <% } %>
               <% if (user.wicket_keeper) { %>
-               <div
-                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
-                <div>
-                  <h4><%= user.wicket_keeper.name %></h4>
-                  <p style="color: #666; margin: 0;">Wicket Keeper</p>
-                </div>
-                <div style="text-align: right;">
-                  <div style="font-size: 1.2rem; font-weight: 600; color: #333;"><%= user.wicket_keeper.total_runs %> runs</div>
-                  <div style="font-size: 0.9rem; color: #666;">SR: <%= user.wicket_keeper.SR  %></div>
-                </div>
-              </div>
-             
-              <% } else { %>
                 <div
-                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
-                <div>
-                  <h4>Not Assigned</h4>
-                  <p style="color: #666; margin: 0;">Wicket Keeper</p>
+                  style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                  <div>
+                    <h4>
+                      <%= user.wicket_keeper.name %>
+                    </h4>
+                    <p style="color: #666; margin: 0;">Wicket Keeper</p>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                      <%= user.wicket_keeper.total_runs %> runs
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666;">SR: <%= user.wicket_keeper.SR %>
+                    </div>
+                  </div>
                 </div>
-                <div style="text-align: right;">
-                  <div style="font-size: 1.2rem; font-weight: 600; color: #333;">No Record for runs</div>
-                  <div style="font-size: 0.9rem; color: #666;">SR: No Record</div>
-                </div>
-              </div>
-               <% } %>
-               
+
+                <% } else { %>
+                  <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                    <div>
+                      <h4>Not Assigned</h4>
+                      <p style="color: #666; margin: 0;">Wicket Keeper</p>
+                    </div>
+                    <div style="text-align: right;">
+                      <div style="font-size: 1.2rem; font-weight: 600; color: #333;">No Record for runs</div>
+                      <div style="font-size: 0.9rem; color: #666;">SR: No Record</div>
+                    </div>
+                  </div>
+                  <% } %>
+
       </div>
     </div>
   </div>
@@ -658,7 +671,11 @@
 <div id="club-dashboard-club-profile" class="club-dashboard-current">
   <div class="club-dashboard-profile-flex">
     <div class="club-dashboard-profile-left">
-      <img id="clubLogo" src="../images/ball.jpg" alt="Club Logo" class="club-dashboard-profile-logo-img" />
+     <% if (user.logo) { %>
+       <img id="clubLogo" src="<%= user.logo %>" alt="Club Logo" class="club-dashboard-profile-logo-img" />
+      <% } else { %>
+        <img id="clubLogo" src="../images/avatar.png" alt="Club Logo" class="club-dashboard-profile-logo-img" />
+     <% } %>
       <input type="file" id="clubLogoInput" accept="image/*" style="display:none;">
       <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-logo" id="changeLogoBtn">
         <i class="fas fa-upload"></i> Change Logo
@@ -676,20 +693,9 @@
       <div class="club-dashboard-profile-body" id="profileView">
         <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Club
             Name:</span><span id="clubNameView">Warriors FC</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Email:</span><span
-            id="clubEmailView">warriorsfc@email.com</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Phone:</span><span
-            id="clubPhoneView">+91
-            9876543210</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Location:</span><span
-            id="clubLocationView">Mumbai,
-            India</span></div>
+     
         <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founded
             Year:</span><span id="clubFoundedView">2005</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Created
-            At:</span><span id="clubCreatedView">12/03/2022</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Updated
-            At:</span><span id="clubUpdatedView">05/07/2025</span></div>
         <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Bio:</span><span
             id="clubBioView">Warriors FC is a passionate football club aiming for excellence and
             inspiring future
