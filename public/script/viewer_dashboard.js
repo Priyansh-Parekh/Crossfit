@@ -1,11 +1,11 @@
 let favform = document.querySelector("#viewers-dashboard-fav-add-form");
-let favbtn = document.querySelector(".viewers-dashboard-fav-add");
-let remform = document.querySelector(".viewers-dashboard-fav-remove-form");
-let rembtn = document.querySelector(".viewers-dashboard-fav-remove-trigger");
+let favbtn = document.querySelectorAll(".viewers-dashboard-fav-add");
+let remform = document.querySelectorAll(".viewers-dashboard-fav-remove-form");
+let rembtn = document.querySelectorAll(".viewers-dashboard-fav-remove-trigger");
 let favcount = 0;
 let remcount =0;
-
-favbtn.addEventListener('click', () => {
+favbtn.forEach(em => {
+    em.addEventListener('click', () => {
     favcount++;
     
     if (favcount % 2 === 1) {
@@ -14,9 +14,11 @@ favbtn.addEventListener('click', () => {
         favform.style.display = 'none';
     }
 });
+});
 
 
-rembtn.addEventListener('click', () => {
+rembtn.forEach(em => {
+    em.addEventListener('click', () => {
     remcount++;
     
     if (remcount % 2 === 1) {
@@ -25,5 +27,7 @@ rembtn.addEventListener('click', () => {
         remform.style.display = 'none';
     }
 });
+});
+
 
 upload.single('profile_picture')

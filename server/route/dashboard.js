@@ -113,9 +113,58 @@ const populate_cricket_club_data = async (club) => {
 //Dashboard club Page
 route.get('/clubs', login, async (req, res) => {
     let user = req.user;
-    populate_cricket_club_data(user);
+    if (user.user_type === 'club') {
+
+        await populate_cricket_club_data(user);
+    }
     res.render("club_dashboard", { user });
 });
+
+route.post('/clubs/change_info', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let { name, founded_year, bio, slogan, password } = req.body;
+        let check = await bcrypt.compare(password, user.password);
+        if (check) {
+
+            if (name) {
+                user.name = name;
+            }
+            if (founded_year) {
+                user.founded_year = founded_year;
+            }
+            if (bio) {
+                user.bio = bio;
+            }
+            if (slogan) {
+                user.slogan = slogan;
+            }
+        }
+        await user.save();
+        res.redirect('/dashboard/clubs/#club-dashboard-club-profile')
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Editing Details");
+    }
+})
+
+route.post('/clubs/change_logo', login, upload.single('club_logo'), async (req, res) => {
+    try {
+        let user = req.user;
+        const imagePath = req.file.path;
+        // Read and convert to Base64
+        const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
+        const mimeType = req.file.mimetype; // e.g., 'image/png'
+        const dataURI = `data:${mimeType};base64,${base64Image}`;
+        user.logo = dataURI;
+        await user.save();
+        res.redirect('/dashboard/clubs/#club-dashboard-club-profile')
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Editing Details");
+    }
+})
+
 
 
 

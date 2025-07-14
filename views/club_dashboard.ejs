@@ -563,12 +563,12 @@
         </div>
         <div class="club-dashboard-challenge-teams">
           <div class="club-dashboard-team">
-            <img src="../images/ball.jpg" alt="Warriors FC" class="club-dashboard-team-logo">
+            <img src="/images/ball.jpg" alt="Warriors FC" class="club-dashboard-team-logo">
             <span class="club-dashboard-team-name">Warriors FC</span>
           </div>
           <div class="club-dashboard-vs">VS</div>
           <div class="club-dashboard-team">
-            <img src="../images/ball.jpg" alt="Tigers XI" class="club-dashboard-team-logo">
+            <img src="/images/ball.jpg" alt="Tigers XI" class="club-dashboard-team-logo">
             <span class="club-dashboard-team-name">Tigers XI</span>
           </div>
         </div>
@@ -671,75 +671,106 @@
 <div id="club-dashboard-club-profile" class="club-dashboard-current">
   <div class="club-dashboard-profile-flex">
     <div class="club-dashboard-profile-left">
-     <% if (user.logo) { %>
-       <img id="clubLogo" src="<%= user.logo %>" alt="Club Logo" class="club-dashboard-profile-logo-img" />
-      <% } else { %>
-        <img id="clubLogo" src="../images/avatar.png" alt="Club Logo" class="club-dashboard-profile-logo-img" />
-     <% } %>
-      <input type="file" id="clubLogoInput" accept="image/*" style="display:none;">
-      <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-logo" id="changeLogoBtn">
-        <i class="fas fa-upload"></i> Change Logo
-      </button>
-      <div class="club-dashboard-profile-edit-btns">
-        <button class="club-dashboard-btn club-dashboard-btn-primary" id="editProfileBtn">Edit</button>
-        <button class="club-dashboard-btn club-dashboard-btn-primary" id="saveProfileBtn"
-          style="display:none;">Save</button>
-        <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelProfileBtn"
-          style="display:none;">Cancel</button>
-      </div>
+      <% if (user.logo) { %>
+        <label for="clubLogoInput"><img id="clubLogo" src="<%= user.logo %>" alt="Club Logo" class="club-dashboard-profile-logo-img" /></label>
+        <% } else { %>
+         <label for="clubLogoInput"> <img id="clubLogo" src="/images/avatar.png" alt="Club Logo" class="club-dashboard-profile-logo-img" /></label>
+          <% } %>
+            <form action="/dashboard/clubs/change_logo" method="post" enctype="multipart/form-data">
+              <input type="file" id="clubLogoInput" accept="image/*" name="club_logo" style="display:none;">
+            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-logo" id="changeLogoBtn">
+              <i class="fas fa-upload"></i> Click Here to Apply changes to Logo
+            </button>
+            </form>
+            <div class="club-dashboard-profile-edit-btns">
+              <button class="club-dashboard-btn club-dashboard-btn-primary" id="editProfileBtn">Edit</button>
+              <button class="club-dashboard-btn club-dashboard-btn-primary" id="saveProfileBtn"
+                style="display:none;">Save</button>
+              <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelProfileBtn"
+                style="display:none;">Cancel</button>
+            </div>
     </div>
 
     <div class="club-dashboard-profile-right">
       <div class="club-dashboard-profile-body" id="profileView">
         <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Club
-            Name:</span><span id="clubNameView">Warriors FC</span></div>
-     
+            Name:</span><span id="clubNameView">
+            <%= user.name %>
+          </span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Email:</span><span
+            id="clubEmailView">
+            <%= user.email %>
+          </span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founder Name:</span><span
+            id="clubLocationView">
+            <%= user.founder_name %>
+          </span></div>
         <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founded
-            Year:</span><span id="clubFoundedView">2005</span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Bio:</span><span
-            id="clubBioView">Warriors FC is a passionate football club aiming for excellence and
-            inspiring future
-            generations.</span></div>
+            Year:</span><span id="clubFoundedView">
+            <%= user.founded_year %>
+          </span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Created
+            At:</span><span id="clubCreatedView">
+            <%= new Date(user.createdAt).toLocaleDateString() %>
+          </span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Updated
+            At:</span><span id="clubUpdatedView">
+            <%= new Date(user.updatedAt).toLocaleDateString() %>
+          </span></div>
+        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Slogan:</span><span
+            id="clubBioView">
+            <%= user.slogan %>
+          </span></div>
       </div>
-      <form class="club-dashboard-profile-body" id="profileEdit" style="display:none;">
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label" for="clubNameInput">Club
-            Name:</label><input type="text" id="clubNameInput" class="club-dashboard-input" maxlength="50" required
-            value="Warriors FC"></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubEmailInput">Email:</label><input type="email" id="clubEmailInput" class="club-dashboard-input"
-            required value="warriorsfc@email.com"><span class="club-dashboard-error" id="emailError"></span></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubPhoneInput">Phone:</label><input type="tel" id="clubPhoneInput" class="club-dashboard-input"
-            required value="+91 9876543210"><span class="club-dashboard-error" id="phoneError"></span></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubLocationInput">Location:</label><input type="text" id="clubLocationInput"
-            class="club-dashboard-input" maxlength="50" required value="Mumbai, India"></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubFoundedInput">Founded Year:</label><input type="number" id="clubFoundedInput"
-            class="club-dashboard-input" min="1800" max="2099" required value="2005"></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label">Created
-            At:</label><span id="clubCreatedEdit">12/03/2022</span></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubUpdatedInput">Updated At:</label><input type="text" id="clubUpdatedInput"
-            class="club-dashboard-input" required value="05/07/2025" readonly></div>
-        <div class="club-dashboard-profile-row"><label class="club-dashboard-profile-label"
-            for="clubBioInput">Bio:</label><textarea id="clubBioInput" class="club-dashboard-input" rows="4"
-            maxlength="500"
-            required>Warriors FC is a passionate football club aiming for excellence and inspiring future generations.</textarea><span
-            class="club-dashboard-error" id="bioError"></span></div>
+      <!-- action="/dashboard/clubs/change_info" method="post" -->
+      <form class="club-dashboard-profile-body" id="profileEdit" style="display: none;">
+        <div class="club-dashboard-profile-row">
+          <label class="club-dashboard-profile-label" for="clubNameInput">Club Name:</label>
+          <input type="text" name="name" id="clubNameInput" class="club-dashboard-input" maxlength="50" required
+            value="<%= user.name %>">
+        </div>
+
+        <div class="club-dashboard-profile-row">
+          <label class="club-dashboard-profile-label" for="clubFoundedInput">Founded Year:</label>
+          <input type="number" id="clubFoundedInput" class="club-dashboard-input" name="founded_year" min="1800"
+            max="2099" required value="<%= user.founded_year %>">
+        </div>
+
+        <div class="club-dashboard-profile-row">
+          <label class="club-dashboard-profile-label" for="clubBioInput">Bio:</label>
+          <textarea id="clubBioInput" class="club-dashboard-input" rows="4" maxlength="500" name="bio"
+            required><%= user.bio %></textarea>
+        </div>
+
+        <div class="club-dashboard-profile-row">
+          <label class="club-dashboard-profile-label" for="clubSloganInput">Slogan:</label>
+          <textarea id="clubSloganInput" class="club-dashboard-input" rows="4" maxlength="500" name="slogan"
+            required><%= user.slogan %></textarea>
+        </div>
       </form>
+
+
+
     </div>
   </div>
 
   <div class="club-dashboard-modal-bg" id="passwordModalBg" style="display:none;">
     <div class="club-dashboard-modal">
       <h3 class="club-dashboard-modal-title">Confirm Changes</h3>
-      <p class="club-dashboard-modal-desc">Please enter your password to save changes.</p>
-      <input type="password" id="passwordInput" class="club-dashboard-input club-dashboard-modal-input"
-        placeholder="Password">
       <span class="club-dashboard-error" id="passwordError"></span>
       <div class="club-dashboard-modal-actions">
-        <button class="club-dashboard-btn club-dashboard-btn-primary" id="confirmPasswordBtn">Confirm</button>
+        <form id="club-dashboard-formB" action="/dashboard/clubs/change_info" method="post">
+          <p class="club-dashboard-modal-desc">Please enter your password to save changes.</p>
+          <input type="password" name="password" id="passwordInput" class="club-dashboard-input club-dashboard-modal-input"
+            placeholder="Password">
+          <button type="submit" class="club-dashboard-btn club-dashboard-btn-primary"
+            id="confirmPasswordBtn">Confirm</button>
+          <input name="name" id="hiddenName" type="hidden">
+          <input name="bio" id="hiddenBio" type="hidden">
+          <input name="founded_year" id="hiddenFoundedYear" type="hidden">
+          <input name="slogan" id="hiddenSlogan" type="hidden">
+        </form>
+
         <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelPasswordBtn">Cancel</button>
       </div>
     </div>
