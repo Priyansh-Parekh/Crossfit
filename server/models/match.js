@@ -14,6 +14,11 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'League_DATA'
     },
+    challange_status:{
+        type:String,
+        default: 'pending',
+        enum:['accepted','pending','rejected']
+    },
     venue: {
         type: String,
         trim: true
@@ -57,6 +62,9 @@ const Match = new mongoose.Schema({
                 default: 0
             }
         }
+    },
+    prize:{
+        type:Number
     },
     winner: {
         type: mongoose.Schema.Types.ObjectId,

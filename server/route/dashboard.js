@@ -15,6 +15,7 @@ const merchandise = require("../models/merchandise");
 const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
+// const { match } = require('assert');
 
 // data middelware
 const datas = async (req, res, next) => {
@@ -99,6 +100,8 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('match_won');
     await club.populate('match_lose');
     await club.populate('match_played.matchId');
+    await club.populate('match_played.matchId.club1');
+    await club.populate('match_played.matchId.club2');
     await club.populate('players');
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
@@ -109,16 +112,50 @@ const populate_cricket_club_data = async (club) => {
 
 
 
+// Dashboard club Page
+route.get('/clubs', login, datas, async (req, res) => {
+    try {
+        let user = req.user;
+        let clubs = req.data.clubs
+        if (user.user_type === 'club') {
+            await populate_cricket_club_data(user); // Populates matchId data
 
-//Dashboard club Page
-route.get('/clubs', login, async (req, res) => {
-    let user = req.user;
-    if (user.user_type === 'club') {
+            if (user.match_played.length > 0 && user.match_played) {
+                // Check if match.club1/club2 is populated
+                let challange_recived = user.match_played.filter(match =>
+                    match.matchId &&
+                    match.matchId.club2 &&
+                    match.matchId.club2.name === user.name
+                );
 
-        await populate_cricket_club_data(user);
+                let challange_given = user.match_played.filter(match =>
+                    match.matchId &&
+                    match.matchId.club1 &&
+                    match.matchId.club1.name === user.name
+                );
+                return res.render("club_dashboard", {
+                    user,
+                    challange_recived,
+                    challange_given,
+                    clubs
+                });
+            } else {
+                return res.render("club_dashboard", {
+                    user,
+                    challange_recived: false,
+                    challange_given: false,
+                    clubs
+                });
+            }
+
+
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error loading club dashboard.");
     }
-    res.render("club_dashboard", { user });
 });
+
 
 route.post('/clubs/change_info', login, async (req, res) => {
     try {
@@ -141,7 +178,7 @@ route.post('/clubs/change_info', login, async (req, res) => {
             }
         }
         await user.save();
-        res.redirect('/dashboard/clubs/#club-dashboard-club-profile')
+        res.redirect('/dashboard/clubs')
     } catch (error) {
         console.log(error);
         res.status(500).send("Error Editing Details");
@@ -158,15 +195,72 @@ route.post('/clubs/change_logo', login, upload.single('club_logo'), async (req, 
         const dataURI = `data:${mimeType};base64,${base64Image}`;
         user.logo = dataURI;
         await user.save();
-        res.redirect('/dashboard/clubs/#club-dashboard-club-profile')
+        res.redirect('/dashboard/clubs')
     } catch (error) {
         console.log(error);
         res.status(500).send("Error Editing Details");
     }
 })
 
+route.post('/clubs/create_challenge', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let { club2, prize, venue, matchDate, match_type } = req.body;
+        club2 = new mongoose.Types.ObjectId(club2);
+        prize = Number(prize);
+        let match = await matches.create({
+            club1: user._id,
+            club2: club2,
+            prize,
+            venue,
+            matchDate,
+            match_type
+        })
+        user.match_played.push({
+            matchId: match._id
+        });
+        await user.save();
+        let opponent = await clubs.findOne({ _id: club2 });
+        opponent.match_played.push({
+            matchId: match._id
+        });
+        await opponent.save();
 
+        res.redirect('/dashboard/clubs')
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Challanging club");
+    }
+})
 
+route.post('/clubs/challange_accept',login,async (req,res)=>{
+  try {
+      let match_id = req.body.match_id;
+    let match = await matches.findOne({_id:match_id});
+    match.challange_status = 'accepted';
+    await match.save();
+    res.redirect('/dashboard/clubs');
+  } catch (error) {
+      console.log(error);
+        res.status(500).send("Error changing status ");
+  }
+})
+
+route.post('/clubs/challange_reject',login,async (req,res)=>{
+  try {
+      let match_id = req.body.match_id;
+      
+    console.log(match_id);
+      match_id = new mongoose.Types.ObjectId(match_id);
+    let match = await matches.findOne({_id:match_id});
+    match.challange_status = 'rejected';
+    await match.save();
+    res.redirect('/dashboard/clubs');
+  } catch (error) {
+      console.log(error);
+        res.status(500).send("Error changing status ");
+  }
+})
 
 
 //Dashboard Leagues Page

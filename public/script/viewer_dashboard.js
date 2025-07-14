@@ -30,4 +30,4 @@ rembtn.forEach(em => {
 });
 
 
-upload.single('profile_picture')
+// upload.single('profile_picture')

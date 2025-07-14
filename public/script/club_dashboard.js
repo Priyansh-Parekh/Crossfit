@@ -132,5 +132,32 @@ document.getElementById("saveProfileBtn").addEventListener("click", function (ev
 });
 
 
+ const tabs = document.querySelectorAll(".club-dashboard-challenge-tab");
+  const contents = document.querySelectorAll(".club-dashboard-challenge-content");
 
-upload.single('club_logo')
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      contents.forEach(content => content.classList.add("hidden"));
+      document.getElementById(`challenge-${tab.dataset.target}`).classList.remove("hidden");
+    });
+  });
+
+
+
+// upload.single('club_logo')
+
+
+
+let toggle_challange_btn = document.querySelector('.club-dashboard-create-btn');
+let challange_form = document.querySelector('#createChallengeForm');
+let toggle_count =0;
+toggle_challange_btn.addEventListener('click',()=>{
+  if(toggle_count%2===0){
+    challange_form.style.display = 'grid';
+  }else{
+    challange_form.style.display = 'none';
+  }
+  toggle_count++;
+})
