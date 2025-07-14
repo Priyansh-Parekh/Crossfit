@@ -134,10 +134,19 @@ header .links-button:active {
 }
 
 .header-user-avatar {
-  height: 2.5rem;
-  width: 2.5rem;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 50%;
-  border: 0.125rem solid #5409b2;
+  border: 2px solid #10b981; /* emerald ring */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.header-user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .header-dropdown {

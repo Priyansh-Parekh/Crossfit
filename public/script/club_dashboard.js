@@ -161,3 +161,11 @@ toggle_challange_btn.addEventListener('click',()=>{
   }
   toggle_count++;
 })
+
+  document.querySelector('.club-dashboard-adding-new-player-btn').addEventListener('click', () => {
+    document.getElementById('add-player-form').classList.toggle('hidden');
+  });
+
+
+
+  

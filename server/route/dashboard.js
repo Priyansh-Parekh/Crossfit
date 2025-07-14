@@ -202,7 +202,7 @@ route.post('/clubs/change_logo', login, upload.single('club_logo'), async (req, 
     }
 })
 
-route.post('/clubs/create_challenge', login, async (req, res) => {
+route.post('/clubs/create_challeage', login, async (req, res) => {
     try {
         let user = req.user;
         let { club2, prize, venue, matchDate, match_type } = req.body;
@@ -261,6 +261,52 @@ route.post('/clubs/challange_reject',login,async (req,res)=>{
         res.status(500).send("Error changing status ");
   }
 })
+
+route.post('/clubs/add_player',login,upload.single('profile_picture'), async (req,res)=>{
+  try {
+      let user =  req.user;
+         const imagePath = req.file.path;
+        // Read and convert to Base64
+        const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
+        const mimeType = req.file.mimetype; // e.g., 'image/png'
+        const dataURI = `data:${mimeType};base64,${base64Image}`;
+
+      let {name,age,batting_style,total_runs,type,total_balls,bowling_style,wickets,overs_deliverd,runs_given,jersey_number}= req.body;
+      age = Number(age);
+      total_runs = Number(total_runs);
+      total_balls = Number(total_balls);
+      wickets = Number(wickets);
+      overs_deliverd = Number(overs_deliverd);
+      runs_given = Number(runs_given);
+      jersey_number = Number(jersey_number);
+      let SR = total_runs/total_balls;
+      let economy = runs_given/overs_deliverd;
+      let player = await players.create({name,age,batting_style,total_runs,total_balls,SR,economy,type,bowling_style,wickets,overs_deliverd,runs_given,jersey_number,profile_picture:dataURI})
+       await  user.players.push(player._id)
+       await user.save()
+      res.redirect('/dashboard/clubs');
+  } catch (error) {
+      console.log(error);
+        res.status(500).send("Error Adding Player ");
+  }
+})
+
+route.post('/clubs/fire_player',login, async (req,res)=>{
+  try {
+      let user =  req.user;
+      let player_id = req.body.player_id
+      player_id = new mongoose.Types.ObjectId(player_id)
+      let player = await players.findByIdAndDelete(player_id);
+      await user.players.pull({_id:player_id});
+      await user.save();
+      res.redirect('/dashboard/clubs');
+  } catch (error) {
+      console.log(error);
+        res.status(500).send("Error Firing Player ");
+  }
+})
+
+
 
 
 //Dashboard Leagues Page

@@ -17,7 +17,7 @@ const Player = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['batsman', 'bowler', 'wicket_keeper', 'all_rounder']
+        enum: ['Batsman', 'Bowler', 'Wicket_Keeper', 'All_Rounder']
     },
     age: Number,
     batting_style: {
@@ -38,7 +38,7 @@ const Player = new mongoose.Schema({
     },
     bowling_style: {
         type: String,
-        enum: ['fast', 'medium', 'spin', 'off_spin', 'leg_spin']
+        enum: ['Pacer', 'Medium Pacer', 'Left Off Spin', 'Left Leg Spin', 'Rignt Off Spin','Right Leg Spin']
     },
     wickets: {
         type: Number,

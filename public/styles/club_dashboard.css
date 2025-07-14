@@ -277,94 +277,171 @@
 }
 
 /*player info*/
-.club-dashboard-player-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+
+/* Simple Club Dashboard CSS */
+.club-dashboard-players-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
 }
 
 .club-dashboard-player-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f0f0f0;
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.club-dashboard-player-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-.club-dashboard-player-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.club-dashboard-player-avatar {
-  width: 50px;
-  height: 50px;
+.club-dashboard-player-img {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: #f3f0ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #5409b2;
-  font-size: 1.2rem;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+.club-dashboard-player-name {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.club-dashboard-player-type {
+  text-align: center;
+  background: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 auto 15px auto;
+}
+
+.club-dashboard-player-card p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.club-dashboard-status-active {
+  color: #28a745;
   font-weight: bold;
 }
 
-.club-dashboard-player-details h4 {
-  margin: 0;
-  color: #333;
+.club-dashboard-status-injured {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.club-dashboard-status-retired {
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.club-dashboard-no-data {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 16px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .club-dashboard-players-grid {
+    padding: 10px;
+  }
+  
+  .club-dashboard-player-card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+/* Add Player Form */
+.club-dashboard-add-player-form {
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.club-dashboard-add-player-form form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.club-dashboard-add-player-form input,
+.club-dashboard-add-player-form select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background-color: white;
+  color: #1f2937;
+}
+
+.club-dashboard-add-player-form input:focus,
+.club-dashboard-add-player-form select:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.club-dashboard-add-player-form button {
+  grid-column: span 2;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.club-dashboard-add-player-form button:hover {
+  background-color: #1e40af;
+}
+
+.club-dashboard-adding-new-player-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.club-dashboard-adding-new-player-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.club-dashboard-adding-new-player-btn i {
   font-size: 1.1rem;
 }
 
-.club-dashboard-player-details p {
-  margin: 0;
-  color: #666;
-  font-size: 0.9rem;
-}
 
-.club-dashboard-player-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.club-dashboard-stat-item {
-  text-align: center;
-  padding: 0.5rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
-
-.club-dashboard-stat-value {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.club-dashboard-stat-label {
-  font-size: 0.8rem;
-  color: #666;
-  text-transform: uppercase;
-}
-
-.club-dashboard-player-actions {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: flex-end;
-}
-
-.club-dashboard-btn-sm {
-  padding: 0.5rem 1rem;
-  font-size: 0.85rem;
+/* Hidden utility */
+.hidden {
+  display: none;
 }
 
 /* Score Update Panel */
@@ -1144,4 +1221,33 @@
 .club-dashboard-opponent-logo-img:hover {
   transform: scale(1.05);
   border-color: #2563eb; /* blue border on hover */
+}
+
+
+
+
+
+.club-dashboard-fire-player-form {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.club-dashboard-fire-player-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(239, 68, 68, 0.3);
+}
+
+.club-dashboard-fire-player-btn:hover {
+  background-color: #dc2626;
+  box-shadow: 0 5px 14px rgba(239, 68, 68, 0.4);
+  transform: scale(1.05);
 }

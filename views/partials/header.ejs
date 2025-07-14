@@ -17,7 +17,22 @@
         <button class="links-button"><a href="/#home-roles">Login</a></button>
       <% } else { %>
         <div class="header-user-menu">
-          <img src="/images/ball.jpg" alt="User Avatar" class="header-user-avatar">
+         
+           
+       <%  if(user.user_type === 'club' ) { %>
+        <% if (user.logo) { %>
+          <img src="<%= user.logo %>" alt="User Avatar" class="header-user-avatar">
+          <% } else { %>
+            <img src="/images/ball.jpg" alt="User Avatar" class="header-user-avatar">
+        <% } %>
+        
+        <% } else if(user.user_type === 'viewer'){ %>
+          <% if (user.profile_picture) { %>
+            <img src="<%= user.profile_picture %>" alt="User Avatar" class="header-user-avatar">
+            <% } else { %>
+        <img src="/images/ball.jpg" alt="User Avatar" class="header-user-avatar">
+          <% } %>
+      <% } %>
           <div class="header-dropdown header-hidden">
             <% if( user.user_type==="club" ) { %>
               <a href="/dashboard/clubs" class="header-dropdown-item">

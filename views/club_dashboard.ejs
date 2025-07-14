@@ -136,16 +136,21 @@
                   <%= match.matchId.score.clubB.runs %>/<%= match.matchId.score.clubB.wickets %>
             </td>
           </tr>
-          <% } else { %>
-            <td colspan="4">No Matches Played Yet</td>
-            <% } %>
-              <% }) %>
+          <% } else if(recent_match_count===0) { %>
 
-                <% } else{%>
-                  <td colspan="4">No Matches Played Yet</td>
-                  <% } %>
+            <tr>
+              <td colspan="4">No Matches Played Yet</td>
+            </tr>
 
-                    </tr>
+            <% return %>
+              <% } %>
+                <% }) %>
+
+                  <% } else{%>
+                    <td colspan="4">No Matches Played Yet</td>
+                    <% } %>
+
+                      </tr>
 
         </tbody>
       </table>
@@ -255,123 +260,119 @@
 <div id="club-dashboard-players" class="club-dashboard-current">
   <div class="club-dashboard-page-header">
     <h1 class="club-dashboard-page-title">Players Management</h1>
-    <p class="club-dashboard-page-subtitle">Add, edit, and manage your team players</p>
+    <p class="club-dashboard-page-subtitle">Add and manage your team players</p>
   </div>
 
   <div class="club-dashboard-action-buttons">
-    <button class="club-dashboard-btn club-dashboard-btn-primary">
+    <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
       <i class="fas fa-plus"></i>
       Add New Player
     </button>
-    <button class="club-dashboard-btn club-dashboard-btn-secondary">
-      <i class="fas fa-download"></i>
-      Export Player List
-    </button>
   </div>
 
-  <div class="club-dashboard-player-grid">
-    <div class="club-dashboard-player-card">
-      <div class="club-dashboard-player-info">
-        <div class="club-dashboard-player-avatar">RS</div>
-        <div class="club-dashboard-player-details">
-          <h4>Rahul Sharma</h4>
-          <p>Batsman • #12 • Captain</p>
-        </div>
-      </div>
-      <div class="club-dashboard-player-stats">
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">342</div>
-          <div class="club-dashboard-stat-label">Runs</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">42.7</div>
-          <div class="club-dashboard-stat-label">Average</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">128.5</div>
-          <div class="club-dashboard-stat-label">Strike Rate</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">
-            <span class="club-dashboard-status-badge club-dashboard-status-active">Active</span>
-          </div>
-          <div class="club-dashboard-stat-label">Status</div>
-        </div>
-      </div>
-      <div class="club-dashboard-player-actions">
-        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-      </div>
-    </div>
+  <!-- Players List Grid -->
+  <div class="club-dashboard-players-grid">
+    <% if (user.players.length> 0) { %>
+      <% user.players.forEach(player=> { %>
+        <div class="club-dashboard-player-card">
+          <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image"
+            class="club-dashboard-player-img">
+          <h3 class="club-dashboard-player-name">
+            <%= player.name %>
+          </h3>
+          <p class="club-dashboard-player-type">
+            <%= player.type %>
+          </p>
 
-    <div class="club-dashboard-player-card">
-      <div class="club-dashboard-player-info">
-        <div class="club-dashboard-player-avatar">AP</div>
-        <div class="club-dashboard-player-details">
-          <h4>Amit Patel</h4>
-          <p>Bowler • #7 • Fast Bowler</p>
-        </div>
-      </div>
-      <div class="club-dashboard-player-stats">
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">15</div>
-          <div class="club-dashboard-stat-label">Wickets</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">6.2</div>
-          <div class="club-dashboard-stat-label">Economy</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">24</div>
-          <div class="club-dashboard-stat-label">Overs</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">
-            <span class="club-dashboard-status-badge club-dashboard-status-active">Active</span>
-          </div>
-          <div class="club-dashboard-stat-label">Status</div>
-        </div>
-      </div>
-      <div class="club-dashboard-player-actions">
-        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-      </div>
-    </div>
+          <% if (player.type==='Batsman' ) { %>
+            <p>Batting Style: <%= player.batting_style %>
+            </p>
+            <p>Total Runs: <%= player.total_runs %>
+            </p>
+            <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+            </p>
+            <% } else if (player.type==='Bowler' ) { %>
+              <p>Bowling Style: <%= player.bowling_style %>
+              </p>
+              <p>Wickets: <%= player.wickets %>
+              </p>
+              <p>Economy: <%= (player.economy).toFixed(2) %>
+              </p>
+              <% } else if (player.type==='All_Rounder' ) { %>
+                <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+                </p>
+                <p>Economy: <%= (player.SR).toFixed(2) %>
+                </p>
+                <% } %>
 
-    <div class="club-dashboard-player-card">
-      <div class="club-dashboard-player-info">
-        <div class="club-dashboard-player-avatar">VS</div>
-        <div class="club-dashboard-player-details">
-          <h4>Vikram Singh</h4>
-          <p>All-rounder • #23 • Vice Captain</p>
+                  <p>Status:
+                  <p class="club-dashboard-status-<%= player.status %> ">
+                    <%= player.status %>
+                  </p>
+                  </p>
+                  <p>Jersey #: <%= player.jersey_number %>
+                  </p>
+                  <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
+                    <input type="hidden" name="player_id" value="<%= player._id %>">
+                    <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
+                  </form>
+
         </div>
-      </div>
-      <div class="club-dashboard-player-stats">
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">245</div>
-          <div class="club-dashboard-stat-label">Runs</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">8</div>
-          <div class="club-dashboard-stat-label">Wickets</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">35.2</div>
-          <div class="club-dashboard-stat-label">Average</div>
-        </div>
-        <div class="club-dashboard-stat-item">
-          <div class="club-dashboard-stat-value">
-            <span class="club-dashboard-status-badge club-dashboard-status-injured">Injured</span>
-          </div>
-          <div class="club-dashboard-stat-label">Status</div>
-        </div>
-      </div>
-      <div class="club-dashboard-player-actions">
-        <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-        <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-      </div>
-    </div>
+        <% }) %>
+          <% } else { %>
+            <div class="club-dashboard-no-data">
+              No players added yet.
+            </div>
+            <% } %>
   </div>
+
+  <!-- Add New Player Form -->
+  <div class="club-dashboard-add-player-form hidden" id="add-player-form">
+    <form action="/dashboard/clubs/add_player" method="POST" enctype="multipart/form-data">
+      <label for="player_profile_picture"><img class="club-dashboard-opponent-logo-img" src="/images/avatar.png"
+          alt="profile"></label>
+      <input type="text" name="name" placeholder="Player Name" required />
+      <input type="file" id="player_profile_picture" name="profile_picture" />
+
+      <select name="type" name="type" required>
+        <option value="">Select Type</option>
+        <option value="Batsman">Batsman</option>
+        <option value="Bowler">Bowler</option>
+        <option value="Wicket_Keeper">Wicket Keeper</option>
+        <option value="All_Rounder">All Rounder</option>
+      </select>
+
+      <select name="batting_style" required>
+        <option value="">Batting Style</option>
+        <option value="right_handed">Right Handed</option>
+        <option value="left_handed">Left Handed</option>
+      </select>
+
+      <input type="number" name="age" placeholder="Age" />
+      <input type="number" name="total_runs" placeholder="Total Runs" />
+      <input type="number" name="total_balls" placeholder="Total Balls Faced" />
+      <select name="bowling_style" name="bowling_style" required>
+        <option>Bowling Style</option>
+        <option value="Pacer">Pacer</option>
+        <option value="Medium Pacer">Medium Pacer</option>
+        <option value="Left Off Spin">Left Off Spin</option>
+        <option value="Left Leg Spin">Left Leg Spin</option>
+        <option value="Rignt Off Spin">Rignt Off Spin</option>
+        <option value="Right Leg Spin">Right Leg Spin</option>
+      </select>
+      <input type="number" step="0.1" name="overs_deliverd" placeholder="Overs Delivered" />
+      <input type="number" name="wickets" placeholder="Wicket Taken" />
+      <input type="number" name="runs_given" placeholder="Runs Given" />
+      <input type="number" name="jersey_number" placeholder="Jersey Number" required />
+
+      <button type="submit" class="club-dashboard-btn-primary">Add Player</button>
+    </form>
+  </div>
+
+
+
+</div>
+</div>
 </div>
 
 <div id="club-dashboard-live-updates" class="club-dashboard-current">
@@ -564,17 +565,19 @@
         <% challange_given.forEach(match=> { %>
           <div class="club-dashboard-challenge-card">
             <div class="club-dashboard-challenge-header">
-                 <% if (match.matchId.club2.logo) { %>
-                  <div><img src="<%= match.matchId.club2.logo%>" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
-                 <% } else { %>
-                 <div> <img src="/images/avatar.png" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
-                <% } %>
-              <span class="club-dashboard-challenge-status <%= match.matchId.challange_status %>">
-                <%= match.matchId.challange_status %>
-              </span>
+              <% if (match.matchId.club2.logo) { %>
+                <div><img src="<%= match.matchId.club2.logo%>" class="club-dashboard-opponent-logo-img" alt="Logo">
+                </div>
+                <% } else { %>
+                  <div> <img src="/images/avatar.png" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
+                  <% } %>
+                    <span class="club-dashboard-challenge-status <%= match.matchId.challange_status %>">
+                      <%= match.matchId.challange_status %>
+                    </span>
             </div>
             <% let your_name=user.name; %>
-              <% let opponent_name=match.matchId.club1.name===your_name ? match.matchId.club2.name : match.club1.name; %>
+              <% let opponent_name=match.matchId.club1.name===your_name ? match.matchId.club2.name : match.club1.name;
+                %>
 
                 <h3 class="club-dashboard-challenge-title">Vs <%= opponent_name %>
                 </h3>
@@ -584,7 +587,8 @@
                 <p class="club-dashboard-challenge-location"><i class="fas fa-map-marker-alt"></i>
                   <%= match.matchId.venue %>
                 </p>
-                <p class="club-dashboard-challenge-prize"><i class="fas fa-trophy"></i> Prize: ₹ <%= match.matchId.prize %>
+                <p class="club-dashboard-challenge-prize"><i class="fas fa-trophy"></i> Prize: ₹ <%= match.matchId.prize
+                    %>
                 </p>
           </div>
           <% }); %>
@@ -602,41 +606,45 @@
       <% if (challange_recived.length> 0) { %>
         <% challange_recived.forEach(match=> { %>
           <% let your_name=user.name; %>
-            <% let opponent_name=match.matchId.club1.name===your_name ? match.matchId.club2.name : match.matchId.club1.name; %>
+            <% let opponent_name=match.matchId.club1.name===your_name ? match.matchId.club2.name :
+              match.matchId.club1.name; %>
               <div class="club-dashboard-challenge-card">
                 <% if (match.matchId.club1.logo) { %>
-                  <div><img src="<%= match.matchId.club1.logo%>" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
-                 <% } else { %>
-                 <div> <img src="/images/avatar.png" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
-                <% } %>
-                <h3 class="club-dashboard-challenge-title">Vs <%= opponent_name %>
-                </h3>
-                <p class="club-dashboard-challenge-meta">
-                  <%= match.matchId.matchDate.toLocaleString() %>
-                </p>
-                <p class="club-dashboard-challenge-location"><i class="fas fa-map-marker-alt"></i>
-                  <%= match.matchId.venue %>
-                </p>
-                <p class="club-dashboard-challenge-prize"><i class="fas fa-trophy"></i> Prize: ₹ <%= match.matchId.prize %>
-                </p>
-                <p class="club-dashboard-challenge-prize"><i class="fa-solid fa-question"></i>Type:  <%= match.matchId.match_type %>
-                </p>
-                <div class="club-dashboard-challenge-actions">
-                 <% if (match.matchId.challange_status === 'pending') { %>
-                   <form action="/dashboard/clubs/challange_accept" method="POST">
-                    <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
-                    <button class="club-dashboard-challenge-btn accept" type="submit">Accept</button>
-                  </form>
-                  <form action="/dashboard/clubs/challange_reject" method="POST">
-                    <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
-                    <button class="club-dashboard-challenge-btn reject" type="submit">Reject</button>
-                  </form>
+                  <div><img src="<%= match.matchId.club1.logo%>" class="club-dashboard-opponent-logo-img" alt="Logo">
+                  </div>
                   <% } else { %>
-                   <span class="club-dashboard-challenge-status <%= match.matchId.challange_status %>">
-                <%= match.matchId.challange_status %>
-              </span>
-                 <% } %>
-                </div>
+                    <div> <img src="/images/avatar.png" class="club-dashboard-opponent-logo-img" alt="Logo"></div>
+                    <% } %>
+                      <h3 class="club-dashboard-challenge-title">Vs <%= opponent_name %>
+                      </h3>
+                      <p class="club-dashboard-challenge-meta">
+                        <%= match.matchId.matchDate.toLocaleString() %>
+                      </p>
+                      <p class="club-dashboard-challenge-location"><i class="fas fa-map-marker-alt"></i>
+                        <%= match.matchId.venue %>
+                      </p>
+                      <p class="club-dashboard-challenge-prize"><i class="fas fa-trophy"></i> Prize: ₹ <%=
+                          match.matchId.prize %>
+                      </p>
+                      <p class="club-dashboard-challenge-prize"><i class="fa-solid fa-question"></i>Type: <%=
+                          match.matchId.match_type %>
+                      </p>
+                      <div class="club-dashboard-challenge-actions">
+                        <% if (match.matchId.challange_status==='pending' ) { %>
+                          <form action="/dashboard/clubs/challange_accept" method="POST">
+                            <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
+                            <button class="club-dashboard-challenge-btn accept" type="submit">Accept</button>
+                          </form>
+                          <form action="/dashboard/clubs/challange_reject" method="POST">
+                            <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
+                            <button class="club-dashboard-challenge-btn reject" type="submit">Reject</button>
+                          </form>
+                          <% } else { %>
+                            <span class="club-dashboard-challenge-status <%= match.matchId.challange_status %>">
+                              <%= match.matchId.challange_status %>
+                            </span>
+                            <% } %>
+                      </div>
               </div>
               <% }); %>
                 <% } else { %>
@@ -652,7 +660,7 @@
   </button>
 
   <!-- Hidden Form -->
-  <form id="createChallengeForm" action="/dashboard/clubs/create_challenge" method="POST"
+  <form id="createChallengeForm" action="/dashboard/clubs/create_challange" method="POST"
     class="club-dashboard-create-form ">
     <div>
       <label for="opponent">Opponent Club</label>
