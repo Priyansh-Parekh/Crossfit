@@ -388,8 +388,7 @@ route.post('/viewer/status', login, async (req, res) => {
 route.post('/viewer/add_profile_picture', login, upload.single('profile_picture'), async (req, res) => {
     try {
         let user = req.user;
-        let profile_picture = req.body.profile_picture;
-        if (profile_picture) {
+      if(req.file){
             const imagePath = req.file.path;
             // Read and convert to Base64
             const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });

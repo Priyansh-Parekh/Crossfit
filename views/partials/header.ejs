@@ -11,7 +11,8 @@
         <li><a href="/live_scores">Live-Score</a></li>
         <li><a href="/leagues">Leagues</a></li>
         <li><a href="/merchandise">Merchandise</a></li>
-        <li><a href="/clubs">clubs</a></li>
+        <li><a href="/clubs">Clubs</a></li>
+        <li><a href="/viewers">Viewers</a></li>
       </ul>
       <% if( user==="none" ){ %>
         <button class="links-button"><a href="/#home-roles">Login</a></button>
@@ -20,7 +21,7 @@
 
 
             <% if(user.user_type==='club' ) { %>
-              <% if (user.logo !== null) { %>
+              <% if (user.logo !==null) { %>
                 <img src="<%= user.logo %>" alt="User Avatar" class="header-user-avatar">
                 <% } else { %>
                   <img src="/images/avatar.png" alt="User Avatar" class="header-user-avatar">
@@ -30,7 +31,7 @@
                       <% if (user.profile_picture) { %>
                         <img src="<%= user.profile_picture %>" alt="User Avatar" class="header-user-avatar">
                         <% } else { %>
-                          <img src="/images/ball.jpg" alt="User Avatar" class="header-user-avatar">
+                          <img src="/images/avatar.png" alt="User Avatar" class="header-user-avatar">
                           <% } %>
                             <% } %>
                               <div class="header-dropdown header-hidden">
@@ -66,25 +67,38 @@
         <button class="links-button"><a href="/#home-roles">Login</a></button>
         <% } else { %>
           <div class="header-user-menu">
-            <img src="/images/user-image.jpg" alt="User Avatar" class="header-user-avatar">
-            <div class="header-dropdown header-hidden">
-              <% if( user.user_type==="club" ) { %>
-                <a href="/dashboard/clubs" class="header-dropdown-item">
-                  <i class="fa-solid fa-user-tie"></i> Settings
-                </a>
-                <% } else if( user.user_type==="league" ) { %>
-                  <a href="/dashboard/league" class="header-dropdown-item">
-                    <i class="fa-solid fa-user-tie"></i> Settings
-                  </a>
-                  <% } else { %>
-                    <a href="/dashboard/viewer" class="header-dropdown-item">
-                      <i class="fa-solid fa-user-tie"></i> Settings
-                    </a>
-                    <% } %>
-                      <a href="/#home-roles" class="header-dropdown-item header-logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                      </a>
-            </div>
+            <% if(user.user_type==='club' ) { %>
+              <% if (user.logo !==null) { %>
+                <img src="<%= user.logo %>" alt="User Avatar" class="header-user-avatar">
+                <% } else { %>
+                  <img src="/images/avatar.png" alt="User Avatar" class="header-user-avatar">
+                  <% } %>
+
+                    <% } else if(user.user_type==='viewer' ){ %>
+                      <% if (user.profile_picture) { %>
+                        <img src="<%= user.profile_picture %>" alt="User Avatar" class="header-user-avatar">
+                        <% } else { %>
+                          <img src="/images/avatar.png" alt="User Avatar" class="header-user-avatar">
+                          <% } %>
+                            <% } %>
+                              <div class="header-dropdown header-hidden">
+                                <% if( user.user_type==="club" ) { %>
+                                  <a href="/dashboard/clubs" class="header-dropdown-item">
+                                    <i class="fa-solid fa-user-tie"></i> Settings
+                                  </a>
+                                  <% } else if( user.user_type==="league" ) { %>
+                                    <a href="/dashboard/league" class="header-dropdown-item">
+                                      <i class="fa-solid fa-user-tie"></i> Settings
+                                    </a>
+                                    <% } else { %>
+                                      <a href="/dashboard/viewer" class="header-dropdown-item">
+                                        <i class="fa-solid fa-user-tie"></i> Settings
+                                      </a>
+                                      <% } %>
+                                        <a href="/#home-roles" class="header-dropdown-item header-logout">
+                                          <i class="fas fa-sign-out-alt"></i> Logout
+                                        </a>
+                              </div>
           </div>
           <% } %>
             <div class="header-mobile-menu">
@@ -97,7 +111,8 @@
                   <li><a href="/live_scores">Live-Score</a></li>
                   <li><a href="/leagues">Leagues</a></li>
                   <li><a href="/merchandise">Merchandise</a></li>
-                  <li><a href="/clubs">clubs</a></li>
+                  <li><a href="/clubs">Clubs</a></li>
+                  <li><a href="/viewers">Viewers</a></li>
                 </ul>
               </div>
             </div>

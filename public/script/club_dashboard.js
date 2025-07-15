@@ -132,17 +132,17 @@ document.getElementById("saveProfileBtn").addEventListener("click", function (ev
 });
 
 
- const tabs = document.querySelectorAll(".club-dashboard-challenge-tab");
-  const contents = document.querySelectorAll(".club-dashboard-challenge-content");
+const tabs = document.querySelectorAll(".club-dashboard-challenge-tab");
+const contents = document.querySelectorAll(".club-dashboard-challenge-content");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      contents.forEach(content => content.classList.add("hidden"));
-      document.getElementById(`challenge-${tab.dataset.target}`).classList.remove("hidden");
-    });
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    contents.forEach(content => content.classList.add("hidden"));
+    document.getElementById(`challenge-${tab.dataset.target}`).classList.remove("hidden");
   });
+});
 
 
 
@@ -152,20 +152,50 @@ document.getElementById("saveProfileBtn").addEventListener("click", function (ev
 
 let toggle_challange_btn = document.querySelector('.club-dashboard-create-btn');
 let challange_form = document.querySelector('#createChallengeForm');
-let toggle_count =0;
-toggle_challange_btn.addEventListener('click',()=>{
-  if(toggle_count%2===0){
+let toggle_count = 0;
+toggle_challange_btn.addEventListener('click', () => {
+  if (toggle_count % 2 === 0) {
     challange_form.style.display = 'grid';
-  }else{
+  } else {
     challange_form.style.display = 'none';
   }
   toggle_count++;
 })
 
-  document.querySelector('.club-dashboard-adding-new-player-btn').addEventListener('click', () => {
-    document.getElementById('add-player-form').classList.toggle('hidden');
-  });
+document.querySelector('.club-dashboard-adding-new-player-btn').addEventListener('click', () => {
+  document.getElementById('add-player-form').classList.toggle('hidden');
+});
 
 
 
-  
+
+let live_section_live_trigger = document.querySelector(".club-liveupdate-live-title");
+let live_section_upcoming_trigger = document.querySelector(".club-liveupdate-upcoming-title");
+let live_section = document.querySelector(".club-dashboard-live-sect");
+let upcoming_section = document.querySelector(".club-dashboard-upcoming-sect");
+let live_count_match = 0;
+let upcoming_count_match = 0;
+
+
+
+live_section_live_trigger.addEventListener("click", () => {
+  if (live_count_match % 2 === 0) {
+    live_section.style.display = "grid";
+    live_count_match++;
+  } else {
+    live_section.style.display = "none";
+    live_count_match++;
+  }
+
+})
+
+live_section_upcoming_trigger.addEventListener("click", () => {
+  if (upcoming_count_match % 2 === 0) {
+    upcoming_section.style.display = "grid"
+    upcoming_count_match++;
+  } else {
+    upcoming_section.style.display = "none"
+    upcoming_count_match++;
+  }
+
+})

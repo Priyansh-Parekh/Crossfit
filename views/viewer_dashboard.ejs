@@ -13,18 +13,18 @@
         <% if (user.profile_picture) { %>
           
           <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
-            <label for="viewers-dashboard-profile-picture-input">
-              <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;" requierd="true">
+            <label for="viewers-dashboard-profile-picture-input-1">
+              <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
             </label>
-            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" >
+            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" id="viewers-dashboard-profile-picture-input-1" requierd >
             <button>Update Profile Picture</button>
           </form>
         <% } else { %>
           <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
-            <label for="viewers-dashboard-profile-picture-input">
-              <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;" required>
+            <label for="viewers-dashboard-profile-picture-input-2">
+              <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;"  >
             </label>
-            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" >
+            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" required id="viewers-dashboard-profile-picture-input-2" >
             <button>Add Profile Picture</button>
           </form>
         <% } %>

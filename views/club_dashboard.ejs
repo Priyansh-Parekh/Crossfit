@@ -263,13 +263,6 @@
     <p class="club-dashboard-page-subtitle">Add and manage your team players</p>
   </div>
 
-  <div class="club-dashboard-action-buttons">
-    <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
-      <i class="fas fa-plus"></i>
-      Add New Player
-    </button>
-  </div>
-
   <!-- Players List Grid -->
   <div class="club-dashboard-players-grid">
     <% if (user.players.length> 0) { %>
@@ -326,6 +319,14 @@
             <% } %>
   </div>
 
+  <div class="club-dashboard-action-buttons">
+    <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
+      <i class="fas fa-plus"></i>
+      Add New Player
+    </button>
+  </div>
+
+
   <!-- Add New Player Form -->
   <div class="club-dashboard-add-player-form hidden" id="add-player-form">
     <form action="/dashboard/clubs/add_player" method="POST" enctype="multipart/form-data">
@@ -381,49 +382,62 @@
     <p class="club-dashboard-page-subtitle">Update live scores and match progress</p>
   </div>
 
-  <div class="club-dashboard-score-panel">
-    <div class="club-dashboard-score-header">
-      <h3>Update Live Score</h3>
-      <button class="club-dashboard-btn club-dashboard-btn-primary">Save Score</button>
-    </div>
 
-    <div class="club-dashboard-match-selector">
-      <div class="club-dashboard-form-group" style="margin-bottom: 0; flex: 1;">
-        <label class="club-dashboard-form-label">Select Match</label>
-        <select class="club-dashboard-form-select">
-          <option>Warriors FC vs Eagles FC - Jul 09, 2025</option>
-          <option>Warriors FC vs Tigers XI - Jul 12, 2025</option>
-        </select>
-      </div>
-      <div class="club-dashboard-form-group" style="margin-bottom: 0; flex: 1;">
-        <label class="club-dashboard-form-label">Match Status</label>
-        <select class="club-dashboard-form-select">
-          <option>Live</option>
-          <option>Completed</option>
-          <option>Upcoming</option>
-        </select>
+  <section >
+    <h2 class="club-liveupdate-section-title club-liveupdate-live-title">Live Matches</h2>
+    <!-- Live Matches Section -->
+    <div class="club-liveupdate-section club-dashboard-live-sect">
+      <div class="club-liveupdate-live-match-card">
+        <div class="club-liveupdate-clubs">
+          <div class="club-liveupdate-club">
+            <img src="/images/avatar.png" alt="Club 1 Logo" class="club-liveupdate-logo">
+            <span>Supreme Surya</span>
+          </div>
+          <span class="club-liveupdate-vs">vs</span>
+          <div class="club-liveupdate-club">
+            <img src="/images/avatar.png" alt="Club 2 Logo" class="club-liveupdate-logo">
+            <span>Storm Strikers</span>
+          </div>
+        </div>
+        <div class="club-liveupdate-score-info">
+          <p class="club-liveupdate-score">SS: 128/3 (15.2)</p>
+          <div class="club-liveupdate-batting">
+            <strong>Batting:</strong>
+            <p>Rohit - 45(28), Aryan - 22(16)</p>
+          </div>
+          <div class="club-liveupdate-bowling">
+            <strong>Bowler:</strong>
+            <p>Kunal - 2/18 in 3.2 overs</p>
+          </div>
+        </div>
+        <a href="/update_score" class="club-liveupdate-btn">Update Score</a>
       </div>
     </div>
+  </section>
 
-    <div class="club-dashboard-score-inputs">
-      <div class="club-dashboard-team-score">
-        <div class="club-dashboard-team-name">Warriors FC</div>
-        <div class="club-dashboard-score-input-group">
-          <input type="number" class="club-dashboard-score-input" placeholder="Runs" value="165">
-          <input type="number" class="club-dashboard-score-input" placeholder="Wickets" value="4">
-          <input type="number" class="club-dashboard-score-input" placeholder="Overs" value="18.2">
+
+  <section>
+
+    <h2 class="club-liveupdate-section-title club-liveupdate-upcoming-title">Upcoming Matches</h2>
+    <!-- Upcoming Matches Section -->
+    <div class="club-liveupdate-section club-dashboard-upcoming-sect">
+      <div class="club-liveupdate-upcoming-match-card">
+        <div class="club-liveupdate-clubs-vertical">
+          <div class="club-liveupdate-club-vertical">
+            <img src="/images/avatar.png" alt="Club 3 Logo" class="club-liveupdate-logo">
+            <span>Blazing Blades</span>
+          </div>
+          <span class="club-liveupdate-vs">vs</span>
+          <div class="club-liveupdate-club-vertical">
+            <img src="/images/avatar.png" alt="Club 4 Logo" class="club-liveupdate-logo">
+            <span>Supreme Surya</span>
+          </div>
         </div>
-      </div>
-      <div class="club-dashboard-team-score">
-        <div class="club-dashboard-team-name">Eagles FC</div>
-        <div class="club-dashboard-score-input-group">
-          <input type="number" class="club-dashboard-score-input" placeholder="Runs" value="162">
-          <input type="number" class="club-dashboard-score-input" placeholder="Wickets" value="8">
-          <input type="number" class="club-dashboard-score-input" placeholder="Overs" value="20">
-        </div>
+        <p class="club-liveupdate-note">Remember to choose your players for this match!</p>
+        <a href="/match_setup" class="club-liveupdate-btn">Match Setup</a>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 
 <div id="club-dashboard-merchandise" class="club-dashboard-current">

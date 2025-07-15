@@ -1,33 +1,18 @@
-let favform = document.querySelector("#viewers-dashboard-fav-add-form");
-let favbtn = document.querySelectorAll(".viewers-dashboard-fav-add");
-let remform = document.querySelectorAll(".viewers-dashboard-fav-remove-form");
-let rembtn = document.querySelectorAll(".viewers-dashboard-fav-remove-trigger");
-let favcount = 0;
-let remcount =0;
-favbtn.forEach(em => {
-    em.addEventListener('click', () => {
-    favcount++;
-    
-    if (favcount % 2 === 1) {
-        favform.style.display = 'flex';
-    } else {
-        favform.style.display = 'none';
-    }
-});
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const favForm = document.querySelector("#viewers-dashboard-fav-add-form");
+  const favBtn = document.querySelectorAll(".viewers-dashboard-fav-add");
+  const remForm = document.querySelector("#viewers-dashboard-fav-remove-form");
+  const remBtn = document.querySelectorAll(".viewers-dashboard-fav-remove-trigger");
 
+  favBtn.forEach(btn => {
+    btn.addEventListener("click", () => {
+      favForm.style.display = favForm.style.display === "flex" ? "none" : "flex";
+    });
+  });
 
-rembtn.forEach(em => {
-    em.addEventListener('click', () => {
-    remcount++;
-    
-    if (remcount % 2 === 1) {
-        remform.style.display = 'flex';
-    } else {
-        remform.style.display = 'none';
-    }
+  remBtn.forEach(btn => {
+    btn.addEventListener("click", () => {
+      remForm.style.display = remForm.style.display === "flex" ? "none" : "flex";
+    });
+  });
 });
-});
-
-
-// upload.single('profile_picture')
