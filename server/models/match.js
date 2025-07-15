@@ -10,10 +10,6 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    league: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'League_DATA'
-    },
     challange_status: {
         type: String,
         default: 'pending',
@@ -34,7 +30,7 @@ const Match = new mongoose.Schema({
     },
     matchDate: Date,
     score: {
-        clubA: {
+        club1: {
             runs: {
                 type: Number,
                 default: 0
@@ -48,7 +44,7 @@ const Match = new mongoose.Schema({
                 default: 0
             }
         },
-        clubB: {
+        club2: {
             runs: {
                 type: Number,
                 default: 0
@@ -67,12 +63,32 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
+    stricker_score: {
+        runs: {
+            type: Number,
+            default: 0
+        },
+        balls: {
+            type: Number,
+            default: 0
+        }
+    },
     nonstricker: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
-    bowler:{
-         type: mongoose.Schema.Types.ObjectId,
+     nonstricker_score: {
+        runs: {
+            type: Number,
+            default: 0
+        },
+        balls: {
+            type: Number,
+            default: 0
+        }
+    },
+    bowler: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
     prize: {
@@ -94,23 +110,22 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    toss_choice:{
-        type:String,
-        enum:['Bat','Bowl']
+    toss_choice: {
+        type: String,
+        enum: ['Bat', 'Bowl']
     },
-    innings:{
-        type:Number,
-        enum:[1,2]
+    innings: {
+        type: Number,
+        enum: [1, 2]
     },
-    // events: [{
-    //     time: String,
-    //     player: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Player_DATA'
-    //     },
-    //     description: String,
-    //     type: String
-    // }],
+    current_batting: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Club_DATA'
+    },
+    setup: {
+        type: Boolean,
+        default : false
+    },
     playerStats: [{
         playerId: {
             type: mongoose.Schema.Types.ObjectId,

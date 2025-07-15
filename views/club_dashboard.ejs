@@ -383,36 +383,72 @@
   </div>
 
 
-  <section >
+  <section>
     <h2 class="club-liveupdate-section-title club-liveupdate-live-title">Live Matches</h2>
     <!-- Live Matches Section -->
-    <div class="club-liveupdate-section club-dashboard-live-sect">
-      <div class="club-liveupdate-live-match-card">
-        <div class="club-liveupdate-clubs">
-          <div class="club-liveupdate-club">
-            <img src="/images/avatar.png" alt="Club 1 Logo" class="club-liveupdate-logo">
-            <span>Supreme Surya</span>
-          </div>
-          <span class="club-liveupdate-vs">vs</span>
-          <div class="club-liveupdate-club">
-            <img src="/images/avatar.png" alt="Club 2 Logo" class="club-liveupdate-logo">
-            <span>Storm Strikers</span>
+    <% if (live_matches) { %>
+      <% live_matches.forEach(match=> { %>
+        <div class="club-liveupdate-section club-dashboard-live-sect">
+          <div class="club-liveupdate-live-match-card">
+            <div class="club-liveupdate-clubs">
+              <div class="club-liveupdate-club">
+                <img src="<%= match.matchId.club1.logo|| '/images/avatar.png' %> " alt="Club 1 Logo"
+                  class="club-liveupdate-logo">
+                <span>
+                  <%= match.matchId.club1.name %>
+                </span>
+              </div>
+              <span class="club-liveupdate-vs">vs</span>
+              <div class="club-liveupdate-club">
+                <img src="<%= match.club2.logo|| '/images/avatar.png' %>" alt="Club 2 Logo"
+                  class="club-liveupdate-logo">
+                <span>
+                  <%= match.matchId.club2.name %>
+                </span>
+              </div>
+            </div>
+            <div class="club-liveupdate-score-info">
+              <p class="club-liveupdate-score">
+                <%= match.matchId.current_batting.name %>:
+                  <% if (match.matchId.current_batting._id===match.matchId.club1._id) { %>
+                    <%= match.matchId.score.club1.runs %>/<%= match.matchId.score.club1.wickets %> (<%= match.matchId.score.club1.overs %>)
+                          <% } else { %>
+                            <%= match.matchId.score.club2.runs %>/<%= match.matchId.score.club2.wickets %> (<%= match.matchId.score.club2.overs
+                                  %>)
+                                  <% } %>
+              </p>
+              <div class="club-liveupdate-batting">
+                <strong>Batting:</strong>
+                <p>
+                  <%= match.matchId.stricker.name %> - <%= match.matchId.stricker_score.runs %>(<%= match.matchId.stricker_score.balls %>), <%=
+                          match.matchId.nonstricker.name %> - <%= match.matchId.nonstricker_score.runs %>(<%=
+                              match.matchId.nonstricker_score.balls %>)
+                </p>
+              </div>
+              <div class="club-liveupdate-bowling">
+                <strong>Bowler:</strong>
+                <p>
+                  <%= match.matchId.bowler.name %>
+                    <% match.matchId.playerStats.forEach(plauer=> { %>
+                      <% if (player.matchId.playerId===match.matchId.bowler._id) { %>
+                        - <%= player.matchId.bowling.wickets %>/<%= player.matchId.bowling.runs %> in <%= player.matchId.bowling.overs %> overs
+                </p>
+                <% } %>
+                  <% }) %>
+
+              </div>
+            </div>
+            <a href="/match/update_score" class="club-liveupdate-btn">Update Score</a>
           </div>
         </div>
-        <div class="club-liveupdate-score-info">
-          <p class="club-liveupdate-score">SS: 128/3 (15.2)</p>
-          <div class="club-liveupdate-batting">
-            <strong>Batting:</strong>
-            <p>Rohit - 45(28), Aryan - 22(16)</p>
-          </div>
-          <div class="club-liveupdate-bowling">
-            <strong>Bowler:</strong>
-            <p>Kunal - 2/18 in 3.2 overs</p>
-          </div>
-        </div>
-        <a href="/update_score" class="club-liveupdate-btn">Update Score</a>
-      </div>
-    </div>
+        <% }) %>
+          <% } else { %>
+            <div class=" club-dashboard-live-sect" id="club-dashboard-no-live-row">
+              🚫 No live matches currently.
+            </div>
+
+            <% } %>
+
   </section>
 
 
@@ -420,23 +456,39 @@
 
     <h2 class="club-liveupdate-section-title club-liveupdate-upcoming-title">Upcoming Matches</h2>
     <!-- Upcoming Matches Section -->
-    <div class="club-liveupdate-section club-dashboard-upcoming-sect">
+   <% if (upcoming_matches) { %>
+      <% upcoming_matches.forEach(match => { %>
+      <div class="club-liveupdate-section club-dashboard-upcoming-sect">
       <div class="club-liveupdate-upcoming-match-card">
         <div class="club-liveupdate-clubs-vertical">
           <div class="club-liveupdate-club-vertical">
-            <img src="/images/avatar.png" alt="Club 3 Logo" class="club-liveupdate-logo">
-            <span>Blazing Blades</span>
+            <img src="<%=  match.matchId.club1.logo || '/images/avatar.png' %>" alt="Club 3 Logo" class="club-liveupdate-logo">
+            <span><%= match.matchId.club1.name   %></span>
           </div>
           <span class="club-liveupdate-vs">vs</span>
           <div class="club-liveupdate-club-vertical">
-            <img src="/images/avatar.png" alt="Club 4 Logo" class="club-liveupdate-logo">
-            <span>Supreme Surya</span>
+            <img src="<%=  match.matchId.club2.logo || '/images/avatar.png' %>" alt="Club 4 Logo" class="club-liveupdate-logo">
+            <span><%=  match.matchId.club2.name %></span>
           </div>
         </div>
-        <p class="club-liveupdate-note">Remember to choose your players for this match!</p>
-        <a href="/match_setup" class="club-liveupdate-btn">Match Setup</a>
+        <% if (!match.matchId.setup) { %>
+         <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
+          <a href="/match/match_setup" class="club-liveupdate-btn">Match Setup</a>
+
+          <% } else { %>
+            <p class="club-liveupdate-note">if You Want to Edit it</p>
+          <a href="/match/match_setup" class="club-liveupdate-btn">Match Setup</a>
+        <% } %>
+       
       </div>
     </div>
+     <% }) %>
+     <% } else { %>
+     <div class="club-dashboard-upcoming-message-row club-dashboard-upcoming-sect" id="club-dashboard-no-upcoming-row">
+    🕒 No upcoming matches scheduled.
+  </div>
+   <% } %>
+    
   </section>
 </div>
 

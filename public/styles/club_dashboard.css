@@ -1574,3 +1574,30 @@
 .club-dashboard-upcoming-sect{
 display: none;
 }
+
+
+#club-dashboard-no-live-row {
+  background-color: #fef08a; /* light yellow */
+  color: #92400e; /* dark amber text */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  /* width: 90vw; */
+  text-align: center;
+  border: 1px solid #facc15; /* yellow border */
+  margin: 1rem 1em;
+   margin-bottom: 40px;
+}
+
+#club-dashboard-no-upcoming-row {
+  background-color: #fef08a; /* light yellow */
+  color: #92400e; /* dark amber */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #facc15;
+  margin: 1rem 0;
+}

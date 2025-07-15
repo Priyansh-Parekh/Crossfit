@@ -100,8 +100,24 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('match_won');
     await club.populate('match_lose');
     await club.populate('match_played.matchId');
-    await club.populate('match_played.matchId.club1');
-    await club.populate('match_played.matchId.club2');
+    await club.populate([
+        {
+            path: 'match_played.matchId',
+            populate: [
+                { path: 'club1' },
+                { path: 'club2' },
+                { path: 'stricker' },
+                { path: 'nonstricker' },
+                { path: 'bowler' },
+                { path: 'winner' },
+                { path: 'man_of_match' },
+                { path: 'toss_winner' },
+                { path: 'current_batting' },
+                { path: 'playerStats.playerId' },
+                { path: 'playerStats.clubId' },
+            ]
+        }
+    ]);
     await club.populate('players');
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
@@ -110,6 +126,25 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('batsman');
 };
 
+const match_populate = async (match) => {
+    return await matches.populate(match, [
+        { path: 'club1' },
+        { path: 'club2' },
+        { path: 'winner' },
+        { path: 'toss_winner' },
+        { path: 'current_batting' },
+        { path: 'stricker' },
+        { path: 'nonstricker' },
+        { path: 'bowler' },
+        { path: 'man_of_match' },
+        {
+            path: 'playerStats.playerId',
+        },
+        {
+            path: 'playerStats.clubId',
+        }
+    ]);
+};
 
 
 // Dashboard club Page
@@ -117,36 +152,66 @@ route.get('/clubs', login, datas, async (req, res) => {
     try {
         let user = req.user;
         let clubs = req.data.clubs
+        let challange_recived;
+        let challange_given;
+        let live_matches;
+        let upcoming_matches;
         if (user.user_type === 'club') {
             await populate_cricket_club_data(user); // Populates matchId data
 
             if (user.match_played.length > 0 && user.match_played) {
-                // Check if match.club1/club2 is populated
-                let challange_recived = user.match_played.filter(match =>
+                live_matches = user.match_played.filter(match =>
                     match.matchId &&
+                    !match.matchId.played &&
+                    match.matchId.status === 'live'
+                );
+                upcoming_matches = user.match_played.filter(match =>
+                    match.matchId &&
+                    !match.matchId.played &&
+                    match.matchId.status === 'upcoming'
+                );
+
+                for (const match of live_matches) {
+                    await match_populate(match);
+                }
+
+                for (const match of upcoming_matches) {
+                    await match_populate(match);
+                }
+            } else {
+                live_matches = false;
+                upcoming_matches = false;
+            }
+
+            if (user.match_played.length > 0 && user.match_played) {
+                // Check if match.club1/club2 is populated
+                challange_recived = user.match_played.filter(match =>
+                    match.matchId &&
+                    !match.matchId.played &&
                     match.matchId.club2 &&
                     match.matchId.club2.name === user.name
                 );
 
-                let challange_given = user.match_played.filter(match =>
+                challange_given = user.match_played.filter(match =>
                     match.matchId &&
+                    !match.matchId.played &&
                     match.matchId.club1 &&
                     match.matchId.club1.name === user.name
                 );
-                return res.render("club_dashboard", {
-                    user,
-                    challange_recived,
-                    challange_given,
-                    clubs
-                });
+
             } else {
-                return res.render("club_dashboard", {
-                    user,
-                    challange_recived: false,
-                    challange_given: false,
-                    clubs
-                });
+                challange_recived = false;
+                challange_given = false;
+
             }
+            return res.render("club_dashboard", {
+                user,
+                challange_recived,
+                challange_given,
+                clubs,
+                live_matches,
+                upcoming_matches
+            });
 
 
         }
@@ -202,7 +267,7 @@ route.post('/clubs/change_logo', login, upload.single('club_logo'), async (req, 
     }
 })
 
-route.post('/clubs/create_challeage', login, async (req, res) => {
+route.post('/clubs/create_challange', login, async (req, res) => {
     try {
         let user = req.user;
         let { club2, prize, venue, matchDate, match_type } = req.body;
@@ -233,77 +298,77 @@ route.post('/clubs/create_challeage', login, async (req, res) => {
     }
 })
 
-route.post('/clubs/challange_accept',login,async (req,res)=>{
-  try {
-      let match_id = req.body.match_id;
-    let match = await matches.findOne({_id:match_id});
-    match.challange_status = 'accepted';
-    await match.save();
-    res.redirect('/dashboard/clubs');
-  } catch (error) {
-      console.log(error);
+route.post('/clubs/challange_accept', login, async (req, res) => {
+    try {
+        let match_id = req.body.match_id;
+        let match = await matches.findOne({ _id: match_id });
+        match.challange_status = 'accepted';
+        await match.save();
+        res.redirect('/dashboard/clubs');
+    } catch (error) {
+        console.log(error);
         res.status(500).send("Error changing status ");
-  }
+    }
 })
 
-route.post('/clubs/challange_reject',login,async (req,res)=>{
-  try {
-      let match_id = req.body.match_id;
-      
-    console.log(match_id);
-      match_id = new mongoose.Types.ObjectId(match_id);
-    let match = await matches.findOne({_id:match_id});
-    match.challange_status = 'rejected';
-    await match.save();
-    res.redirect('/dashboard/clubs');
-  } catch (error) {
-      console.log(error);
+route.post('/clubs/challange_reject', login, async (req, res) => {
+    try {
+        let match_id = req.body.match_id;
+
+        console.log(match_id);
+        match_id = new mongoose.Types.ObjectId(match_id);
+        let match = await matches.findOne({ _id: match_id });
+        match.challange_status = 'rejected';
+        await match.save();
+        res.redirect('/dashboard/clubs');
+    } catch (error) {
+        console.log(error);
         res.status(500).send("Error changing status ");
-  }
+    }
 })
 
-route.post('/clubs/add_player',login,upload.single('profile_picture'), async (req,res)=>{
-  try {
-      let user =  req.user;
-         const imagePath = req.file.path;
+route.post('/clubs/add_player', login, upload.single('profile_picture'), async (req, res) => {
+    try {
+        let user = req.user;
+        const imagePath = req.file.path;
         // Read and convert to Base64
         const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
         const mimeType = req.file.mimetype; // e.g., 'image/png'
         const dataURI = `data:${mimeType};base64,${base64Image}`;
 
-      let {name,age,batting_style,total_runs,type,total_balls,bowling_style,wickets,overs_deliverd,runs_given,jersey_number}= req.body;
-      age = Number(age);
-      total_runs = Number(total_runs);
-      total_balls = Number(total_balls);
-      wickets = Number(wickets);
-      overs_deliverd = Number(overs_deliverd);
-      runs_given = Number(runs_given);
-      jersey_number = Number(jersey_number);
-      let SR = total_runs/total_balls;
-      let economy = runs_given/overs_deliverd;
-      let player = await players.create({name,age,batting_style,total_runs,total_balls,SR,economy,type,bowling_style,wickets,overs_deliverd,runs_given,jersey_number,profile_picture:dataURI})
-       await  user.players.push(player._id)
-       await user.save()
-      res.redirect('/dashboard/clubs');
-  } catch (error) {
-      console.log(error);
+        let { name, age, batting_style, total_runs, type, total_balls, bowling_style, wickets, overs_deliverd, runs_given, jersey_number } = req.body;
+        age = Number(age);
+        total_runs = Number(total_runs);
+        total_balls = Number(total_balls);
+        wickets = Number(wickets);
+        overs_deliverd = Number(overs_deliverd);
+        runs_given = Number(runs_given);
+        jersey_number = Number(jersey_number);
+        let SR = total_runs / total_balls;
+        let economy = runs_given / overs_deliverd;
+        let player = await players.create({ name, age, batting_style, total_runs, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
+        await user.players.push(player._id)
+        await user.save()
+        res.redirect('/dashboard/clubs');
+    } catch (error) {
+        console.log(error);
         res.status(500).send("Error Adding Player ");
-  }
+    }
 })
 
-route.post('/clubs/fire_player',login, async (req,res)=>{
-  try {
-      let user =  req.user;
-      let player_id = req.body.player_id
-      player_id = new mongoose.Types.ObjectId(player_id)
-      let player = await players.findByIdAndDelete(player_id);
-      await user.players.pull({_id:player_id});
-      await user.save();
-      res.redirect('/dashboard/clubs');
-  } catch (error) {
-      console.log(error);
+route.post('/clubs/fire_player', login, async (req, res) => {
+    try {
+        let user = req.user;
+        let player_id = req.body.player_id
+        player_id = new mongoose.Types.ObjectId(player_id)
+        let player = await players.findByIdAndDelete(player_id);
+        await user.players.pull({ _id: player_id });
+        await user.save();
+        res.redirect('/dashboard/clubs');
+    } catch (error) {
+        console.log(error);
         res.status(500).send("Error Firing Player ");
-  }
+    }
 })
 
 
@@ -388,7 +453,7 @@ route.post('/viewer/status', login, async (req, res) => {
 route.post('/viewer/add_profile_picture', login, upload.single('profile_picture'), async (req, res) => {
     try {
         let user = req.user;
-      if(req.file){
+        if (req.file) {
             const imagePath = req.file.path;
             // Read and convert to Base64
             const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
