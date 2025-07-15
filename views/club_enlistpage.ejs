@@ -47,7 +47,13 @@
                             <div>Players</div>
                         </div>
                         <div class="club-enlistpage-stat-item">
-                            <div class="club-enlistpage-stat-number"><%= club.match_played.length %></div>
+                            <% let match_length = 0 %>
+                            <% club.match_played.forEach(match => { %>
+                             <% if (match.played === true) { %>
+                              <% match_length++; %>
+                             <% } %>
+                            <% }) %>
+                            <div class="club-enlistpage-stat-number"><%= match_length%></div>
                             <div>Matches</div>
                         </div>
                         <div class="club-enlistpage-stat-item">

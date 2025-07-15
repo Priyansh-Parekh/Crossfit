@@ -92,6 +92,10 @@ const Club = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     }],
+    all_rounders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player_DATA'
+    }],
     batsman: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA' 

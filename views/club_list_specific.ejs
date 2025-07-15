@@ -1,143 +1,205 @@
- <main class="club-list-info-main">
-   <% if (club.sport==="cricket") { %>
-   <section class="club-list-info-hero">
-     <div class="club-list-info-hero-content">
-      <% if (club.logo===null) { %>
-        <img src="/images/avatar.png" alt="Club Logo" class="club-list-info-logo">
-      <% }else{ %>
-         <img src="<%= club.logo %>" alt="Club Logo" class="club-list-info-logo">
-         <% } %>
-       <div class="club-list-info-basic">
-         <h1 class="club-list-info-name"><%= club.name %></h1>
-         <p class="club-list-info-founded">🏏 Founded in <%= club.founded_year %></p>
-         <p class="club-list-info-bio"><%= club.bio %></p>
-         <span class="club-list-info-status <%= club.status %>"><%= club.status %></span>
-       </div>
-     </div>
-   </section>
+<main class="club-list-info-main">
+  <% if (club.sport==="cricket" ) { %>
+    <section class="club-list-info-hero">
+      <div class="club-list-info-hero-content">
+        <% if (club.logo===null) { %>
+          <img src="/images/avatar.png" alt="Club Logo" class="club-list-info-logo">
+          <% }else{ %>
+            <img src="<%= club.logo %>" alt="Club Logo" class="club-list-info-logo">
+            <% } %>
+              <div class="club-list-info-basic">
+                <h1 class="club-list-info-name">
+                  <%= club.name %>
+                </h1>
+                <p class="club-list-info-founded">🏏 Founded in <%= club.founded_year %>
+                </p>
+                <p class="club-list-info-bio">
+                  <%= club.bio %>
+                </p>
+                <span class="club-list-info-status <%= club.status %>">
+                  <%= club.status %>
+                </span>
+              </div>
+      </div>
+    </section>
 
-   <!-- Statistics Section -->
-   <section class="club-list-info-stats">
-     <div class="club-list-info-stat-card">
-       <div class="club-list-info-stat-icon">🏆</div>
-       <div class="club-list-info-stat-number"><%= club.match_won.length %></div>
-       <div class="club-list-info-stat-label">Matches Won</div>
-     </div>
-     <div class="club-list-info-stat-card">
-       <div class="club-list-info-stat-icon">💔</div>
-       <div class="club-list-info-stat-number"><%= club.match_lose.length %></div>
-       <div class="club-list-info-stat-label">Matches Lost</div>
-     </div>
-     <div class="club-list-info-stat-card">
-       <div class="club-list-info-stat-icon">🎯</div>
-       <div class="club-list-info-stat-number"><%= club.match_played.length %></div>
-       <div class="club-list-info-stat-label">Total Matches</div>
-     </div>
-     <div class="club-list-info-stat-card">
-       <div class="club-list-info-stat-icon">👥</div>
-       <div class="club-list-info-stat-number"><%= club.players.length %></div>
-       <div class="club-list-info-stat-label">Total Players</div>
-     </div>
-   </section>
+    <!-- Statistics Section -->
+    <section class="club-list-info-stats">
+      <div class="club-list-info-stat-card">
+        <div class="club-list-info-stat-icon">🏆</div>
+        <div class="club-list-info-stat-number">
+          <%= club.match_won.length %>
+        </div>
+        <div class="club-list-info-stat-label">Matches Won</div>
+      </div>
+      <div class="club-list-info-stat-card">
+        <div class="club-list-info-stat-icon">💔</div>
+        <div class="club-list-info-stat-number">
+          <%= club.match_lose.length %>
+        </div>
+        <div class="club-list-info-stat-label">Matches Lost</div>
+      </div>
+      <div class="club-list-info-stat-card">
+        <% let match_length=0 %>
+          <% club.match_played.forEach(match=> { %>
+            <% if (match.played===true) { %>
+              <% match_length++; %>
+                <% } %>
+                  <% }) %>
+                    <div class="club-list-info-stat-icon">🎯</div>
+                    <div class="club-list-info-stat-number">
+                      <%= match_length %>
+                    </div>
+                    <div class="club-list-info-stat-label">Total Matches</div>
+      </div>
+      <div class="club-list-info-stat-card">
+        <div class="club-list-info-stat-icon">👥</div>
+        <div class="club-list-info-stat-number">
+          <%= club.players.length %>
+        </div>
+        <div class="club-list-info-stat-label">Total Players</div>
+      </div>
+    </section>
 
-   <!-- Team Composition Section -->
-   <section class="club-list-info-team">
-     <h2 class="club-list-info-team-title">Team Leadership</h2>
+    <!-- Team Composition Section -->
+    <section class="club-list-info-team">
+      <h2 class="club-list-info-team-title">Team Leadership</h2>
 
-     <div class="club-list-info-leadership">
-       <div class="club-list-info-leader-card">
-         <div class="club-list-info-leader-icon">👑</div>
-         <div class="club-list-info-leader-role">Captain</div>
-         <% if (club.captain===undefined) { %>
-         <div class="club-list-info-leader-name">Not Assigned</div>
-         <% }else{ %>
-         <div class="club-list-info-leader-name"><%= club.captain.name %></div>
-         <% } %>
-       </div>
-       <div class="club-list-info-leader-card">
-         <div class="club-list-info-leader-icon">🥈</div>
-         <div class="club-list-info-leader-role">Vice Captain</div>
-         <% if (club.vice_captain===undefined) { %>
-         <div class="club-list-info-leader-name">Not Assigned</div>
-         <% }else{ %>
-         <div class="club-list-info-leader-name"><%= club.vice_captain.name %></div>
-         <% } %>
-       </div>
-       <div class="club-list-info-leader-card">
-         <div class="club-list-info-leader-icon">🧤</div>
-         <div class="club-list-info-leader-role">Wicket Keeper</div>
-         <% if (club.wicket_keeper===undefined) { %>
-         <div class="club-list-info-leader-name">Not Assigned</div>
-         <% }else{ %>
-         <div class="club-list-info-leader-name"><%= club.wicket_keeper.name %></div>
-         <% } %>
-       </div>
-     </div>
+      <div class="club-list-info-leadership">
+        <div class="club-list-info-leader-card">
+          <div class="club-list-info-leader-icon">👑</div>
+          <div class="club-list-info-leader-role">Captain</div>
+          <% if (club.captain===undefined) { %>
+            <div class="club-list-info-leader-name">Not Assigned</div>
+            <% }else{ %>
+              <div class="club-list-info-leader-name">
+                <%= club.captain.name %>
+              </div>
+              <% } %>
+        </div>
+        <div class="club-list-info-leader-card">
+          <div class="club-list-info-leader-icon">🥈</div>
+          <div class="club-list-info-leader-role">Vice Captain</div>
+          <% if (club.vice_captain===undefined) { %>
+            <div class="club-list-info-leader-name">Not Assigned</div>
+            <% }else{ %>
+              <div class="club-list-info-leader-name">
+                <%= club.vice_captain.name %>
+              </div>
+              <% } %>
+        </div>
+        <div class="club-list-info-leader-card">
+          <div class="club-list-info-leader-icon">🧤</div>
+          <div class="club-list-info-leader-role">Wicket Keeper</div>
+          <% if (club.wicket_keeper===undefined) { %>
+            <div class="club-list-info-leader-name">Not Assigned</div>
+            <% }else{ %>
+              <div class="club-list-info-leader-name">
+                <%= club.wicket_keeper.name %>
+              </div>
+              <% } %>
+        </div>
+      </div>
 
-     <div class="club-list-info-players">
-       <div class="club-list-info-player-group">
-         <h3 class="club-list-info-player-group-title">
-           🏏 Batsmen
-           <% if(club.batsman.length===0){ %>
-           <span class="club-list-info-player-count">0</span>
-           <% }else{ %>
-           <span class="club-list-info-player-count"><%= club.batsman.length %></span>
-           <% } %>
-         </h3>
-         <div class="club-list-info-player-list">
-           %>
-           <% if(club.batsman.length===0){ %>
-           <span class="club-list-info-player-tag">Not Assigned</span>
-           <% }else{ %>
-           <% club.batsman.forEach(batsman => { %>
-           <span class="club-list-info-player-tag"><%= batsman.name %></span>
-           <% }) %>
-           <% } %>
-         </div>
-       </div>
+      <div class="club-list-info-players">
+        <div class="club-list-info-player-group">
+          <h3 class="club-list-info-player-group-title">
+            🏏 Batsmen
+            <% if(club.batsman.length===0){ %>
+              <span class="club-list-info-player-count">0</span>
+              <% }else{ %>
+                <span class="club-list-info-player-count">
+                  <%= club.batsman.length %>
+                </span>
+                <% } %>
+          </h3>
+          <div class="club-list-info-player-list">
+            
+            <% if(club.batsman.length===0){ %>
+              <span class="club-list-info-player-tag">Not Assigned</span>
+              <% }else{ %>
+                <% club.batsman.forEach(batsman=> { %>
+                  <span class="club-list-info-player-tag">
+                    <%= batsman.name %>
+                  </span>
+                  <% }) %>
+                    <% } %>
+          </div>
+        </div>
 
-       <div class="club-list-info-player-group">
-         <h3 class="club-list-info-player-group-title">
-           ⚡ Bowlers
-           <% if(club.bowlers.length===0){ %>
-           <span class="club-list-info-player-count">0</span>
-           <% }else{ %>
-           <span class="club-list-info-player-count"><%= club.bowlers.length %></span>
-           <% } %>
-         </h3>
-         <div class="club-list-info-player-list">
-           <% if(club.bowlers.length===0){ %>
-           <span class="club-list-info-player-tag">Not Assigned</span>
-           <% }else{ %>
-           <% club.bowlers.forEach(bowler => { %>
-           <span class="club-list-info-player-tag"><%= bowler.name %></span>
-           <% }) %>
-           <% } %>
-         </div>
-       </div>
-     </div>
-   </section>
+        <div class="club-list-info-player-group">
+          <h3 class="club-list-info-player-group-title">
+             ⚡ All Rounder
+            <% if(club.all_rounders.length===0){ %>
+              <span class="club-list-info-player-count">0</span>
+              <% }else{ %>
+                <span class="club-list-info-player-count">
+                  <%= club.all_rounders.length %>
+                </span>
+                <% } %>
+          </h3>
+          <div class="club-list-info-player-list">
+          
+            <% if(club.all_rounders.length===0){ %>
+              <span class="club-list-info-player-tag">Not Assigned</span>
+              <% }else{ %>
+                <% club.all_rounders.forEach(all_rounder=> { %>
+                  <span class="club-list-info-player-tag">
+                    <%= all_rounder.name %>
+                  </span>
+                  <% }) %>
+                    <% } %>
+          </div>
+        </div>
 
-   <!-- Contact Information -->
-   <section class="club-list-info-contact">
-     <h2 class="club-list-info-contact-title">Contact Information</h2>
-     <div class="club-list-info-contact-grid">
-       <div class="club-list-info-contact-item">
-         <div class="club-list-info-contact-icon">📧</div>
-         <div class="club-list-info-contact-info">
-           <div class="club-list-info-contact-label">Email</div>
-           <div class="club-list-info-contact-value"><%= club.email %></div>
-         </div>
-       </div>
-       <div class="club-list-info-contact-item">
-         <div class="club-list-info-contact-icon">🏏</div>
-         <div class="club-list-info-contact-info">
-           <div class="club-list-info-contact-label">Sport</div>
-           <div class="club-list-info-contact-value">Cricket</div>
-         </div>
-       </div>
-     </div>
-   </section>
-   <% } %>
+        <div class="club-list-info-player-group">
+          <h3 class="club-list-info-player-group-title">
+            🥎 Bowlers
+            <% if(club.bowlers.length === 0){ %>
+              <span class="club-list-info-player-count">0</span>
+              <% }else{ %>
+                <span class="club-list-info-player-count">
+                  <%= club.bowlers.length %>
+                </span>
+                <% } %>
+          </h3>
+          <div class="club-list-info-player-list">
+            <% if(club.bowlers.length === 0){ %>
+              <span class="club-list-info-player-tag">Not Assigned</span>
+              <% }else{ %>
+                <% club.bowlers.forEach(bowler=> { %>
+                  <span class="club-list-info-player-tag">
+                    <%= bowler.name %>
+                  </span>
+                  <% }) %>
+                    <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
 
- </main>
+    <!-- Contact Information -->
+    <section class="club-list-info-contact">
+      <h2 class="club-list-info-contact-title">Contact Information</h2>
+      <div class="club-list-info-contact-grid">
+        <div class="club-list-info-contact-item">
+          <div class="club-list-info-contact-icon">📧</div>
+          <div class="club-list-info-contact-info">
+            <div class="club-list-info-contact-label">Email</div>
+            <div class="club-list-info-contact-value">
+              <%= club.email %>
+            </div>
+          </div>
+        </div>
+        <div class="club-list-info-contact-item">
+          <div class="club-list-info-contact-icon">🏏</div>
+          <div class="club-list-info-contact-info">
+            <div class="club-list-info-contact-label">Sport</div>
+            <div class="club-list-info-contact-value">Cricket</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <% } %>
+
+</main>

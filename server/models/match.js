@@ -14,10 +14,10 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'League_DATA'
     },
-    challange_status:{
-        type:String,
+    challange_status: {
+        type: String,
         default: 'pending',
-        enum:['accepted','pending','rejected']
+        enum: ['accepted', 'pending', 'rejected']
     },
     venue: {
         type: String,
@@ -63,16 +63,28 @@ const Match = new mongoose.Schema({
             }
         }
     },
-    prize:{
-        type:Number
+    stricker: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player_DATA'
+    },
+    nonstricker: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player_DATA'
+    },
+    bowler:{
+         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player_DATA'
+    },
+    prize: {
+        type: Number
     },
     winner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    result:{
+    result: {
         type: String,
-        enum : ['Won','Lose']
+        enum: ['Won', 'Lose']
     },
     man_of_match: {
         type: mongoose.Schema.Types.ObjectId,
@@ -82,15 +94,23 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    events: [{
-        time: String,
-        player: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Player_DATA'
-        },
-        description: String,
-        type: String
-    }],
+    toss_choice:{
+        type:String,
+        enum:['Bat','Bowl']
+    },
+    innings:{
+        type:Number,
+        enum:[1,2]
+    },
+    // events: [{
+    //     time: String,
+    //     player: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'Player_DATA'
+    //     },
+    //     description: String,
+    //     type: String
+    // }],
     playerStats: [{
         playerId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -119,4 +139,4 @@ const Match = new mongoose.Schema({
 });
 
 
-module.exports= mongoose.model('Match_DATA',Match,'Match_DATA');
+module.exports = mongoose.model('Match_DATA', Match, 'Match_DATA');

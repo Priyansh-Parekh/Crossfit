@@ -17,7 +17,7 @@ const Player = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['Batsman', 'Bowler', 'Wicket_Keeper', 'All_Rounder']
+        enum: ['batsman', 'bowler', 'wicket_keeper', 'all_Rounder']
     },
     age: Number,
     batting_style: {
