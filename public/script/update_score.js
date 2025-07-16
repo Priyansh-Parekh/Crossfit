@@ -35,3 +35,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const strikerSelect = document.getElementById("match-live-update-striker");
+    const nonStrikerSelect = document.getElementById("match-live-update-non-striker");
+
+    function updateNonStrikerOptions() {
+        const strikerValue = strikerSelect.value;
+        [...nonStrikerSelect.options].forEach(option => {
+            option.disabled = option.value && option.value === strikerValue;
+        });
+    }
+
+    function updateStrikerOptions() {
+        const nonStrikerValue = nonStrikerSelect.value;
+        [...strikerSelect.options].forEach(option => {
+            option.disabled = option.value && option.value === nonStrikerValue;
+        });
+    }
+
+    strikerSelect.addEventListener("change", () => {
+        updateNonStrikerOptions();
+    });
+
+    nonStrikerSelect.addEventListener("change", () => {
+        updateStrikerOptions();
+    });
+
+    // Initial setup in case of pre-filled values
+    updateStrikerOptions();
+    updateNonStrikerOptions();
+});

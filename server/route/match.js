@@ -149,7 +149,7 @@ const match_populate = async (match) => {
 
 
 
-route.get('/match_setup/:_id',login,async (req,res)=>{
+route.get('/match_setup/:_id', login, async (req, res) => {
 
     try {
         let user = req.user;
@@ -157,7 +157,7 @@ route.get('/match_setup/:_id',login,async (req,res)=>{
         let match_id = req.params._id;
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch)
-        res.render('match_setup',{user,thismatch})
+        res.render('match_setup', { user, thismatch })
 
     } catch (error) {
         console.log(error);
@@ -166,70 +166,77 @@ route.get('/match_setup/:_id',login,async (req,res)=>{
 
 })
 
-route.post('/submit_setup/:_id',login,async(req,res)=>{
+route.post('/submit_setup/:_id', login, async (req, res) => {
     try {
         let user = req.user;
         let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
         let thismatch = await matches.findById(match_id);
-             await match_populate(thismatch)
-        let {captain,vice_captain,wicket_keeper,other_players,extra_players,toss_winner,toss_choice} = req.body;
-        if(thismatch.club1.name === user.name){
-            thismatch.setup_club1= true;
+        await match_populate(thismatch)
+        let { captain, vice_captain, wicket_keeper, other_players, extra_players, toss_winner, toss_choice } = req.body;
+        if (thismatch.club1.name === user.name) {
+            thismatch.setup_club1 = true;
             thismatch.club1_leaders = {
-                captain,vice_captain,wicket_keeper
+                captain, vice_captain, wicket_keeper
             }
-        }else{
-            thismatch.setup_club2= true;
+        } else {
+            thismatch.setup_club2 = true;
             thismatch.club2_leaders = {
-                captain,vice_captain,wicket_keeper
+                captain, vice_captain, wicket_keeper
             }
         }
         other_players.forEach(player_id => {
             thismatch.playerStats.push({
-                playerId : player_id
+                playerId: player_id
             });
         });
-          extra_players.forEach(player_id => {
+        extra_players.forEach(player_id => {
             thismatch.playerStats.push({
-                playerId : player_id
+                playerId: player_id
             });
         });
         thismatch.toss_winner = toss_winner;
         thismatch.toss_choice = toss_choice;
         thismatch.playerStats.push({
-            playerId : captain
+            playerId: captain
         })
-         thismatch.playerStats.push({
-            playerId : vice_captain
+        thismatch.playerStats.push({
+            playerId: vice_captain
         })
-         thismatch.playerStats.push({
-            playerId : wicket_keeper
+        thismatch.playerStats.push({
+            playerId: wicket_keeper
         })
-        if(toss_choice==='Bat'){
+        if (toss_choice === 'Bat') {
             thismatch.current_batting = toss_winner
-        }else{
-            if(toss_winner === thismatch.club1._id){
+        } else {
+            if (toss_winner === thismatch.club1._id) {
                 thismatch.current_batting = thismatch.club2._id;
-            }else{
-                  thismatch.current_batting = thismatch.club1._id;
+            } else {
+                thismatch.current_batting = thismatch.club1._id;
             }
         }
         await thismatch.save();
 
         res.redirect('/dashboard/clubs')
-        
+
     } catch (error) {
-        
+
     }
 })
 
 
-route.get('/update_score',login,async(req,res)=>{
+route.get('/update_score/:_id', login, async (req, res) => {
     try {
         let user = req.user;
-        res.render('update_score',{user})
-    } catch (error) {
+         await populate_cricket_club_data(user);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch)
         
+        res.render('update_score', { user,thismatch })
+    } catch (error) {
+
     }
 })
 

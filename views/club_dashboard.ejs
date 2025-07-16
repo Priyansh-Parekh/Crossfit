@@ -442,7 +442,7 @@
 
               </div>
             </div>
-            <a href="/match/update_score" class="club-liveupdate-btn">Update Score</a>
+            <a href="/match/update_score/<%= match.matchId._id %>" class="club-liveupdate-btn">Update Score</a>
           </div>
         </div>
         <% }) %>
@@ -481,7 +481,7 @@
           <% } else { %>
             <p class="club-liveupdate-note">if You Want to Edit your Setup</p>
         <% } %>
-         <a href="/match/match_setup/<%= match.matchId_id %>" class="club-liveupdate-btn">Match Setup</a>
+         <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
        
       </div>
     </div>

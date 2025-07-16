@@ -160,18 +160,6 @@
     margin-top: 15px;
 }
 
-.match-live-update-runs-btn {
-    /* Removed - no longer needed */
-}
-
-.match-live-update-runs-btn:hover {
-    /* Removed - no longer needed */
-}
-
-.match-live-update-runs-btn.active {
-    /* Removed - no longer needed */
-}
-
 .match-live-update-submit-btn {
     grid-column: 1 / -1;
     padding: 20px 40px;
@@ -252,4 +240,31 @@
 
 .match-live-update-wicket-option {
     display: none;
+}
+
+/* Optional: Add padding and spacing below the main container if needed */
+.match-live-update-container {
+    margin-bottom: 40px;
+}
+
+/* Specific styling for each role card if you want variation */
+.match-live-update-section:nth-child(1) {
+    border-left: 4px solid #1e90ff; /* Blue for Striker */
+}
+.match-live-update-section:nth-child(2) {
+    border-left: 4px solid #2ecc71; /* Green for Non-Striker */
+}
+.match-live-update-section:nth-child(3) {
+    border-left: 4px solid #e67e22; /* Orange for Bowler */
+}
+
+/* Responsive select dropdown spacing tweak */
+.match-live-update-field select {
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optional: Slight margin on top of the submit button */
+.match-live-update-submit-btn {
+    margin-top: 20px;
 }
