@@ -1,221 +1,282 @@
-<% if (thismatch.stricker && thismatch.nonstricker && thismatch.bowler) { %>
-    <div class="match-live-update-container">
-    <div class="match-live-update-header">
-        <h1 class="match-live-update-title">Cricket Live Update</h1>
-        <p class="match-live-update-subtitle">Real-time match scoring system</p>
-    </div> 
-     <form action="/match/live-score/<% thismatch._id %>" method="POST" class="match-live-update-form">
-        <!-- RUNS UPDATE -->
-        <div class="match-live-update-section match-live-update-runs-section">
-            <h3 class="match-live-update-heading">
-                <svg class="match-live-update-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                Runs Update
-            </h3>
+<% console.log(thismatch.stricker); %>
+    <% if (thismatch.stricker && thismatch.nonstricker && thismatch.bowler) { %>
+        <div class="match-live-update-container">
+            <div class="match-live-update-header">
+                <h1 class="match-live-update-title">Cricket Live Update</h1>
+                <p class="match-live-update-subtitle">Real-time match scoring system</p>
+            </div>
+            <form action="/match/live_score/<%= thismatch._id %>" method="POST" class="match-live-update-form">
+                <!-- RUNS UPDATE -->
+                <div class="match-live-update-section match-live-update-runs-section">
+                    <h3 class="match-live-update-heading">
+                        <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                        </svg>
+                        Runs Update
+                    </h3>
 
-            <div class="match-live-update-runs-grid">
-                <div class="match-live-update-field">
-                    <label for="match-live-update-striker-runs">Striker Runs:</label>
-                    <select id="match-live-update-striker-runs" required name="striker_runs">
-                        <option disabled selected>--select--</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5 (rare)</option>
-                        <option value="6">6</option>
-                    </select>
+                    <div class="match-live-update-runs-grid">
+                        <div class="match-live-update-field">
+                            <label for="match-live-update-striker-runs">Striker Runs:</label>
+                            <select id="match-live-update-striker-runs" required name="stricker_runs">
+                                <option disabled selected>--select--</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5 (rare)</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
+                        <div class="match-live-update-field">
+                            <label for="match-live-update-extra-runs">Extra Runs:</label>
+                            <select id="match-live-update-extra-runs" required name="extra_runs">
+                                <option value="none">None</option>
+                                <option value="wd">Wide</option>
+                                <option value="nb">No Ball</option>
+                            </select>
+                        </div>
+
+                        <div class="match-live-update-field">
+                            <label for="match-live-update-striker-change">Boundry:</label>
+                            <select id="match-live-update-striker-change" required name="boundry">
+                                <option disabled selected>--select--</option>
+                                <option value="no">None</option>
+                                <option value="four">Four</option>
+                                <option value="six">Six</option>
+                            </select>
+                        </div>
+
+
+                        <div class="match-live-update-field">
+                            <label for="match-live-update-striker-change">Striker Change:</label>
+                            <select id="match-live-update-striker-change" required name="strike_change">
+                                <option disabled selected>--select--</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="match-live-update-field">
-                    <label for="match-live-update-extra-runs">Extra Runs:</label>
-                    <select id="match-live-update-extra-runs" required name="extra_runs">
-                        <option value="none">None</option>
-                        <option value="wd">Wide</option>
-                        <option value="nb">No Ball</option>
-                        <option value="b">Bye</option>
-                        <option value="lb">Leg Bye</option>
-                    </select>
+                <!-- BOWLER CHANGE -->
+                <% let overs=(thismatch.current_batting._id===thismatch.club1._id) ? thismatch.score.club1.overs :
+                    thismatch.score.club2.overs; %>
+                    <% if (overs%1===0.5) { %>
+                        <div class="match-live-update-section">
+                            <h3 class="match-live-update-heading">
+                                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                Change Bowler
+                            </h3>
+
+                            <div class="match-live-update-field">
+                                <label for="match-live-update-bowler">New Bowler:</label>
+                                <select id="match-live-update-bowler" name="bowler" required>
+                                    <option disabled selected>Select Bowler</option>
+                                    <% thismatch.playerStats.forEach(player=> {%>
+                                        <% const isFieldingTeam=String(player.playerId.registered_club._id)
+                                            !==String(thismatch.current_batting._id);%>
+                                            <% const isBowler=player.playerId.type==='bowler' ||
+                                                player.playerId.type==='all_rounder' ;%>
+                                                <% if (isFieldingTeam && isBowler) {%>
+                                                    <option value="<%= player.playerId._id %>">
+                                                        <%= player.playerId.name %>
+                                                    </option>
+                                                    <% } }); %>
+                                </select>
+
+                            </div>
+                        </div>
+                        <% } %>
+
+                            <!-- WICKET SECTION  -->
+                            <div class="match-live-update-section match-live-update-wicket-section">
+                                <h3 class="match-live-update-heading">
+                                    <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z" />
+                                    </svg>
+                                    Wicket
+                                </h3>
+
+                                <div class="match-live-update-field">
+                                    <label for="match-live-update-wicket">Wicket?</label>
+                                    <select id="match-live-update-wicket" name="wicket">
+                                        <option disabled selected>--select--</option>
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                    </select>
+                                </div>
+                                <% if ( thismatch.stricker && thismatch.nonstricker) { %>
+                                    <div class="match-live-update-field match-live-update-wicket-option">
+                                        <label for="match-live-update-out-player">Player Out:</label>
+                                        <select id="match-live-update-out-player" name="out_player" required>
+                                            <option disabled selected>Select Out Batsman</option>
+                                            <% if (thismatch.stricker) { %>
+                                                <option value="<%= thismatch.stricker._id %>">
+                                                    <%= thismatch.stricker.name %>
+                                                </option>
+                                                <% } %>
+                                                    <% if (thismatch.nonstricker) { %>
+                                                        <option value="<%= thismatch.nonstricker._id %>">
+                                                            <%= thismatch.nonstricker.name %>
+                                                        </option>
+                                                        <% } %>
+                                        </select>
+
+                                    </div>
+                                    <% } %>
+
+                                        <div class="match-live-update-field match-live-update-wicket-option ">
+                                            <label for="match-live-update-new-batsman">New Batsman:</label>
+                                            <select id="match-live-update-new-batsman" name="new_batsman">
+                                                <option disabled selected>Select New Batsman</option>
+                                                <% thismatch.playerStats.forEach(player=> { %>
+                                                    <% const
+                                                        isFromBattingTeam=String(player.playerId.registered_club._id)===String(thismatch.current_batting._id);%>
+                                                        <% const isNotOut=!player.batting.out;%>
+                                                            <%const isNotAlreadyOnField=String(player.playerId._id)
+                                                                !==String(thismatch.stricker?._id) &&
+                                                                String(player.playerId._id)
+                                                                !==String(thismatch.nonstricker?._id);%>
+                                                                <%if (isFromBattingTeam && isNotOut &&
+                                                                    isNotAlreadyOnField) { %>
+                                                                    <option value="<%= player.playerId._id %>">
+                                                                        <%= player.playerId.name %>
+                                                                    </option>
+                                                                    <% } }); %>
+                                            </select>
+
+                                        </div>
+                            </div>
+
+                           
+                            <div class="match-live-update-section match-live-update-innings-section">
+                                <h3 class="match-live-update-heading">
+                                    <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                        <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+                                    </svg>
+                                    Change Innings
+                                </h3>
+
+                                <% if (thismatch.innings===1) { %>
+                                    <div class="match-live-update-field">
+                                        <label for="match-live-update-change-innings">Switch to next innings?</label>
+                                        <select id="match-live-update-change-innings" name="change_innings">
+                                            <option disabled selected>--select--</option>
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                    </div>
+                                    <% } %>
+                            </div>
+
+                            <button type="submit" class="match-live-update-submit-btn">
+                                🏏 Submit Update
+                            </button>
+            </form>
+
+            <% } else { %>
+                <div class="match-live-update-container">
+                    <div class="match-live-update-header">
+                        <h2 class="match-live-update-title">Set Striker, Non-Striker & Bowler</h2>
+                        <p class="match-live-update-subtitle">Update the current players on the field</p>
+                    </div>
+                    <form class="match-live-update-form" id="match-live-update-form"
+                        action="/match/live-selection/<%= thismatch._id %>" method="POST">
+
+                        <div class="match-live-update-section">
+                            <h3 class="match-live-update-heading">
+                                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
+                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                Select Striker
+                            </h3>
+                            <div class="match-live-update-field">
+                                <label for="match-live-update-striker">Striker</label>
+                                <select id="match-live-update-striker" required name="stricker">
+                                    <option disabled selected>--Select Striker--</option>
+                                    <% thismatch.playerStats.forEach(player=> { %>
+                                        <% const
+                                            isBattingTeam=String(player.playerId.registered_club._id)===String(thismatch.current_batting._id);%>
+                                            <% const isNotOut=!player.batting.out;%>
+                                                <%if (isBattingTeam && isNotOut) { %>
+                                                    <option value="<%= player.playerId._id %>">
+                                                        <%= player.playerId.name %>
+                                                    </option>
+                                                    <% } }); %>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="match-live-update-section">
+                            <h3 class="match-live-update-heading">
+                                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
+                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                Select Non-Striker
+                            </h3>
+                            <div class="match-live-update-field">
+                                <label for="match-live-update-non-striker">Non-Striker</label>
+                                <select id="match-live-update-non-striker" required name="nonstricker">
+                                    <option disabled selected>--Select Non-Striker--</option>
+                                    <% thismatch.playerStats.forEach(player=> {%>
+                                        <% const
+                                            isSameClub=String(player.playerId.registered_club._id)===String(thismatch.current_batting._id);%>
+                                            <%const isNotOut=!player.batting.out;%>
+                                                <%if (isSameClub && isNotOut) {%>
+                                                    <option value="<%= player.playerId._id %>">
+                                                        <%= player.playerId.name %>
+                                                    </option>
+                                                    <% } }); %>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="match-live-update-section">
+                            <h3 class="match-live-update-heading">
+                                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
+                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                Select Bowler
+                            </h3>
+                            <div class="match-live-update-field">
+                                <label for="match-live-update-bowler">Bowler</label>
+                                <select id="match-live-update-bowler" required name="bowler">
+                                    <option disabled selected>--Select Bowler--</option>
+                                    <% thismatch.playerStats.forEach(player=> { %>
+                                        <% const isFromFieldingTeam=String(player.playerId.registered_club._id)
+                                            !==String(thismatch.current_batting._id); %>
+                                            <% const isBowlerType=player.playerId.type==='bowler' ||
+                                                player.playerId.type==='all_rounder' ; %>
+                                                <% if (isFromFieldingTeam && isBowlerType) { %>
+                                                    <option value="<%= player.playerId._id %>">
+                                                        <%= player.playerId.name %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% }) %>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <button type="submit" class="match-live-update-submit-btn">Submit Update</button>
+                    </form>
                 </div>
-            </div>
+
+                <% } %>
         </div>
-
-        <!-- BOWLER CHANGE -->
-         <%  let overs = (thismatch.current_batting._id === thismatch.club1._id)  ? thismatch.score.club1.overs  : thismatch.score.club2.overs; %>
-       <% if (overs%1 === 0.5) { %>
-         <div class="match-live-update-section">
-            <h3 class="match-live-update-heading">
-                <svg class="match-live-update-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                Change Bowler
-            </h3>
-
-            <div class="match-live-update-field">
-                <label for="match-live-update-bowler">New Bowler:</label>
-                <select id="match-live-update-bowler" name="bowler">
-                    <option disabled selected>Select Bowler</option>
-                    <% thismatch.playerStats.forEach(player => { %>
-                     <% if (player.playerId.registered_club._id === thismatch.current_batting._id && player.playerId.type === 'bowler') { %>
-                      <option value="<%=player.playerId._id  %>"><%=player.playerId.name  %></option>
-                     <% } %>
-                    <% }) %>
-                </select>
-            </div>
-        </div>
-       <% } %>
-
-        <!-- WICKET SECTION -->
-        <div class="match-live-update-section match-live-update-wicket-section">
-            <h3 class="match-live-update-heading">
-                <svg class="match-live-update-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z" />
-                </svg>
-                Wicket
-            </h3>
-
-            <div class="match-live-update-field">
-                <label for="match-live-update-wicket">Wicket?</label>
-                <select id="match-live-update-wicket" name="wicket">
-                    <option disabled selected>--select--</option>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-            <% if ( thismatch.stricker &&  thismatch.nonstricker) { %>
-             <div class="match-live-update-field match-live-update-wicket-option">
-                <label for="match-live-update-out-player">Player Out:</label>
-                <select id="match-live-update-out-player" name="out_player">
-                    <option disabled selected>Select Out Batsman</option>
-                    <option value="<%= thismatch.stricker._id %>"><%= thismatch.stricker.name %></option>
-                    <option value="<%= thismatch.nonstricker._id %>"><%= thismatch.nonstricker.name %></option>
-                 
-                </select>
-            </div>
-            <% } %>
-
-            <div class="match-live-update-field match-live-update-wicket-option ">
-                <label for="match-live-update-new-batsman">New Batsman:</label>
-                <select id="match-live-update-new-batsman" name="new_batsman">
-                    <option disabled selected>Select New Batsman</option>
-                   <% thismatch.playerStats.forEach(player => { %>
-                    <% if (player.playerId.registered_club._id !== thismatch.current_batting._id && !player.batting.out ) { %>
-                     <option value="<%= player.playerId._id %>"> <%= player.playerId.name %></option>
-                    <% } %>
-                   <% }) %>
-                </select>
-            </div>
-        </div>
-
-        <!-- INNINGS CHANGE -->
-        <div class="match-live-update-section match-live-update-innings-section">
-            <h3 class="match-live-update-heading">
-                <svg class="match-live-update-icon" viewBox="0 0 24 24">
-                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
-                </svg>
-                Change Innings
-            </h3>
-
-           <% if (thismatch.innings===1) { %>
-             <div class="match-live-update-field">
-                <label for="match-live-update-change-innings">Switch to next innings?</label>
-                <select id="match-live-update-change-innings" name="change_innings">
-                    <option disabled selected>--select--</option>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-           <% } %>
-        </div>
-
-        <button type="submit" class="match-live-update-submit-btn">
-            🏏 Submit Update
-        </button>
-    </form>
-
-    <% } else { %>
-  <div class="match-live-update-container">
-  <div class="match-live-update-header">
-    <h2 class="match-live-update-title">Set Striker, Non-Striker & Bowler</h2>
-    <p class="match-live-update-subtitle">Update the current players on the field</p>
-  </div>
-
-  <form class="match-live-update-form" id="match-live-update-form" action="/match/live-selection/<% thismatch._id %>" method="post">
-    
-    <div class="match-live-update-section">
-      <h3 class="match-live-update-heading">
-        <svg class="match-live-update-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
-                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
-                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-        Select Striker
-      </h3>
-      <div class="match-live-update-field">
-        <label for="match-live-update-striker">Striker</label>
-        <select id="match-live-update-striker" name="striker">
-          <option disabled selected>--Select Striker--</option>
-            <% thismatch.playerStats.forEach(player => { %>
-                    <% if (player.playerId.registered_club._id !== thismatch.current_batting._id && !player.batting.out ) { %>
-                     <option value="<%= player.playerId._id %>"> <%= player.playerId.name %></option>
-                    <% } %>
-                   <% }) %>
-        </select>
-      </div>
-    </div>
-
-    <div class="match-live-update-section">
-      <h3 class="match-live-update-heading">
-        <svg class="match-live-update-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
-                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
-                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-        Select Non-Striker
-      </h3>
-      <div class="match-live-update-field">
-        <label for="match-live-update-non-striker">Non-Striker</label>
-        <select id="match-live-update-non-striker" name="non_striker">
-          <option disabled selected>--Select Non-Striker--</option>
-          <% thismatch.playerStats.forEach(player => { %>
-                    <% if (player.playerId.registered_club._id !== thismatch.current_batting._id && !player.batting.out ) { %>
-                     <option value="<%= player.playerId._id %>"> <%= player.playerId.name %></option>
-                    <% } %>
-                   <% }) %>
-        </select>
-      </div>
-    </div>
-
-    <div class="match-live-update-section">
-      <h3 class="match-live-update-heading">
-        <svg class="match-live-update-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
-                   10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 
-                   1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-        Select Bowler
-      </h3>
-      <div class="match-live-update-field">
-        <label for="match-live-update-bowler">Bowler</label>
-        <select id="match-live-update-bowler" name="bowler">
-          <option disabled selected>--Select Bowler--</option>
-             <% thismatch.playerStats.forEach(player => { %>
-                     <% if (player.playerId.registered_club._id === thismatch.current_batting._id && player.playerId.type === 'bowler') { %>
-                      <option value="<%=player.playerId._id  %>"><%=player.playerId.name  %></option>
-                     <% } %>
-                    <% }) %>
-        </select>
-      </div>
-    </div>
-
-    <button type="submit" class="match-live-update-submit-btn">Submit Update</button>
-  </form>
-</div>
-
-    <% } %>
-</div>

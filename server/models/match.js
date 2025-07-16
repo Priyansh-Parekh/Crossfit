@@ -21,7 +21,7 @@ const Match = new mongoose.Schema({
     },
     match_type: {
         type: String,
-        enum: ['T20', 'ODI', 'Test']
+        enum: ['T20', 'ODI','Specific_overs']
     },
     status: {
         type: String,
@@ -90,6 +90,20 @@ const Match = new mongoose.Schema({
     bowler: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
+    },
+    bowler_score: {
+        wickets: {
+            type: Number,
+            default: 0
+        },
+        overs: {
+            type: Number,
+            default: 0.0
+        },
+        runs:{
+            type:Number,
+            default:0
+        }
     },
     prize: {
         type: Number
@@ -169,14 +183,15 @@ const Match = new mongoose.Schema({
             balls: { type: Number, default: 0 },
             fours: { type: Number, default: 0 },
             sixes: { type: Number, default: 0 },
-            strike_rate: { type: Number, default: 0 },
-            out:{type: Boolean,default:false}
+            strike_rate: { type: Number, default: 0.0 },
+            out: { type: Boolean, default: false }
         },
         bowling: {
             overs: { type: Number, default: 0.0 },
             runs: { type: Number, default: 0 },
+            balls: { type: Number, default: 0 },
             wickets: { type: Number, default: 0 },
-            economy: { type: Number, default: 0 }
+            economy: { type: Number, default: 0.0 }
         }
     }]
 }, {

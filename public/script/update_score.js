@@ -66,3 +66,4 @@ document.addEventListener("DOMContentLoaded", function () {
     updateStrikerOptions();
     updateNonStrikerOptions();
 });
+

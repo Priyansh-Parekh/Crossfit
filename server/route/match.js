@@ -142,7 +142,11 @@ const match_populate = async (match) => {
     ]);
 };
 
-
+function ballsToOvers(balls) {
+    const fullOvers = Math.floor(balls / 6);
+    const remainingBalls = balls % 6;
+    return Number(`${fullOvers}.${remainingBalls}`);
+}
 
 
 
@@ -228,17 +232,178 @@ route.post('/submit_setup/:_id', login, async (req, res) => {
 route.get('/update_score/:_id', login, async (req, res) => {
     try {
         let user = req.user;
-         await populate_cricket_club_data(user);
+        await populate_cricket_club_data(user);
         let match_id = req.params._id;
         match_id = new mongoose.Types.ObjectId(match_id);
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch)
-        
-        res.render('update_score', { user,thismatch })
+
+        res.render('update_score', { user, thismatch })
     } catch (error) {
 
     }
 })
+
+route.post('/live-selection/:_id', login, async (req, res) => {
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
+
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch)
+        let { stricker, nonstricker, bowler } = req.body;
+        stricker = new mongoose.Types.ObjectId(stricker);
+        nonstricker = new mongoose.Types.ObjectId(nonstricker);
+        bowler = new mongoose.Types.ObjectId(bowler);
+        thismatch.stricker = stricker;
+        thismatch.nonstricker = nonstricker;
+        thismatch.bowler = bowler;
+        await thismatch.save();
+        await match_populate(thismatch)
+        res.redirect(`/match/update_score/${thismatch._id}`);
+    } catch (error) {
+        console.log(error);
+        res.send("failed to send");
+    }
+
+})
+
+
+route.post('/live_score/:_id', login, async (req, res) => {
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user);
+        let match_id = new mongoose.Types.ObjectId(req.params._id);
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch);
+
+        let { stricker_runs, extra_runs, bowler, wicket, out_player, new_batsman, boundry, change_innings, strike_change } = req.body;
+        stricker_runs = Number(stricker_runs);
+
+        if (bowler) bowler = new mongoose.Types.ObjectId(bowler);
+        if (wicket === 'yes') {
+            out_player = new mongoose.Types.ObjectId(out_player);
+            new_batsman = new mongoose.Types.ObjectId(new_batsman);
+        }
+
+        // Update striker
+        thismatch.stricker.total_runs += stricker_runs;
+        thismatch.stricker.total_balls++;
+        thismatch.stricker.SR = (thismatch.stricker.total_runs / thismatch.stricker.total_balls) * 100;
+
+        // Update striker's score object
+        thismatch.stricker_score.runs += stricker_runs;
+        thismatch.stricker_score.balls++;
+
+        // Update striker playerStats
+        thismatch.playerStats.forEach(player => {
+            if (String(player.playerId._id) === String(thismatch.stricker._id)) {
+                player.batting.runs += stricker_runs;
+                player.batting.balls++;
+                player.batting.strike_rate = (player.batting.runs / player.batting.balls) * 100;
+
+                if (boundry && boundry !== 'no') {
+                    if (boundry === 'four') player.batting.fours++;
+                    else if (boundry === 'six') player.batting.six++;
+                }
+            }
+        });
+
+        // Update bowler
+        thismatch.playerStats.forEach(player => {
+            if (String(player.playerId._id) === String(thismatch.bowler._id)) {
+                player.bowling.balls++;
+                player.bowling.overs = ballsToOvers(player.bowling.balls);
+                player.bowling.runs += stricker_runs;
+                if (wicket === 'yes') player.bowling.wickets++;
+                player.bowling.economy = player.bowling.runs / player.bowling.overs;
+            }
+        });
+
+        thismatch.bowler.overs_deliverd++;
+        thismatch.bowler.runs_given += stricker_runs;
+        thismatch.bowler.economy = thismatch.bowler.runs_given / (thismatch.bowler.overs_deliverd / 6);
+        if (wicket === 'yes') thismatch.bowler.wickets++;
+        thismatch.bowler_score.runs  += stricker_runs;
+        thismatch.bowler_score.balls = (thismatch.bowler_score.balls || 0) + 1;
+        thismatch.bowler_score.overs = ballsToOvers(thismatch.bowler_score.balls);
+        if (wicket === 'yes') thismatch.bowler_score.wickets++;
+
+        // Update team score
+        const scoreKey = String(thismatch.current_batting._id) === String(thismatch.club1._id) ? 'club1' : 'club2';
+        thismatch.score[scoreKey].runs += stricker_runs;
+        thismatch.score[scoreKey].balls = (thismatch.score[scoreKey].balls || 0) + 1;
+        thismatch.score[scoreKey].overs = ballsToOvers(thismatch.score[scoreKey].balls);
+        if (wicket === 'yes') thismatch.score[scoreKey].wickets++;
+
+        // Extras
+        if (['wd', 'nb'].includes(extra_runs)) {
+            thismatch.score[scoreKey].runs++;
+        }
+
+        // Change bowler if given
+        if (bowler) {
+            thismatch.bowler = bowler;
+            thismatch.playerStats.forEach(player => {
+                if (String(player.playerId._id) === String(thismatch.bowler._id)) {
+                    thismatch.bowler_score.wickets = player.bowling.wickets;
+                    thismatch.bowler_score.overs = player.bowling.overs;
+                }
+            });
+        }
+
+        // Handle strike change
+        if (strike_change) {
+            let temp = thismatch.stricker;
+            thismatch.stricker = thismatch.nonstricker;
+            thismatch.nonstricker = temp;
+
+            let tempScore = thismatch.stricker_score;
+            thismatch.stricker_score = thismatch.nonstricker_score;
+            thismatch.nonstricker_score = tempScore;
+        }
+
+        // Wicket scenario
+        if (wicket === 'yes') {
+            thismatch.playerStats.forEach(player => {
+                if (String(player.playerId._id) === String(out_player)) {
+                    player.batting.out = true;
+                }
+            });
+
+            if (String(thismatch.stricker._id) === String(out_player)) {
+                thismatch.stricker = new_batsman;
+                thismatch.stricker_score = { runs: 0, balls: 0 };
+            } else {
+                thismatch.nonstricker = new_batsman;
+                thismatch.nonstricker_score = { runs: 0, balls: 0 };
+            }
+        }
+
+        // Innings change
+        if (change_innings === 'yes') {
+            thismatch.current_batting = String(thismatch.current_batting._id) === String(thismatch.club1._id)
+                ? thismatch.club2._id
+                : thismatch.club1._id;
+            thismatch.bowler = null;
+            thismatch.stricker = null;
+            thismatch.nonstricker = null;
+            thismatch.stricker_score = { runs: 0, balls: 0 };
+            thismatch.nonstricker_score = { runs: 0, balls: 0 };
+            thismatch.bowler_score = { overs: 0, wickets: 0 };
+            thismatch.innings = 2;
+        }
+
+        await thismatch.save();
+        await match_populate(thismatch);
+        res.redirect(`/match/update_score/${thismatch._id}`);
+    } catch (error) {
+        console.log(error);
+        res.send("Failed to update score");
+    }
+});
 
 
 module.exports = route;
