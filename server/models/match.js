@@ -77,7 +77,7 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     },
-     nonstricker_score: {
+    nonstricker_score: {
         runs: {
             type: Number,
             default: 0
@@ -116,7 +116,8 @@ const Match = new mongoose.Schema({
     },
     innings: {
         type: Number,
-        enum: [1, 2]
+        enum: [1, 2],
+        default: 1
     },
     current_batting: {
         type: mongoose.Schema.Types.ObjectId,
@@ -124,7 +125,35 @@ const Match = new mongoose.Schema({
     },
     setup: {
         type: Boolean,
-        default : false
+        default: false
+    },
+    club1_leaders: {
+        captain: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
+        vice_captain: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
+        wicket_keeper: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
+    },
+    club2_leaders: {
+        captain: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
+        vice_captain: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
+        wicket_keeper: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player_DATA'
+        },
     },
     playerStats: [{
         playerId: {

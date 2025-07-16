@@ -22,6 +22,7 @@ app.use('/login',require('./server/route/login')); // ✅ Use login route
 app.use('/logout',require('./server/route/logout')); // ✅ Use logout route
 app.use('/register',require('./server/route/register')); // ✅ Use register route
 app.use('/dashboard',require('./server/route/dashboard')); // ✅ Use dashboard route
+app.use('/match',require('./server/route/match')); // ✅ Use match route
 
 
  

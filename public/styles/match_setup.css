@@ -1,0 +1,74 @@
+.match-setup-section {
+  background-color: #f9f9ff;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.match-setup-title {
+  text-align: center;
+  font-size: 1.75rem;
+  color: #3f0071;
+  margin-bottom: 1.5rem;
+}
+
+.match-setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.match-setup-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.match-setup-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.match-setup-group select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.match-setup-subtitle {
+  font-weight: 600;
+  color: #444;
+  margin: 1rem 0 0.5rem;
+}
+
+.match-setup-multiple-selects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.match-setup-multiple-selects select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.match-setup-submit-btn {
+  background: linear-gradient(135deg, #5409b2, #9333ea);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  align-self: center;
+  transition: background 0.3s ease;
+}
+
+.match-setup-submit-btn:hover {
+  background: linear-gradient(135deg, #6b21a8, #7e22ce);
+}

@@ -23,7 +23,7 @@
         <div class="register-viewers-form-group">
           <label for="register-viewers-favorite-teams" class="register-viewers-label">Favorite Teams:</label>
           <select id="register-viewers-favorite-teams" class="register-viewers-select" name="favourite_team" >
-           <option value="">--select--</option>
+           <option  disabled selected >--select--</option>
            <% clubs.forEach(club => { %>
             <option value="<%= club._id %>" ><%= club.name %></option>
            <% }) %>

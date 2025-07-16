@@ -443,7 +443,7 @@
         </div>
         <% }) %>
           <% } else { %>
-            <div class=" club-dashboard-live-sect" id="club-dashboard-no-live-row">
+            <div  id="club-dashboard-no-live-row">
               🚫 No live matches currently.
             </div>
 
@@ -473,18 +473,18 @@
         </div>
         <% if (!match.matchId.setup) { %>
          <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
-          <a href="/match/match_setup" class="club-liveupdate-btn">Match Setup</a>
-
+          <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
+         
           <% } else { %>
             <p class="club-liveupdate-note">if You Want to Edit it</p>
-          <a href="/match/match_setup" class="club-liveupdate-btn">Match Setup</a>
+          <a href="/match/match_setup/<%= match.matchId_id %>" class="club-liveupdate-btn">Match Setup</a>
         <% } %>
        
       </div>
     </div>
      <% }) %>
      <% } else { %>
-     <div class="club-dashboard-upcoming-message-row club-dashboard-upcoming-sect" id="club-dashboard-no-upcoming-row">
+     <div class="club-dashboard-upcoming-message-row " id="club-dashboard-no-upcoming-row">
     🕒 No upcoming matches scheduled.
   </div>
    <% } %>
@@ -731,7 +731,7 @@
     <div>
       <label for="opponent">Opponent Club</label>
       <select name="club2" id="opponent" required>
-        <option>--select--</option>
+       <option  disabled selected >--select--</option>
         <% let otherClubs=clubs.filter(club=> club.name !== user.name) %>
           <% otherClubs.forEach(club=> { %>
             <option value="<%= club._id %>">
@@ -749,7 +749,7 @@
     <div>
       <label for="matchType">Match Type</label>
       <select name="match_type" id="matchType" required>
-        <option>--select--</option>
+      <option  disabled selected >--select--</option>
         <option value="T20">T20</option>
         <option value="ODI">ODI</option>
         <option value="Test">Test</option>

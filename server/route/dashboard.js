@@ -163,12 +163,14 @@ route.get('/clubs', login, datas, async (req, res) => {
                 live_matches = user.match_played.filter(match =>
                     match.matchId &&
                     !match.matchId.played &&
-                    match.matchId.status === 'live'
+                    match.matchId.status === 'live' &&
+                    match.matchId.challange_status === 'accepted'
                 );
                 upcoming_matches = user.match_played.filter(match =>
                     match.matchId &&
                     !match.matchId.played &&
-                    match.matchId.status === 'upcoming'
+                    match.matchId.status === 'upcoming' &&
+                    match.matchId.challange_status === 'accepted'
                 );
 
                 for (const match of live_matches) {
@@ -180,6 +182,15 @@ route.get('/clubs', login, datas, async (req, res) => {
                 }
             } else {
                 live_matches = false;
+                upcoming_matches = false;
+            }
+
+            if(live_matches.length === 0){
+                live_matches = false;
+            }
+
+            
+            if(upcoming_matches.length === 0){
                 upcoming_matches = false;
             }
 

@@ -113,7 +113,7 @@
       <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/viewer/add_fav_club" method="post">
         <label for="viewers-dashboard-fav-add-select" class="viewers-dashboard-label">Select Club to Add it to Favourite:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-add-select" class="viewers-dashboard-select">
-          <option value="">-- Select --</option>
+      <option  disabled selected >--select--</option>
           <% refinedclubs.forEach(club => { %>
             <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
@@ -125,7 +125,7 @@
       <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/viewer/remove_fav_club" method="post">
         <label for="viewers-dashboard-fav-remove-select" class="viewers-dashboard-label">Select Favorite Club to Remove:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-remove-select" class="viewers-dashboard-select">
-          <option value="">-- Select --</option>
+          <option  disabled selected >--select--</option>
           <% user.favorite_teams.forEach(club => { %>
             <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
