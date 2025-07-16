@@ -113,8 +113,7 @@ const populate_cricket_club_data = async (club) => {
                 { path: 'man_of_match' },
                 { path: 'toss_winner' },
                 { path: 'current_batting' },
-                { path: 'playerStats.playerId' },
-                { path: 'playerStats.clubId' },
+                { path: 'playerStats.playerId' }
             ]
         }
     ]);
@@ -154,6 +153,7 @@ route.get('/match_setup/:_id',login,async (req,res)=>{
 
     try {
         let user = req.user;
+        await populate_cricket_club_data(user);
         let match_id = req.params._id;
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch)
@@ -174,10 +174,12 @@ route.post('/submit_setup/:_id',login,async(req,res)=>{
              await match_populate(thismatch)
         let {captain,vice_captain,wicket_keeper,other_players,extra_players,toss_winner,toss_choice} = req.body;
         if(thismatch.club1.name === user.name){
+            thismatch.setup_club1= true;
             thismatch.club1_leaders = {
                 captain,vice_captain,wicket_keeper
             }
         }else{
+            thismatch.setup_club2= true;
             thismatch.club2_leaders = {
                 captain,vice_captain,wicket_keeper
             }
@@ -221,6 +223,15 @@ route.post('/submit_setup/:_id',login,async(req,res)=>{
     }
 })
 
+
+route.get('/update_score',login,async(req,res)=>{
+    try {
+        let user = req.user;
+        res.render('update_score',{user})
+    } catch (error) {
+        
+    }
+})
 
 
 module.exports = route;

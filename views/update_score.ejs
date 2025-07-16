@@ -1,0 +1,126 @@
+
+
+<div class="match-live-update-container">
+    <div class="match-live-update-header">
+        <h1 class="match-live-update-title">Cricket Live Update</h1>
+        <p class="match-live-update-subtitle">Real-time match scoring system</p>
+    </div>
+
+    <form action="/match/live-update/" method="POST" class="match-live-update-form">
+        <!-- RUNS UPDATE -->
+        <div class="match-live-update-section match-live-update-runs-section">
+            <h3 class="match-live-update-heading">
+                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                Runs Update
+            </h3>
+
+            <div class="match-live-update-runs-grid">
+                <div class="match-live-update-field">
+                    <label for="match-live-update-striker-runs">Striker Runs:</label>
+                    <select id="match-live-update-striker-runs" name="striker_runs">
+                        <option disabled selected>--select--</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (rare)</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+                <div class="match-live-update-field">
+                    <label for="match-live-update-extra-runs">Extra Runs:</label>
+                    <select id="match-live-update-extra-runs" name="extra_runs">
+                        <option value="none">None</option>
+                        <option value="wd">Wide</option>
+                        <option value="nb">No Ball</option>
+                        <option value="b">Bye</option>
+                        <option value="lb">Leg Bye</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOWLER CHANGE -->
+        <div class="match-live-update-section">
+            <h3 class="match-live-update-heading">
+                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                Change Bowler
+            </h3>
+
+            <div class="match-live-update-field">
+                <label for="match-live-update-bowler">New Bowler:</label>
+                <select id="match-live-update-bowler" name="bowler">
+                    <option disabled selected>Select Bowler</option>
+                    <!-- Populate bowler list -->
+                </select>
+            </div>
+        </div>
+
+        <!-- WICKET SECTION -->
+        <div class="match-live-update-section match-live-update-wicket-section">
+            <h3 class="match-live-update-heading">
+                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z" />
+                </svg>
+                Wicket
+            </h3>
+
+            <div class="match-live-update-field">
+                <label for="match-live-update-wicket">Wicket?</label>
+                <select id="match-live-update-wicket" name="wicket">
+                    <option disabled selected>--select--</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="match-live-update-field match-live-update-wicket-option">
+                <label for="match-live-update-out-player">Player Out:</label>
+                <select id="match-live-update-out-player" name="out_player">
+                    <option disabled selected>Select Out Batsman</option>
+                    <!-- Populate current batsman list -->
+                </select>
+            </div>
+
+            <div class="match-live-update-field match-live-update-wicket-option ">
+                <label for="match-live-update-new-batsman">New Batsman:</label>
+                <select id="match-live-update-new-batsman" name="new_batsman">
+                    <option disabled selected>Select New Batsman</option>
+                    <!-- Populate new batsman list -->
+                </select>
+            </div>
+        </div>
+
+        <!-- INNINGS CHANGE -->
+        <div class="match-live-update-section match-live-update-innings-section">
+            <h3 class="match-live-update-heading">
+                <svg class="match-live-update-icon" viewBox="0 0 24 24">
+                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+                </svg>
+                Change Innings
+            </h3>
+
+            <div class="match-live-update-field">
+                <label for="match-live-update-change-innings">Switch to next innings?</label>
+                <select id="match-live-update-change-innings" name="change_innings">
+                    <option disabled selected>--select--</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="match-live-update-submit-btn">
+            🏏 Submit Update
+        </button>
+    </form>
+</div>

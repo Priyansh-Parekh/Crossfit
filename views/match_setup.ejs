@@ -1,7 +1,10 @@
 <section class="match-setup-section">
     <h2 class="match-setup-title">Match Setup</h2>
     <form action="/match/submit_setup/<%=thismatch._id  %>" method="POST" class="match-setup-form">
-        <div class="match-setup-group">
+        
+
+        <div style="display: flex; gap: 3em;">
+           <div class="match-setup-group">
             <label for="captain">Captain</label>
             <select id="captain" name="captain" required>
                 <option  disabled selected >--select--</option>
@@ -12,6 +15,8 @@
                     <% }) %>
             </select>
         </div>
+
+        
 
         <div class="match-setup-group">
             <label for="vice_captain">Vice Captain</label>
@@ -35,6 +40,7 @@
                     </option>
                     <% }) %>
             </select>
+        </div>
         </div>
 
         <div class="match-setup-subtitle">Select 8 Other Players</div>

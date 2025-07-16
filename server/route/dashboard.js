@@ -353,7 +353,7 @@ route.post('/clubs/add_player', login, upload.single('profile_picture'), async (
         jersey_number = Number(jersey_number);
         let SR = total_runs / total_balls;
         let economy = runs_given / overs_deliverd;
-        let player = await players.create({ name, age, batting_style, total_runs, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
+        let player = await players.create({ name, age, batting_style, total_runs,registered_club : user._id, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
         await user.players.push(player._id)
         await user.save()
         res.redirect('/dashboard/clubs');
@@ -369,7 +369,7 @@ route.post('/clubs/fire_player', login, async (req, res) => {
         let player_id = req.body.player_id
         player_id = new mongoose.Types.ObjectId(player_id)
         let player = await players.findByIdAndDelete(player_id);
-        await user.players.pull({ _id: player_id });
+        await user.players.pull({ player_id });
         await user.save();
         res.redirect('/dashboard/clubs');
     } catch (error) {

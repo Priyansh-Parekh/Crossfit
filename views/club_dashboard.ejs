@@ -400,7 +400,7 @@
               </div>
               <span class="club-liveupdate-vs">vs</span>
               <div class="club-liveupdate-club">
-                <img src="<%= match.club2.logo|| '/images/avatar.png' %>" alt="Club 2 Logo"
+                <img src="<%= match.matchId.club2.logo|| '/images/avatar.png' %>" alt="Club 2 Logo"
                   class="club-liveupdate-logo">
                 <span>
                   <%= match.matchId.club2.name %>
@@ -420,21 +420,25 @@
               <div class="club-liveupdate-batting">
                 <strong>Batting:</strong>
                 <p>
-                  <%= match.matchId.stricker.name %> - <%= match.matchId.stricker_score.runs %>(<%= match.matchId.stricker_score.balls %>), <%=
+                 <% if (match.matchId.stricker && match.matchId.nonstricker) { %>
+                   <%= match.matchId.stricker.name %> - <%= match.matchId.stricker_score.runs %>(<%= match.matchId.stricker_score.balls %>), <%=
                           match.matchId.nonstricker.name %> - <%= match.matchId.nonstricker_score.runs %>(<%=
                               match.matchId.nonstricker_score.balls %>)
+                 <% } %>
                 </p>
               </div>
               <div class="club-liveupdate-bowling">
                 <strong>Bowler:</strong>
                 <p>
-                  <%= match.matchId.bowler.name %>
+                 <% if ( match.matchId.bowler) { %>
+                   <%= match.matchId.bowler.name %>
                     <% match.matchId.playerStats.forEach(plauer=> { %>
                       <% if (player.matchId.playerId===match.matchId.bowler._id) { %>
                         - <%= player.matchId.bowling.wickets %>/<%= player.matchId.bowling.runs %> in <%= player.matchId.bowling.overs %> overs
                 </p>
                 <% } %>
                   <% }) %>
+                 <% } %>
 
               </div>
             </div>
@@ -471,14 +475,13 @@
             <span><%=  match.matchId.club2.name %></span>
           </div>
         </div>
-        <% if (!match.matchId.setup) { %>
+      
+        <% if (user.name === match.matchId.club1.name? match.matchId.club1_setup : match.matchId.club2_setup ) { %>
          <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
-          <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
-         
           <% } else { %>
-            <p class="club-liveupdate-note">if You Want to Edit it</p>
-          <a href="/match/match_setup/<%= match.matchId_id %>" class="club-liveupdate-btn">Match Setup</a>
+            <p class="club-liveupdate-note">if You Want to Edit your Setup</p>
         <% } %>
+         <a href="/match/match_setup/<%= match.matchId_id %>" class="club-liveupdate-btn">Match Setup</a>
        
       </div>
     </div>
@@ -697,7 +700,7 @@
                       </p>
                       <div class="club-dashboard-challenge-actions">
                         <% if (match.matchId.challange_status==='pending' ) { %>
-                          <% if (user.players.length > 14) { %>
+                          <% if (user.players.length >= 14) { %>
                            <form action="/dashboard/clubs/challange_accept" method="POST">
                             <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
                             <button class="club-dashboard-challenge-btn accept" type="submit">Accept</button>
@@ -773,7 +776,7 @@
       <input type="number" placeholder="Prize for winner Club" name="prize" id="prize" required>
     </div>
 
-    <% if (user.players.length > 14) { %>
+    <% if (user.players.length >= 14) { %>
      <button type="submit">Send Challenge</button>
      <% } else { %>
       <div class="club-dashboard-atleast-players">
