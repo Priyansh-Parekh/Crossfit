@@ -1600,3 +1600,24 @@ display: none;
   border: 1px solid #facc15;
   margin: 1rem 0;
 }
+
+
+.club-dashboard-atleast-players {
+  background: #fff6f6;
+  border-left: 6px solid #e02424;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.club-dashboard-atleast-players i {
+  font-size: 1.2rem;
+  color: #dc2626;
+}

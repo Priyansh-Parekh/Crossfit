@@ -123,7 +123,11 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    setup: {
+    setup_club1: {
+        type: Boolean,
+        default: false
+    },
+    setup_club2: {
         type: Boolean,
         default: false
     },
@@ -159,10 +163,6 @@ const Match = new mongoose.Schema({
         playerId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Player_DATA'
-        },
-        clubId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Club_DATA'
         },
         batting: {
             runs: { type: Number, default: 0 },

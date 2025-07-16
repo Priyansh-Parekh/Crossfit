@@ -697,7 +697,8 @@
                       </p>
                       <div class="club-dashboard-challenge-actions">
                         <% if (match.matchId.challange_status==='pending' ) { %>
-                          <form action="/dashboard/clubs/challange_accept" method="POST">
+                          <% if (user.players.length > 14) { %>
+                           <form action="/dashboard/clubs/challange_accept" method="POST">
                             <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
                             <button class="club-dashboard-challenge-btn accept" type="submit">Accept</button>
                           </form>
@@ -705,6 +706,12 @@
                             <input type="hidden" name="match_id" value="<%= match.matchId._id %>">
                             <button class="club-dashboard-challenge-btn reject" type="submit">Reject</button>
                           </form>
+                          <% } else { %>
+                          <div class="club-dashboard-atleast-players">
+  <p><i class="fas fa-exclamation-triangle"></i> You must have at least 14 players to accept the challenge</p>
+</div>
+
+                          <% } %>
                           <% } else { %>
                             <span class="club-dashboard-challenge-status <%= match.matchId.challange_status %>">
                               <%= match.matchId.challange_status %>
@@ -766,7 +773,14 @@
       <input type="number" placeholder="Prize for winner Club" name="prize" id="prize" required>
     </div>
 
-    <button type="submit">Send Challenge</button>
+    <% if (user.players.length > 14) { %>
+     <button type="submit">Send Challenge</button>
+     <% } else { %>
+      <div class="club-dashboard-atleast-players">
+  <p><i class="fas fa-exclamation-triangle"></i> You must have at least 14 players to Give the challenge</p>
+</div>
+
+    <% } %>
   </form>
 </div>
 

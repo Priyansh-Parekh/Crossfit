@@ -139,9 +139,6 @@ const match_populate = async (match) => {
         { path: 'man_of_match' },
         {
             path: 'playerStats.playerId',
-        },
-        {
-            path: 'playerStats.clubId',
         }
     ]);
 };
@@ -159,6 +156,7 @@ route.get('/match_setup/:_id',login,async (req,res)=>{
         let user = req.user;
         let match_id = req.params._id;
         let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch)
         res.render('match_setup',{user,thismatch})
 
     } catch (error) {
@@ -166,6 +164,61 @@ route.get('/match_setup/:_id',login,async (req,res)=>{
         res.send("Not Found the page")
     }
 
+})
+
+route.post('/submit_setup/:_id',login,async(req,res)=>{
+    try {
+        let user = req.user;
+        let match_id = req.params._id;
+        let thismatch = await matches.findById(match_id);
+             await match_populate(thismatch)
+        let {captain,vice_captain,wicket_keeper,other_players,extra_players,toss_winner,toss_choice} = req.body;
+        if(thismatch.club1.name === user.name){
+            thismatch.club1_leaders = {
+                captain,vice_captain,wicket_keeper
+            }
+        }else{
+            thismatch.club2_leaders = {
+                captain,vice_captain,wicket_keeper
+            }
+        }
+        other_players.forEach(player_id => {
+            thismatch.playerStats.push({
+                playerId : player_id
+            });
+        });
+          extra_players.forEach(player_id => {
+            thismatch.playerStats.push({
+                playerId : player_id
+            });
+        });
+        thismatch.toss_winner = toss_winner;
+        thismatch.toss_choice = toss_choice;
+        thismatch.playerStats.push({
+            playerId : captain
+        })
+         thismatch.playerStats.push({
+            playerId : vice_captain
+        })
+         thismatch.playerStats.push({
+            playerId : wicket_keeper
+        })
+        if(toss_choice==='Bat'){
+            thismatch.current_batting = toss_winner
+        }else{
+            if(toss_winner === thismatch.club1._id){
+                thismatch.current_batting = thismatch.club2._id;
+            }else{
+                  thismatch.current_batting = thismatch.club1._id;
+            }
+        }
+        await thismatch.save();
+
+        res.redirect('/dashboard/clubs')
+        
+    } catch (error) {
+        
+    }
 })
 
 

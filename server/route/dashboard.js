@@ -113,8 +113,7 @@ const populate_cricket_club_data = async (club) => {
                 { path: 'man_of_match' },
                 { path: 'toss_winner' },
                 { path: 'current_batting' },
-                { path: 'playerStats.playerId' },
-                { path: 'playerStats.clubId' },
+                { path: 'playerStats.playerId' }
             ]
         }
     ]);
@@ -139,9 +138,6 @@ const match_populate = async (match) => {
         { path: 'man_of_match' },
         {
             path: 'playerStats.playerId',
-        },
-        {
-            path: 'playerStats.clubId',
         }
     ]);
 };

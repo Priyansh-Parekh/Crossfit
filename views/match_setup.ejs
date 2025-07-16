@@ -1,7 +1,6 @@
 <section class="match-setup-section">
     <h2 class="match-setup-title">Match Setup</h2>
-    <form action="/match/submit_setup" method="POST" class="match-setup-form">
-
+    <form action="/match/submit_setup/<%=thismatch._id  %>" method="POST" class="match-setup-form">
         <div class="match-setup-group">
             <label for="captain">Captain</label>
             <select id="captain" name="captain" required>
