@@ -1,41 +1,299 @@
-<main class="merchandise-main-content">
-  <section class="merchandise-section">
-    <div class="merchandise-container">
-      <h2 class="merchandise-title">Explore Our Merchandise</h2>
-      <p class="merchandise-subtitle">Choose your sport and shop the best gear!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Merchandise - Sports Store</title>
+    <link rel="stylesheet" href="styles/merchandise.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1 class="page-title">Team Merchandise</h1>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All Items</button>
+                <button class="filter-btn" data-category="jerseys">Jerseys</button>
+                <button class="filter-btn" data-category="accessories">Accessories</button>
+                <button class="filter-btn" data-category="equipment">Equipment</button>
+                <button class="filter-btn" data-category="apparel">Apparel</button>
+            </div>
 
-      <div class="merchandise-filter">
-        <label for="sport-filter" class="merchandise-label">Filter by Sport:</label>
-        <select id="sport-filter" class="merchandise-dropdown">
-          <option value="all">All</option>
-          <option value="cricket">Cricket</option>
-          <option value="football">Football</option>
-          <option value="basketball">Basketball</option>
-        </select>
-      </div>
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be populated here -->
+            </div>
+        </div>
+    </main>
 
-      <div class="merchandise-grid" id="merchandise-list">
-        <% merchandise.forEach(item => { %>
-          <div class="merchandise-card" data-sport="<%= item.sport %>">
-            <img src="<%= item.image %>" alt="<%= item.name %>" class="merchandise-img" />
-            <h3 class="merchandise-name"><%= item.name %></h3>
-            <p class="merchandise-price">₹<%= item.price %></p>
-          </div>
-        <% }) %>
-      </div>
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2 class="cart-title">Shopping Cart</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems">
+                <div class="empty-cart">Your cart is empty</div>
+            </div>
+            <div class="cart-total" id="cartTotal" style="display: none;">
+                <div>Total: ₹<span class="total-amount" id="totalAmount">0.00</span></div>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
     </div>
-  </section>
-</main>
 
-<script>
-  document.getElementById('sport-filter').addEventListener('change', function () {
-    const value = this.value;
-    document.querySelectorAll('.merchandise-card').forEach(card => {
-      if (value === 'all' || card.dataset.sport === value) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-</script>
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "Team Home Jersey",
+                price: 1500.00,
+                category: "jerseys",
+                description: "Official team home jersey with moisture-wicking fabric and team logo",
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                icon: "👕"
+            },
+            {
+                id: 2,
+                name: "Team Away Jersey",
+                price: 1400.00,
+                category: "jerseys",
+                description: "Official team away jersey with premium materials and authentic design",
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                icon: "👔"
+            },
+            {
+                id: 3,
+                name: "Team Baseball Cap",
+                price: 450.00,
+                category: "accessories",
+                description: "Adjustable team cap with embroidered logo and comfortable fit",
+                sizes: ["One Size"],
+                icon: "🧢"
+            },
+            {
+                id: 4,
+                name: "Team Scarf",
+                price: 300.00,
+                category: "accessories",
+                description: "Warm team scarf perfect for cold games and showing team spirit",
+                sizes: ["One Size"],
+                icon: "🧣"
+            },
+            {
+                id: 5,
+                name: "Official Training Ball",
+                price: 999.99,
+                category: "equipment",
+                description: "Professional training ball used by the team for practice and games",
+                sizes: ["Standard"],
+                icon: "⚽"
+            },
+            {
+                id: 6,
+                name: "Team Hoodie",
+                price: 1800.00,
+                category: "apparel",
+                description: "Comfortable team hoodie with front pocket and team colors",
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                icon: "🧥"
+            },
+            {
+                id: 7,
+                name: "Training Shorts",
+                price: 950.00,
+                category: "apparel",
+                description: "Athletic shorts with team colors and logo, perfect for training",
+                sizes: ["S", "M", "L", "XL"],
+                icon: "🩳"
+            },
+            {
+                id: 8,
+                name: "Team Backpack",
+                price: 1000.00,
+                category: "accessories",
+                description: "Durable backpack with team logo and multiple compartments",
+                sizes: ["One Size"],
+                icon: "🎒"
+            },
+            {
+                id: 9,
+                name: "Water Bottle",
+                price: 400.00,
+                category: "equipment",
+                description: "Insulated water bottle with team logo and leak-proof design",
+                sizes: ["500ml"],
+                icon: "🥤"
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            setupFilters();
+            updateCartCount();
+        });
+
+        function renderProducts() {
+            const productGrid = document.getElementById('productGrid');
+            const filteredProducts = currentFilter === 'all' 
+                ? products 
+                : products.filter(product => product.category === currentFilter);
+
+            productGrid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        ${product.icon}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">₹${product.price.toFixed(2)}</div>
+                        <p class="product-description">${product.description}</p>
+                        <div class="size-selector">
+                            <label>Size:</label>
+                            <div class="size-options">
+                                ${product.sizes.map(size => `
+                                    <button class="size-option" data-size="${size}">${size}</button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Setup size selection
+            document.querySelectorAll('.size-option').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.product-card');
+                    card.querySelectorAll('.size-option').forEach(option => {
+                        option.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.category;
+                    renderProducts();
+                });
+            });
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const productCard = document.querySelector(`[onclick="addToCart(${productId})"]`).closest('.product-card');
+            const selectedSize = productCard.querySelector('.size-option.selected');
+            
+            if (!selectedSize) {
+                alert('Please select a size');
+                return;
+            }
+
+            const cartItem = {
+                id: productId,
+                name: product.name,
+                price: product.price,
+                size: selectedSize.dataset.size,
+                quantity: 1
+            };
+
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => 
+                item.id === productId && item.size === selectedSize.dataset.size
+            );
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push(cartItem);
+            }
+
+            updateCartCount();
+            
+            // Visual feedback
+            const btn = productCard.querySelector('.add-to-cart');
+            const originalText = btn.textContent;
+            btn.textContent = 'Added!';
+            btn.style.background = '#28a745';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 1000);
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            const isVisible = modal.style.display === 'flex';
+            
+            if (!isVisible) {
+                renderCart();
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = 'none';
+            }
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                cartTotal.style.display = 'none';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-details">Size: ${item.size} | Qty: ${item.quantity}</div>
+                    </div>
+                    <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            cartTotal.style.display = 'block';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Simulate checkout process
+            alert(`Order placed successfully!\nTotal: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}\nItems: ${cart.length}`);
+            cart = [];
+            updateCartCount();
+            toggleCart();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+</html>
