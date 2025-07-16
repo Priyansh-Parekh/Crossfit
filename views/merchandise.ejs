@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="styles/merchandise.css">
 </head>
 <body>
+
+        <div class="container">
+            <div class="header-content">
+               
+                
+                <button class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
     <main>
         <div class="container">
             <h1 class="page-title">Team Merchandise</h1>
@@ -65,7 +76,7 @@
             },
             {
                 id: 3,
-                name: "Team Baseball Cap",
+                name: "Team Cricket Cap",
                 price: 450.00,
                 category: "accessories",
                 description: "Adjustable team cap with embroidered logo and comfortable fit",
@@ -120,7 +131,7 @@
             {
                 id: 9,
                 name: "Water Bottle",
-                price: 400.00,
+                price: 400,
                 category: "equipment",
                 description: "Insulated water bottle with team logo and leak-proof design",
                 sizes: ["500ml"],
