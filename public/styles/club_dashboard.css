@@ -1621,3 +1621,36 @@ display: none;
   font-size: 1.2rem;
   color: #dc2626;
 }
+
+
+.club-dashboard-make-live-wrapper {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f0faff;
+  border: 1px solid #7dbbe6;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.club-dashboard-make-live-msg {
+  font-size: 1rem;
+  color: #145da0;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.club-dashboard-make-live-btn {
+  background-color: #1a73e8;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.club-dashboard-make-live-btn:hover {
+  background-color: #155ab6;
+}

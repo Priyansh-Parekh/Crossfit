@@ -518,6 +518,24 @@ route.post('/submit_result/:_id', login, async (req, res) => {
     }
 })
 
+route.post('/make_live/:_id', login, async (req, res) => {
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch);
+        thismatch.status = 'live';
+        await thismatch.save();
+        res.redirect(`/match/update_score/${thismatch._id}`);
+    } catch (error) {
+
+        console.log(error);
+        res.status(500).json({ error: "Failed to update result " });
+    }
+})
+
 // GET /api/match/live_score/:id
 route.get('/refresh/live_score/:id', async (req, res) => {
     try {

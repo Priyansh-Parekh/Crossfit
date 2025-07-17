@@ -480,7 +480,7 @@
                 </div>
 
                 <% const isClub1=String(user._id)===String(match.matchId.club1._id);%>
-                  <% const isSetupDone=isClub1 ? match.matchId.club1_setup : match.matchId.club2_setup;%>
+                  <% const isSetupDone=isClub1 ? match.matchId.setup_club1 : match.matchId.setup_club2;%>
 
                     <% if (!isSetupDone) { %>
                       <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
@@ -492,7 +492,17 @@
                             Setup</a>
 
               </div>
-              </document_content>
+              <% if (match.matchId.setup_club1 && match.matchId.setup_club2) { %>
+                <div class="club-dashboard-make-live-wrapper">
+                  <p class="club-dashboard-make-live-msg">
+                    ✅ Both clubs have completed setup. You can now make this match live!
+                  </p>
+                  <form action="/match/make_live/<%= match.matchId._id %>" method="POST">
+                    <button type="submit" class="club-dashboard-make-live-btn">🎬 Make Match Live</button>
+                  </form>
+                </div>
+                <% } %>
+
             </div>
             <% }) %>
               <% } else { %>
