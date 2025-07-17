@@ -26,243 +26,264 @@
     </div>
 
     <% let clubfirst=thismatch.firstInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
-    <% let clubsecond=thismatch.secondInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
+        <% let clubsecond=thismatch.secondInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
 
-        <!-- Scores -->
-        <div class="live-score-specific-score-section">
-            <div class="live-score-specific-score-card">
-                <h3>
-                    <%= thismatch.firstInnings.name %>
-                </h3>
-                <p id="live-score-specific-firstInning-score">
-                    <%= thismatch.score[clubfirst].runs %> / <%= thismatch.score[clubfirst].wickets %>
-                </p>
-                <p id="live-score-specific-firstInning-overs">Overs: (<%= thismatch.score[clubfirst].overs %>)
-                </p>
+            <!-- Scores -->
+            <div class="live-score-specific-score-section">
+                <div class="live-score-specific-score-card">
+                    <h3>
+                        <%= thismatch.firstInnings.name %>
+                    </h3>
+                    <p id="live-score-specific-firstInning-score">
+                        <%= thismatch.score[clubfirst].runs %> / <%= thismatch.score[clubfirst].wickets %>
+                    </p>
+                    <p id="live-score-specific-firstInning-overs">Overs: (<%= thismatch.score[clubfirst].overs %>)
+                    </p>
+                </div>
+                <div class="live-score-specific-score-card">
+                    <h3>
+                        <%= thismatch.secondInnings.name %>
+                    </h3>
+                    <% if (thismatch.innings===2) { %>
+                        <p id="live-score-specific-secondInning-score">
+                            <%= thismatch.score[clubsecond].runs %> / <%= thismatch.score[clubsecond].wickets %>
+                        </p>
+                        <p id="live-score-specific-secondInning-overs">Overs: (<%= thismatch.score[clubsecond].overs %>)
+                        </p>
+                        <% } else { %>
+
+                            <p>Yet to Bat</p>
+                            <% } %>
+                </div>
             </div>
-            <div class="live-score-specific-score-card">
-                <h3>
-                    <%= thismatch.secondInnings.name %>
-                </h3>
-                <% if (thismatch.innings===2) { %>
-                    <p id="live-score-specific-secondInning-score">
-                        <%= thismatch.score[clubsecond].runs %> / <%= thismatch.score[clubsecond].wickets %>
-                    </p>
-                    <p id="live-score-specific-secondInning-overs">Overs: (<%= thismatch.score[clubsecond].overs %>)
-                    </p>
+
+            <% if (thismatch.submit_result && thismatch.winner ) { %>
+
+                <!-- Match Result -->
+                <div class="live-score-specific-result">
+                    <%= thismatch.winner.name %> won
+                </div>
+                <% } else if (!thismatch.winner && thismatch.submit_result) { %>
+                    <div class="live-score-specific-result">
+                        Match Tied
+                    </div>
+
                     <% } else { %>
-
-                        <p>Yet to Bat</p>
+                        <!-- Match Result -->
+                        <div class="live-score-specific-result">
+                            What do You Think Who will Win?
+                        </div>
                         <% } %>
-            </div>
-        </div>
-
-        <!-- Current Players -->
-        <div class="live-score-specific-current-players" id="live-score-match-data-1" data-match-id="<%= thismatch._id %>">
-            <h3>On Field</h3>
-            <p id="live-score-specific-stricker-score"><strong>Striker:</strong>
-                <%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%= thismatch.stricker_score.balls %> balls)
-            </p>
-            <p id="live-score-specific-nonstricker-score"><strong>Non-Striker:</strong>
-                <%= thismatch.nonstricker.name %> (<%= thismatch.nonstricker_score.runs %> runs, <%=thismatch.nonstricker_score.balls %> balls)
-            </p>
-            <p id="live-score-specific-bowler-score"><strong>Bowler:</strong>
-                <%= thismatch.bowler.name %> (<%= thismatch.bowler_score.overs %> overs, <%= thismatch.bowler_score.runs %> runs, <%= thismatch.bowler_score.wickets %> wicket)
-            </p>
-        </div>
-        <div>
-            <!-- Batting Stats -->
-            <div class="live-score-specific-stats">
-                <h2>Inning - 1</h2>
-                <h3>Batting - <%= thismatch.firstInnings.name %>
-                </h3>
-                <table class="live-score-specific-table">
-                    <thead>
-                        <tr>
-                            <th>Batsman</th>
-                            <th>Runs</th>
-                            <th>Balls</th>
-                            <th>4's</th>
-                            <th>6's</th>
-                            <th>SR</th>
-                        </tr>
-                    </thead>
-                    <tbody id="live-score-specific-firstinning-bat">
-                        <% thismatch.playerStats.forEach(player=> { %>
-                            <% if (String(thismatch.firstInnings._id )===String(player.playerId.registered_club._id)) {%>
-                                <tr>
-                                    <td>
-                                        <%= player.playerId.name %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.runs %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.balls %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.fours %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.sixes %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.strike_rate %>
-                                    </td>
-                                </tr>
+                            <!-- Current Players -->
+                            <% if (!thismatch.submit_result && thismatch.stricker && thismatch.nonstricker &&
+                                thismatch.bowler ) { %>
+                                <div class="live-score-specific-current-players" id="live-score-match-data-1"
+                                    data-match-id="<%= thismatch._id %>">
+                                    <h3>On Field</h3>
+                                    <p id="live-score-specific-stricker-score"><strong>Striker:</strong>
+                                        <%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%=
+                                                    thismatch.stricker_score.balls %> balls)
+                                    </p>
+                                    <p id="live-score-specific-nonstricker-score"><strong>Non-Striker:</strong>
+                                        <%= thismatch.nonstricker.name %> (<%= thismatch.nonstricker_score.runs %> runs,
+                                                <%=thismatch.nonstricker_score.balls %> balls)
+                                    </p>
+                                    <p id="live-score-specific-bowler-score"><strong>Bowler:</strong>
+                                        <%= thismatch.bowler.name %> (<%= thismatch.bowler_score.overs %> overs, <%=
+                                                    thismatch.bowler_score.runs %> runs, <%=
+                                                        thismatch.bowler_score.wickets %> wicket)
+                                    </p>
+                                </div>
                                 <% } %>
+                                    <div>
+                                        <!-- Batting Stats -->
+                                        <div class="live-score-specific-stats">
+                                            <h2>Inning - 1</h2>
+                                            <h3>Batting - <%= thismatch.firstInnings.name %>
+                                            </h3>
+                                            <table class="live-score-specific-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Batsman</th>
+                                                        <th>Runs</th>
+                                                        <th>Balls</th>
+                                                        <th>4's</th>
+                                                        <th>6's</th>
+                                                        <th>SR</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="live-score-specific-firstinning-bat">
+                                                    <% thismatch.playerStats.forEach(player=> { %>
+                                                        <% if (String(thismatch.firstInnings._id
+                                                            )===String(player.playerId.registered_club._id)) {%>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= player.playerId.name %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.batting.runs %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.batting.balls %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.batting.fours %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.batting.sixes %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.batting.strike_rate %>
+                                                                </td>
+                                                            </tr>
+                                                            <% } %>
 
 
-                                    <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                                                                <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
 
-            <!-- Bowling Stats -->
-            <div class="live-score-specific-stats">
-                <h3>Bowling - <%= thismatch.secondInnings.name %>
-                </h3>
-                <table class="live-score-specific-table">
-                    <thead>
-                        <tr>
-                            <th>Bowler</th>
-                            <th>Overs</th>
-                            <th>Runs</th>
-                            <th>Wickets</th>
-                            <th>Eco</th>
-                        </tr>
-                    </thead>
-                    <tbody  id="live-score-specific-firstinning-bowl">
-                        <% thismatch.playerStats.forEach(player=> { %>
-                            <% if (String(thismatch.secondInnings._id )===String(player.playerId.registered_club._id)&&player.playerId.type==='bowler' ) { %>
-                                <tr>
-                                    <td>
-                                        <%= player.playerId.name %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.overs %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.runs %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.wickets %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.economy %>
-                                    </td>
-                                </tr>
-                                <% } %>
-
-
-                                    <% }) %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-       <% if (thismatch.innings === 2) { %>
-         <div>
-            <!-- Batting Stats -->
-            <div class="live-score-specific-stats">
-                <h2>Inning - 2</h2>
-                <h3>Batting - <%= thismatch.secondInnings.name %></h3>
-                <table class="live-score-specific-table">
-                    <thead>
-                        <tr>
-                            <th>Batsman</th>
-                            <th>Runs</th>
-                            <th>Balls</th>
-                            <th>4's</th>
-                            <th>6's</th>
-                            <th>SR</th>
-                        </tr>
-                    </thead>
-                    <tbody  id="live-score-specific-secondInnings-bat">
-                        <% thismatch.playerStats.forEach(player=> { %>
-                            <% if (String(thismatch.secondInnings._id )===String(player.playerId.registered_club._id)) {%>
-                                <tr>
-                                    <td>
-                                        <%= player.playerId.name %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.runs %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.balls %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.fours %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.sixes %>
-                                    </td>
-                                    <td>
-                                        <%= player.batting.strike_rate %>
-                                    </td>
-                                </tr>
-                                <% } %>
+                                        <!-- Bowling Stats -->
+                                        <div class="live-score-specific-stats">
+                                            <h3>Bowling - <%= thismatch.secondInnings.name %>
+                                            </h3>
+                                            <table class="live-score-specific-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Bowler</th>
+                                                        <th>Overs</th>
+                                                        <th>Runs</th>
+                                                        <th>Wickets</th>
+                                                        <th>Eco</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="live-score-specific-firstinning-bowl">
+                                                    <% thismatch.playerStats.forEach(player=> { %>
+                                                        <% if (String(thismatch.secondInnings._id
+                                                            )===String(player.playerId.registered_club._id)&&player.playerId.type==='bowler'
+                                                            ) { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= player.playerId.name %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.bowling.overs %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.bowling.runs %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.bowling.wickets %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= player.bowling.economy %>
+                                                                </td>
+                                                            </tr>
+                                                            <% } %>
 
 
-                                    <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                                                                <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
-            <!-- Bowling Stats -->
-            <div class="live-score-specific-stats">
-                <h3>Bowling - <%= thismatch.firstInnings.name %></h3>
-                <table class="live-score-specific-table">
-                    <thead>
-                        <tr>
-                            <th>Bowler</th>
-                            <th>Overs</th>
-                            <th>Runs</th>
-                            <th>Wickets</th>
-                            <th>Eco</th>
-                        </tr>
-                    </thead>
-                    <tbody id="live-score-specific-secondInnings-bowl">
-                        <% thismatch.playerStats.forEach(player=> { %>
-                            <% if (String(thismatch.firstInnings._id )===String(player.playerId.registered_club._id)&&player.playerId.type==='bowler' ) { %>
-                                <tr>
-                                    <td>
-                                        <%= player.playerId.name %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.overs %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.runs %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.wickets %>
-                                    </td>
-                                    <td>
-                                        <%= player.bowling.economy %>
-                                    </td>
-                                </tr>
-                                <% } %>
+                                    <% if (thismatch.innings===2) { %>
+                                        <div>
+                                            <!-- Batting Stats -->
+                                            <div class="live-score-specific-stats">
+                                                <h2>Inning - 2</h2>
+                                                <h3>Batting - <%= thismatch.secondInnings.name %>
+                                                </h3>
+                                                <table class="live-score-specific-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Batsman</th>
+                                                            <th>Runs</th>
+                                                            <th>Balls</th>
+                                                            <th>4's</th>
+                                                            <th>6's</th>
+                                                            <th>SR</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="live-score-specific-secondInnings-bat">
+                                                        <% thismatch.playerStats.forEach(player=> { %>
+                                                            <% if (String(thismatch.secondInnings._id
+                                                                )===String(player.playerId.registered_club._id)) {%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= player.playerId.name %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.batting.runs %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.batting.balls %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.batting.fours %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.batting.sixes %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.batting.strike_rate %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
 
 
-                                    <% }) %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                                                                    <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-       <% } %>
-        <% if (thismatch.winner) { %>
+                                            <!-- Bowling Stats -->
+                                            <div class="live-score-specific-stats">
+                                                <h3>Bowling - <%= thismatch.firstInnings.name %>
+                                                </h3>
+                                                <table class="live-score-specific-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Bowler</th>
+                                                            <th>Overs</th>
+                                                            <th>Runs</th>
+                                                            <th>Wickets</th>
+                                                            <th>Eco</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="live-score-specific-secondInnings-bowl">
+                                                        <% thismatch.playerStats.forEach(player=> { %>
+                                                            <% if (String(thismatch.firstInnings._id
+                                                                )===String(player.playerId.registered_club._id)&&player.playerId.type==='bowler'
+                                                                ) { %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= player.playerId.name %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.bowling.overs %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.bowling.runs %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.bowling.wickets %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= player.bowling.economy %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
 
-            <!-- Match Result -->
-        <div class="live-score-specific-result">
-            <%= thismatch.winner.name %> won 
-        </div>
 
-         <% } else { %>
-          <!-- Match Result -->
-        <div class="live-score-specific-result">
-           What do You Think Who will Win?
-        </div>
-        <% } %>
+                                                                    <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <% } %>
+
 </div>

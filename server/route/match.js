@@ -517,10 +517,11 @@ route.post('/submit_result/:_id', login, async (req, res) => {
         await match_populate(thismatch);
         let { man_of_match } = req.body.man_of_match;
         man_of_match = new mongoose.Types.ObjectId(man_of_match);
+        thismatch.man_of_match = man_of_match;
         if (thismatch.score.club1.runs > thismatch.score.club2.runs) {
-            thismatch.winner = thismatch.score.club1._id;
-        } else if (thismatch.score.club1.runs < thismatch.score.club2.runs) {
-            thismatch.winner = thismatch.score.club2._id;
+            thismatch.winner = thismatch.club1._id;
+        } else if (thismatch.score.club1.runs < thismatch.scoreclub2.runs) {
+            thismatch.winner = thismatch.club2._id;
         }
         thismatch.status = 'completed';
         thismatch.submit_result = true;
