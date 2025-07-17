@@ -112,8 +112,6 @@ const populate_cricket_club_data = async (club) => {
                 { path: 'winner' },
                 { path: 'man_of_match' },
                 { path: 'toss_winner' },
-                { path: 'firstInnings' },
-                { path: 'secondInnings' },
                 { path: 'current_batting' },
                 { path: 'playerStats.playerId' }
             ]
@@ -123,8 +121,6 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
     await club.populate('wicket_keeper');
-    await club.populate('bowlers');
-    await club.populate('batsman');
 };
 
 const match_populate = async (match) => {

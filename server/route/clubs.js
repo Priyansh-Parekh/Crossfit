@@ -90,11 +90,27 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('match_won');
     await club.populate('match_lose');
     await club.populate('match_played.matchId');
+    await club.populate([
+        {
+            path: 'match_played.matchId',
+            populate: [
+                { path: 'club1' },
+                { path: 'club2' },
+                { path: 'stricker' },
+                { path: 'nonstricker' },
+                { path: 'bowler' },
+                { path: 'winner' },
+                { path: 'man_of_match' },
+                { path: 'toss_winner' },
+                { path: 'current_batting' },
+                { path: 'playerStats.playerId' }
+            ]
+        }
+    ]);
     await club.populate('players');
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
     await club.populate('wicket_keeper');
-    await club.populate('merchandise');
 };
 
 
@@ -116,17 +132,17 @@ route.get('/list/:_id', login, datas, async (req, res) => {
     res.render("club_list_specific", { user, club: club_data });
 })
 
-route.get('/update_leader',login,async(req,res)=>{
+route.get('/update_leader', login, async (req, res) => {
     try {
         let user = req.user;
         await populate_cricket_club_data(user)
-        res.render('leader_selection',{user})
+        res.render('leader_selection', { user })
     } catch (error) {
-        
+
     }
 })
 
-route.post('/update_leader',login,async(req,res)=>{
+route.post('/update_leader', login, async (req, res) => {
     try {
         let user = req.user;
         await populate_cricket_club_data(user)
@@ -136,7 +152,7 @@ route.post('/update_leader',login,async(req,res)=>{
         await user.save();
         res.redirect('/dashboard/clubs')
     } catch (error) {
-        
+
     }
 })
 

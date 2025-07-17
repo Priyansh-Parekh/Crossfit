@@ -112,8 +112,6 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
     await club.populate('wicket_keeper');
-    await club.populate('bowlers');
-    await club.populate('batsman');
 };
 
 

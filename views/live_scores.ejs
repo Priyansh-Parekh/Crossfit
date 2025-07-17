@@ -1,6 +1,8 @@
 <div class="live-score-page-container">
+    <% let check = true %>
     <% AllMatch.forEach(match=> { %>
         <% if (match.status==='live' ) { %>
+            <% check = false %>
             <div class="live-score-page-match-card" data-match-id="<%= match._id %>" >
                 <div class="live-score-page-teams">
                     <div class="live-score-page-team">
@@ -34,4 +36,9 @@
             </div>
             <% } %>
                 <% }) %>
+                <% if (check) { %>
+                    <div class="live-score-page-no-match">
+                        <h1>No Live Matches</h1>
+                    </div>
+                <% } %>
 </div>

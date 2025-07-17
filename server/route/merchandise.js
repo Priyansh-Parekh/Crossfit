@@ -87,6 +87,34 @@ const login = async (req, res, next) => {
     next();
 };
 
+//club thinngs populate
+const populate_cricket_club_data = async (club) => {
+    await club.populate('match_won');
+    await club.populate('match_lose');
+    await club.populate('match_played.matchId');
+    await club.populate([
+        {
+            path: 'match_played.matchId',
+            populate: [
+                { path: 'club1' },
+                { path: 'club2' },
+                { path: 'stricker' },
+                { path: 'nonstricker' },
+                { path: 'bowler' },
+                { path: 'winner' },
+                { path: 'man_of_match' },
+                { path: 'toss_winner' },
+                { path: 'current_batting' },
+                { path: 'playerStats.playerId' }
+            ]
+        }
+    ]);
+    await club.populate('players');
+    await club.populate('captain');
+    await club.populate({ path: 'vice_captain', strictPopulate: false });
+    await club.populate('wicket_keeper');
+};
+
 
 route.get('/', login,datas, async (req, res) => {
     try {
@@ -99,7 +127,6 @@ route.get('/', login,datas, async (req, res) => {
     }
 });
 
-module.exports = route;
 
 
 
