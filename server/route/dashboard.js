@@ -196,14 +196,18 @@ route.get('/clubs', login, datas, async (req, res) => {
                     match.matchId &&
                     !match.matchId.played &&
                     match.matchId.club2 &&
-                    match.matchId.club2.name === user.name
+                    match.matchId.club2.name === user.name &&
+                    match.matchId.status !== 'completed' &&
+                    match.matchId.status !== 'cancelled8'
                 );
 
                 challange_given = user.match_played.filter(match =>
                     match.matchId &&
                     !match.matchId.played &&
                     match.matchId.club1 &&
-                    match.matchId.club1.name === user.name
+                    match.matchId.club1.name === user.name &&
+                    match.matchId.status !== 'completed' &&
+                    match.matchId.status !== 'cancelled'
                 );
 
             } else {
