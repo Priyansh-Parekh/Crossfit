@@ -268,3 +268,40 @@
 .match-live-update-submit-btn {
     margin-top: 20px;
 }
+
+
+.match-warning-box {
+    background: #1a1a1d;
+    border-left: 5px solid #facc15;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    color: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.2);
+}
+
+.match-warning-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #facc15;
+    margin-bottom: 0.75rem;
+}
+
+.match-warning-list {
+    list-style: none;
+    padding-left: 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.match-warning-list > li {
+    margin-bottom: 0.8rem;
+}
+
+.match-warning-list ul {
+    list-style-type: disc;
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    color: #e0e0e0;
+}

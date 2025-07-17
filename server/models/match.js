@@ -41,7 +41,7 @@ const Match = new mongoose.Schema({
             },
             overs: {
                 type: Number,
-                default: 0
+                default: 0.0
             }
         },
         club2: {
@@ -55,7 +55,7 @@ const Match = new mongoose.Schema({
             },
             overs: {
                 type: Number,
-                default: 0
+                default: 0.0
             }
         }
     },

@@ -142,11 +142,21 @@ const match_populate = async (match) => {
     ]);
 };
 
-function ballsToOvers(balls) {
-    const fullOvers = Math.floor(balls / 6);
-    const remainingBalls = balls % 6;
-    return Number(`${fullOvers}.${remainingBalls}`);
-}
+
+const overs_increase = (overs) => {
+    // Extract full overs and balls
+    const fullOvers = Math.floor(overs);
+    const balls = Math.round((overs - fullOvers) * 10);
+
+    // If 6 balls, increment over
+    if (balls === 6) {
+        return (fullOvers + 1).toFixed(1);  // e.g., 4.6 → 5.0
+    }
+
+    // Otherwise, keep as is
+    return (fullOvers + balls / 10).toFixed(1);  // e.g., 4.2 → 4.2
+};
+
 
 
 
@@ -260,6 +270,7 @@ route.post('/live-selection/:_id', login, async (req, res) => {
         thismatch.stricker = stricker;
         thismatch.nonstricker = nonstricker;
         thismatch.bowler = bowler;
+        console.log(thismatch)
         await thismatch.save();
         await match_populate(thismatch)
         res.redirect(`/match/update_score/${thismatch._id}`);
@@ -275,135 +286,203 @@ route.post('/live_score/:_id', login, async (req, res) => {
     try {
         let user = req.user;
         await populate_cricket_club_data(user);
-        let match_id = new mongoose.Types.ObjectId(req.params._id);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch);
 
         let { stricker_runs, extra_runs, bowler, wicket, out_player, new_batsman, boundry, change_innings, strike_change } = req.body;
         stricker_runs = Number(stricker_runs);
 
-        if (bowler) bowler = new mongoose.Types.ObjectId(bowler);
+        if (bowler) {
+            bowler = new mongoose.Types.ObjectId(bowler);
+        }
         if (wicket === 'yes') {
             out_player = new mongoose.Types.ObjectId(out_player);
             new_batsman = new mongoose.Types.ObjectId(new_batsman);
         }
 
-        // Update striker
+        // Update striker's total runs and balls in Player collection
         thismatch.stricker.total_runs += stricker_runs;
         thismatch.stricker.total_balls++;
         thismatch.stricker.SR = (thismatch.stricker.total_runs / thismatch.stricker.total_balls) * 100;
 
-        // Update striker's score object
-        thismatch.stricker_score.runs += stricker_runs;
-        thismatch.stricker_score.balls++;
-
-        // Update striker playerStats
+        // Update striker's match stats
         thismatch.playerStats.forEach(player => {
-            if (String(player.playerId._id) === String(thismatch.stricker._id)) {
+            if (player.playerId._id.toString() === thismatch.stricker._id.toString()) {
                 player.batting.runs += stricker_runs;
-                player.batting.balls++;
-                player.batting.strike_rate = (player.batting.runs / player.batting.balls) * 100;
-
-                if (boundry && boundry !== 'no') {
-                    if (boundry === 'four') player.batting.fours++;
-                    else if (boundry === 'six') player.batting.six++;
+                if (extra_runs === 'none') {
+                    player.batting.balls++;
                 }
+                player.batting.strike_rate = (player.batting.runs / player.batting.balls) * 100;
             }
         });
 
-        // Update bowler
-        thismatch.playerStats.forEach(player => {
-            if (String(player.playerId._id) === String(thismatch.bowler._id)) {
-                player.bowling.balls++;
-                player.bowling.overs = ballsToOvers(player.bowling.balls);
-                player.bowling.runs += stricker_runs;
-                if (wicket === 'yes') player.bowling.wickets++;
-                player.bowling.economy = player.bowling.runs / player.bowling.overs;
-            }
-        });
-
-        thismatch.bowler.overs_deliverd++;
-        thismatch.bowler.runs_given += stricker_runs;
-        thismatch.bowler.economy = thismatch.bowler.runs_given / (thismatch.bowler.overs_deliverd / 6);
-        if (wicket === 'yes') thismatch.bowler.wickets++;
-        thismatch.bowler_score.runs  += stricker_runs;
-        thismatch.bowler_score.balls = (thismatch.bowler_score.balls || 0) + 1;
-        thismatch.bowler_score.overs = ballsToOvers(thismatch.bowler_score.balls);
-        if (wicket === 'yes') thismatch.bowler_score.wickets++;
-
-        // Update team score
-        const scoreKey = String(thismatch.current_batting._id) === String(thismatch.club1._id) ? 'club1' : 'club2';
-        thismatch.score[scoreKey].runs += stricker_runs;
-        thismatch.score[scoreKey].balls = (thismatch.score[scoreKey].balls || 0) + 1;
-        thismatch.score[scoreKey].overs = ballsToOvers(thismatch.score[scoreKey].balls);
-        if (wicket === 'yes') thismatch.score[scoreKey].wickets++;
-
-        // Extras
-        if (['wd', 'nb'].includes(extra_runs)) {
-            thismatch.score[scoreKey].runs++;
+        // Update striker's current innings score
+        thismatch.stricker_score.runs += stricker_runs;
+        if (extra_runs === 'none') {
+            thismatch.stricker_score.balls++;
         }
 
-        // Change bowler if given
-        if (bowler) {
-            thismatch.bowler = bowler;
+        // Handle boundaries
+        if (boundry && boundry !== 'no') {
             thismatch.playerStats.forEach(player => {
-                if (String(player.playerId._id) === String(thismatch.bowler._id)) {
-                    thismatch.bowler_score.wickets = player.bowling.wickets;
-                    thismatch.bowler_score.overs = player.bowling.overs;
+                if (player.playerId._id.toString() === thismatch.stricker._id.toString()) {
+                    if (boundry === 'four') {
+                        player.batting.fours++;
+                    } else if (boundry === 'six') {
+                        player.batting.sixes++;
+                    }
                 }
             });
         }
 
-        // Handle strike change
-        if (strike_change) {
-            let temp = thismatch.stricker;
-            thismatch.stricker = thismatch.nonstricker;
-            thismatch.nonstricker = temp;
+        // Update bowler stats
+        thismatch.playerStats.forEach(player => {
+            if (player.playerId._id.toString() === thismatch.bowler._id.toString()) {
+                if (extra_runs === 'none') {
+                    player.bowling.overs += 0.1;
+                    player.bowling.overs = overs_increase(player.bowling.overs);
+                }
+                player.bowling.runs += stricker_runs;
+                if (wicket === 'yes') {
+                    player.bowling.wickets++;
+                }
+                player.bowling.economy = (player.bowling.runs / player.bowling.overs);
+            }
+        });
 
-            let tempScore = thismatch.stricker_score;
-            thismatch.stricker_score = thismatch.nonstricker_score;
-            thismatch.nonstricker_score = tempScore;
+        // Update bowler's total stats in Player collection
+        if (extra_runs === 'none') {
+            thismatch.bowler.overs_deliverd += 0.1;
+            thismatch.bowler.overs_deliverd = overs_increase(thismatch.bowler.overs_deliverd)
+        }
+        thismatch.bowler.runs_given += stricker_runs;
+        thismatch.bowler.economy = thismatch.bowler.runs_given / thismatch.bowler.overs_deliverd;
+        if (wicket === 'yes') {
+            thismatch.bowler.wickets++;
         }
 
-        // Wicket scenario
+        // Update bowler's current innings score
+        if (extra_runs === 'none') {
+            thismatch.bowler_score.overs += 0.1;
+            thismatch.bowler_score.overs = overs_increase(thismatch.bowler_score.overs)
+        }
+        thismatch.bowler_score.runs += stricker_runs;
         if (wicket === 'yes') {
+            thismatch.bowler_score.wickets++;
+        }
+
+        // Update team scores
+        if (thismatch.current_batting._id.toString() === thismatch.club1._id.toString()) {
+            thismatch.score.club1.runs += stricker_runs;
+            if (extra_runs === 'none') {
+
+                thismatch.score.club1.overs += 0.1;
+                thismatch.score.club1.overs = overs_increase(thismatch.score.club1.overs)
+            }
+            if (wicket === 'yes') {
+                thismatch.score.club1.wickets++;
+            }
+        } else {
+            thismatch.score.club2.runs += stricker_runs;
+            if (extra_runs === 'none') {
+                thismatch.score.club2.overs += 0.1;
+                thismatch.score.club2.overs = overs_increase(thismatch.score.club2.overs)
+            }
+            if (wicket === 'yes') {
+                thismatch.score.club2.wickets++;
+            }
+        }
+
+        // Handle extra runs
+        if (thismatch.current_batting._id.toString() === thismatch.club1._id.toString()) {
+            switch (extra_runs) {
+                case 'wd':
+                    thismatch.score.club1.runs++;
+                    break;
+                case 'nb':
+                    thismatch.score.club1.runs++;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (extra_runs) {
+                case 'wd':
+                    thismatch.score.club2.runs++;
+                    break;
+                case 'nb':
+                    thismatch.score.club2.runs++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // Handle wicket - replace batsman
+        if (wicket === 'yes') {
+            // Mark the out player as out
             thismatch.playerStats.forEach(player => {
-                if (String(player.playerId._id) === String(out_player)) {
+                if (player.playerId._id.toString() === out_player.toString()) {
                     player.batting.out = true;
                 }
             });
 
-            if (String(thismatch.stricker._id) === String(out_player)) {
-                thismatch.stricker = new_batsman;
-                thismatch.stricker_score = { runs: 0, balls: 0 };
-            } else {
-                thismatch.nonstricker = new_batsman;
-                thismatch.nonstricker_score = { runs: 0, balls: 0 };
-            }
+            // Replace striker with new batsman
+            thismatch.stricker = new_batsman;
+            thismatch.stricker_score.runs = 0;
+            thismatch.stricker_score.balls = 0;
         }
 
-        // Innings change
+        // Handle bowler change
+        if (bowler && bowler.toString() !== thismatch.bowler._id.toString()) {
+            thismatch.bowler = bowler;
+
+            thismatch.playerStats.forEach(player => {
+                if (player.playerId._id.toString() === bowler.toString()) {
+                    thismatch.bowler_score.overs = player.bowling.overs;
+                    thismatch.bowler_score.wickets = player.bowling.wickets;
+                    thismatch.bowler_score.runs = player.bowling.runs;
+                }
+            });
+        }
+        console.log(thismatch.nonstricker_score)
+        // Handle strike change
+        if (strike_change === 'yes') {
+            let temp_stricker = thismatch.stricker;
+            let temp_stricker_score = { ...thismatch.stricker_score }; // clone
+
+            thismatch.stricker = thismatch.nonstricker;
+            thismatch.stricker_score = { ...thismatch.nonstricker_score }; // clone
+
+            thismatch.nonstricker = temp_stricker;
+            thismatch.nonstricker_score = temp_stricker_score; // already cloned
+
+
+        }
+        console.log(thismatch.stricker_score)
+        // Handle innings change
         if (change_innings === 'yes') {
-            thismatch.current_batting = String(thismatch.current_batting._id) === String(thismatch.club1._id)
-                ? thismatch.club2._id
-                : thismatch.club1._id;
+            thismatch.current_batting = thismatch.current_batting._id.toString() === thismatch.club1._id.toString() ? thismatch.club2._id : thismatch.club1._id;
             thismatch.bowler = null;
             thismatch.stricker = null;
             thismatch.nonstricker = null;
             thismatch.stricker_score = { runs: 0, balls: 0 };
             thismatch.nonstricker_score = { runs: 0, balls: 0 };
-            thismatch.bowler_score = { overs: 0, wickets: 0 };
+            thismatch.bowler_score = { overs: 0.0, wickets: 0, runs: 0 };
             thismatch.innings = 2;
         }
 
+        // Save the match
         await thismatch.save();
         await match_populate(thismatch);
         res.redirect(`/match/update_score/${thismatch._id}`);
+
     } catch (error) {
         console.log(error);
-        res.send("Failed to update score");
+        res.status(500).json({ error: "Failed to update live score" });
     }
 });
-
 
 module.exports = route;
