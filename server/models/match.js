@@ -124,6 +124,14 @@ const Match = new mongoose.Schema({
         type: String,
         enum: ['Bat', 'Bowl']
     },
+    firstInnings:{
+         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Club_DATA'
+    },
+    secondInnings:{
+         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Club_DATA'
+    },
     innings: {
         type: Number,
         enum: [1, 2],

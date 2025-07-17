@@ -134,11 +134,11 @@ const match_populate = async (match) => {
         { path: 'current_batting' },
         { path: 'stricker' },
         { path: 'nonstricker' },
+        { path: 'firstInnings' },
+        { path: 'secondInnings' },
         { path: 'bowler' },
         { path: 'man_of_match' },
-        {
-            path: 'playerStats.playerId',
-        }
+        { path: 'playerStats.playerId' }
     ]);
 };
 
@@ -181,12 +181,12 @@ route.get('/clubs', login, datas, async (req, res) => {
                 upcoming_matches = false;
             }
 
-            if(live_matches.length === 0){
+            if (live_matches.length === 0) {
                 live_matches = false;
             }
 
-            
-            if(upcoming_matches.length === 0){
+
+            if (upcoming_matches.length === 0) {
                 upcoming_matches = false;
             }
 
@@ -353,7 +353,7 @@ route.post('/clubs/add_player', login, upload.single('profile_picture'), async (
         jersey_number = Number(jersey_number);
         let SR = total_runs / total_balls;
         let economy = runs_given / overs_deliverd;
-        let player = await players.create({ name, age, batting_style, total_runs,registered_club : user._id, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
+        let player = await players.create({ name, age, batting_style, total_runs, registered_club: user._id, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
         await user.players.push(player._id)
         await user.save()
         res.redirect('/dashboard/clubs');

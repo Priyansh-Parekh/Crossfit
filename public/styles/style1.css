@@ -1,0 +1,1064 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Universal Box-Sizing and Base Font */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+body {
+    width: 100%;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    font-family: 'Poppins', sans-serif;
+    background-color: #4a4a4a; /* Light background for content */
+    color: #333; /* Default text color */
+    display: flex;
+    flex-direction: column; /* For sticky footer */
+    line-height: 1.6; /* Default line height for better readability */
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+/* --- Global Utilities / Resets --- */
+a {
+    text-decoration: none;
+    color: inherit; /* Inherit color by default for header links */
+}
+
+a:visited {
+    color: inherit;
+}
+
+/* --- Header Styling --- */
+header {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: #001e28;
+  padding: 1rem 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 0.1rem #fff solid;
+}
+
+.header-desktop-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header img {
+  height: 3.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+header img:hover {
+  transform: scale(1.1);
+}
+
+.header-logo-container a {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ff4c30;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.header-logo-container a:hover{
+  color: #ffffff;
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-desktop-nav .header-links ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+header li {
+  margin-left: 1.2rem;
+  color: #ff4c30;
+}
+
+header li a {
+  text-decoration: none;
+  color: #ff4c30;
+  font-size: 1.15rem;
+  transition: color 0.15s;
+  transition: border-bottom 0.15s;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+
+header li a:hover {
+  border-bottom: 1px solid #ff4c30;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+header .links-button {
+  background-color: #ff4c30;
+  /* #ee2b47 */
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+header .links-button:hover {
+  background-color: white;
+  transform: translateY(-2px);
+  color: #121212;
+  border: 2px solid #ff4c30;
+}
+
+header .links-button:active {
+  background-color: #2b045e;
+  transform: translateY(0);
+}
+
+.header-user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.header-user-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #10b981; /* emerald ring */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.header-user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  width: 12rem;
+  z-index: 999;
+}
+
+.header-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.header-dropdown a:hover {
+  background: #f2f2f2;
+}
+
+.header-dropdown a.header-logout {
+  color: #ff4c30;
+}
+
+.header-hidden {
+  display: none;
+}
+
+/* Mobile styles */
+.header-mobile-nav {
+  display: none;
+}
+
+.header-mobile-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.header-hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: #5409b2;
+  cursor: pointer;
+  /* transition: transform 0.3s ease; */
+  transition: transform 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header-hamburger:hover {
+  transform: scale(1.1);
+}
+
+.header-hamburger:active {
+  /* transform: rotate(90deg); */
+  opacity: 0.95;
+}
+
+.header-mobile-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  width: 14rem;
+  z-index: 999;
+}
+
+.header-mobile-dropdown ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Toggle helper class */
+.header-hidden {
+  display: none !important;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .header-desktop-nav {
+    display: none;
+  }
+
+  .header-hamburger {
+    display: block;
+  }
+
+  .header-mobile-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* --- Main Content Area --- */
+main {
+    flex-grow: 1; /* Allows main content to push footer to the bottom */
+    width: 100%;
+    max-width: 1200px; /* Max width for content for better readability on large screens */
+    margin: 0 auto; /* Center content horizontally */
+    padding: 2rem; /* Overall padding for content sections, preventing content from touching edges */
+}
+
+section {
+    padding: 1rem 0; /* Vertical spacing between sections */
+    text-align: center;
+}
+
+section h1, section h2 {
+    font-size: 2.8rem; /* Larger headings for impact and hierarchy */
+    margin-bottom: 1.5rem;
+    color: #2c3e50; /* Darker heading color for strong contrast */
+}
+
+section p {
+    font-size: 1.1rem;
+    line-height: 1.7; /* Increased line height for better readability */
+    max-width: 800px; /* Max width for paragraphs to prevent overly long lines */
+    margin: 0 auto 2rem auto; /* Center paragraphs and provide bottom spacing */
+    color: #555; /* Softer text color */
+}
+
+/* --- Hero Section --- */
+.home-hero {
+    
+    /* background: linear-gradient(135deg,
+            #144d22 0%,
+            #4caf50 20%,
+            #ffcc70 40%,
+            #f0e68c 60%,
+            #2da0a8 80%,
+            #5c6bc0 100%); */
+    background: linear-gradient(
+  135deg,
+  #0d0d0d 0%,
+  #B22222 20%,
+  #FF4500 40%,
+  #FF8C00 60%,
+  #FFD700 80%,
+  #1E2A38 100%
+);
+
+    color: #121212;
+    padding: 8rem 2rem; /* Generous vertical padding for a grand feel */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Make hero section tall */
+    border-bottom-right-radius: 10px; /* Slightly rounded corners for visual appeal */
+    border-bottom-left-radius: 10px; /* Slightly rounded corners for visual appeal */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+}
+
+.home-hero-content {
+    max-width: 900px; /* Constrain content width within the hero */
+}
+
+.home-hero h1 {
+    font-size: 4rem; /* Prominent title for the hero section */
+    margin-bottom: 1rem;
+    color: #121212; /* White text on dark background for contrast */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Subtle shadow for readability */
+}
+
+.home-hero p {
+    font-size: 1.3rem; /* Larger paragraph in hero for emphasis */
+    color: #121212; /* Off-white for softer look */
+    margin-bottom: 3rem;
+}
+
+.home-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Spacing between CTA buttons */
+    color: #ffffff;
+}
+
+
+
+.home-cta-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 30px; /* Pill-shaped buttons */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow for buttons */
+}
+
+.home-primary {
+    background-color: #000000;
+    color: #ffffff;
+    border: 3px solid #ff4c30; /* Solid border matching background */
+}
+
+.home-primary:hover {
+    background-color: #121212;
+    /* border-color: #3f0685; */
+    transform: translateY(-3px); /* Lift effect */
+}
+
+.home-secondary {
+    background-color: transparent;
+    color: white;
+    border: 3px solid white; /* White border for contrast */
+}
+
+.home-secondary:hover {
+    background-color: #121212;
+    /* color: #5409b2; */
+    transform: translateY(-3px);
+}
+
+/* --- Features Section --- */
+.home-features {
+    background-color: #001e28; /* White background for features section */
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Soft shadow for the entire section */
+    padding: 4rem 2rem; /* Consistent padding inside the section */
+}
+
+.home-features h2 {
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.home-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for features */
+    gap: 2rem; /* Spacing between cards */
+    /* Removed padding: 0 2rem; from here as it's already on the section */
+}
+
+.home-feature-card {
+    background-color: #ff5722; /* Slightly off-white for cards */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Card shadow */
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-top: 5px solid #5409b2; /* Accent top border */
+}
+
+.home-feature-card h3{
+  color: #f3f4ff;
+}
+
+.home-feature-card:hover {
+    transform: translateY(-8px); /* Lift effect on hover */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+    cursor:default;
+    
+}
+
+.home-feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: transform 1s;
+    display: block; /* Ensure it takes full width for centering */
+}
+
+.home-feature-card:hover .home-feature-icon{
+  transform: scale(1.2,1.2);
+}
+
+.home-feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #f3f4ff;
+}
+
+.home-feature-card p {
+    /* display: none; */
+    font-size: 0.95rem;
+    color: #f3f4ff;
+    line-height: 1.6;
+    margin-bottom: 0; /* Remove extra margin */
+}
+
+/* --- Sports Section --- */
+.home-sports {
+    background-color: #001e28; /* Light gray background */
+    border-radius: 10px;
+    padding: 4rem 2rem; /* Consistent padding */
+}
+
+.home-sports h2 {
+    margin-bottom: 3rem;
+    color: #ffffff;
+}
+
+.home-sports-grid {
+    display: flex;
+    justify-content: center; /* Center the cards */
+    gap: 4rem;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.home-sport-card {
+    background-color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: left; /* Align text to the left */
+    width: 350px; /* Fixed width for consistency */
+    cursor: default;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-left 0.2s ease-in-out;
+    /* border-left: 5px solid transparent; */
+}
+
+/* Cricket card styles */
+.sport-cricket {
+  background-color: #34699a; /* light blue */
+  /* border-left: 5px solid #0d47a1; */
+}
+
+/* Football card styles */
+.sport-football {
+  background-color: #ef9316; /* light green */
+  /* border-left: 5px solid #33691e; */
+}
+
+/* Basketball card styles */
+.sport-basketball {
+  background-color: #df4838; /* light orange */
+  /* border-left: 5px solid #e65100; */
+}
+
+.home-sport-card:hover {
+    transform: translateY(-8px);
+    transform: scale(1.2,1.2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 5px solid #121212; /* Accent border on hover */
+}
+
+.home-sport-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    color: #121212; /* Accent color for sport titles */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.home-sport-card h3 span { /* Emoji icon */
+    font-size: 2rem;
+    color: #111;
+}
+
+.home-sport-card p {
+    font-size: 0.95rem;
+    color: #121212;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* --- User Roles Section --- */
+.home-user-roles {
+    background-color: #001e28;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    padding: 4rem 2rem; /* Consistent padding */
+}
+
+.home-user-roles h2 {
+    margin-bottom: 3rem;
+    color: #fff;
+}
+
+.home-roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    /* Removed padding: 0 2rem; from here as it's already on the section */
+}
+
+.home-role-card {
+    background-color: #1c3a47;
+    padding: 2.5rem; /* More padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: left; /* Align text to the left */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid #eee; /* Subtle border */
+}
+
+.home-role-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #ff4c30;
+    background-color: #012733;
+    /* Highlight border on hover */
+}
+
+.home-role-card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.home-role-card h3 span { /* Emoji icon */
+    font-size: 2.2rem;
+    color: #111;
+}
+
+.home-role-features {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.home-role-features li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-start; /* Align list item content to the start */
+}
+
+.home-role-features li::before {
+    content: '✅'; /* Checkmark icon */
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    line-height: 1; /* For better vertical alignment */
+    flex-shrink: 0; /* Prevent checkmark from shrinking */
+}
+
+/* --- User Roles Section Buttons --- */
+
+/* Container for the buttons within role cards */
+.home-role-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons by default */
+    gap: 0.8rem; /* Space between buttons */
+    margin-top: 1.5rem; /* Space above buttons from list items */
+    width: 100%; /* Take full width of the card */
+}
+
+/* Base style for all buttons within role cards */
+.home-role-btn {
+    display: block; /* Make buttons take full width of their container */
+    width: 100%;
+    padding: 0.8rem 1.5rem; /* Consistent padding */
+    font-size: 1rem;
+    font-weight: 600;
+    border: none; /* Reset default button border */
+    border-radius: 8px; /* Slightly rounded corners */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Style for the Login button (Primary) */
+.home-role-login-btn {
+    background-color: #ff4c30; /* Your primary accent color */
+    color: #ffffff;
+    /* border: 2px solid #5409b2; */
+     /* Solid border matching background */
+}
+
+.home-role-login-btn:hover {
+    background-color: #fff; /* Darker shade on hover */
+    border: 2px solid #ff4c30;
+    color: #121212;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.home-role-login-btn:active {
+    background-color: #2b045e;
+    transform: translateY(0);
+}
+
+/* Style for the Register button (Secondary/Outline) */
+.home-role-register-btn {
+    background-color: transparent;
+    color: #ff4c30; /* Text color matching primary accent */
+    border: 2px solid #ff4c30; /* Outline border */
+}
+
+.home-role-register-btn:hover {
+    background-color: #121212; /* Fill with primary color on hover */
+    color: #ffffff; /* White text on hover */
+    transform: translateY(-2px);
+}
+
+.home-role-register-btn:active {
+    background-color: #3f0685;
+    border-color: #3f0685;
+    transform: translateY(0);
+}
+/* Style for the Log Out button (Primary) */
+.home-role-logout-btn {
+     margin-left: 2px;
+    background-color: #d90d0d; /* Your primary accent color */
+    color: #ffffff;
+    border: 2px solid #d90d0d; /* Solid border matching background */
+}
+
+.home-role-logout-btn:hover {
+    color: #d90d0d;
+    background-color: #ffffff; /* Darker shade on hover */
+    border-color: #ffffff;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.home-role-logout-btn:active {
+    background-color: #d90d0d;
+    transform: translateY(0);
+}
+/* Responsive adjustments for buttons within role cards */
+@media (min-width: 768px) {
+    /* For wider screens, make buttons side-by-side if desired, or keep stacked for cleaner look */
+    .home-role-buttons {
+        flex-direction: row; /* Layout buttons in a row */
+        justify-content: center; /* Center them if there's extra space */
+        gap: 1rem; /* Adjust spacing for row layout */
+    }
+    .home-role-btn {
+        width: auto; /* Allow buttons to size based on content + padding */
+        min-width: 120px; /* Ensure a minimum width */
+    }
+}
+
+@media (max-width: 480px) {
+    .home-role-btn {
+        padding: 0.7rem 1rem; /* Slightly less padding on very small screens */
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Footer Styling --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+footer {
+  background-color: #010a0f;
+  color: #fff;
+  margin-top: auto;
+  font-family: 'Poppins';
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  /* Stack columns on small screens by default */
+  gap: 2rem;
+  /* Spacing between sections */
+  padding: 3rem 2rem;
+  /* More generous padding inside the footer content */
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Lighter border */
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    /* Layout in a row */
+    justify-content: space-between;
+    align-items: flex-start;
+    /* Align items to the top for better layout */
+    flex-wrap: wrap;
+  }
+
+  .footer-left {
+    flex: 1;
+    /* Equal flexible space */
+    text-align: left;
+  }
+
+  .footer-center {
+    flex: 1.5;
+    /* Give more space to links */
+    display: flex;
+    /* Ensure flexbox for centering links */
+    justify-content: center;
+  }
+
+  .footer-right {
+    flex: 1;
+    /* Equal flexible space */
+    text-align: right;
+    /* Align right for social icons section */
+  }
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .footer-logo {
+    justify-content: flex-start;
+    /* Align left on larger screens */
+  }
+}
+
+.footer-logo img {
+  /* width: 45px; */
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.footer-logo a {
+  margin-top: 15px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff4c30;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-logo a:hover {
+  color: #fff;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-links {
+    flex-direction: row;
+    gap: 1.8rem;
+    justify-content: center;
+  }
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.footer-links a:hover {
+  color: #ff4c30;
+}
+
+.social-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.social-section p {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .social-section {
+    text-align: center;
+    /* Align right on larger screens */
+  }
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .social-icons {
+    justify-content: center;
+    /* Align right on larger screens */
+  }
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.social-icon {
+  font-size: 24px;
+  color: #bbbbbb;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+/* Hover brand colors */
+.social-icon.instagram:hover {
+  color: #E4405F;
+  /* Instagram gradient pink */
+}
+
+.social-icon.facebook:hover {
+  color: #0866FF;
+  /* Facebook blue */
+}
+
+.social-icon.reddit:hover {
+  color: #FF4500;
+  /* Reddit orange */
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  background-color: #001e28;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* --- Responsive Adjustments --- */
+/* For tablets and smaller desktops */
+@media (max-width: 992px) {
+    header {
+        padding: 1rem 2rem;
+    }
+    header .links ul {
+        gap: 1.2rem;
+        margin-right: 1.5rem;
+    }
+    header .logo-container a {
+        font-size: 1.6rem;
+    }
+}
+
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Stack logo and nav vertically */
+        align-items: flex-start; /* Align all items to the left */
+        padding: 1rem 1.5rem;
+    }
+
+    header .logo-container {
+        margin-bottom: 1rem; /* Space between logo and nav */
+        width: 100%; /* Ensure logo takes full width */
+        justify-content: center; /* Center the logo */
+    }
+
+    header .links {
+        width: 100%; /* Make navigation take full width */
+        flex-direction: column; /* Stack nav links and button */
+        align-items: center; /* Center items within the nav block */
+        gap: 0.05rem; /* Space between nav list and button */
+    }
+
+    header .links ul {
+        flex-direction: column; /* Stack nav links vertically */
+        align-items: center; /* Center stacked nav links */
+        margin-right: 0; /* Remove horizontal margin */
+        gap: 0.05rem; /* Closer spacing for stacked links */
+        width: 100%; /* Take full width */
+    }
+
+    header .links li {
+        margin-right: 0; /* Remove inline margin */
+        width: 100%; /* Make each list item take full width */
+        text-align: center; /* Center text within list item */
+    }
+
+    header .links li a {
+        padding: 0.05rem 0; /* More clickable area */
+        display: block; /* Make anchor take full width */
+    }
+
+    header .links button {
+        width: 80%; /* Make button wider on small screens */
+        max-width: 250px; /* Constrain max width for button */
+    }
+
+    main {
+        padding: 1.5rem; /* Less overall padding on small screens */
+    }
+
+    .home-hero {
+        padding: 6rem 1.5rem;
+        min-height: 60vh;
+    }
+
+    .home-hero h1 {
+        font-size: 3rem;
+    }
+
+    .home-hero p {
+        font-size: 1.1rem;
+    }
+
+    .home-cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .home-cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    section {
+        padding: 3rem 0; /* Less vertical padding on content sections */
+    }
+
+    section h1, section h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    section p {
+        font-size: 1rem;
+    }
+
+    .home-features-grid, .home-roles-grid, .home-sports-grid {
+        grid-template-columns: 1fr; /* Single column layout for cards */
+        padding: 0 0.5rem; /* Slightly less padding */
+    }
+
+    .home-sport-card {
+        width: 100%; /* Take full width on small screens */
+    }
+
+    .footer-content {
+        padding: 2rem 1.5rem;
+        text-align: center; /* Center all footer content on small screens */
+        align-items: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        width: 100%; /* Make footer sections take full width */
+        text-align: center;
+    }
+
+    .footer-links {
+        align-items: center; /* Center stacked links */
+    }
+
+    .social-icons {
+        justify-content: center; /* Center social icons */
+    }
+}
+
+/* For very small mobile devices */
+@media (max-width: 480px) {
+/*  header .logo-container a {
+        font-size: 1.5rem; 
+    }
+     header .logo-container img {
+        height: 2.5rem;
+        width: 2.5rem;
+    } */ 
+    .home-hero h1 {
+        font-size: 2.5rem;
+    }
+    .home-hero p {
+        font-size: 1rem;
+    }
+    section h1, section h2 {
+        font-size: 1.8rem;
+    }
+    .home-feature-card h3, .home-sport-card h3, .home-role-card h3 {
+        font-size: 1.3rem;
+    }
+    .home-feature-icon, .home-sport-card h3 span, .home-role-card h3 span {
+        font-size: 2.5rem; /* Adjust emoji size */
+    }
+}

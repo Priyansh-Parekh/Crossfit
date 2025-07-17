@@ -112,6 +112,8 @@ const populate_cricket_club_data = async (club) => {
                 { path: 'winner' },
                 { path: 'man_of_match' },
                 { path: 'toss_winner' },
+                { path: 'firstInnings' },
+                { path: 'secondInnings' },
                 { path: 'current_batting' },
                 { path: 'playerStats.playerId' }
             ]
@@ -134,11 +136,11 @@ const match_populate = async (match) => {
         { path: 'current_batting' },
         { path: 'stricker' },
         { path: 'nonstricker' },
+        { path: 'firstInnings' },
+        { path: 'secondInnings' },
         { path: 'bowler' },
         { path: 'man_of_match' },
-        {
-            path: 'playerStats.playerId',
-        }
+        { path: 'playerStats.playerId' }
     ]);
 };
 
@@ -229,6 +231,19 @@ route.post('/submit_setup/:_id', login, async (req, res) => {
                 thismatch.current_batting = thismatch.club1._id;
             }
         }
+        if (toss_winner === thismatch.club1._id && toss_choice === 'Bat') {
+            thismatch.firstInnings = thismatch.club1._id;
+            thismatch.secondInnings = thismatch.club2._id;
+        } else if (toss_winner === thismatch.club1._id && toss_choice === 'Bowl') {
+            thismatch.firstInnings = thismatch.club2._id;
+            thismatch.secondInnings = thismatch.club1._id;
+        } else if (toss_winner === thismatch.club2._id && toss_choice === 'Bowl') {
+            thismatch.firstInnings = thismatch.club1._id;
+            thismatch.secondInnings = thismatch.club2._id;
+        } else if (toss_winner === thismatch.club2._id && toss_choice === 'Bat') {
+            thismatch.firstInnings = thismatch.club2._id;
+            thismatch.secondInnings = thismatch.club1._id;
+        }
         await thismatch.save();
 
         res.redirect('/dashboard/clubs')
@@ -305,7 +320,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
         // Update striker's total runs and balls in Player collection
         thismatch.stricker.total_runs += stricker_runs;
         thismatch.stricker.total_balls++;
-        thismatch.stricker.SR = (thismatch.stricker.total_runs / thismatch.stricker.total_balls) * 100;
+        thismatch.stricker.SR = ((thismatch.stricker.total_runs / thismatch.stricker.total_balls) * 100).toFixed(2);
 
         // Update striker's match stats
         thismatch.playerStats.forEach(player => {
@@ -314,7 +329,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
                 if (extra_runs === 'none') {
                     player.batting.balls++;
                 }
-                player.batting.strike_rate = (player.batting.runs / player.batting.balls) * 100;
+                player.batting.strike_rate = ((player.batting.runs / player.batting.balls) * 100).toFixed(2);
             }
         });
 
@@ -348,7 +363,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
                 if (wicket === 'yes') {
                     player.bowling.wickets++;
                 }
-                player.bowling.economy = (player.bowling.runs / player.bowling.overs);
+                player.bowling.economy = (player.bowling.runs / player.bowling.overs).toFixed(1);
             }
         });
 
@@ -358,7 +373,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
             thismatch.bowler.overs_deliverd = overs_increase(thismatch.bowler.overs_deliverd)
         }
         thismatch.bowler.runs_given += stricker_runs;
-        thismatch.bowler.economy = thismatch.bowler.runs_given / thismatch.bowler.overs_deliverd;
+        thismatch.bowler.economy =( thismatch.bowler.runs_given / thismatch.bowler.overs_deliverd).toFixed(1);
         if (wicket === 'yes') {
             thismatch.bowler.wickets++;
         }
@@ -547,13 +562,18 @@ route.get('/refresh/live_score/:id', async (req, res) => {
                 club1: thismatch.score.club1,
                 club2: thismatch.score.club2
             },
+            club1: thismatch.club1,
+            club2: thismatch.club2,
             current_batting: thismatch.current_batting,
             stricker: thismatch.stricker,
             nonstricker: thismatch.nonstricker,
             stricker_score: thismatch.stricker_score,
             nonstricker_score: thismatch.nonstricker_score,
             bowler: thismatch.bowler,
-            bowler_score: thismatch.bowler_score
+            bowler_score: thismatch.bowler_score,
+            firstInnings: thismatch.firstInnings,
+            secondInnings:thismatch.secondInnings,
+            playerStats : thismatch.playerStats
         });
     } catch (err) {
         console.error(err);

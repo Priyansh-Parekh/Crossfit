@@ -1,0 +1,37 @@
+<div class="live-score-page-container">
+    <% AllMatch.forEach(match=> { %>
+        <% if (match.status==='live' ) { %>
+            <div class="live-score-page-match-card" data-match-id="<%= match._id %>" >
+                <div class="live-score-page-teams">
+                    <div class="live-score-page-team">
+                        <img src="<%= match.club1.logo %>" alt="logo" class="live-score-page-team-logo">
+                        <span class="live-score-page-team-name">
+                            <%= match.club1.name %>
+                        </span>
+                    </div>
+                    <span class="live-score-page-vs">VS</span>
+                    <div class="live-score-page-team">
+                        <img src="<%= match.club2.logo %>" alt="logo" class="live-score-page-team-logo">
+                        <span class="live-score-page-team-name">
+                            <%= match.club2.name %>
+                        </span>
+                    </div>
+                </div>
+                <div class="live-score-page-score">
+                    <p>
+                        <%= match.score.club1.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club1.overs %> )
+                    </p>
+                    <p>
+                        <%= match.score.club2.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club2.overs %> )
+                    </p>
+                </div>
+                <div>
+                    <div class="live-score-page-status">
+                        <span class="live-score-page-live-indicator"></span>LIVE
+                    </div>
+                    <a href="/live_scores/scorecard/<%= match._id %>" class="live-score-page-live-btn">Live Scorecard</a>
+                </div>
+            </div>
+            <% } %>
+                <% }) %>
+</div>

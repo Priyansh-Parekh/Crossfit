@@ -86,12 +86,80 @@ const login = async (req, res, next) => {
     next();
 };
 
+//club thinngs populate
+const populate_cricket_club_data = async (club) => {
+    await club.populate('match_won');
+    await club.populate('match_lose');
+    await club.populate('match_played.matchId');
+    await club.populate([
+        {
+            path: 'match_played.matchId',
+            populate: [
+                { path: 'club1' },
+                { path: 'club2' },
+                { path: 'stricker' },
+                { path: 'nonstricker' },
+                { path: 'bowler' },
+                { path: 'winner' },
+                { path: 'man_of_match' },
+                { path: 'toss_winner' },
+                { path: 'current_batting' },
+                { path: 'playerStats.playerId' }
+            ]
+        }
+    ]);
+    await club.populate('players');
+    await club.populate('captain');
+    await club.populate({ path: 'vice_captain', strictPopulate: false });
+    await club.populate('wicket_keeper');
+    await club.populate('bowlers');
+    await club.populate('batsman');
+};
+
+
+const match_populate = async (match) => {
+    return await matches.populate(match, [
+        { path: 'club1' },
+        { path: 'club2' },
+        { path: 'winner' },
+        { path: 'toss_winner' },
+        { path: 'current_batting' },
+        { path: 'stricker' },
+        { path: 'nonstricker' },
+        { path: 'firstInnings' },
+        { path: 'secondInnings' },
+        { path: 'bowler' },
+        { path: 'man_of_match' },
+        { path: 'playerStats.playerId'}
+    ]);
+};
+
+
+
 //live score  Page
-route.get('/', login, async (req, res) => {
+route.get('/', login, datas, async (req, res) => {
     let user = req.user;
-    res.render("live_scores", { user });
+    AllMatch = req.data.matches;
+    // Populate all matches in parallel
+    await Promise.all(AllMatch.map(match => match_populate(match)));
+
+    res.render("live_scores", { user, matches });
 })
 
+
+route.get('/scorecard/:_id', login, async (req, res) => {
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch);
+        res.render('specific_scorecard', { user,thismatch })
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 
 

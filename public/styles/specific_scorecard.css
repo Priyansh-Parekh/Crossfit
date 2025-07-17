@@ -1,0 +1,100 @@
+.live-score-specific-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fefefe;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+}
+
+.live-score-specific-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.live-score-specific-club {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.live-score-specific-logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  border: 2px solid #5409b2;
+}
+
+.live-score-specific-vs {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.live-score-specific-info {
+  background: #f9f9ff;
+  border-left: 4px solid #5409b2;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.live-score-specific-score-section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+}
+
+.live-score-specific-score-card {
+  background: #e8e3ff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 40%;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.live-score-specific-current-players {
+  background: #fff8e1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #ffb300;
+}
+
+.live-score-specific-stats {
+  margin-bottom: 2rem;
+}
+
+.live-score-specific-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.2rem;
+  background: white;
+}
+
+.live-score-specific-table th,
+.live-score-specific-table td {
+  border: 1px solid #ddd;
+  padding: 0.6rem;
+  text-align: center;
+}
+
+.live-score-specific-table th {
+  background: #eceaff;
+  color: #333;
+}
+
+.live-score-specific-result {
+  padding: 1rem;
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
