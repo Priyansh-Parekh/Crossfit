@@ -285,7 +285,6 @@ route.post('/live-selection/:_id', login, async (req, res) => {
         thismatch.stricker = stricker;
         thismatch.nonstricker = nonstricker;
         thismatch.bowler = bowler;
-        console.log(thismatch)
         await thismatch.save();
         await match_populate(thismatch)
         res.redirect(`/match/update_score/${thismatch._id}`);
@@ -518,11 +517,24 @@ route.post('/submit_result/:_id', login, async (req, res) => {
         let { man_of_match } = req.body.man_of_match;
         man_of_match = new mongoose.Types.ObjectId(man_of_match);
         thismatch.man_of_match = man_of_match;
+        let loser ;
         if (thismatch.score.club1.runs > thismatch.score.club2.runs) {
             thismatch.winner = thismatch.club1._id;
-        } else if (thismatch.score.club1.runs < thismatch.scoreclub2.runs) {
+            loser = thismatch.club2._id;
+        } else if (thismatch.score.club1.runs < thismatch.score.club2.runs) {
             thismatch.winner = thismatch.club2._id;
+            loser = thismatch.club1._id;
         }
+        console.log(user.match_played)
+        user.match_played.forEach(match => {
+            if(match.matchId._id === thismatch._id){
+                match.played = true;
+            }
+        });
+        let winner = await  clubs.findById(thismatch.winner);
+        winner.match_won.push(thismatch._id);
+        loser = await clubs.findById(loser);
+        loser.match_lose.push(thismatch._id);
         thismatch.status = 'completed';
         thismatch.submit_result = true;
         await thismatch.save();
