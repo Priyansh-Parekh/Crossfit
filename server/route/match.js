@@ -460,15 +460,15 @@ route.post('/live_score/:_id', login, async (req, res) => {
 
 
         }
-        let current_wickets ;
-         if (thismatch.current_batting._id.toString() === thismatch.club1._id.toString()) {
-           current_wickets =  thismatch.score.club1.wickets;
+        let current_wickets;
+        if (thismatch.current_batting._id.toString() === thismatch.club1._id.toString()) {
+            current_wickets = thismatch.score.club1.wickets;
         } else {
-            current_wickets =  thismatch.score.club2.wickets
+            current_wickets = thismatch.score.club2.wickets
         }
 
         // Handle innings change
-        if (change_innings === 'yes'  || current_wickets === 10 ) {
+        if (change_innings === 'yes' || current_wickets === 10) {
             thismatch.current_batting = thismatch.current_batting._id.toString() === thismatch.club1._id.toString() ? thismatch.club2._id : thismatch.club1._id;
             thismatch.bowler = null;
             thismatch.stricker = null;
@@ -500,11 +500,11 @@ route.post('/submit_result/:_id', login, async (req, res) => {
         match_id = new mongoose.Types.ObjectId(match_id);
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch);
-        let {man_of_match} = req.body.man_of_match;
+        let { man_of_match } = req.body.man_of_match;
         man_of_match = new mongoose.Types.ObjectId(man_of_match);
-        if(thismatch.score.club1.runs > thismatch.score.club2.runs  ){
+        if (thismatch.score.club1.runs > thismatch.score.club2.runs) {
             thismatch.winner = thismatch.score.club1._id;
-        }else if(thismatch.score.club1.runs < thismatch.score.club2.runs ){
+        } else if (thismatch.score.club1.runs < thismatch.score.club2.runs) {
             thismatch.winner = thismatch.score.club2._id;
         }
         thismatch.status = 'completed';
@@ -517,5 +517,32 @@ route.post('/submit_result/:_id', login, async (req, res) => {
         res.status(500).json({ error: "Failed to update result " });
     }
 })
+
+// GET /api/match/live_score/:id
+route.get('/refresh/live_score/:id', async (req, res) => {
+    try {
+        const thismatch = await matches.findById(req.params.id);
+        await match_populate(thismatch);
+
+        res.json({
+            score: {
+                club1: thismatch.score.club1,
+                club2: thismatch.score.club2
+            },
+            current_batting: thismatch.current_batting,
+            stricker: thismatch.stricker,
+            nonstricker: thismatch.nonstricker,
+            stricker_score: thismatch.stricker_score,
+            nonstricker_score: thismatch.nonstricker_score,
+            bowler: thismatch.bowler,
+            bowler_score: thismatch.bowler_score
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error fetching live data' });
+    }
+});
+
+
 
 module.exports = route;

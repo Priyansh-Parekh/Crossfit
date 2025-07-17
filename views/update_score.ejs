@@ -317,7 +317,7 @@
 
 
 
-                <% if (thismatch.innings ) { %>
+                <% if (thismatch.innings===2 ) { %>
                     <div class="resultsubmit-box">
                         <p class="resultsubmit-warning">
                             ⚠️ Be aware! Submitting the result will automatically evaluate the outcome based on match
@@ -340,12 +340,13 @@
                     <% } %>
 
 
-                    <% }else{%>
-  <div class="match-completed-box">
-    <h2 class="match-completed-title">✅ Match Completed</h2>
-    <p class="match-completed-message">
-      The match has ended. You can now view the final scoreboard and match summary.
-    </p>
-    <a href="/match/scoreboard/<%= thismatch._id %>" class="match-completed-link">📊 View Scoreboard</a>
-  </div>
-<% } %>
+                        <% }else{%>
+                            <div class="match-completed-box">
+                                <h2 class="match-completed-title">✅ Match Completed</h2>
+                                <p class="match-completed-message">
+                                    The match has ended. You can now view the final scoreboard and match summary.
+                                </p>
+                                <a href="/match/scoreboard/<%= thismatch._id %>" class="match-completed-link">📊 View
+                                    Scoreboard</a>
+                            </div>
+                            <% } %>

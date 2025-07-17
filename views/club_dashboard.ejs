@@ -407,16 +407,16 @@
                 </span>
               </div>
             </div>
-            <div class="club-liveupdate-score-info">
-              <p class="club-liveupdate-score">
+            <div class="club-liveupdate-score-info" data-match-id="<%= match.matchId._id %>">
+              <p class="club-liveupdate-score" id="score-<%= match.matchId._id %>">
                 <%= match.matchId.current_batting?.name %>:
                   <% const isClub1Batting=String(match.matchId.current_batting._id)===String(match.matchId.club1._id);%>
-                     <%  const score=isClub1Batting ? match.matchId.score.club1 : match.matchId.score.club2; %>
-                    <%= score.runs %>/<%= score.wickets %> (<%= score.overs %>)%>
+                    <% const score=isClub1Batting ? match.matchId.score.club1 : match.matchId.score.club2; %>
+                      <%= score.runs %>/<%= score.wickets %> (<%= score.overs %>)%>
               </p>
             </div>
 
-            <div class="club-liveupdate-batting">
+            <div class="club-liveupdate-batting" id="batting-<%= match.matchId._id %>">
               <strong>Batting:</strong>
               <p>
                 * <% if (match.matchId.stricker && match.matchId.nonstricker) { %>
@@ -426,15 +426,16 @@
                               <% } %>
               </p>
             </div>
-            <div class="club-liveupdate-bowling">
+            <div class="club-liveupdate-bowling" id="bowling-<%= match.matchId._id %>">
               <strong>Bowler:</strong>
               <p>
                 <% if ( match.matchId.bowler) { %>
                   <%= match.matchId.bowler.name %>
                     - <%= match.matchId.bowler_score.wickets %>/<%= match.matchId.bowler_score.runs %> in <%=
                           match.matchId.bowler_score.overs %> overs
+                          <% } %>
               </p>
-              <% } %>
+
 
             </div>
           </div>
@@ -491,6 +492,7 @@
                             Setup</a>
 
               </div>
+              </document_content>
             </div>
             <% }) %>
               <% } else { %>
