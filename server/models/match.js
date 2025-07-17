@@ -112,10 +112,6 @@ const Match = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Club_DATA'
     },
-    result: {
-        type: String,
-        enum: ['Won', 'Lose']
-    },
     man_of_match: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
@@ -132,6 +128,10 @@ const Match = new mongoose.Schema({
         type: Number,
         enum: [1, 2],
         default: 1
+    },
+    submit_result: {
+        type: Boolean,
+        default: false
     },
     current_batting: {
         type: mongoose.Schema.Types.ObjectId,

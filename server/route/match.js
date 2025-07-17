@@ -447,7 +447,6 @@ route.post('/live_score/:_id', login, async (req, res) => {
                 }
             });
         }
-        console.log(thismatch.nonstricker_score)
         // Handle strike change
         if (strike_change === 'yes') {
             let temp_stricker = thismatch.stricker;
@@ -461,9 +460,15 @@ route.post('/live_score/:_id', login, async (req, res) => {
 
 
         }
-        console.log(thismatch.stricker_score)
+        let current_wickets ;
+         if (thismatch.current_batting._id.toString() === thismatch.club1._id.toString()) {
+           current_wickets =  thismatch.score.club1.wickets;
+        } else {
+            current_wickets =  thismatch.score.club2.wickets
+        }
+
         // Handle innings change
-        if (change_innings === 'yes') {
+        if (change_innings === 'yes'  || current_wickets === 10 ) {
             thismatch.current_batting = thismatch.current_batting._id.toString() === thismatch.club1._id.toString() ? thismatch.club2._id : thismatch.club1._id;
             thismatch.bowler = null;
             thismatch.stricker = null;
@@ -484,5 +489,33 @@ route.post('/live_score/:_id', login, async (req, res) => {
         res.status(500).json({ error: "Failed to update live score" });
     }
 });
+
+
+
+route.post('/submit_result/:_id', login, async (req, res) => {
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user);
+        let match_id = req.params._id;
+        match_id = new mongoose.Types.ObjectId(match_id);
+        let thismatch = await matches.findById(match_id);
+        await match_populate(thismatch);
+        let {man_of_match} = req.body.man_of_match;
+        man_of_match = new mongoose.Types.ObjectId(man_of_match);
+        if(thismatch.score.club1.runs > thismatch.score.club2.runs  ){
+            thismatch.winner = thismatch.score.club1._id;
+        }else if(thismatch.score.club1.runs < thismatch.score.club2.runs ){
+            thismatch.winner = thismatch.score.club2._id;
+        }
+        thismatch.status = 'completed';
+        thismatch.submit_result = true;
+        await thismatch.save();
+        res.redirect(`/match/update_score/${thismatch._id}`);
+    } catch (error) {
+
+        console.log(error);
+        res.status(500).json({ error: "Failed to update result " });
+    }
+})
 
 module.exports = route;

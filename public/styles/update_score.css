@@ -305,3 +305,79 @@
     margin-left: 1.5rem;
     color: #e0e0e0;
 }
+
+
+.resultsubmit-box {
+  background-color: #fff4e6;
+  border: 1px solid #ffa94d;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.resultsubmit-warning {
+  font-size: 1rem;
+  color: #a05a00;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.resultsubmit-btn {
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  background-color: #5409b2;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.resultsubmit-btn:hover {
+  background-color: #3e078f;
+}
+
+#resultsubmit-man-of-match {
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.match-completed-box {
+  background-color: #f0f8ff;
+  border: 2px solid #4caf50;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.match-completed-title {
+  font-size: 1.8rem;
+  color: #2e7d32;
+  margin-bottom: 0.8rem;
+}
+
+.match-completed-message {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #444;
+}
+
+.match-completed-link {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.match-completed-link:hover {
+  background-color: #388e3c;
+}
