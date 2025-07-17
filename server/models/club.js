@@ -87,19 +87,7 @@ const Club = new mongoose.Schema({
     wicket_keeper: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
-    },
-    bowlers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player_DATA'
-    }],
-    all_rounders: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player_DATA'
-    }],
-    batsman: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player_DATA' 
-    }]
+    }
 }, {
     timestamps: true
 });

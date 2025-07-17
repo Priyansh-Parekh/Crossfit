@@ -15,17 +15,13 @@
             id="club-enlistpage-filter-cricket">🏏 Cricket</button>
         <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-football"
             id="club-enlistpage-filter-football">⚽ Football</button>
-        <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-basketball"
-            id="club-enlistpage-filter-basketball">🏀 Basketball</button>
     </div>
 
     <div class="club-enlistpage-clubs-grid" id="club-enlistpage-clubs-grid">
         <!-- Cricket Clubs -->
         <% clubs.forEach(club=> { %>
-            <div class="club-enlistpage-club-card" data-sport="<%=club.sport%>">
+            <div class="club-enlistpage-club-card" data-sport="<%= club.sport ? club.sport.toLowerCase() : '' %>">
                 <div class="club-enlistpage-card-image club-enlistpage-card-image-<%= club.sport %>">
-                    <% console.log(club.logo);
-                     %>
                     <% if (club.logo=== null) { %>
                      <img src="/images/avatar.png" alt="<%= club.name %>-logo" class="club-enlistpage-club-logo">
                     <% }else{ %>
@@ -65,11 +61,8 @@
                 </div>
             </div>
             <% }) %>
-
-
-
-
-                <div class="club-enlistpage-no-results" id="club-enlistpage-no-results">
-                    <p>No clubs found matching your search criteria.</p>
-                </div>
     </div>
+    <div class="club-enlistpage-no-results" id="club-enlistpage-no-results" style="display:none;">
+        <p>No clubs found matching your search criteria.</p>
+    </div>
+</div>

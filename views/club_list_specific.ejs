@@ -104,24 +104,28 @@
       <div class="club-list-info-players">
         <div class="club-list-info-player-group">
           <h3 class="club-list-info-player-group-title">
+            <% let club_batsman_length=0 %>
+            <% club.players.forEach(player=> { %>
+              <% if (player.type==='batsman' ) { %>
+                    <% club_batsman_length++; %>
+                  <% } %>
+                    <% }) %>
             🏏 Batsmen
-            <% if(club.batsman.length===0){ %>
-              <span class="club-list-info-player-count">0</span>
-              <% }else{ %>
-                <span class="club-list-info-player-count">
-                  <%= club.batsman.length %>
-                </span>
-                <% } %>
+            <span class="club-list-info-player-count">
+              <%= club_batsman_length %>
+            </span>
           </h3>
           <div class="club-list-info-player-list">
-            
-            <% if(club.batsman.length===0){ %>
+
+            <% if(club_batsman_length===0){ %>
               <span class="club-list-info-player-tag">Not Assigned</span>
               <% }else{ %>
-                <% club.batsman.forEach(batsman=> { %>
+                <% club.players.forEach(player=> { %>
+                <% if (player.type === 'batsman') { %>
                   <span class="club-list-info-player-tag">
-                    <%= batsman.name %>
+                    <%= player.name %>
                   </span>
+                <% } %>
                   <% }) %>
                     <% } %>
           </div>
@@ -129,24 +133,27 @@
 
         <div class="club-list-info-player-group">
           <h3 class="club-list-info-player-group-title">
-             ⚡ All Rounder
-            <% if(club.all_rounders.length===0){ %>
-              <span class="club-list-info-player-count">0</span>
-              <% }else{ %>
-                <span class="club-list-info-player-count">
-                  <%= club.all_rounders.length %>
-                </span>
-                <% } %>
+            <% let club_all_rounder_length=0 %>
+            <% club.players.forEach(player=> { %>
+              <% if (player.type==='all_rounder' ) { %>
+                    <% club_all_rounder_length++; %>
+                  <% } %>
+                    <% }) %>
+            ⚡ All Rounder
+           
+              <span class="club-list-info-player-count"><%= club_all_rounder_length %></span>
           </h3>
           <div class="club-list-info-player-list">
-          
-            <% if(club.all_rounders.length===0){ %>
+
+            <% if(club_all_rounder_length===0){ %>
               <span class="club-list-info-player-tag">Not Assigned</span>
               <% }else{ %>
-                <% club.all_rounders.forEach(all_rounder=> { %>
-                  <span class="club-list-info-player-tag">
-                    <%= all_rounder.name %>
-                  </span>
+                <% club.players.forEach(all_rounder=> { %>
+                  <% if (all_rounder.type === 'all_rounder') { %>
+                    <span class="club-list-info-player-tag">
+                      <%= all_rounder.name %>
+                    </span>
+                  <% } %>
                   <% }) %>
                     <% } %>
           </div>
@@ -154,23 +161,26 @@
 
         <div class="club-list-info-player-group">
           <h3 class="club-list-info-player-group-title">
+            <% let club_bowler_length=0 %>
+            <% club.players.forEach(player=> { %>
+              <% if (player.type==='bowler' ) { %>
+                    <% club_bowler_length++; %>
+                  <% } %>
+                    <% }) %>
             🥎 Bowlers
-            <% if(club.bowlers.length === 0){ %>
-              <span class="club-list-info-player-count">0</span>
-              <% }else{ %>
-                <span class="club-list-info-player-count">
-                  <%= club.bowlers.length %>
-                </span>
-                <% } %>
+              <span class="club-list-info-player-count"><%= club_bowler_length %></span>
+              
           </h3>
           <div class="club-list-info-player-list">
-            <% if(club.bowlers.length === 0){ %>
+            <% if(club_bowler_length===0){ %>
               <span class="club-list-info-player-tag">Not Assigned</span>
               <% }else{ %>
-                <% club.bowlers.forEach(bowler=> { %>
+                <% club.players.forEach(bowler=> { %>
+                <% if (bowler.type === 'bowler') { %>
                   <span class="club-list-info-player-tag">
                     <%= bowler.name %>
                   </span>
+                <% } %>
                   <% }) %>
                     <% } %>
           </div>

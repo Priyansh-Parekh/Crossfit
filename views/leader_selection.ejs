@@ -1,0 +1,39 @@
+<main class="club-leader-selection-main">
+  <section class="club-leader-selection-section">
+    <div class="club-leader-selection-container">
+      <h2 class="club-leader-selection-title">Select Club Leaders</h2>
+      <form class="club-leader-selection-form" method="POST" action="/clubs/update_leader">
+        <div class="club-leader-selection-group">
+          <label for="club-leader-selection-captain" class="club-leader-selection-label">Captain</label>
+          <select id="club-leader-selection-captain" name="captain" class="club-leader-selection-select" required>
+            <option disabled selected>--select--</option>
+            <% user.players.forEach(player => { %>
+              <option value="<%= player._id %>"><%= player.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="club-leader-selection-group">
+          <label for="club-leader-selection-vicecap" class="club-leader-selection-label">Vice Captain</label>
+          <select id="club-leader-selection-vicecap" name="vice_captain" class="club-leader-selection-select" required>
+            <option disabled selected>--select--</option>
+            <% user.players.forEach(player => { %>
+              <option value="<%= player._id %>"><%= player.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="club-leader-selection-group">
+          <label for="club-leader-selection-wicketkeeper" class="club-leader-selection-label">Wicket Keeper</label>
+          <select id="club-leader-selection-wicketkeeper" name="wicket_keeper" class="club-leader-selection-select" required>
+            <option disabled selected>--select--</option>
+            <% user.players.forEach(player => { %>
+             <% if (player.type === 'wicket_keeper') { %>
+              <option value="<%= player._id %>"><%= player.name %></option>
+             <% } %>
+            <% }) %>
+          </select>
+        </div>
+        <button type="submit" class="club-leader-selection-submit-btn">Submit</button>
+      </form>
+    </div>
+  </section>
+</main>

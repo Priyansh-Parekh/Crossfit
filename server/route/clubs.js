@@ -94,8 +94,7 @@ const populate_cricket_club_data = async (club) => {
     await club.populate('captain');
     await club.populate({ path: 'vice_captain', strictPopulate: false });
     await club.populate('wicket_keeper');
-    await club.populate('bowlers');
-    await club.populate('batsman');
+    await club.populate('merchandise');
 };
 
 
@@ -115,6 +114,30 @@ route.get('/list/:_id', login, datas, async (req, res) => {
     let club_data = await clubs.findOne({ _id: id })
     await populate_cricket_club_data(club_data)
     res.render("club_list_specific", { user, club: club_data });
+})
+
+route.get('/update_leader',login,async(req,res)=>{
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user)
+        res.render('leader_selection',{user})
+    } catch (error) {
+        
+    }
+})
+
+route.post('/update_leader',login,async(req,res)=>{
+    try {
+        let user = req.user;
+        await populate_cricket_club_data(user)
+        user.captain = req.body.captain;
+        user.vice_captain = req.body.vice_captain;
+        user.wicket_keeper = req.body.wicket_keeper;
+        await user.save();
+        res.redirect('/dashboard/clubs')
+    } catch (error) {
+        
+    }
 })
 
 
