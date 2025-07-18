@@ -186,6 +186,7 @@ route.post('/submit_setup/:_id', login, async (req, res) => {
         let thismatch = await matches.findById(match_id);
         await match_populate(thismatch)
         let { captain, vice_captain, wicket_keeper, other_players, extra_players, toss_winner, toss_choice } = req.body;
+        toss_winner = new mongoose.Types.ObjectId(toss_winner);
         if (thismatch.club1.name === user.name) {
             thismatch.setup_club1 = true;
             thismatch.club1_leaders = {
