@@ -182,7 +182,7 @@
               <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
                 <%= user.captain.total_runs %> runs
               </div>
-              <div style="font-size: 0.9rem; color: #666;">SR: <%= user.captain.SR %> %</div>
+              <div style="font-size: 0.9rem; color: #666;">SR: <%= user.captain.SR.toFixed(2) %> %</div>
               <% }else{ %>
                 <div style="font-size: 1.2rem; font-weight: 600; color: #333;">No Data For Runs</div>
                 <div style="font-size: 0.9rem; color: #666;">SR: No Data</div>
