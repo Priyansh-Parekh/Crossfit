@@ -1537,3 +1537,176 @@ body {
     margin: 10px 0;
   }
 }
+
+
+/* --- Dashboard Animations Add-On --- */
+
+@keyframes dashboardFadePop {
+  0% { opacity: 0; transform: translateY(28px) scale(0.96);}
+  60% { opacity: 0.6;}
+  92% { transform: translateY(-6px) scale(1.03); }
+  100% { opacity: 1; transform: none;}
+}
+
+@keyframes dashboardGlowA {
+  0% { opacity: 0.15; transform: scale(1);}
+  50% { opacity: 0.25; transform: scale(1.12);}
+  100% { opacity: 0.18; transform: scale(1);}
+}
+
+@keyframes cardAccentBarIn {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes shimmer {
+  0%   { left: -110%; }
+  100% { left: 110%; }
+}
+
+@keyframes tableRowAppear {
+  0% { opacity: 0; transform: translateY(12px);}
+  100% { opacity: 1; transform: none;}
+}
+
+/* -- Aura/Glow (Optional, comment if unwanted) -- */
+.club-dashboard-card {
+  position: relative;
+  background-clip: padding-box;
+  overflow: visible;
+}
+
+/* Aura effect only on first "overview" cards */
+.club-dashboard-card::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 170%;
+  height: 115%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, var(--primary-accent) 0%,transparent 70%);
+  opacity: 0.19;
+  filter: blur(16px);
+  border-radius: 18px;
+  z-index: 0;
+  transform: translate(-50%, -55%);
+  animation: dashboardGlowA 3.4s ease-in-out infinite alternate;
+  transition: opacity 0.22s;
+}
+
+/* --- Pop-in Animation on Cards, Sections --- */
+.club-dashboard-card,
+.club-dashboard-section,
+.club-dashboard-player-card,
+.club-dashboard-merchandise-card,
+.club-dashboard-previous-matches-card {
+  opacity: 0;
+  animation: dashboardFadePop .94s cubic-bezier(.17,.89,.44,1.32) both;
+}
+
+.club-dashboard-card:nth-child(1) { animation-delay: 0.12s;}
+.club-dashboard-card:nth-child(2) { animation-delay: 0.19s;}
+.club-dashboard-card:nth-child(3) { animation-delay: 0.26s;}
+.club-dashboard-card:nth-child(4) { animation-delay: 0.33s;}
+.club-dashboard-card:nth-child(5) { animation-delay: 0.4s;}
+.club-dashboard-card:nth-child(6) { animation-delay: 0.47s;}
+
+.club-dashboard-section { animation-delay: 0.15s;}
+.club-dashboard-player-card { animation-delay: 0.2s;}
+.club-dashboard-merchandise-card { animation-delay: 0.27s;}
+.club-dashboard-previous-matches-card { animation-delay: 0.14s;}
+
+/* --- Card Accent Slide Animations (for winner/loss bars) --- */
+.club-dashboard-previous-matches-card::before {
+  width: 100%; /* fallback */
+  animation: cardAccentBarIn 1.2s cubic-bezier(.43,1.12,.4,0.98) .08s backwards;
+}
+.club-dashboard-previous-matches-loss::before {
+  animation-delay: .18s;
+}
+.club-dashboard-previous-matches-won::before {
+  animation-delay: .08s;
+}
+
+/* --- Button Shimmer Effect (your accent scorecard link) --- */
+.club-dashboard-previous-matches-scorecard-link::before {
+  animation: shimmer 1.1s cubic-bezier(.31,.52,.63,1.19) 0.15s both;
+}
+
+/* --- Staggered Table Row Animation --- */
+.club-dashboard-table tr {
+  opacity: 0;
+  animation: tableRowAppear .49s cubic-bezier(.38,.9,.58,1) both;
+}
+.club-dashboard-table tr:nth-child(1) { animation-delay: 0.09s;}
+.club-dashboard-table tr:nth-child(2) { animation-delay: 0.15s;}
+.club-dashboard-table tr:nth-child(3) { animation-delay: 0.21s;}
+.club-dashboard-table tr:nth-child(4) { animation-delay: 0.27s;}
+.club-dashboard-table tr:nth-child(5) { animation-delay: 0.33s;}
+.club-dashboard-table tr:nth-child(6) { animation-delay: 0.39s;}
+.club-dashboard-table tr:nth-child(7) { animation-delay: 0.45s;}
+.club-dashboard-table tr:nth-child(8) { animation-delay: 0.51s;}
+.club-dashboard-table tr:nth-child(9) { animation-delay: 0.57s;}
+.club-dashboard-table tr:nth-child(10) { animation-delay: 0.63s;}
+
+/* --- Buttons "press" effect --- */
+.club-dashboard-btn,
+.club-dashboard-btn-primary,
+.club-dashboard-btn-secondary,
+.club-dashboard-adding-new-player-btn,
+.club-dashboard-create-btn,
+.club-dashboard-make-live-btn,
+.club-dashboard-challenge-btn,
+.club-dashboard-fire-player-btn,
+.club-dashboard-previous-matches-scorecard-link {
+  transition: transform 0.12s, box-shadow 0.22s;
+}
+.club-dashboard-btn:active,
+.club-dashboard-btn-primary:active,
+.club-dashboard-btn-secondary:active,
+.club-dashboard-adding-new-player-btn:active,
+.club-dashboard-create-btn:active,
+.club-dashboard-make-live-btn:active,
+.club-dashboard-challenge-btn:active,
+.club-dashboard-fire-player-btn:active,
+.club-dashboard-previous-matches-scorecard-link:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+}
+
+/* --- Player/merch cards hover: glow + pop a bit more --- */
+.club-dashboard-player-card:hover,
+.club-dashboard-merchandise-card:hover {
+  box-shadow: 0 10px 32px var(--shadow-glow);
+  transform: translateY(-6px) scale(1.035);
+}
+
+/* --- Merchandise or player images hover: subtle accent ring --- */
+.club-dashboard-player-img:hover,
+.club-dashboard-merchandise-image:hover {
+  box-shadow: 0 0 0 4px var(--primary-accent);
+  transition: box-shadow 0.22s;
+}
+
+/* --- Animate page/section title --- */
+.club-dashboard-page-title,
+.club-dashboard-previous-matches-title,
+.club-dashboard-liveupdate-section-title {
+  opacity: 0;
+  animation: dashboardFadePop 0.85s cubic-bezier(.16,.9,.43,1.11) 0.08s forwards;
+}
+
+/* --- Animate empty states, info boxes --- */
+.club-dashboard-no-data,
+.club-dashboard-previous-matches-no-matches,
+#club-dashboard-no-live-row, #club-dashboard-no-upcoming-row {
+  opacity: 0;
+  animation: dashboardFadePop .88s cubic-bezier(.21,.88,.42,1.18) 0.42s both;
+}
+
+/* --- Atleast-players warning box, challenge status --- */
+.club-dashboard-atleast-players,
+.club-dashboard-challenge-status {
+  opacity: 0;
+  animation: dashboardFadePop 1.2s cubic-bezier(.51,.94,.46,1.22) .19s forwards;
+}

@@ -1,6 +1,5 @@
 /* --- Register Viewers Form Core Layout --- */
 .register-viewers-main-content {
-<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,117 +175,6 @@
   /* --- Button (animated, brand style) --- */
   .register-viewers-submit-btn {
     background: linear-gradient(90deg,#ff4c30 70%, #ff5722 100%);
-=======
-    /* Inherits from 'main' tag: flex-grow: 1, width: 100%, max-width: 1200px, margin: 0 auto, padding: 2rem */
-    
-    display: flex; /* Override to ensure direct children are centered */
-    justify-content: center;
-    align-items: center;
-    background-color: #001e28; /* Matches body background */
-    padding: 2rem; /*Ensure consistent padding with other sections*/
-    box-sizing: border-box; /* Crucial for consistent sizing */
-}
-
-/* Section containing the form */
-.register-viewers-form-section {
-    width: 60vw;
-    max-width: fit-content;
-    background-color: #002d3d; /* White background for the form card */
-    padding: 40px;
-    border-radius: 10px; /* Consistent border-radius */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    text-align: center;
-    border: 4px solid #fff;
-     /* Accent top border, similar to feature cards */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add hover effects */
-}
-
-.register-viewers-form-section:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    border-top: 4px solid #ff4c30;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-}
-
-
-/* Title and subtitle */
-.register-viewers-form-title {
-    font-size: 2.2em; /* Adjusted for form context */
-    color: #fff; /* Dark heading color from your theme */
-    margin-bottom: 10px;
-    font-weight: 700; /* Bolder font weight */
-}
-
-.register-viewers-form-subtitle {
-    font-size: 1.1em;
-    color: #666; /* Softer text color from your theme */
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-/* Form styling */
-.register-viewers-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Spacing between form groups */
-}
-
-/* Form group (label + input/select) */
-.register-viewers-form-group {
-    text-align: left;
-}
-
-.register-viewers-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1em;
-    color: #fff; /* Default text color */
-    font-weight: 600; /* Medium bold for labels */
-}
-
-.register-viewers-input,
-.register-viewers-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ff4c30;
-    border-radius: 5px; /* Slightly rounded borders */
-    font-size: 1em;
-    font-family: 'Poppins', sans-serif; /* Use Poppins font */
-    color: #333;
-    background-color: #fdfdfd; /* Slightly off-white for input fields */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.register-viewers-input:focus,
-.register-viewers-select:focus {
-    border-color: #ff4c30; /* Primary accent color on focus */
-    outline: none;
-    box-shadow: 0 0 5px #ff4c30; /* Soft shadow on focus */
-}
-
-.register-viewers-select {
-    height: auto; /* Allow height to adjust for multiple selections */
-    min-height: 45px; /* Minimum height for select box */
-}
-
-/* Submit button */
-.register-viewers-submit-btn {
-    background-color: #fff; /* Primary accent color */
-    color: #121212;
-    padding: 15px 25px;
-    border: 2px solid #ff4c30;
-    border-radius: 8px; /* Consistent button border-radius */
-    font-size: 1.1em;
-    font-weight: 600; /* Medium bold */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow for buttons */
-}
-
-.register-viewers-submit-btn:hover {
-    background-color: #ff4c30; /* Darker shade on hover */
->>>>>>> 18b625977170e13336e16283f5bcf3c75ef176b5
     color: #fff;
     padding: 0.87rem 2.1rem;
     font-size: 1.07rem;
