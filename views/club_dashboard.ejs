@@ -262,11 +262,6 @@
 </div>
 
 <div id="club-dashboard-players" class="club-dashboard-current">
-  <div class="club-dashboard-page-header">
-    <h1 class="club-dashboard-page-title">Players Management</h1>
-    <p class="club-dashboard-page-subtitle">Add and manage your team players</p>
-  </div>
-
   <!-- Players List Grid -->
   <div class="club-dashboard-players-grid">
     <% if (user.players.length> 0) { %>
@@ -330,7 +325,6 @@
     </button>
   </div>
 
-
   <!-- Add New Player Form -->
   <div class="club-dashboard-add-player-form hidden" id="add-player-form">
     <form action="/dashboard/clubs/add_player" method="POST" enctype="multipart/form-data">
@@ -377,16 +371,8 @@
 
 
 </div>
-</div>
-</div>
 
 <div id="club-dashboard-live-updates" class="club-dashboard-current">
-  <div class="club-dashboard-page-header">
-    <h1 class="club-dashboard-page-title">Live Match Updates</h1>
-    <p class="club-dashboard-page-subtitle">Update live scores and match progress</p>
-  </div>
-
-
   <section>
     <h2 class="club-liveupdate-section-title club-liveupdate-live-title">Live Matches</h2>
     <!-- Live Matches Section -->
@@ -516,9 +502,6 @@
 
 </div>
 
-
-
-
 <div id="club-dashboard-merchandise" class="club-dashboard-current">
   <div class="club-dashboard-section">
     <div class="club-dashboard-section-header">
@@ -621,371 +604,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-<div id="club-dashboard-players" class="club-dashboard-current">
-  <div class="club-dashboard-page-header">
-    <h1 class="club-dashboard-page-title">Players Management</h1>
-    <p class="club-dashboard-page-subtitle">Add and manage your team players</p>
-  </div>
-
-  <!-- Players List Grid -->
-  <div class="club-dashboard-players-grid">
-    <% if (user.players.length> 0) { %>
-      <% user.players.forEach(player=> { %>
-        <div class="club-dashboard-player-card">
-          <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image"
-            class="club-dashboard-player-img">
-          <h3 class="club-dashboard-player-name">
-            <%= player.name %>
-          </h3>
-          <p class="club-dashboard-player-type">
-            <%= player.type %>
-          </p>
-
-          <% if (player.type==='Batsman' ) { %>
-            <p>Batting Style: <%= player.batting_style %>
-            </p>
-            <p>Total Runs: <%= player.total_runs %>
-            </p>
-            <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-            </p>
-            <% } else if (player.type==='Bowler' ) { %>
-              <p>Bowling Style: <%= player.bowling_style %>
-              </p>
-              <p>Wickets: <%= player.wickets %>
-              </p>
-              <p>Economy: <%= (player.economy).toFixed(2) %>
-              </p>
-              <% } else if (player.type==='All_Rounder' ) { %>
-                <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-                </p>
-                <p>Economy: <%= (player.SR).toFixed(2) %>
-                </p>
-                <% } %>
-
-                  <p>Status:
-                  <p class="club-dashboard-status-<%= player.status %> ">
-                    <%= player.status %>
-                  </p>
-                  </p>
-                  <p>Jersey #: <%= player.jersey_number %>
-                  </p>
-                  <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
-                    <input type="hidden" name="player_id" value="<%= player._id %>">
-                    <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
-                  </form>
-
-        </div>
-        <% }) %>
-          <% } else { %>
-            <div class="club-dashboard-no-data">
-              No players added yet.
-            </div>
-            <% } %>
-  </div>
-
-  <div class="club-dashboard-action-buttons">
-    <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
-      <i class="fas fa-plus"></i>
-      Add New Player
-    </button>
-  </div>
-
-
-  <!-- Add New Player Form -->
-  <div class="club-dashboard-add-player-form hidden" id="add-player-form">
-    <form action="/dashboard/clubs/add_player" method="POST" enctype="multipart/form-data">
-      <label for="player_profile_picture"><img class="club-dashboard-opponent-logo-img" src="/images/avatar.png"
-          alt="profile"></label>
-      <input type="text" name="name" placeholder="Player Name" required />
-      <input type="file" id="player_profile_picture" name="profile_picture" />
-
-      <select name="type" name="type" required>
-        <option value="">Select Type</option>
-        <option value="batsman">Batsman</option>
-        <option value="bowler">Bowler</option>
-        <option value="wicket_keeper">Wicket Keeper</option>
-        <option value="all_rounder">All Rounder</option>
-      </select>
-
-      <select name="batting_style" required>
-        <option value="">Batting Style</option>
-        <option value="right_handed">Right Handed</option>
-        <option value="left_handed">Left Handed</option>
-      </select>
-
-      <input type="number" name="age" placeholder="Age" />
-      <input type="number" name="total_runs" placeholder="Total Runs" />
-      <input type="number" name="total_balls" placeholder="Total Balls Faced" />
-      <select name="bowling_style" name="bowling_style" required>
-        <option>Bowling Style</option>
-        <option value="Pacer">Pacer</option>
-        <option value="Medium Pacer">Medium Pacer</option>
-        <option value="Left Off Spin">Left Off Spin</option>
-        <option value="Left Leg Spin">Left Leg Spin</option>
-        <option value="Rignt Off Spin">Rignt Off Spin</option>
-        <option value="Right Leg Spin">Right Leg Spin</option>
-      </select>
-      <input type="number" step="0.1" name="overs_deliverd" placeholder="Overs Delivered" />
-      <input type="number" name="wickets" placeholder="Wicket Taken" />
-      <input type="number" name="runs_given" placeholder="Runs Given" />
-      <input type="number" name="jersey_number" placeholder="Jersey Number" required />
-
-      <button type="submit" class="club-dashboard-btn-primary">Add Player</button>
-    </form>
-  </div>
-
-
-
-</div>
-</div>
-</div>
-
-<div id="club-dashboard-live-updates" class="club-dashboard-current">
-  <div class="club-dashboard-page-header">
-    <h1 class="club-dashboard-page-title">Live Match Updates</h1>
-    <p class="club-dashboard-page-subtitle">Update live scores and match progress</p>
-  </div>
-
-
-  <section>
-    <h2 class="club-liveupdate-section-title club-liveupdate-live-title">Live Matches</h2>
-    <!-- Live Matches Section -->
-    <% if (live_matches) { %>
-      <% live_matches.forEach(match=> { %>
-        <div class="club-liveupdate-section club-dashboard-live-sect">
-          <div class="club-liveupdate-live-match-card">
-            <div class="club-liveupdate-clubs">
-              <div class="club-liveupdate-club">
-                <img src="<%= match.matchId.club1.logo|| '/images/avatar.png' %> " alt="Club 1 Logo"
-                  class="club-liveupdate-logo">
-                <span>
-                  <%= match.matchId.club1.name %>
-                </span>
-              </div>
-              <span class="club-liveupdate-vs">vs</span>
-              <div class="club-liveupdate-club">
-                <img src="<%= match.matchId.club2.logo|| '/images/avatar.png' %>" alt="Club 2 Logo"
-                  class="club-liveupdate-logo">
-                <span>
-                  <%= match.matchId.club2.name %>
-                </span>
-              </div>
-            </div>
-            <div class="club-liveupdate-score-info" data-match-id="<%= match.matchId._id %>">
-              <p class="club-liveupdate-score" id="score-<%= match.matchId._id %>">
-                <%= match.matchId.current_batting?.name %>:
-                  <% const isClub1Batting=String(match.matchId.current_batting._id)===String(match.matchId.club1._id);%>
-                    <% const score=isClub1Batting ? match.matchId.score.club1 : match.matchId.score.club2; %>
-                      <%= score.runs %>/<%= score.wickets %> (<%= score.overs %>)%>
-              </p>
-            </div>
-
-            <div class="club-liveupdate-batting" id="batting-<%= match.matchId._id %>">
-              <strong>Batting:</strong>
-              <p>
-                * <% if (match.matchId.stricker && match.matchId.nonstricker) { %>
-                  <%= match.matchId.stricker.name %> - <%= match.matchId.stricker_score.runs %>(<%=
-                        match.matchId.stricker_score.balls %>), <%= match.matchId.nonstricker.name %> - <%=
-                            match.matchId.nonstricker_score.runs %>(<%= match.matchId.nonstricker_score.balls %>)
-                              <% } %>
-              </p>
-            </div>
-            <div class="club-liveupdate-bowling" id="bowling-<%= match.matchId._id %>">
-              <strong>Bowler:</strong>
-              <p>
-                <% if ( match.matchId.bowler) { %>
-                  <%= match.matchId.bowler.name %>
-                    - <%= match.matchId.bowler_score.wickets %>/<%= match.matchId.bowler_score.runs %> in <%=
-                          match.matchId.bowler_score.overs %> overs
-                          <% } %>
-              </p>
-
-
-            </div>
-          </div>
-          <a href="/match/update_score/<%= match.matchId._id %>" class="club-liveupdate-btn">Update Score</a>
-        </div>
-        <% }) %>
-          <% } else { %>
-            <div id="club-dashboard-no-live-row">
-              🚫 No live matches currently.
-            </div>
-
-            <% } %>
-
-  </section>
-  
-  <section>
-
-    <h2 class="club-liveupdate-section-title club-liveupdate-upcoming-title">Upcoming Matches</h2>
-    <!-- Upcoming Matches Section -->
-    <% if (upcoming_matches) { %>
-      <% upcoming_matches.forEach(match=> { %>
-        <div class="club-liveupdate-section club-dashboard-upcoming-sect">
-          <div class="club-liveupdate-upcoming-match-card">
-            <div class="club-liveupdate-clubs-vertical">
-              <div class="club-liveupdate-club-vertical">
-                <img src="<%=  match.matchId.club1.logo || '/images/avatar.png' %>" alt="Club 3 Logo"
-                  class="club-liveupdate-logo">
-                <span>
-                  <%= match.matchId.club1.name %>
-                </span>
-              </div>
-              <span class="club-liveupdate-vs">vs</span>
-              <div class="club-liveupdate-club-vertical">
-                <img src="<%=  match.matchId.club2.logo || '/images/avatar.png' %>" alt="Club 4 Logo"
-                  class="club-liveupdate-logo">
-                <span>
-                  <%= match.matchId.club2.name %>
-                </span>
-              </div>
-            </div>
-
-            <% const isClub1=String(user._id)===String(match.matchId.club1._id);%>
-              <% const isSetupDone=isClub1 ? match.matchId.setup_club1 : match.matchId.setup_club2;%>
-
-                <% if (!isSetupDone) { %>
-                  <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
-                  <% } else { %>
-                    <p class="club-liveupdate-note">If you want to edit your setup</p>
-                    <% } %>
-
-                      <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
-
-          </div>
-          <% if (match.matchId.setup_club1 && match.matchId.setup_club2) { %>
-            <div class="club-dashboard-make-live-wrapper">
-              <p class="club-dashboard-make-live-msg">
-                ✅ Both clubs have completed setup. You can now make this match live!
-              </p>
-              <form action="/match/make_live/<%= match.matchId._id %>" method="POST">
-                <button type="submit" class="club-dashboard-make-live-btn">🎬 Make Match Live</button>
-              </form>
-            </div>
-            <% } %>
-
-        </div>
-        <% }) %>
-          <% } else { %>
-            <div class="club-dashboard-upcoming-message-row" id="club-dashboard-no-upcoming-row">
-              🕒 No upcoming matches scheduled.
-            </div>
-            <% } %>
-
-  </section>
-
-</div>
-
-
-
-
-<div id="club-dashboard-merchandise" class="club-dashboard-current">
-  <div class="club-dashboard-section">
-    <div class="club-dashboard-section-header">
-      <h2 class="club-dashboard-section-title">Upload New Merchandise</h2>
-    </div>
-
-    <div class="club-dashboard-upload-area">
-      <div class="club-dashboard-upload-icon">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </div>
-      <div class="club-dashboard-upload-text">
-        <strong>Click to upload</strong> or drag and drop product images here
-      </div>
-      <input type="file" class="club-dashboard-file-input" accept="image/*" multiple>
-      <button class="club-dashboard-btn club-dashboard-btn-primary">Choose Files</button>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-      <div class="club-dashboard-form-group">
-        <label class="club-dashboard-form-label">Product Name</label>
-        <input type="text" class="club-dashboard-form-control" placeholder="Enter product name">
-      </div>
-      <div class="club-dashboard-form-group">
-        <label class="club-dashboard-form-label">Price (₹)</label>
-        <input type="number" class="club-dashboard-form-control" placeholder="Enter price">
-      </div>
-      <div class="club-dashboard-form-group">
-        <label class="club-dashboard-form-label">Category</label>
-        <select class="club-dashboard-form-select">
-          <option>Jersey</option>
-          <option>Cap</option>
-          <option>Accessories</option>
-          <option>Equipment</option>
-        </select>
-      </div>
-      <div class="club-dashboard-form-group">
-        <label class="club-dashboard-form-label">Stock Quantity</label>
-        <input type="number" class="club-dashboard-form-control" placeholder="Enter quantity">
-      </div>
-    </div>
-
-    <div class="club-dashboard-form-group">
-      <label class="club-dashboard-form-label">Description</label>
-      <textarea class="club-dashboard-form-control" rows="4" placeholder="Enter product description"></textarea>
-    </div>
-
-    <button class="club-dashboard-btn club-dashboard-btn-primary">Upload Merchandise</button>
-  </div>
-
-  <div class="club-dashboard-section" style="margin-top: 2rem;">
-    <div class="club-dashboard-section-header">
-      <h2 class="club-dashboard-section-title">Current Merchandise</h2>
-    </div>
-
-    <div class="club-dashboard-merchandise-grid">
-      <div class="club-dashboard-merchandise-card">
-        <div class="club-dashboard-merchandise-image">
-          <i class="fas fa-tshirt"></i>
-        </div>
-        <div class="club-dashboard-merchandise-info">
-          <div class="club-dashboard-merchandise-title">Warriors FC Jersey</div>
-          <div class="club-dashboard-merchandise-price">₹899</div>
-          <div class="club-dashboard-merchandise-category">Jersey</div>
-          <div style="margin-top: 1rem;">
-            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="club-dashboard-merchandise-card">
-        <div class="club-dashboard-merchandise-image">
-          <i class="fas fa-hat-cowboy"></i>
-        </div>
-        <div class="club-dashboard-merchandise-info">
-          <div class="club-dashboard-merchandise-title">Team Cap</div>
-          <div class="club-dashboard-merchandise-price">₹299</div>
-          <div class="club-dashboard-merchandise-category">Cap</div>
-          <div style="margin-top: 1rem;">
-            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="club-dashboard-merchandise-card">
-        <div class="club-dashboard-merchandise-image">
-          <i class="fas fa-baseball-ball"></i>
-        </div>
-        <div class="club-dashboard-merchandise-info">
-          <div class="club-dashboard-merchandise-title">Cricket Ball</div>
-          <div class="club-dashboard-merchandise-price">₹199</div>
-          <div class="club-dashboard-merchandise-category">Equipment</div>
-          <div style="margin-top: 1rem;">
-            <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-sm">Edit</button>
-            <button class="club-dashboard-btn club-dashboard-btn-primary club-dashboard-btn-sm">View</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <div id="club-dashboard-matches" class="club-dashboard-current">
   <div class="club-dashboard-section">
@@ -1030,118 +648,6 @@
           </a>
           <% } %>
             <% }) %>
-    </div>
-  </div>
-</div>
-
-<div id="club-dashboard-club-profile" class="club-dashboard-current">
-  <div class="club-dashboard-profile-flex">
-    <div class="club-dashboard-profile-left">
-      <% if (user.logo) { %>
-        <label for="clubLogoInput"><img id="clubLogo" src="<%= user.logo %>" alt="Club Logo"
-            class="club-dashboard-profile-logo-img" /></label>
-        <% } else { %>
-          <label for="clubLogoInput"> <img id="clubLogo" src="/images/avatar.png" alt="Club Logo"
-              class="club-dashboard-profile-logo-img" /></label>
-          <% } %>
-            <form action="/dashboard/clubs/change_logo" method="post" enctype="multipart/form-data">
-              <input type="file" id="clubLogoInput" accept="image/*" name="club_logo" style="display:none;">
-              <button class="club-dashboard-btn club-dashboard-btn-secondary club-dashboard-btn-logo"
-                id="changeLogoBtn">
-                <i class="fas fa-upload"></i> Click Here to Apply changes to Logo
-              </button>
-            </form>
-            <div class="club-dashboard-profile-edit-btns">
-              <button class="club-dashboard-btn club-dashboard-btn-primary" id="editProfileBtn">Edit</button>
-              <button class="club-dashboard-btn club-dashboard-btn-primary" id="saveProfileBtn"
-                style="display:none;">Save</button>
-              <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelProfileBtn"
-                style="display:none;">Cancel</button>
-            </div>
-    </div>
-
-    <div class="club-dashboard-profile-right">
-      <div class="club-dashboard-profile-body" id="profileView">
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Club
-            Name:</span><span id="clubNameView">
-            <%= user.name %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Email:</span><span
-            id="clubEmailView">
-            <%= user.email %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founder
-            Name:</span><span id="clubLocationView">
-            <%= user.founder_name %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Founded
-            Year:</span><span id="clubFoundedView">
-            <%= user.founded_year %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Created
-            At:</span><span id="clubCreatedView">
-            <%= new Date(user.createdAt).toLocaleDateString() %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Updated
-            At:</span><span id="clubUpdatedView">
-            <%= new Date(user.updatedAt).toLocaleDateString() %>
-          </span></div>
-        <div class="club-dashboard-profile-row"><span class="club-dashboard-profile-label">Slogan:</span><span
-            id="clubBioView">
-            <%= user.slogan %>
-          </span></div>
-      </div>
-      <!-- action="/dashboard/clubs/change_info" method="post" -->
-      <form class="club-dashboard-profile-body" id="profileEdit" style="display: none;">
-        <div class="club-dashboard-profile-row">
-          <label class="club-dashboard-profile-label" for="clubNameInput">Club Name:</label>
-          <input type="text" name="name" id="clubNameInput" class="club-dashboard-input" maxlength="50" required
-            value="<%= user.name %>">
-        </div>
-
-        <div class="club-dashboard-profile-row">
-          <label class="club-dashboard-profile-label" for="clubFoundedInput">Founded Year:</label>
-          <input type="number" id="clubFoundedInput" class="club-dashboard-input" name="founded_year" min="1800"
-            max="2099" required value="<%= user.founded_year %>">
-        </div>
-
-        <div class="club-dashboard-profile-row">
-          <label class="club-dashboard-profile-label" for="clubBioInput">Bio:</label>
-          <textarea id="clubBioInput" class="club-dashboard-input" rows="4" maxlength="500" name="bio"
-            required><%= user.bio %></textarea>
-        </div>
-
-        <div class="club-dashboard-profile-row">
-          <label class="club-dashboard-profile-label" for="clubSloganInput">Slogan:</label>
-          <textarea id="clubSloganInput" class="club-dashboard-input" rows="4" maxlength="500" name="slogan"
-            required><%= user.slogan %></textarea>
-        </div>
-      </form>
-
-
-
-    </div>
-  </div>
-
-  <div class="club-dashboard-modal-bg" id="passwordModalBg" style="display:none;">
-    <div class="club-dashboard-modal">
-      <h3 class="club-dashboard-modal-title">Confirm Changes</h3>
-      <span class="club-dashboard-error" id="passwordError"></span>
-      <div class="club-dashboard-modal-actions">
-        <form id="club-dashboard-formB" action="/dashboard/clubs/change_info" method="post">
-          <p class="club-dashboard-modal-desc">Please enter your password to save changes.</p>
-          <input type="password" name="password" id="passwordInput"
-            class="club-dashboard-input club-dashboard-modal-input" placeholder="Password">
-          <button type="submit" class="club-dashboard-btn club-dashboard-btn-primary"
-            id="confirmPasswordBtn">Confirm</button>
-          <input name="name" id="hiddenName" type="hidden">
-          <input name="bio" id="hiddenBio" type="hidden">
-          <input name="founded_year" id="hiddenFoundedYear" type="hidden">
-          <input name="slogan" id="hiddenSlogan" type="hidden">
-        </form>
-
-        <button class="club-dashboard-btn club-dashboard-btn-secondary" id="cancelPasswordBtn">Cancel</button>
-      </div>
     </div>
   </div>
 </div>
@@ -1317,10 +823,6 @@
   </form>
 </div>
 
-
-
-</div>
-
 <div id="club-dashboard-club-profile" class="club-dashboard-current">
   <div class="club-dashboard-profile-flex">
     <div class="club-dashboard-profile-left">
@@ -1404,9 +906,6 @@
             required><%= user.slogan %></textarea>
         </div>
       </form>
-
-
-
     </div>
   </div>
 
