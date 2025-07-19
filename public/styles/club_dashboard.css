@@ -1,19 +1,26 @@
 /* Club Dashboard Base Styles */
 :root {
-  --primary-dark: #0a1929;
-  --primary-accent: #ff4c30;
-  --primary-light: #1a2332;
-  --accent-light: #ff6b4f;
-  --accent-dark: #e63e26;
-  --background-light: #f8fafb;
-  --text-primary: #ffffff;
-  --text-secondary: #a0aec0;
-  --text-light: #718096;
-  --white: #ffffff;
-  --border-light: #2d3748;
-  --shadow-subtle: rgba(0, 0, 0, 0.3);
-  --shadow-accent: rgba(255, 76, 48, 0.15);
-  --shadow-glow: rgba(255, 76, 48, 0.2);
+  --primary-dark: #001e28; /* Your new color */
+  --primary-accent: #ff4c30; /* No change needed */
+
+  /* Modified to match the new dark cyan base */
+  --primary-light: #002d3d;
+  --accent-light: #ff6b4f; /* No change needed */
+  --accent-dark: #e63e26; /* No change needed */
+  --background-light: #f8fafb; /* No change needed */
+  --text-primary: #ffffff; /* No change needed */
+
+  /* Switched to more neutral grays that work better with cyan */
+  --text-secondary: #94a3b8;
+  --text-light: #64748b;
+  --white: #ffffff; /* No change needed */
+
+  /* Updated to a lighter shade of the new base */
+  --border-light: #003d52;
+  
+  --shadow-subtle: rgba(0, 0, 0, 0.3); /* No change needed */
+  --shadow-accent: rgba(255, 76, 48, 0.15); /* No change needed */
+  --shadow-glow: rgba(255, 76, 48, 0.2); /* No change needed */
 }
 
 body {
