@@ -1,16 +1,41 @@
+:root {
+  --primary-dark: #001e28; /* Your new color */
+  --primary-accent: #ff4c30; /* No change needed */
+
+  /* Modified to match the new dark cyan base */
+  --primary-light: #002d3d;
+  --accent-light: #ff6b4f; /* No change needed */
+  --accent-dark: #e63e26; /* No change needed */
+  --background-light: #f8fafb; /* No change needed */
+  --text-primary: #ffffff; /* No change needed */
+
+  /* Switched to more neutral grays that work better with cyan */
+  --text-secondary: #94a3b8;
+  --text-light: #64748b;
+  --white: #ffffff; /* No change needed */
+
+  /* Updated to a lighter shade of the new base */
+  --border-light: #003d52;
+  
+  --shadow-subtle: rgba(0, 0, 0, 0.3); /* No change needed */
+  --shadow-accent: rgba(255, 76, 48, 0.15); /* No change needed */
+  --shadow-glow: rgba(255, 76, 48, 0.2); /* No change needed */
+}
+
 .match-setup-section {
-  background-color: #f9f9ff;
+  background-color: var(--primary-light); /* Changed from light gray */
   padding: 2rem;
   border-radius: 1rem;
   max-width: 900px;
   margin: 2rem auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px var(--shadow-subtle); /* Themed shadow */
+  border: 1px solid var(--border-light); /* Added for definition */
 }
 
 .match-setup-title {
   text-align: center;
   font-size: 1.75rem;
-  color: #3f0071;
+  color: var(--text-primary); /* Changed from purple */
   margin-bottom: 1.5rem;
 }
 
@@ -28,19 +53,30 @@
 .match-setup-group label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #222;
+  color: var(--text-secondary); /* Themed label color */
 }
 
-.match-setup-group select {
+/* Styling for all select elements in the form */
+.match-setup-group select,
+.match-setup-multiple-selects select {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-light); /* Themed border */
+  background-color: var(--primary-dark); /* Themed input background */
+  color: var(--text-primary); /* Themed input text */
+  transition: border-color 0.3s ease;
+}
+
+.match-setup-group select:focus,
+.match-setup-multiple-selects select:focus {
+  outline: none;
+  border-color: var(--primary-accent); /* Themed focus highlight */
 }
 
 .match-setup-subtitle {
   font-weight: 600;
-  color: #444;
+  color: var(--text-primary); /* Changed from dark gray */
   margin: 1rem 0 0.5rem;
 }
 
@@ -52,13 +88,12 @@
 
 .match-setup-multiple-selects select {
   padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
   font-size: 0.95rem;
 }
 
 .match-setup-submit-btn {
-  background: linear-gradient(135deg, #5409b2, #9333ea);
+  /* Changed purple gradient to the theme's orange accent gradient */
+  background: linear-gradient(135deg, var(--primary-accent), var(--accent-light));
   color: white;
   padding: 0.75rem 1.5rem;
   font-weight: bold;
@@ -66,9 +101,13 @@
   border-radius: 10px;
   cursor: pointer;
   align-self: center;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-accent);
 }
 
 .match-setup-submit-btn:hover {
-  background: linear-gradient(135deg, #6b21a8, #7e22ce);
+  /* Swapped gradient for hover effect */
+  background: linear-gradient(135deg, var(--accent-light), var(--primary-accent));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--shadow-glow);
 }
