@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - var(--header-height, 90px) - var(--footer-height, 200px)); /* Example heights, adjust if needed */
-    background-color: #f8f9fa; /* Matches body background */
+    background-color: #001e28; /* Matches body background */
     padding: 2rem; /* Ensure consistent padding with other sections */
     box-sizing: border-box; /* Crucial for consistent sizing */
 }
@@ -21,12 +21,14 @@
     border-radius: 10px; /* Consistent border-radius */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     text-align: center;
-    border-top: 5px solid #5409b2; /* Accent top border, similar to feature cards */
+    /* border-top: 5px solid #5409b2;  */
+    /* Accent top border, similar to feature cards */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add hover effects */
 }
 
 .register-club-form-section:hover {
     transform: translateY(-5px); /* Slight lift on hover */
+    border-top: 4px solid #ff4c30;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
@@ -69,7 +71,7 @@
 .register-club-textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff4c30;
     border-radius: 5px; /* Slightly rounded borders */
     font-size: 1em;
     font-family: 'Poppins', sans-serif; /* Use Poppins font */
@@ -94,10 +96,11 @@
 
 /* Submit button */
 .register-club-submit-btn {
-    background-color: #5409b2; /* Primary accent color */
-    color: white;
+    background-color: #fff; /* Primary accent color */
+    color: #121212;
     padding: 15px 25px;
-    border: none;
+    border: 2px solid #ff4c30;
+    /* border: none; */
     border-radius: 8px; /* Consistent button border-radius */
     font-size: 1.1em;
     font-weight: 600; /* Medium bold */
@@ -108,13 +111,14 @@
 }
 
 .register-club-submit-btn:hover {
-    background-color: #3f0685; /* Darker shade on hover */
+    background-color: #ff4c30; /* Darker shade on hover */
+    color: #fff;
     transform: translateY(-2px); /* Lift effect */
     box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
 }
 
 .register-club-submit-btn:active {
-    background-color: #2b045e; /* Even darker on click */
+    background-color: #121212; /* Even darker on click */
     transform: translateY(0); /* Return to original position */
     box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Flattened shadow on active */
 }
