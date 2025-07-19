@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - var(--header-height, 90px) - var(--footer-height, 200px)); /* Adjust based on your header/footer heights */
-    background-color: #f8f9fa; /* Matches body background */
+    background-color: #001e28; /* Matches body background */
     padding: 2rem;
     box-sizing: border-box;
 }
@@ -16,24 +16,25 @@
 .login-clubs-form-section {
     width: 60%;
     max-width: fit-content; /* Consistent width with viewer login for simplicity */
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-top: 5px solid #5409b2; /* Accent top border */
+    border: 4px solid #fff; /* Accent top border */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .login-clubs-form-section:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-top: 4px solid #ff4c30;
 }
 
 /* Title and subtitle */
 .login-clubs-form-title {
     font-size: 2.2em;
-    color: #2c3e50;
+    color: #333;
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -61,14 +62,14 @@
     display: block;
     margin-bottom: 8px;
     font-size: 1em;
-    color: #333;
+    color: #121212;
     font-weight: 600;
 }
 
 .login-clubs-input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff4c30;
     border-radius: 5px;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
@@ -80,17 +81,18 @@
 }
 
 .login-clubs-input:focus {
-    border-color: #5409b2;
+    border-color: #121212;
     outline: none;
     box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
 }
 
 /* Submit button */
 .login-clubs-submit-btn {
-    background-color: #5409b2;
-    color: white;
+    background-color: #fff;
+    color: #121212;
     padding: 15px 25px;
-    border: none;
+    border: 2px solid #ff4c30;
+    /* border: none; */
     border-radius: 8px;
     font-size: 1.1em;
     font-weight: 600;
@@ -101,13 +103,14 @@
 }
 
 .login-clubs-submit-btn:hover {
-    background-color: #3f0685;
+    background-color: #ff4c30;
+    color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .login-clubs-submit-btn:active {
-    background-color: #2b045e;
+    background-color: #121212;
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
