@@ -1,13 +1,13 @@
  .news-hero {
      padding: 4rem 0;
      text-align: center;
-     color: white;
      animation: fadeInUp 1s ease-out 0.2s both;
  }
 
  .news-hero h1 {
      font-size: 3.5rem;
      margin-bottom: 1rem;
+     color: white;
      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
  }
 
@@ -28,26 +28,93 @@
      animation: glow 2s infinite alternate;
  }
 
+ .club-enlistpage-filter-buttons {
+     display: flex;
+     justify-content: center;
+     gap: 20px;
+     margin-left: 30px;
+     margin-bottom: 40px;
+     flex-wrap: wrap;
+ }
+
+ .btn {
+     margin-left: 1vh;
+ }
+
+ .club-enlistpage-filter-btn,
+ .btn {
+     padding: 12px 25px;
+     border: none;
+     border-radius: 25px;
+     font-size: 1rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+
+ .club-enlistpage-filter-btn-cricket,
+ .btn {
+     background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+     color: white;
+     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+ }
+
+ .club-enlistpage-filter-btn-cricket:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
+ }
+
+ .club-enlistpage-filter-btn-football {
+     background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+     color: white;
+     box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+ }
+
+ .club-enlistpage-filter-btn-football:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+ }
+/* 
+ .club-enlistpage-filter-btn-basketball {
+     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+     color: white;
+     box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+ }
+
+ .club-enlistpage-filter-btn-basketball:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+ } */
+
  .news-grid {
      display: grid;
      grid-template-columns: 2fr 1fr;
      gap: 2rem;
      margin-bottom: 3rem;
+     background-color: #001e28;
  }
 
  .news-main-story {
      background: rgba(255, 255, 255, 0.95);
-     backdrop-filter: blur(20px);
+     /* backdrop-filter: blur(20px); */
      border-radius: 20px;
      overflow: hidden;
      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
      transition: transform 0.3s ease, box-shadow 0.3s ease;
      animation: fadeInLeft 0.8s ease-out 0.4s both;
+     margin-left: 10px;
  }
 
  .news-main-story:hover {
-     transform: translateY(-10px);
-     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+     transform: translateY(-100px);
+     box-shadow: 0 5px 60px #ff4c30;
+     background-color: #1c3a47;
+     border: 1px solid #fff;
+     .news-story-title {
+         color: #fff;
+     }
  }
 
  .news-story-image {
@@ -104,21 +171,28 @@
      flex-direction: column;
      gap: 1.5rem;
      animation: fadeInRight 0.8s ease-out 0.6s both;
+     margin-right: 10px;
  }
 
  .news-sidebar-item {
-     background: rgba(255, 255, 255, 0.95);
-     backdrop-filter: blur(20px);
+     background: #fff;
+     /* backdrop-filter: blur(20px); */
      border-radius: 15px;
      padding: 1.5rem;
-     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
      transition: all 0.3s ease;
      cursor: pointer;
+     border: 1px solid #fff;
  }
 
  .news-sidebar-item:hover {
      transform: translateX(10px);
-     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+     /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); */
+     background-color: rgba(28, 58, 71, 0.6);
+     box-shadow: 0 5px 15px #ff4c30;
+
+     .news-sidebar-title {
+         color: #fff;
+     }
  }
 
  .news-sidebar-title {
@@ -135,7 +209,7 @@
  }
 
  .news-trending {
-     background: rgba(255, 255, 255, 0.95);
+     background: #001e28;
      backdrop-filter: blur(20px);
      border-radius: 20px;
      padding: 2rem;
@@ -147,7 +221,7 @@
  .news-trending h2 {
      font-size: 2rem;
      margin-bottom: 1.5rem;
-     color: #333;
+     color: #fff;
      text-align: center;
      position: relative;
  }
@@ -159,7 +233,8 @@
      left: 50%;
      width: 50px;
      height: 3px;
-     background: linear-gradient(45deg, #667eea, #764ba2);
+     /* background: linear-gradient(45deg, #667eea, #764ba2); */
+     background-color: #ff4c30;
      transform: translateX(-50%);
      border-radius: 2px;
  }
@@ -173,22 +248,34 @@
  .news-trending-item {
      padding: 1.5rem;
      border-radius: 15px;
-     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+     background-color: #fff;
+     /* background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); */
      border: 1px solid rgba(255, 255, 255, 0.2);
      transition: all 0.3s ease;
      cursor: pointer;
  }
 
+ /* .news-trending-item  */
+
  .news-trending-item:hover {
      transform: scale(1.05);
      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+     border: 2px solid #ff4c30;
+ }
+
+ .news-trending-item:hover h3 {
+     color: #fff;
  }
 
  .news-trending-number {
      font-size: 2rem;
      font-weight: bold;
-     color: #667eea;
+     color: #121212;
      margin-bottom: 0.5rem;
+ }
+
+ .news-trending-item:hover .news-trending-number {
+    color: #fff;
  }
 
  .news-live-indicator {
