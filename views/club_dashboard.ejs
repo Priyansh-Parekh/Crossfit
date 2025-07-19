@@ -202,7 +202,7 @@
               <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
                 <%= user.vice_captain.wickets %> wickets
               </div>
-              <div style="font-size: 0.9rem; color: #666;">Eco: <%= user.vice_captain.economy %>
+              <div style="font-size: 0.9rem; color: #666;">Eco: <%= user.vice_captain.economy.toFixed(2) %>
               </div>
             </div>
           </div>
@@ -237,7 +237,7 @@
                     <div style="font-size: 1.2rem; font-weight: 600; color: #333;">
                       <%= user.wicket_keeper.total_runs %> runs
                     </div>
-                    <div style="font-size: 0.9rem; color: #666;">SR: <%= user.wicket_keeper.SR %> %
+                    <div style="font-size: 0.9rem; color: #666;">SR: <%= user.wicket_keeper.SR.toFixed(2) %> %
                     </div>
                   </div>
                 </div>
