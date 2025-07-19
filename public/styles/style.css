@@ -1204,3 +1204,17 @@ footer {
     /* Adjust emoji size */
   }
 }
+
+
+#home-middle-role-card{
+  background: url("/images/Crossfit.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 500px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  /* Align text to the left */
+}

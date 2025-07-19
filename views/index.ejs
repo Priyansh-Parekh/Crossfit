@@ -69,10 +69,6 @@
             <p>Latest football news, live scores, player stats, and merchandise from your favorite teams and leagues.
             </p>
         </div>
-        <div class="home-sport-card sport-basketball" onclick="navigateToSport('basketball')">
-            <h3>🏀 Basketball</h3>
-            <p>Stay connected with basketball news, live game updates, and authentic team merchandise.</p>
-        </div>
     </div>
 </section>
 
@@ -104,6 +100,9 @@
                         <%} %>
                 </div>
         </div>
+        <div class="home-role-card" id="home-middle-role-card">
+           
+        </div>
         <div class="home-role-card">
             <h3>🏟️ Sports Club</h3>
             <ul class="home-role-features">
@@ -123,31 +122,6 @@
                     </form>
                      <%}else if(user.user_type=="club"){%>
                         <form action="/logout/clubs" method="post">
-                            <button class="home-role-btn home-role-logout-btn">Log Out</button>
-                        </form>
-                        <%} %>
-                </div>
-        </div>
-        <div class="home-role-card">
-            <h3>🏆 League Organizer</h3>
-            <ul class="home-role-features">
-                <li>Create and manage tournaments</li>
-                <li>Register participating teams</li>
-                <li>Schedule matches efficiently</li>
-                <li>Input and track match results</li>
-                <li>Maintain dynamic points tables</li>
-            </ul>
-           
-                <div class="home-role-buttons">
-                     <% if(user==="none" ){ %>
-                    <form action="/login/login_leagues" method="get">
-                        <button class="home-role-btn home-role-login-btn">Login</button>
-                    </form>
-                    <form action="/register/register_leagues" method="get">
-                        <button class="home-role-btn home-role-register-btn">Register</button>
-                    </form>
-                    <%}else if(user.user_type=="league"){%>
-                        <form action="/logout/league" method="post">
                             <button class="home-role-btn home-role-logout-btn">Log Out</button>
                         </form>
                         <%} %>

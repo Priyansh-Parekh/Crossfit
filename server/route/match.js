@@ -222,22 +222,22 @@ route.post('/submit_setup/:_id', login, async (req, res) => {
         if (toss_choice === 'Bat') {
             thismatch.current_batting = toss_winner
         } else {
-            if (toss_winner === thismatch.club1._id) {
+            if (toss_winner.toString() === thismatch.club1._id.toString()) {
                 thismatch.current_batting = thismatch.club2._id;
             } else {
                 thismatch.current_batting = thismatch.club1._id;
             }
         }
-        if (toss_winner === thismatch.club1._id && toss_choice === 'Bat') {
+        if (toss_winner.toString() === thismatch.club1._id.toString() && toss_choice === 'Bat') {
             thismatch.firstInnings = thismatch.club1._id;
             thismatch.secondInnings = thismatch.club2._id;
-        } else if (toss_winner === thismatch.club1._id && toss_choice === 'Bowl') {
+        } else if (toss_winner.toString() === thismatch.club1._id.toString() && toss_choice === 'Bowl') {
             thismatch.firstInnings = thismatch.club2._id;
             thismatch.secondInnings = thismatch.club1._id;
-        } else if (toss_winner === thismatch.club2._id && toss_choice === 'Bowl') {
+        } else if (toss_winner.toString() === thismatch.club2._id.toString() && toss_choice === 'Bowl') {
             thismatch.firstInnings = thismatch.club1._id;
             thismatch.secondInnings = thismatch.club2._id;
-        } else if (toss_winner === thismatch.club2._id && toss_choice === 'Bat') {
+        } else if (toss_winner.toString() === thismatch.club2._id.toString() && toss_choice === 'Bat') {
             thismatch.firstInnings = thismatch.club2._id;
             thismatch.secondInnings = thismatch.club1._id;
         }

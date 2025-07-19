@@ -24,7 +24,7 @@
             <%= thismatch.toss_winner.name %> won the toss and chose to <%= thismatch.toss_choice%>
         </div>
     </div>
-
+<% console.log(thismatch.secondInnings) %>
     <% let clubfirst=thismatch.firstInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
         <% let clubsecond=thismatch.secondInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
 
