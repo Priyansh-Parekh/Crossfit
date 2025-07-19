@@ -584,173 +584,219 @@ section p {
 
 /* --- User Roles Section --- */
 .home-user-roles {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    padding: 4rem 2rem; /* Consistent padding */
+  background-color: #001e28;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  padding: 4rem 2rem;
+  /* Consistent padding */
 }
 
 .home-user-roles h2 {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
+  color: #fff;
 }
 
 .home-roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    /* Removed padding: 0 2rem; from here as it's already on the section */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  /* Removed padding: 0 2rem; from here as it's already on the section */
 }
 
 .home-role-card {
-    background-color: #fdfdfd;
-    padding: 2.5rem; /* More padding */
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    text-align: left; /* Align text to the left */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border: 1px solid #eee; /* Subtle border */
+  background-color: #1c3a47;
+  padding: 2.5rem;
+  /* More padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  /* Align text to the left */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 1px solid #eee;
+  /* Subtle border */
 }
 
 .home-role-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    border-color: #5409b2; /* Highlight border on hover */
+  transform: translateY(-8px) scale(1.05, 1.05);
+  /* transform:; */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #ff4c30;
+  background-color: #012733;
+  /* Highlight border on hover */
 }
 
 .home-role-card h3 {
-    font-size: 1.7rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.home-role-card h3 span { /* Emoji icon */
-    font-size: 2.2rem;
+.home-role-card h3 span {
+  /* Emoji icon */
+  font-size: 2.2rem;
+  color: #111;
 }
 
 .home-role-features {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
 }
 
 .home-role-features li {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #666;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: flex-start; /* Align list item content to the start */
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  /* Align list item content to the start */
 }
 
 .home-role-features li::before {
-    content: '✅'; /* Checkmark icon */
-    margin-right: 0.8rem;
-    font-size: 1.1rem;
-    line-height: 1; /* For better vertical alignment */
-    flex-shrink: 0; /* Prevent checkmark from shrinking */
+  content: '✅';
+  /* Checkmark icon */
+  margin-right: 0.8rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  /* For better vertical alignment */
+  flex-shrink: 0;
+  /* Prevent checkmark from shrinking */
 }
 
 /* --- User Roles Section Buttons --- */
 
 /* Container for the buttons within role cards */
 .home-role-buttons {
-    display: flex;
-    flex-direction: column; /* Stack buttons by default */
-    gap: 0.8rem; /* Space between buttons */
-    margin-top: 1.5rem; /* Space above buttons from list items */
-    width: 100%; /* Take full width of the card */
+  display: flex;
+  flex-direction: column;
+  /* Stack buttons by default */
+  gap: 0.8rem;
+  /* Space between buttons */
+  margin-top: 1.5rem;
+  /* Space above buttons from list items */
+  width: 100%;
+  /* Take full width of the card */
 }
 
 /* Base style for all buttons within role cards */
 .home-role-btn {
-    display: block; /* Make buttons take full width of their container */
-    width: 100%;
-    padding: 0.8rem 1.5rem; /* Consistent padding */
-    font-size: 1rem;
-    font-weight: 600;
-    border: none; /* Reset default button border */
-    border-radius: 8px; /* Slightly rounded corners */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  display: block;
+  /* Make buttons take full width of their container */
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  /* Consistent padding */
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  /* Reset default button border */
+  border-radius: 8px;
+  /* Slightly rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
 /* Style for the Login button (Primary) */
 .home-role-login-btn {
-    background-color: #5409b2; /* Your primary accent color */
-    color: #ffffff;
-    border: 2px solid #5409b2; /* Solid border matching background */
+  background-color: #ff4c30;
+  /* Your primary accent color */
+  color: #ffffff;
+  /* border: 2px solid #5409b2; */
+  /* Solid border matching background */
 }
 
 .home-role-login-btn:hover {
-    background-color: #3f0685; /* Darker shade on hover */
-    border-color: #3f0685;
-    transform: translateY(-2px); /* Slight lift effect */
+  background-color: #fff;
+  /* Darker shade on hover */
+  border: 2px solid #ff4c30;
+  color: #121212;
+  transform: translateY(-2px);
+  /* Slight lift effect */
 }
 
 .home-role-login-btn:active {
-    background-color: #2b045e;
-    transform: translateY(0);
+  background-color: #121212;
+  transform: translateY(0);
+  color: #fff;
 }
 
 /* Style for the Register button (Secondary/Outline) */
 .home-role-register-btn {
-    background-color: transparent;
-    color: #5409b2; /* Text color matching primary accent */
-    border: 2px solid #5409b2; /* Outline border */
+  background-color: transparent;
+  color: #ff4c30;
+  /* Text color matching primary accent */
+  border: 2px solid #ff4c30;
+  /* Outline border */
 }
 
 .home-role-register-btn:hover {
-    background-color: #5409b2; /* Fill with primary color on hover */
-    color: #ffffff; /* White text on hover */
-    transform: translateY(-2px);
+  background-color: #121212;
+  /* Fill with primary color on hover */
+  color: #ffffff;
+  /* White text on hover */
+  transform: translateY(-2px);
 }
 
 .home-role-register-btn:active {
-    background-color: #3f0685;
-    border-color: #3f0685;
-    transform: translateY(0);
+  background-color: #ff4c30;
+  border-color: #121212;
+  transform: translateY(0);
 }
+
 /* Style for the Log Out button (Primary) */
 .home-role-logout-btn {
-     margin-left: 2px;
-    background-color: #d90d0d; /* Your primary accent color */
-    color: #ffffff;
-    border: 2px solid #d90d0d; /* Solid border matching background */
+  margin-left: 2px;
+  background-color: #d90d0d;
+  /* Your primary accent color */
+  color: #ffffff;
+  border: 2px solid #d90d0d;
+  /* Solid border matching background */
 }
 
 .home-role-logout-btn:hover {
-    color: #d90d0d;
-    background-color: #ffffff; /* Darker shade on hover */
-    border-color: #ffffff;
-    transform: translateY(-2px); /* Slight lift effect */
+  color: #d90d0d;
+  background-color: #ffffff;
+  /* Darker shade on hover */
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  /* Slight lift effect */
 }
 
 .home-role-logout-btn:active {
-    background-color: #d90d0d;
-    transform: translateY(0);
+  background-color: #d90d0d;
+  transform: translateY(0);
 }
+
 /* Responsive adjustments for buttons within role cards */
 @media (min-width: 768px) {
-    /* For wider screens, make buttons side-by-side if desired, or keep stacked for cleaner look */
-    .home-role-buttons {
-        flex-direction: row; /* Layout buttons in a row */
-        justify-content: center; /* Center them if there's extra space */
-        gap: 1rem; /* Adjust spacing for row layout */
-    }
-    .home-role-btn {
-        width: auto; /* Allow buttons to size based on content + padding */
-        min-width: 120px; /* Ensure a minimum width */
-    }
+
+  /* For wider screens, make buttons side-by-side if desired, or keep stacked for cleaner look */
+  .home-role-buttons {
+    flex-direction: row;
+    /* Layout buttons in a row */
+    justify-content: center;
+    /* Center them if there's extra space */
+    gap: 1rem;
+    /* Adjust spacing for row layout */
+  }
+
+  .home-role-btn {
+    width: auto;
+    /* Allow buttons to size based on content + padding */
+    min-width: 120px;
+    /* Ensure a minimum width */
+  }
 }
 
 @media (max-width: 480px) {
-    .home-role-btn {
-        padding: 0.7rem 1rem; /* Slightly less padding on very small screens */
-        font-size: 0.95rem;
-    }
+  .home-role-btn {
+    padding: 0.7rem 1rem;
+    /* Slightly less padding on very small screens */
+    font-size: 0.95rem;
+  }
 }
 
 /* --- Footer Styling --- */
