@@ -1,19 +1,44 @@
+:root {
+  --primary-dark: #001e28; /* Your new color */
+  --primary-accent: #ff4c30; /* No change needed */
+
+  /* Modified to match the new dark cyan base */
+  --primary-light: #002d3d;
+  --accent-light: #ff6b4f; /* No change needed */
+  --accent-dark: #e63e26; /* No change needed */
+  --background-light: #f8fafb; /* No change needed */
+  --text-primary: #ffffff; /* No change needed */
+
+  /* Switched to more neutral grays that work better with cyan */
+  --text-secondary: #94a3b8;
+  --text-light: #64748b;
+  --white: #ffffff; /* No change needed */
+
+  /* Updated to a lighter shade of the new base */
+  --border-light: #003d52;
+  
+  --shadow-subtle: rgba(0, 0, 0, 0.3); /* No change needed */
+  --shadow-accent: rgba(255, 76, 48, 0.15); /* No change needed */
+  --shadow-glow: rgba(255, 76, 48, 0.2); /* No change needed */
+}
+
 .club-leader-selection-main {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f7f8fa;
+  background: var(--primary-dark); /* Changed from light gray */
 }
 
 .club-leader-selection-section {
   width: 100%;
   max-width: 420px;
-  background: #fff;
+  background: var(--primary-light); /* Changed from white */
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px var(--shadow-subtle); /* Themed shadow */
   padding: 2.5rem 2rem;
   margin: 2rem 0;
+  border: 1px solid var(--border-light); /* Added for definition */
 }
 
 .club-leader-selection-container {
@@ -26,7 +51,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 2rem;
   font-weight: 600;
-  color: #2d3a4a;
+  color: var(--text-primary); /* Changed to primary text color */
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -47,48 +72,53 @@
 .club-leader-selection-label {
   font-size: 1rem;
   font-weight: 500;
-  color: #3a4a5d;
+  color: var(--text-secondary); /* Changed to secondary text color */
   margin-bottom: 0.2rem;
 }
 
 .club-leader-selection-select {
   padding: 0.6rem 1rem;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid var(--border-light); /* Themed border */
   border-radius: 8px;
   font-size: 1rem;
-  background: #f9fafb;
-  color: #2d3a4a;
-  transition: border 0.2s;
+  background: var(--primary-dark); /* Themed input background */
+  color: var(--text-primary); /* Themed input text */
+  transition: border-color 0.2s;
 }
 .club-leader-selection-select:focus {
-  border-color: #4f8cff;
+  border-color: var(--primary-accent); /* Themed focus color */
   outline: none;
-  background: #fff;
+  background: var(--primary-light);
 }
 
 .club-leader-selection-submit-btn {
   margin-top: 1.2rem;
   padding: 0.7rem 0;
   width: 100%;
-  background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
-  color: #fff;
+  /* Changed blue gradient to orange accent gradient */
+  background: linear-gradient(90deg, var(--primary-accent) 0%, var(--accent-light) 100%);
+  color: var(--white);
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(79,140,255,0.08);
-  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px var(--shadow-accent); /* Themed shadow */
+  transition: all 0.2s ease-in-out;
 }
 .club-leader-selection-submit-btn:hover {
-  background: linear-gradient(90deg, #38b6ff 0%, #4f8cff 100%);
-  box-shadow: 0 4px 16px rgba(56,182,255,0.12);
+  /* Reversed gradient on hover for a dynamic effect */
+  background: linear-gradient(90deg, var(--accent-light) 0%, var(--primary-accent) 100%);
+  box-shadow: 0 4px 16px var(--shadow-glow);
+  transform: translateY(-2px);
 }
 
+/* Responsive styles remain unchanged */
 @media (max-width: 600px) {
   .club-leader-selection-section {
     padding: 1.2rem 0.5rem;
     max-width: 98vw;
+    margin: 1rem 0;
   }
   .club-leader-selection-title {
     font-size: 1.3rem;
