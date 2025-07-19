@@ -1,160 +1,292 @@
-/* --- Club Login Form Styling --- */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Montserrat:wght@400;700&display=swap');
 
-/* Main content container */
+/* ---------- Main and Container Layout ---------- */
 .login-clubs-main-content {
-    /* Inherits from 'main' tag: flex-grow: 1, width: 100%, max-width: 1200px, margin: 0 auto, padding: 2rem */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - var(--header-height, 90px) - var(--footer-height, 200px)); /* Adjust based on your header/footer heights */
-    background-color: #001e28; /* Matches body background */
-    padding: 2rem;
-    box-sizing: border-box;
+  min-height: 100vh;
+  background: #001e28;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  font-family: 'Barlow', 'Montserrat', Arial, sans-serif;
 }
 
-/* Section containing the form */
 .login-clubs-form-section {
-    width: 60%;
-    max-width: fit-content; /* Consistent width with viewer login for simplicity */
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border: 4px solid #fff; /* Accent top border */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.login-clubs-form-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-top: 4px solid #ff4c30;
+/* ---------- Animated Background Balls ---------- */
+.login-clubs-animated-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-/* Title and subtitle */
+.login-clubs-animated-bg::before,
+.login-clubs-animated-bg::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  pointer-events: none;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Floating orange */
+.login-clubs-animated-bg::before {
+  width: 280px;
+  height: 280px;
+  top: -70px;
+  left: -90px;
+  background: radial-gradient(circle at 80px 90px, #ff4c30 60%, #ff5722 100%);
+  animation: float1 18s alternate infinite;
+}
+
+/* Floating blue */
+.login-clubs-animated-bg::after {
+  width: 210px;
+  height: 210px;
+  right: -60px;
+  bottom: -70px;
+  background: radial-gradient(circle at 85px 85px, #34699a 65%, #001e28 100%);
+  animation: float2 16s alternate infinite;
+}
+
+@keyframes float1 {
+  0%,100% {left: -90px; top: -70px;}
+  40% {left: -20px; top: 40px;}
+  60% {left: 30px; top: -35px;}
+  80% {left: -70px; top: -30px;}
+}
+@keyframes float2 {
+  0%,100% {right: -60px; bottom: -70px;}
+  20% {right: -20px; bottom: -30px;}
+  55% {right: 30px; bottom: 70px;}
+  78% {right: -50px; bottom: 20px;}
+}
+
+/* -- Optional: some floating emoji balls -- */
+.login-clubs-main-content::after {
+  content: '🏏 ⚽ 🏆';
+  position: absolute;
+  right: 14vw; top: 33vh;
+  font-size: 6vw;
+  opacity: 0.03;
+  z-index: 2;
+  animation: emoji-drift 20s linear infinite;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes emoji-drift {
+  0% { transform: translateY(-10px);}
+  40% {transform: translateY(12px);}
+  80% {transform: translateY(-12px);}
+  100% {transform: translateY(-10px);}
+}
+
+/* ---------- Club Login Container ---------- */
+.login-clubs-container {
+  position: relative;
+  z-index: 3;
+  background: #012733ee;
+  padding: 2.5rem 2.2rem 2.2rem 2.2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.15);
+  max-width: 370px;
+  width: 97vw;
+  border-top: 8px solid #ff4c30;
+  animation: cardPopIn 0.85s cubic-bezier(0.57,1.17,0.26,1.05) backwards;
+}
+
+@keyframes cardPopIn {
+  0% {opacity:0;transform:translateY(70px) scale(0.96);}
+  80% {opacity: 1;transform:translateY(-8px) scale(1.025);}
+  100% {opacity:1;transform:none;}
+}
+
+/* ---------- Heading Styles ---------- */
 .login-clubs-form-title {
-    font-size: 2.2em;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 700;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff4c30;
+  margin-bottom: 0.3rem;
+  font-family: 'Barlow', 'Montserrat', Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 2px 10px rgba(255,76,48,0.13);
+  animation: titlePop 1s cubic-bezier(.75,.05,.18,1.29) 70ms backwards;
 }
+@keyframes titlePop {
+  0% {opacity:0;transform: scale(.96);}
+  86% {transform: scale(1.03);}
+  100% {opacity:1;transform:none;}
+}
+.login-clubs-form-title .emoji { font-size: 1.4em; }
 
+/* ---------- Subtitle ---------- */
 .login-clubs-form-subtitle {
-    font-size: 1.1em;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
+  color: #f3f4ff;
+  font-size: 1.05rem;
+  margin-bottom: 1.3rem;
+  animation: fadeInMove 1.45s cubic-bezier(.35,.65,.22,1.11) .18s backwards;
+}
+@keyframes fadeInMove {
+  0% { opacity:0; transform: translateY(13px);}
+  100% {opacity:1; transform:none;}
 }
 
-/* Form styling */
+
+/* ---------- Form Layout ---------- */
 .login-clubs-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.13rem;
+  width: 100%;
 }
 
-/* Form group (label + input) */
 .login-clubs-form-group {
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fieldStagger 0.6s cubic-bezier(.19,.72,.57,1.23) both;
+}
+.login-clubs-form-group:nth-child(1) { animation-delay: 0.15s;}
+.login-clubs-form-group:nth-child(2) { animation-delay: 0.24s;}
+
+@keyframes fieldStagger {
+  0% { opacity:0; transform: translateY(16px) scale(.98);}
+  90% {opacity:.6;}
+  100% {opacity:1; transform:none;}
 }
 
+/* Label/inputs */
 .login-clubs-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1em;
-    color: #121212;
-    font-weight: 600;
+  font-weight: 500;
+  color: #ff5722;
+  font-size: 1.01rem;
+  letter-spacing: 0.3px;
+  font-family: 'Montserrat', sans-serif;
 }
 
+/* ---------- Input Fields ---------- */
 .login-clubs-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ff4c30;
-    border-radius: 5px;
-    font-size: 1em;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    background-color: #fdfdfd;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 0.74rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #34699a;
+  border-radius: 8px;
+  background: #f7fafc;
+  color: #182c37;
+  font-family: inherit;
+  transition: border-color 0.28s, box-shadow 0.28s, background 0.18s;
+  outline: none;
+  box-shadow: 0 2px 10px 0 rgba(55,70,90,0.04);
+  animation: inputAppear 0.75s .18s backwards;
+}
+@keyframes inputAppear {
+  0% {opacity:0;transform:translateY(24px);}
+  100% {opacity:1;transform:none;}
 }
 
 .login-clubs-input:focus {
-    border-color: #121212;
-    outline: none;
-    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
+  border-color: #ff4c30;
+  background: #ffffff;
+  box-shadow: 0 0 8px 2px rgba(255, 76, 48, 0.11), 0 0 1px 2px #ff4c30 inset;
+}
+.login-clubs-label:focus-within {
+  color: #ff4c30;
+}
+/* Autofill fixes (chrome) */
+.login-clubs-input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #f7fafc inset !important;
+  -webkit-text-fill-color: #234;
 }
 
-/* Submit button */
+
+/* ---------- Register Link ---------- */
+.login-clubs-register-link {
+  display: flex;
+  gap: 4px;
+  font-size: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.1rem;
+  animation: fadeInMove 1.3s .37s backwards;
+}
+.login-clubs-register-link a {
+  color: #ff4c30;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.2s, color 0.15s;
+  padding-bottom: 2px;
+}
+.login-clubs-register-link a:hover,
+.login-clubs-register-link a:focus {
+  color: #fff;
+  border-bottom: 1.5px solid #ff4c30;
+}
+
+
+/* ---------- Button ---------- */
 .login-clubs-submit-btn {
-    background-color: #fff;
-    color: #121212;
-    padding: 15px 25px;
-    border: 2px solid #ff4c30;
-    /* border: none; */
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: linear-gradient(90deg,#ff4c30 75%, #ff5722 100%);
+  color: #fff;
+  padding: 0.9rem 2.08rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  margin: 0.5rem 0 0.05rem 0;
+  box-shadow: 0 4px 18px rgba(255,68,48,0.12);
+  transition: background 0.23s, transform 0.15s, box-shadow 0.21s;
+  cursor: pointer;
+  letter-spacing: 0.47px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInMove 1.04s .57s backwards;
 }
-
-.login-clubs-submit-btn:hover {
-    background-color: #ff4c30;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+.login-clubs-submit-btn::before {
+  content: '';
+  position: absolute;
+  left: -90%;
+  top: 0;
+  width: 63%;
+  height: 100%;
+  background: linear-gradient(90deg,rgba(255,255,255,0.21) 10%,rgba(255,76,48,0.13) 85%);
+  opacity: 0.75;
+  transform: skewX(-20deg);
+  pointer-events: none;
+  transition: none;
 }
-
-.login-clubs-submit-btn:active {
-    background-color: #121212;
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+.login-clubs-submit-btn:hover::before,
+.login-clubs-submit-btn:focus::before {
+  left: 135%;
+  transition: left 0.83s cubic-bezier(.42,.86,.27,1.3);
 }
-
-/* --- Responsive Adjustments for Club Login Form --- */
-@media (max-width: 768px) {
-    .login-clubs-main-content {
-        padding: 1.5rem;
-    }
-    .login-clubs-form-section {
-        padding: 30px;
-        margin: 0 15px;
-    }
-
-    .login-clubs-form-title {
-        font-size: 1.8em;
-    }
-
-    .login-clubs-form-subtitle {
-        font-size: 1em;
-    }
-
-    .login-clubs-input,
-    .login-clubs-submit-btn {
-        font-size: 0.95em;
-        padding: 10px;
-    }
+.login-clubs-submit-btn:hover,
+.login-clubs-submit-btn:focus {
+  background: linear-gradient(90deg,#ff5722 30%, #ff4c30 100%);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 27px 7px rgba(255, 76, 48, 0.17);
 }
 
 @media (max-width: 480px) {
-    .login-clubs-form-section {
-        padding: 20px;
-        margin: 0 10px;
-    }
-
-    .login-clubs-form-title {
-        font-size: 1.6em;
-    }
-
-    .login-clubs-form-subtitle {
-        font-size: 0.9em;
-    }
-
-    .login-clubs-submit-btn {
-        padding: 12px 20px;
-    }
+  .login-clubs-container { padding: 1.4rem 0.4rem; border-radius: 8px;}
+  .login-clubs-form-title { font-size: 1.18rem;}
 }
+
+/* END */

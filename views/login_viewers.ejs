@@ -1,23 +1,25 @@
 <main class="login-viewer-main-content">
     <section class="login-viewer-form-section">
-        <div class="login-viewer-container">
-            <h2 class="login-viewer-form-title">Welcome Back, Viewer!</h2>
-            <p class="login-viewer-form-subtitle">Log in to access your personalized sports content.</p>
-
-            <form class="login-viewer-form" id="login-viewer-form" method="post" action="/login/login_viewers">
-                <div class="login-viewer-form-group">
-                    <label for="login-viewer-email" class="login-viewer-label">Email:</label>
-                    <input type="email" id="login-viewer-email" class="login-viewer-input" name="email" required>
-                </div>
-
-                <div class="login-viewer-form-group">
-                    <label for="login-viewer-password" class="login-viewer-label">Password:</label>
-                    <input type="password" id="login-viewer-password" class="login-viewer-input" name="password" required>
-                </div>
-                <p>Not Register? <a href="/register/register_viewers"  style="color: #ff4c30;">register</a></p>
-
-                <button type="submit" class="login-viewer-submit-btn">Log In</button>
-            </form>
-        </div>
+      <div class="login-viewer-animated-bg"></div>
+      <div class="login-viewer-container">
+        <h2 class="login-viewer-form-title">Welcome Back, Viewer! <span class="emoji">🎉</span></h2>
+        <p class="login-viewer-form-subtitle">Log in to access your personalized sports content.</p>
+        <form class="login-viewer-form" id="login-viewer-form" method="post" action="/login/login_viewers">
+          <div class="login-viewer-form-group">
+            <label for="login-viewer-email" class="login-viewer-label">Email:</label>
+            <input type="email" id="login-viewer-email" class="login-viewer-input" name="email" autocomplete="username" required>
+          </div>
+          <div class="login-viewer-form-group">
+            <label for="login-viewer-password" class="login-viewer-label">Password:</label>
+            <input type="password" id="login-viewer-password" class="login-viewer-input" name="password" autocomplete="current-password" required>
+          </div>
+          <div class="login-viewer-register-link">
+            <span>Not Registered?</span>
+            <a href="/register/register_viewers">Register</a>
+          </div>
+          <button type="submit" class="login-viewer-submit-btn">Log In</button>
+        </form>
+      </div>
     </section>
-</main>
+  </main>
+  

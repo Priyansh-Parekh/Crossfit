@@ -1,169 +1,204 @@
-/* --- Login/Viewer Registration Form Styling --- */
-
-/* Main content container - using existing 'main' styles but adding specific overrides */
+/* --- Register Viewers Form Core Layout --- */
 .register-viewers-main-content {
-    /* Inherits from 'main' tag: flex-grow: 1, width: 100%, max-width: 1200px, margin: 0 auto, padding: 2rem */
-    
-    display: flex; /* Override to ensure direct children are centered */
-    justify-content: center;
-    align-items: center;
-    background-color: #001e28; /* Matches body background */
-    padding: 2rem; /*Ensure consistent padding with other sections*/
-    box-sizing: border-box; /* Crucial for consistent sizing */
-}
-
-/* Section containing the form */
-.register-viewers-form-section {
-    width: 60vw;
-    max-width: fit-content;
-    background-color: #ffffff; /* White background for the form card */
-    padding: 40px;
-    border-radius: 10px; /* Consistent border-radius */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    text-align: center;
-    /* border-top: 5px solid #5409b2; */
-     /* Accent top border, similar to feature cards */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add hover effects */
-}
-
-.register-viewers-form-section:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    border-top: 4px solid #ff4c30;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-}
-
-
-/* Title and subtitle */
-.register-viewers-form-title {
-    font-size: 2.2em; /* Adjusted for form context */
-    color: #2c3e50; /* Dark heading color from your theme */
-    margin-bottom: 10px;
-    font-weight: 700; /* Bolder font weight */
-}
-
-.register-viewers-form-subtitle {
-    font-size: 1.1em;
-    color: #666; /* Softer text color from your theme */
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-/* Form styling */
-.register-viewers-form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Spacing between form groups */
-}
-
-/* Form group (label + input/select) */
-.register-viewers-form-group {
-    text-align: left;
-}
-
-.register-viewers-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1em;
-    color: #333; /* Default text color */
-    font-weight: 600; /* Medium bold for labels */
-}
-
-.register-viewers-input,
-.register-viewers-select {
+    align-items: center;
+    min-height: 70vh;
+    background: #001e28;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    position: relative;
+    font-family: 'Barlow', 'Poppins', 'Montserrat', sans-serif;
+    overflow: hidden;  /* For emoji background */
+  }
+  
+  /* --- Floating Emoji Sports Background --- */
+  .register-viewers-main-content::before {
+    content: "⚽ 🏏 🏀 🏆 🏐";
+    position: absolute;
+    font-size: clamp(2.5rem, 10vw, 7.5rem);
+    opacity: 0.08;
+    top: 0;
+    left: 3%;
+    white-space: pre;
+    z-index: 0;
+    /* Animation */
+    animation: bounce-left-right 13s ease-in-out infinite alternate;
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  .register-viewers-main-content::after {
+    content: "🏆 🏐 ⚽ 🏀 🏏";
+    position: absolute;
+    font-size: clamp(3rem, 14vw, 10rem);
+    opacity: 0.07;
+    bottom: -1.2rem;
+    right: 1%;
+    z-index: 0;
+    white-space: pre;
+    animation: bounce-right-left 15s ease-in-out infinite alternate;
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  /* Animations for emojis */
+  @keyframes bounce-left-right {
+    0% { left: 3%; transform: translateY(0) scale(1); }
+    80% { left: 12%; transform: translateY(-12px) scale(1.03);}
+    100% { left: 8%; transform: translateY(-2vw) scale(1.05);}
+  }
+  @keyframes bounce-right-left {
+    0% { right: 1%; transform: translateY(0) scale(1);}
+    70% { right: 10%; transform: translateY(8px) scale(1.02);}
+    100% { right: 6%; transform: translateY(-2vw) scale(1.04);}
+  }
+  
+  /* --- Card, Grid Layout --- */
+  .register-viewers-container {
+    position: relative;
+    background: #012733;
+    max-width: 470px;
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ff4c30;
-    border-radius: 5px; /* Slightly rounded borders */
-    font-size: 1em;
-    font-family: 'Poppins', sans-serif; /* Use Poppins font */
-    color: #333;
-    background-color: #fdfdfd; /* Slightly off-white for input fields */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.register-viewers-input:focus,
-.register-viewers-select:focus {
-    border-color: #5409b2; /* Primary accent color on focus */
+    box-shadow: 0 6px 32px rgba(0,0,0,0.12), 0 2px 4px rgba(15,36,50,0.09);
+    border-radius: 14px;
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin: 0 auto;
+    border-top: 8px solid #ff4c30;
+    z-index: 2;
+  }
+  
+  .register-viewers-form-title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #ff4c30;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.3rem;
+    font-family: 'Barlow', 'Montserrat', sans-serif;
+    text-shadow: 0 3px 12px rgba(255, 76, 48, 0.08);
+  }
+  
+  .register-viewers-form-subtitle {
+    color: #e0eafd;
+    font-size: 1.09rem;
+    margin-bottom: 1.4rem;
+  }
+  
+  /* --- Animated Two-Column Grid on Wide Screens --- */
+  .register-viewers-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: 1.3rem;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .register-viewers-form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+  .register-viewers-form-group:nth-child(4) {
+    grid-column: 1 / 3;
+  }
+  
+  /* Buttons: wide */
+  .register-viewers-submit-btn {
+    grid-column: 1 / 3;
+    justify-self: center;
+    max-width: 220px;
+    margin-top: 0.5rem;
+  }
+  
+  @media (max-width: 650px) {
+    .register-viewers-container { max-width: 98vw; padding: 1.5rem 0.7rem;}
+    .register-viewers-form {
+      grid-template-columns: 1fr;
+      gap: 1.08rem 0;
+    }
+    .register-viewers-form-group,
+    .register-viewers-submit-btn {
+      grid-column: auto;
+      max-width: 100%;
+      justify-self: stretch;
+    }
+  }
+  
+  /* --- Labels & Inputs --- */
+  .register-viewers-label {
+    font-weight: 500;
+    color: #ff5722;
+    font-size: 1.02rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .register-viewers-input,
+  .register-viewers-select {
+    width: 100%;
+    padding: 0.73rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #34699a;
+    border-radius: 8px;
+    background: #f7fafc;
+    color: #182c37;
+    font-family: inherit;
+    transition: border-color 0.27s ease, box-shadow 0.27s ease;
     outline: none;
-    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3); /* Soft shadow on focus */
-}
-
-.register-viewers-select {
-    height: auto; /* Allow height to adjust for multiple selections */
-    min-height: 45px; /* Minimum height for select box */
-}
-
-/* Submit button */
-.register-viewers-submit-btn {
-    background-color: #fff; /* Primary accent color */
-    color: #121212;
-    padding: 15px 25px;
-    border: 2px solid #ff4c30;
-    border-radius: 8px; /* Consistent button border-radius */
-    font-size: 1.1em;
-    font-weight: 600; /* Medium bold */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow for buttons */
-}
-
-.register-viewers-submit-btn:hover {
-    background-color: #ff4c30; /* Darker shade on hover */
+  }
+  
+  /* Animate input/select focus */
+  .register-viewers-input:focus,
+  .register-viewers-select:focus {
+    box-shadow: 0 0 10px 2px rgba(255, 76, 48, 0.20);
+    border-color: #ff4c30;
+    background: #fff;
+  }
+  
+  .register-viewers-select {
+    appearance: none;
+    background: #f7fafc url('data:image/svg+xml;utf8,<svg fill="%2334699a" height="17" viewBox="0 0 24 24" width="17" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1rem center/1.1rem;
+  }
+  
+  /* Hide spinner arrows for Chrome (number) if needed */
+  /* 
+  .register-viewers-form-group input[type="number"]::-webkit-inner-spin-button,
+  .register-viewers-form-group input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  */
+  
+  /* --- Button (animated, brand style) --- */
+  .register-viewers-submit-btn {
+    background: linear-gradient(90deg,#ff4c30 70%, #ff5722 100%);
     color: #fff;
-    transform: translateY(-2px); /* Lift effect */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
-}
-
-.register-viewers-submit-btn:active {
-    background-color: #121212; /* Even darker on click */
-    transform: translateY(0); /* Return to original position */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Flattened shadow on active */
-}
-
-
-/* --- Responsive Adjustments for Form --- */
-@media (max-width: 768px) {
-    .register-viewers-main-content {
-        padding: 1.5rem; /* Less overall padding */
-    }
-    .register-viewers-form-section {
-        padding: 30px;
-        margin: 0 15px; /* Add some horizontal margin on smaller screens */
-    }
-
-    .register-viewers-form-title {
-        font-size: 1.8em;
-    }
-
-    .register-viewers-form-subtitle {
-        font-size: 1em;
-    }
-
-    .register-viewers-input,
-    .register-viewers-select,
-    .register-viewers-submit-btn {
-        font-size: 0.95em;
-        padding: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .register-viewers-form-section {
-        padding: 20px;
-        margin: 0 10px;
-    }
-
-    .register-viewers-form-title {
-        font-size: 1.6em;
-    }
-
-    .register-viewers-form-subtitle {
-        font-size: 0.9em;
-    }
-
-    .register-viewers-submit-btn {
-        padding: 12px 20px;
-    }
-}
+    padding: 0.87rem 2.1rem;
+    font-size: 1.07rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 18px rgba(255,68,48,0.10);
+    transition: background 0.21s, transform 0.17s, box-shadow 0.21s;
+    margin-top: 0.2rem;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+  }
+  
+  .register-viewers-submit-btn:hover,
+  .register-viewers-submit-btn:focus {
+    background: linear-gradient(90deg,#ff5722 20%, #ff4c30 90%);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 0 18px 3px rgba(255, 76, 48, 0.18);
+  }
+  
+  /* Autofill color fix for Chrome */
+  input:-webkit-autofill, select:-webkit-autofill {
+    box-shadow: 0 0 0 1000px #f7fafc inset !important;
+    -webkit-text-fill-color: #234;
+    border-radius: 8px;
+  }
+  
