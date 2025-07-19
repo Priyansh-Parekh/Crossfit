@@ -16,12 +16,12 @@
 .login-viewer-form-section {
     width: 60%;
     max-width: fit-content; /* Slightly narrower for a simple login form */
-    background-color: #fff;
+    background-color: #002d3d;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 2px solid #fff; /* Accent top border */
+    border: 4px solid #fff; /* Accent top border */
     border-top: 4px solid #fff;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -35,7 +35,7 @@
 /* Title and subtitle */
 .login-viewer-form-title {
     font-size: 2.2em;
-    color: #333;
+    color: #fff;
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -64,7 +64,7 @@
     display: block;
     margin-bottom: 8px;
     font-size: 1em;
-    color: #121212;
+    color: #fff;
     font-weight: 600;
 }
 
@@ -85,7 +85,7 @@
 .login-viewer-input:focus {
     border-color: #121212;
     outline: none;
-    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
+    box-shadow: 0 0 5px #ff4c30;
 }
 
 /* Submit button */
