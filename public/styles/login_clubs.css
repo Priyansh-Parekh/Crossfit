@@ -16,7 +16,7 @@
 .login-clubs-form-section {
     width: 60%;
     max-width: fit-content; /* Consistent width with viewer login for simplicity */
-    background-color: #fff;
+    background-color: #002d3d;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -34,7 +34,7 @@
 /* Title and subtitle */
 .login-clubs-form-title {
     font-size: 2.2em;
-    color: #333;
+    color: #fff;
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -62,7 +62,7 @@
     display: block;
     margin-bottom: 8px;
     font-size: 1em;
-    color: #121212;
+    color: #fff;
     font-weight: 600;
 }
 
@@ -83,7 +83,7 @@
 .login-clubs-input:focus {
     border-color: #121212;
     outline: none;
-    box-shadow: 0 0 5px rgba(84, 9, 178, 0.3);
+    box-shadow: 0 0 5px #ff4c30;
 }
 
 /* Submit button */
