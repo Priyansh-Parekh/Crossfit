@@ -1,49 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fragment+Mono:ital@0;1&family=Montserrat:wght@100..900&display=swap');
 
-/* Universal Box-Sizing and Base Font */
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+  scroll-behavior: smooth;
+  /* Smooth scrolling for anchor links */
 }
 
 body {
-    width: 100%;
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa; /* Light background for content */
-    color: #333; /* Default text color */
-    display: flex;
-    flex-direction: column; /* For sticky footer */
-    line-height: 1.6; /* Default line height for better readability */
+  width: 100%;
+  min-height: 100vh;
+  /* Ensure body takes full viewport height */
+  font-family: 'Barlow', sans-serif;
+  background-color: #001e28;
+  /* Light background for content */
+  color: #333;
+  /* Default text color */
+  display: flex;
+  flex-direction: column;
+  /* For sticky footer */
+  line-height: 1.6;
+  /* Default line height for better readability */
 }
-body::-webkit-scrollbar{
-    display: none;
+
+body::-webkit-scrollbar {
+  display: none;
 }
+
 /* --- Global Utilities / Resets --- */
 a {
-    text-decoration: none;
-    color: inherit; /* Inherit color by default for header links */
+  text-decoration: none;
+  color: inherit;
+  /* Inherit color by default for header links */
 }
 
 a:visited {
-    color: inherit;
+  color: inherit;
 }
 
 /* --- Header Styling --- */
 header {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  background-color: white;
+  font-family: 'Barlow', sans-serif;
+  background-color: #001e28;
   padding: 1rem 1.1rem;
   position: sticky;
   top: 0;
   z-index: 999;
-  border-bottom: 0.1rem #5409b2 solid;
+  border-bottom: 0.1rem #fff solid;
 }
 
 .header-desktop-nav {
@@ -71,11 +80,15 @@ header img:hover {
 }
 
 .header-logo-container a {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5409b2;
+  font-family: 'Barlow', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ff4c30;
   font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none;
+}
+
+.header-logo-container a:hover {
+  color: #ffffff;
 }
 
 .header-links {
@@ -92,22 +105,28 @@ header img:hover {
 
 header li {
   margin-left: 1.2rem;
+  color: #ff4c30;
 }
 
 header li a {
   text-decoration: none;
-  color: #333;
+  color: #ff4c30;
   font-size: 1.15rem;
   transition: color 0.15s;
+  transition: border-bottom 0.15s;
   white-space: nowrap;
+  padding-bottom: 10px;
 }
 
 header li a:hover {
-  color: #5409b2;
+  border-bottom: 1px solid #ff4c30;
+  color: #ffffff;
+  border-radius: 5px;
 }
 
 header .links-button {
-  background-color: #5409b2;
+  background-color: #ff4c30;
+  /* #ee2b47 */
   color: #ffffff;
   border: none;
   font-size: 1rem;
@@ -120,12 +139,15 @@ header .links-button {
 }
 
 header .links-button:hover {
-  background-color: #3f0685;
+  background-color: white;
   transform: translateY(-2px);
+  color: #121212;
+  border: 2px solid #ff4c30;
 }
 
 header .links-button:active {
-  background-color: #2b045e;
+  background-color: #001e28;
+  color: #fff;
   transform: translateY(0);
 }
 
@@ -139,7 +161,8 @@ header .links-button:active {
   height: 40px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #10b981; /* emerald ring */
+  border: 2px solid #10b981;
+  /* emerald ring */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -178,7 +201,7 @@ header .links-button:active {
 }
 
 .header-dropdown a.header-logout {
-  color: #d63031;
+  color: #ff4c30;
 }
 
 .header-hidden {
@@ -200,6 +223,7 @@ header .links-button:active {
   font-size: 1.8rem;
   color: #5409b2;
   cursor: pointer;
+  /* transition: transform 0.3s ease; */
   transition: transform 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
@@ -209,6 +233,7 @@ header .links-button:active {
 }
 
 .header-hamburger:active {
+  /* transform: rotate(90deg); */
   opacity: 0.95;
 }
 
