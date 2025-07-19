@@ -1,227 +1,246 @@
-  .club-enlistpage-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .club-enlistpage-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .club-enlistpage-title {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .club-enlistpage-subtitle {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-        }
-
-        .club-enlistpage-search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .club-enlistpage-searchbar {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            outline: none;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .club-enlistpage-searchbar:focus {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .club-enlistpage-filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        .btn{
-            margin-left: 1vh;
-        }
-        .club-enlistpage-filter-btn,.btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .club-enlistpage-filter-btn-cricket,.btn {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
-        }
-
-        .club-enlistpage-filter-btn-cricket:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
-        }
-
-        .club-enlistpage-filter-btn-football {
-            background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
-        }
-
-        .club-enlistpage-filter-btn-football:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
-        }
-
-        .club-enlistpage-filter-btn-basketball {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
-        }
-
-        .club-enlistpage-filter-btn-basketball:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
-        }
-
-        .club-enlistpage-clubs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .club-enlistpage-club-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .club-enlistpage-club-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .club-enlistpage-card-image {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .club-enlistpage-card-image-cricket {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-        }
-
-        .club-enlistpage-card-image-football {
-            background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-        }
-
-        .club-enlistpage-card-image-basketball {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        }
-
-        .club-enlistpage-club-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid rgba(255,255,255,0.3);
-            object-fit: cover;
-        }
-
-        .club-enlistpage-card-content {
-            padding: 25px;
-        }
-
-        .club-enlistpage-club-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .club-enlistpage-club-description {
-            color: #7f8c8d;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .club-enlistpage-club-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
-
-        .club-enlistpage-stat-item {
-            background: #ecf0f1;
-            padding: 8px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            color: #2c3e50;
-            text-align: center;
-            flex: 1;
-        }
-
-        .club-enlistpage-stat-number {
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .club-enlistpage-join-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .club-enlistpage-join-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .club-enlistpage-no-results {
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            margin-top: 50px;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .club-enlistpage-filter-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .club-enlistpage-filter-btn {
-                width: 200px;
-            }
-        }
+/* ---------- GLOBAL THEME TOKENS (reuse everywhere) ---------- */
+:root{
+    --blue-dark:#001e28;
+    --blue-mid:#012733;
+    --blue-soft:#011622;
+    --blue-border:#023242;
+    --orange-main:#ff4c30;
+    --orange-light:#ff6b4f;
+    --white:#ffffff;
+    --text-primary:#ffffff;
+    --text-secondary:#94a3b8;
+    --shadow-main:0 4px 25px rgba(0,0,0,.15);
+    --shadow-orange:0 4px 18px rgba(255,76,48,.18);
+    --radius-card:14px;
+    --radius-btn:20px;
+    font-family:'Barlow','Montserrat',sans-serif;
+  }
+  
+  /* ---------- PAGE WRAPPER ---------- */
+  .club-enlistpage-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:2.5rem 1rem 3rem 1rem;
+    color:var(--text-primary);
+  }
+  
+  /* ---------- HEADER ---------- */
+  .club-enlistpage-header{
+    text-align:center;
+    margin-bottom:2.5rem;
+    animation:fadePop .8s both;
+  }
+  .club-enlistpage-title{
+    font-size:2.6rem;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--orange-main);
+    margin-bottom:.4rem;
+  }
+  .club-enlistpage-subtitle{
+    font-size:1.1rem;
+    color:var(--text-secondary);
+  }
+  
+  /* ---------- SEARCH BAR ---------- */
+  .club-enlistpage-search-container{
+    display:flex;
+    justify-content:center;
+    gap:.6rem;
+    margin-bottom:2rem;
+  }
+  .club-enlistpage-searchbar{
+    flex:1 1 320px;
+    max-width:450px;
+    padding:.8rem 1.1rem;
+    border:2px solid var(--blue-border);
+    border-radius:var(--radius-btn);
+    background:var(--blue-soft);
+    color:var(--white);
+    font-size:1rem;
+    transition:border-color .25s,box-shadow .25s;
+  }
+  .club-enlistpage-searchbar:focus{
+    border-color:var(--orange-main);
+    outline:none;
+    box-shadow:0 0 0 3px rgba(255,76,48,.25);
+  }
+  .btn{
+    background:var(--orange-main);
+    color:var(--white);
+    border:none;
+    padding:.8rem 1.3rem;
+    font-size:1.1rem;
+    border-radius:var(--radius-btn);
+    cursor:pointer;
+    transition:background .18s,transform .15s;
+  }
+  .btn:hover{background:var(--orange-light);transform:translateY(-2px);}
+  .btn:active{transform:scale(.96);}
+  
+  /* ---------- FILTER BUTTONS ---------- */
+  .club-enlistpage-filter-buttons{
+    display:flex;
+    justify-content:center;
+    gap:1rem;
+    margin-bottom:2.2rem;
+    flex-wrap:wrap;
+  }
+  .club-enlistpage-filter-btn{
+    background:var(--blue-mid);
+    color:var(--white);
+    border:2px solid var(--blue-border);
+    padding:.6rem 1.4rem;
+    border-radius:var(--radius-btn);
+    font-weight:600;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:background .18s,border-color .18s,transform .14s;
+  }
+  .club-enlistpage-filter-btn:hover,
+  .club-enlistpage-filter-btn.active{
+    background:var(--orange-main);
+    border-color:var(--orange-main);
+    transform:translateY(-2px);
+  }
+  
+  /* ---------- CLUB GRID ---------- */
+  .club-enlistpage-clubs-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:2rem;
+  }
+  
+  /* ---------- CLUB CARD ---------- */
+  .club-enlistpage-club-card{
+    background:var(--blue-mid);
+    border:1px solid var(--blue-border);
+    border-top:4px solid var(--orange-main);
+    border-radius:var(--radius-card);
+    overflow:hidden;
+    box-shadow:var(--shadow-main);
+    display:flex;
+    flex-direction:column;
+    transition:transform .22s,box-shadow .22s,border-color .22s;
+    opacity:0;
+    animation:fadePop .7s ease forwards;
+  }
+  .club-enlistpage-club-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-orange);
+    border-color:var(--orange-light);
+  }
+  
+  /* Card image */
+  .club-enlistpage-card-image{
+    width:100%;
+    height:145px;
+    background:#0002;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .club-enlistpage-club-logo{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--blue-border);
+    background:#0003;
+    transition:transform .25s,border-color .25s;
+  }
+  .club-enlistpage-club-card:hover .club-enlistpage-club-logo{
+    transform:scale(1.08);
+    border-color:var(--orange-main);
+  }
+  
+  /* Card content */
+  .club-enlistpage-card-content{
+    flex:1;
+    padding:1.2rem 1.4rem 1.6rem 1.4rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .club-enlistpage-club-name{
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--white);
+    margin-bottom:.35rem;
+    text-align:center;
+  }
+  .club-enlistpage-club-description{
+    font-size:.9rem;
+    color:var(--text-secondary);
+    text-align:center;
+    margin-bottom:1rem;
+  }
+  
+  /* Stats */
+  .club-enlistpage-club-stats{
+    display:flex;
+    justify-content:space-between;
+    gap:.6rem;
+    margin-bottom:1.2rem;
+  }
+  .club-enlistpage-stat-item{
+    flex:1;
+    background:var(--blue-soft);
+    border:1px solid var(--blue-border);
+    border-radius:8px;
+    padding:.6rem .3rem;
+    text-align:center;
+  }
+  .club-enlistpage-stat-number{
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--orange-main);
+    margin-bottom:.1rem;
+  }
+  
+  /* View button */
+  .club-enlistpage-join-btn{
+    background:var(--orange-main);
+    color:var(--white);
+    border:none;
+    padding:.75rem 1.1rem;
+    border-radius:var(--radius-btn);
+    font-weight:600;
+    text-align:center;
+    transition:background .18s,transform .15s;
+    cursor:pointer;
+    width:100%;
+  }
+  .club-enlistpage-join-btn a{color:inherit;text-decoration:none;}
+  .club-enlistpage-join-btn:hover{background:var(--orange-light);transform:translateY(-2px);}
+  .club-enlistpage-join-btn:active{transform:scale(.97);}
+  
+  /* ---------- NO-RESULTS ---------- */
+  .club-enlistpage-no-results{
+    background:var(--blue-mid);
+    border:1px dashed var(--orange-main);
+    border-radius:var(--radius-card);
+    padding:2rem;
+    margin-top:2.5rem;
+    text-align:center;
+    color:var(--text-secondary);
+    font-size:1rem;
+    box-shadow:var(--shadow-main);
+    animation:fadePop .6s .1s both;
+  }
+  
+  /* ---------- UTILITIES ---------- */
+  @keyframes fadePop{
+    0%{opacity:0;transform:translateY(20px) scale(.96);}
+    80%{opacity:.6}
+    100%{opacity:1;transform:none;}
+  }
+  
+  /* Responsive tweaks */
+  @media(max-width:480px){
+    .club-enlistpage-search-container{flex-direction:column;}
+    .btn{width:100%;}
+    .club-enlistpage-filter-buttons{gap:.6rem;}
+    .club-enlistpage-club-card{max-width:95vw;}
+  }
+  
