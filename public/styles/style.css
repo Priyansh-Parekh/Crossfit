@@ -417,56 +417,80 @@ section p {
 
 /* --- Features Section --- */
 .home-features {
-    background-color: white; /* White background for features section */
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Soft shadow for the entire section */
-    padding: 4rem 2rem; /* Consistent padding inside the section */
+  background-color: #001e28;
+  /* White background for features section */
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  /* Soft shadow for the entire section */
+  padding: 4rem 2rem;
+  /* Consistent padding inside the section */
 }
 
 .home-features h2 {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
+  color: white;
 }
 
 .home-features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for features */
-    gap: 2rem; /* Spacing between cards */
-    /* Removed padding: 0 2rem; from here as it's already on the section */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Responsive grid for features */
+  gap: 2rem;
+  /* Spacing between cards */
+  /* Removed padding: 0 2rem; from here as it's already on the section */
 }
 
 .home-feature-card {
-    background-color: #fdfdfd; /* Slightly off-white for cards */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Card shadow */
-    text-align: center;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border-top: 5px solid #5409b2; /* Accent top border */
-}
-
-.home-feature-card:hover {
-    transform: translateY(-8px); /* Lift effect on hover */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
-    cursor:default;
-}
-
-.home-feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    display: block; /* Ensure it takes full width for centering */
+  background-color: #ff5722;
+  /* Slightly off-white for cards */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  /* Card shadow */
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-top: 5px solid #5409b2;
+  /* Accent top border */
 }
 
 .home-feature-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: #2c3e50;
+  color: #f3f4ff;
+}
+
+.home-feature-card:hover {
+  transform: translateY(-8px);
+  /* Lift effect on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  /* Enhanced shadow on hover */
+  cursor: default;
+
+}
+
+.home-feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: transform 1s;
+  display: block;
+  /* Ensure it takes full width for centering */
+}
+
+.home-feature-card:hover .home-feature-icon {
+  transform: scale(1.2, 1.2);
+}
+
+.home-feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #f3f4ff;
 }
 
 .home-feature-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 0; /* Remove extra margin */
+  /* display: none; */
+  font-size: 0.95rem;
+  color: #f3f4ff;
+  line-height: 1.6;
+  margin-bottom: 0;
+  /* Remove extra margin */
 }
 
 /* --- Sports Section --- */
