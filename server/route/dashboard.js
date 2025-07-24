@@ -5,8 +5,31 @@ const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const path = require('path'); // Added for path manipulation
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); // store files in /uploads temporarily
+
+// --- Multer Configuration for Image Uploads ---
+// This tells multer where to save the uploaded files and what to name them.
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // Define different destinations based on the route
+        if (file.fieldname === "productImage") {
+            cb(null, 'public/uploads/merchandise/');
+        } else if (file.fieldname === "club_logo" || file.fieldname === "profile_picture") {
+            cb(null, 'public/uploads/profiles/'); // Example for other uploads
+        } else {
+            cb(null, 'public/uploads/');
+        }
+    },
+    filename: function (req, file, cb) {
+        // Create a unique filename: fieldname-timestamp.extension
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+// Initialize multer with the storage configuration
+const upload = multer({ storage: storage });
+
 
 //fetching models
 const matches = require("../models/match");
@@ -227,6 +250,37 @@ route.get('/clubs', login, datas, async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send("Error loading club dashboard.");
+    }
+});
+
+// --- NEW ROUTE FOR MERCHANDISE UPLOAD ---
+route.post('/merchandise/upload', upload.single('productImage'), async (req, res) => {
+    try {
+        // Assuming the admin/club is logged in and their info is in req.user
+        // You should have middleware to ensure only authorized users can access this.
+        const loggedInClubId = req.user._id; // Get this from your session/auth middleware
+
+        const newMerchandise = new merchandise({ // Using lowercase 'merchandise' to match your model import
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            category: req.body.category,
+            stock_quantity: req.body.stock_quantity,
+            clubId: loggedInClubId,
+            // The path to the uploaded image will be available in req.file
+            // We save a web-accessible path, not the full system path.
+            imageUrl: `/uploads/merchandise/${req.file.filename}`
+        });
+
+        // Save the new product to the database
+        await newMerchandise.save();
+
+        // Redirect back to the club dashboard
+        res.redirect('/dashboard/clubs'); 
+
+    } catch (error) {
+        console.error("Error uploading merchandise:", error);
+        res.status(500).send("An error occurred during upload.");
     }
 });
 
