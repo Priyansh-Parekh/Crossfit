@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Player = new mongoose.Schema({
     name: {
         type: String,
-        trim: true
+        trim: true 
     },
     profile_picture: {
         type: String,

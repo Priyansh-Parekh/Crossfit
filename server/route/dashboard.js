@@ -340,7 +340,7 @@ route.post('/clubs/add_player', login, upload.single('profile_picture'), async (
     try {
         let user = req.user;
         const imagePath = req.file.path;
-        // Read and convert to Base64
+        // Read and convert to Base64   upload, bu
         const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
         const mimeType = req.file.mimetype; // e.g., 'image/png'
         const dataURI = `data:${mimeType};base64,${base64Image}`;
@@ -370,10 +370,10 @@ route.post('/clubs/fire_player', login, async (req, res) => {
         let user = req.user;
         let player_id = req.body.player_id
         player_id = new mongoose.Types.ObjectId(player_id)
-        let player = await players.findByIdAndDelete(player_id);
-        await user.players.pull({ player_id });
+        let player = await players.findByIdAndDelete(player_id);  //model->create data
+        await user.players.pull({ player_id }); 
         await user.save();
-        res.redirect('/dashboard/clubs');
+        res.redirect('/dashboard/clubs');   
     } catch (error) {
         console.log(error);
         res.status(500).send("Error Firing Player ");
@@ -386,7 +386,7 @@ route.post('/clubs/fire_player', login, async (req, res) => {
 //Dashboard Leagues Page
 route.get('/league', login, async (req, res) => {
     let user = req.user;
-    res.render("league_dashboard", { user });
+    res.render("league_dashboard", { user }); 
 });
 
 //Dashboard viewers Page
@@ -464,7 +464,7 @@ route.post('/viewer/add_profile_picture', login, upload.single('profile_picture'
         let user = req.user;
         if (req.file) {
             const imagePath = req.file.path;
-            // Read and convert to Base64
+            // Read and convert to Base64    
             const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
             const mimeType = req.file.mimetype; // e.g., 'image/png'
             const dataURI = `data:${mimeType};base64,${base64Image}`;
