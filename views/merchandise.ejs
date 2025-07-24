@@ -1,310 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Merchandise - Sports Store</title>
-    <link rel="stylesheet" href="styles/merchandise.css">
-</head>
-<body>
+<!-- Link to Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Link to the specific stylesheet for this page -->
+<link rel="stylesheet" href="/css/merch.css">
 
-        <div class="container">
-            <div class="header-content">
-               
-                
-                <button class="cart-icon" onclick="toggleCart()">
-                    🛒
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
-            </div>
-        </div>
-    <main>
-        <div class="container">
-            <h1 class="page-title">Team Merchandise</h1>
-            
-            <div class="filters">
-                <button class="filter-btn active" data-category="all">All Items</button>
-                <button class="filter-btn" data-category="jerseys">Jerseys</button>
-                <button class="filter-btn" data-category="accessories">Accessories</button>
-                <button class="filter-btn" data-category="equipment">Equipment</button>
-                <button class="filter-btn" data-category="apparel">Apparel</button>
-            </div>
+<main class="merch-container">
+    <!-- 1. Page Header Section -->
+    <header class="merch-header">
+        <h1 class="merch-header__title">Official Club Merchandise</h1>
+        <p class="merch-header__subtitle">Find the latest gear and support your team</p>
+    </header>
 
-            <div class="product-grid" id="productGrid">
-                <!-- Products will be populated here -->
-            </div>
-        </div>
-    </main>
-
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2 class="cart-title">Shopping Cart</h2>
-                <button class="close-cart" onclick="toggleCart()">×</button>
-            </div>
-            <div id="cartItems">
-                <div class="empty-cart">Your cart is empty</div>
-            </div>
-            <div class="cart-total" id="cartTotal" style="display: none;">
-                <div>Total: ₹<span class="total-amount" id="totalAmount">0.00</span></div>
-                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-            </div>
-        </div>
+    <!-- 2. Filter Controls Section -->
+    <div class="merch-filters">
+        <button class="merch-filter-btn active" data-category="all">
+            <i class="fas fa-boxes-stacked"></i> All
+        </button>
+        <button class="merch-filter-btn" data-category="Jersey">
+            <i class="fas fa-tshirt"></i> Jerseys
+        </button>
+        <button class="merch-filter-btn" data-category="Apparel">
+            <i class="fas fa-hat-wizard"></i> Apparel
+        </button>
+        <button class="merch-filter-btn" data-category="Accessories">
+            <i class="fas fa-star"></i> Accessories
+        </button>
+        <button class="merch-filter-btn" data-category="Equipment">
+            <i class="fas fa-futbol"></i> Equipment
+        </button>
     </div>
 
-    <script>
-        // Sample product data
-        const products = [
-            {
-                id: 1,
-                name: "Team Home Jersey",
-                price: 1500.00,
-                category: "jerseys",
-                description: "Official team home jersey with moisture-wicking fabric and team logo",
-                sizes: ["S", "M", "L", "XL", "XXL"],
-                icon: "👕"
-            },
-            {
-                id: 2,
-                name: "Team Away Jersey",
-                price: 1400.00,
-                category: "jerseys",
-                description: "Official team away jersey with premium materials and authentic design",
-                sizes: ["S", "M", "L", "XL", "XXL"],
-                icon: "👔"
-            },
-            {
-                id: 3,
-                name: "Team Cricket Cap",
-                price: 450.00,
-                category: "accessories",
-                description: "Adjustable team cap with embroidered logo and comfortable fit",
-                sizes: ["One Size"],
-                icon: "🧢"
-            },
-            {
-                id: 4,
-                name: "Team Scarf",
-                price: 300.00,
-                category: "accessories",
-                description: "Warm team scarf perfect for cold games and showing team spirit",
-                sizes: ["One Size"],
-                icon: "🧣"
-            },
-            {
-                id: 5,
-                name: "Official Training Ball",
-                price: 999.99,
-                category: "equipment",
-                description: "Professional training ball used by the team for practice and games",
-                sizes: ["Standard"],
-                icon: "⚽"
-            },
-            {
-                id: 6,
-                name: "Team Hoodie",
-                price: 1800.00,
-                category: "apparel",
-                description: "Comfortable team hoodie with front pocket and team colors",
-                sizes: ["S", "M", "L", "XL", "XXL"],
-                icon: "🧥"
-            },
-            {
-                id: 7,
-                name: "Training Shorts",
-                price: 950.00,
-                category: "apparel",
-                description: "Athletic shorts with team colors and logo, perfect for training",
-                sizes: ["S", "M", "L", "XL"],
-                icon: "🩳"
-            },
-            {
-                id: 8,
-                name: "Team Backpack",
-                price: 1000.00,
-                category: "accessories",
-                description: "Durable backpack with team logo and multiple compartments",
-                sizes: ["One Size"],
-                icon: "🎒"
-            },
-            {
-                id: 9,
-                name: "Water Bottle",
-                price: 400,
-                category: "equipment",
-                description: "Insulated water bottle with team logo and leak-proof design",
-                sizes: ["500ml"],
-                icon: "🥤"
-            }
-        ];
-
-        let cart = [];
-        let currentFilter = 'all';
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
-            setupFilters();
-            updateCartCount();
-        });
-
-        function renderProducts() {
-            const productGrid = document.getElementById('productGrid');
-            const filteredProducts = currentFilter === 'all' 
-                ? products 
-                : products.filter(product => product.category === currentFilter);
-
-            productGrid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card">
-                    <div class="product-image">
-                        ${product.icon}
+    <!-- 3. Product Grid -->
+    <div class="merch-grid">
+        <% if (merchandise && merchandise.length > 0) { %>
+            <% merchandise.forEach(product => { %>
+                <!-- The data-category attribute is essential for filtering -->
+                <div class="merch-card" data-category="<%= product.category %>">
+                    <div class="merch-card__image-wrapper">
+                        <img src="<%= product.imageUrl || '/img/default_product.png' %>" class="merch-card__image" alt="<%= product.name %>">
+                        
+                        <!-- Stock Status Badge -->
+                        <% if (product.stock_quantity === 0) { %>
+                            <span class="merch-card__badge out-of-stock">Out of Stock</span>
+                        <% } else if (product.stock_quantity < 10) { %>
+                            <span class="merch-card__badge low-stock">Low Stock</span>
+                        <% } %>
                     </div>
-                    <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-price">₹${product.price.toFixed(2)}</div>
-                        <p class="product-description">${product.description}</p>
-                        <div class="size-selector">
-                            <label>Size:</label>
-                            <div class="size-options">
-                                ${product.sizes.map(size => `
-                                    <button class="size-option" data-size="${size}">${size}</button>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            Add to Cart
-                        </button>
+                    <div class="merch-card__body">
+                        <span class="merch-card__category"><%= product.category %></span>
+                        <h5 class="merch-card__title"><%= product.name %></h5>
+                        <p class="merch-card__description"><%= product.description.substring(0, 80) %>...</p>
+                    </div>
+                    <div class="merch-card__footer">
+                        <strong class="merch-card__price">₹<%= product.price.toFixed(2) %></strong>
+                        
+                        <% if (user) { %>
+                            <!-- Disable button if out of stock -->
+                            <button 
+                                class="btn btn-primary add-to-cart-btn" 
+                                data-id="<%= product._id %>"
+                                <%= product.stock_quantity === 0 ? 'disabled' : '' %>>
+                                <i class="fas fa-shopping-cart"></i> 
+                                <%= product.stock_quantity === 0 ? 'Unavailable' : 'Add to Cart' %>
+                            </button>
+                        <% } else { %>
+                            <a href="/login" class="btn btn-secondary">Login to Buy</a>
+                        <% } %>
                     </div>
                 </div>
-            `).join('');
+            <% }); %>
+        <% } else { %>
+            <div class="merch-empty-state">
+                <i class="fas fa-store-slash"></i>
+                <h2>Store Is Empty</h2>
+                <p>No products are available right now. Please check back later!</p>
+            </div>
+        <% } %>
+        
+        <!-- Message to show if no products match the filter -->
+        <div class="merch-no-results" style="display: none;">
+            <i class="fas fa-search-minus"></i>
+            <h2>No Matches Found</h2>
+            <p>No products match the selected category.</p>
+        </div>
+    </div>
+</main>
 
-            // Setup size selection
-            document.querySelectorAll('.size-option').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const card = this.closest('.product-card');
-                    card.querySelectorAll('.size-option').forEach(option => {
-                        option.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                });
+<!-- Client-side scripts -->
+<script src="/script/cart.js"></script>
+<script src="/script/merch-filters.js"></script>
+```
+
+---
+
+### 2. Client-Side JavaScript for Filtering
+
+Create a **new file** in `public/js/` to handle the interactive filtering logic.
+
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.merch-filter-btn');
+    const productCards = document.querySelectorAll('.merch-card');
+    const noResultsMessage = document.querySelector('.merch-no-results');
+
+    // Handle filter button clicks
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const selectedCategory = button.dataset.category;
+
+            // Update active state on buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            let visibleProducts = 0;
+
+            // Show/hide product cards based on category
+            productCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const shouldBeVisible = selectedCategory === 'all' || selectedCategory === cardCategory;
+
+                card.style.display = shouldBeVisible ? 'flex' : 'none';
+                
+                if (shouldBeVisible) {
+                    visibleProducts++;
+                }
             });
-        }
-
-        function setupFilters() {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.category;
-                    renderProducts();
-                });
-            });
-        }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const productCard = document.querySelector(`[onclick="addToCart(${productId})"]`).closest('.product-card');
-            const selectedSize = productCard.querySelector('.size-option.selected');
             
-            if (!selectedSize) {
-                alert('Please select a size');
-                return;
-            }
-
-            const cartItem = {
-                id: productId,
-                name: product.name,
-                price: product.price,
-                size: selectedSize.dataset.size,
-                quantity: 1
-            };
-
-            // Check if item already exists in cart
-            const existingItem = cart.find(item => 
-                item.id === productId && item.size === selectedSize.dataset.size
-            );
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push(cartItem);
-            }
-
-            updateCartCount();
-            
-            // Visual feedback
-            const btn = productCard.querySelector('.add-to-cart');
-            const originalText = btn.textContent;
-            btn.textContent = 'Added!';
-            btn.style.background = '#28a745';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 1000);
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            const isVisible = modal.style.display === 'flex';
-            
-            if (!isVisible) {
-                renderCart();
-                modal.style.display = 'flex';
-            } else {
-                modal.style.display = 'none';
-            }
-        }
-
-        function renderCart() {
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-                cartTotal.style.display = 'none';
-                return;
-            }
-
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-details">Size: ${item.size} | Qty: ${item.quantity}</div>
-                    </div>
-                    <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-                </div>
-            `).join('');
-
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('totalAmount').textContent = total.toFixed(2);
-            cartTotal.style.display = 'block';
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-
-            // Simulate checkout process
-            alert(`Order placed successfully!\nTotal: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}\nItems: ${cart.length}`);
-            cart = [];
-            updateCartCount();
-            toggleCart();
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('cartModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleCart();
+            // Show a message if no products match the filter
+            if (noResultsMessage) {
+               noResultsMessage.style.display = visibleProducts === 0 ? 'block' : 'none';
             }
         });
-    </script>
-</body>
-</html>
+    });
+});

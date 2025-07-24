@@ -8,7 +8,7 @@ mongoose.connect(process.env.URI)
 
 
 
-// 1. VIEWERS SCHEMA 👤
+// 1. VIEWERS SCHEMA 👤  mode
 const Viewer = new mongoose.Schema({
     name: {
         type: String,
