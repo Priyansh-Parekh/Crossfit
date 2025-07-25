@@ -11,6 +11,13 @@
         <li><a href="/live_scores">Live-Score</a></li>
         <li><a href="/merchandise">Merchandise</a></li>
         <li><a href="/clubs">Clubs</a></li>
+        <% if (user) { %>
+        <li>
+          <a href="/cart" class="nav-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+          </a>
+        </li>
+<% } %>
       </ul>
       <% if( user==="none" ){ %>
         <button class="links-button"><a href="/#home-roles">Login</a></button>
