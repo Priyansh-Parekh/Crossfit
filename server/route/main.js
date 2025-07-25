@@ -97,5 +97,10 @@ route.get('/news', login, async (req, res) => {
     res.render("news", { user });
 });
 
+//Card-Game Page
+route.get('/card-game', login, async (req, res) => {
+    let user = req.user;
+    res.render("card-game", { user });
+});
 
 module.exports = route;
