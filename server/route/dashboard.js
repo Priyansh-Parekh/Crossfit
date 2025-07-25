@@ -254,11 +254,16 @@ route.get('/clubs', login, datas, async (req, res) => {
 });
 
 // --- NEW ROUTE FOR MERCHANDISE UPLOAD ---
-route.post('/merchandise/upload', upload.single('productImage'), async (req, res) => {
+route.post('/merchandise/upload', login, upload.single('productImage'), async (req, res) => {
     try {
-        // Assuming the admin/club is logged in and their info is in req.user
-        // You should have middleware to ensure only authorized users can access this.
-        const loggedInClubId = req.user._id; // Get this from your session/auth middleware
+        // This check prevents the server from crashing if no user is logged in
+        // or if no file was uploaded.
+        if (!req.user || !req.file) {
+            console.error("Upload error: User not logged in or no file was uploaded.");
+            return res.status(400).send("Authentication error or no file selected.");
+        }
+
+        const loggedInClubId = req.user._id;
 
         const newMerchandise = new merchandise({ // Using lowercase 'merchandise' to match your model import
             name: req.body.name,
@@ -267,18 +272,16 @@ route.post('/merchandise/upload', upload.single('productImage'), async (req, res
             category: req.body.category,
             stock_quantity: req.body.stock_quantity,
             clubId: loggedInClubId,
-            // The path to the uploaded image will be available in req.file
-            // We save a web-accessible path, not the full system path.
             imageUrl: `/uploads/merchandise/${req.file.filename}`
         });
 
-        // Save the new product to the database
         await newMerchandise.save();
 
         // Redirect back to the club dashboard
         res.redirect('/dashboard/clubs'); 
 
     } catch (error) {
+        // This will now print a more detailed error to your console
         console.error("Error uploading merchandise:", error);
         res.status(500).send("An error occurred during upload.");
     }

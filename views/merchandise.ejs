@@ -55,7 +55,7 @@
                         
                         <% if (user) { %>
                             <!-- Disable button if out of stock -->
-                            <button 
+                            <button
                                 class="btn btn-primary add-to-cart-btn" 
                                 data-id="<%= product._id %>"
                                 <%= product.stock_quantity === 0 ? 'disabled' : '' %>>

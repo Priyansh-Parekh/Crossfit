@@ -613,7 +613,44 @@ body {
 
 /* Merchandise Section */
 /* File Upload Area */
+
+/* --- Dashboard Button Styles --- */
+/* Add this to your club_dashboard.css file */
+
+.club-dashboard-btn {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.club-dashboard-btn-primary {
+  color: #fff;
+  /* Use the theme's accent color for the background */
+  background-color: var(--primary-accent); 
+  border-color: var(--primary-accent);
+  /* Add a subtle shadow to match the theme */
+  box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2); 
+}
+
+.club-dashboard-btn-primary:hover {
+  transform: translateY(-2px);
+  /* Enhance the shadow on hover for a nice effect */
+  box-shadow: 0 6px 20px rgba(37, 117, 252, 0.4); 
+}
+
 .club-dashboard-upload-area {
+  width: 100%;
+  box-sizing: border-box;
   border: 2px dashed var(--border-light); /* Changed from #ddd */
   border-radius: 12px;
   padding: 40px;
