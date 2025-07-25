@@ -254,35 +254,42 @@ route.get('/clubs', login, datas, async (req, res) => {
 });
 
 // --- NEW ROUTE FOR MERCHANDISE UPLOAD ---
-route.post('/merchandise/upload', upload.single('productImage'), async (req, res) => {
+route.post('/merchandise/upload', login, upload.single('productImage'), async (req, res) => {
     try {
-        // Assuming the admin/club is logged in and their info is in req.user
-        // You should have middleware to ensure only authorized users can access this.
-        const loggedInClubId = req.user._id; // Get this from your session/auth middleware
+        if (!req.user || req.user.user_type !== 'club') {
+            console.error("Upload denied: User is not a logged-in club.");
+            return res.status(403).send("Access denied. You must be logged in as a club to upload merchandise.");
+        }
 
-        const newMerchandise = new merchandise({ // Using lowercase 'merchandise' to match your model import
+        if (!req.file) {
+            console.error("Upload error: No file was selected.");
+            return res.status(400).send("No image file was selected.");
+        }
+
+        const newMerchandise = new merchandise({
             name: req.body.name,
             price: req.body.price,
             description: req.body.description,
             category: req.body.category,
             stock_quantity: req.body.stock_quantity,
-            clubId: loggedInClubId,
-            // The path to the uploaded image will be available in req.file
-            // We save a web-accessible path, not the full system path.
-            imageUrl: `/uploads/merchandise/${req.file.filename}`
+            clubId: req.user._id, // Assign the logged-in club's ID
+            imageUrl: `/uploads/merchandise/${req.file.filename}` 
         });
 
-        // Save the new product to the database
+        // --- Improved Save Logic ---
+        // This will now catch any validation errors from Mongoose.
         await newMerchandise.save();
-
-        // Redirect back to the club dashboard
-        res.redirect('/dashboard/clubs'); 
+        
+        console.log("SUCCESS: Merchandise saved to DB:", newMerchandise.name);
+        res.redirect('/dashboard/clubs');
 
     } catch (error) {
-        console.error("Error uploading merchandise:", error);
-        res.status(500).send("An error occurred during upload.");
+        // This will now print a more detailed error to your console
+        console.error("MONGOOSE SAVE ERROR:", error);
+        res.status(500).send("Failed to save to database. Check server console for details.");
     }
 });
+
 
 
 route.post('/clubs/change_info', login, async (req, res) => {

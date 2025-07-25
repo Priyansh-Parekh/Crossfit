@@ -508,36 +508,39 @@
             <h2 class="club-dashboard-section-title">Upload New Merchandise</h2>
         </div>
 
-        <!-- Use a form tag to handle submission -->
-        <!-- The action should point to your new backend route -->
-        <!-- enctype is essential for file uploads -->
         <form action="/dashboard/merchandise/upload" method="POST" enctype="multipart/form-data">
-            <div class="club-dashboard-upload-area">
+            
+            <!-- We will hide the default file input and trigger it with a label -->
+            <input 
+                type="file" 
+                id="merch-file-upload" 
+                name="productImage" 
+                class="club-dashboard-file-input" 
+                accept="image/*" 
+                required 
+                style="display: none;">
+
+            <!-- This area will also trigger the file input when clicked -->
+            <label for="merch-file-upload" class="club-dashboard-upload-area" style="cursor: pointer;">
                 <div class="club-dashboard-upload-icon">
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
                 <div class="club-dashboard-upload-text">
                     <strong>Click to upload</strong> or drag and drop product images here
                 </div>
-                <!-- Add a 'name' attribute to the file input -->
-                <input type="file" name="productImage" class="club-dashboard-file-input" accept="image/*" required>
-                <button type="button" class="club-dashboard-btn club-dashboard-btn-primary">Choose File</button>
-            </div>
+            </label>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
                 <div class="club-dashboard-form-group">
                     <label class="club-dashboard-form-label">Product Name</label>
-                    <!-- Add 'name' attribute -->
                     <input type="text" name="name" class="club-dashboard-form-control" placeholder="Enter product name" required>
                 </div>
                 <div class="club-dashboard-form-group">
                     <label class="club-dashboard-form-label">Price (₹)</label>
-                    <!-- Add 'name' attribute -->
                     <input type="number" name="price" class="club-dashboard-form-control" placeholder="Enter price" required>
                 </div>
                 <div class="club-dashboard-form-group">
                     <label class="club-dashboard-form-label">Category</label>
-                    <!-- Add 'name' attribute -->
                     <select name="category" class="club-dashboard-form-select" required>
                         <option>Jersey</option>
                         <option>Apparel</option>
@@ -547,25 +550,22 @@
                 </div>
                 <div class="club-dashboard-form-group">
                     <label class="club-dashboard-form-label">Stock Quantity</label>
-                    <!-- Add 'name' attribute -->
                     <input type="number" name="stock_quantity" class="club-dashboard-form-control" placeholder="Enter quantity" required>
                 </div>
             </div>
 
             <div class="club-dashboard-form-group">
                 <label class="club-dashboard-form-label">Description</label>
-                <!-- Add 'name' attribute -->
                 <textarea name="description" class="club-dashboard-form-control" rows="4" placeholder="Enter product description" required></textarea>
             </div>
             
-            <!-- This button will now submit the form -->
             <button type="submit" class="club-dashboard-btn club-dashboard-btn-primary">Upload Merchandise</button>
         </form>
     </div>
 </div>
 
 
-  <div class="club-dashboard-section" style="margin-top: 2rem;">
+  <!-- <div class="club-dashboard-section" style="margin-top: 2rem;">
     <div class="club-dashboard-section-header">
       <h2 class="club-dashboard-section-title">Current Merchandise</h2>
     </div>
@@ -617,7 +617,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div id="club-dashboard-matches" class="club-dashboard-current">
   <div class="club-dashboard-section">
