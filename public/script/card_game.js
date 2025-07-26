@@ -1288,99 +1288,15 @@ function updateUI() {
     document.getElementById("score").textContent = `Player 1: ${p1Score} | Player 2: ${p2Score}`;
 }
 
-// function startGame() {
-//     // console.log(cards);
-//     shuffle(cards);
-//     // console.log(cards);
-//     p1Deck = cards.slice(0, 20);
-//     p2Deck = cards.slice(20, 40);
-//     updateUI();
-//     nextTurn();
-// }
-
-
 function startGame() {
+    // console.log(cards);
     shuffle(cards);
-    const total = 20;
-
-    p1Deck = [];
-    p2Deck = [];
-
-    const deck1 = document.getElementById('deck1');
-    const deck2 = document.getElementById('deck2');
-
-    const animContainer = document.createElement('div');
-    animContainer.style.position = 'absolute';
-    animContainer.style.top = '50%';
-    animContainer.style.left = '50%';
-    animContainer.style.transform = 'translate(-50%, -50%)';
-    animContainer.style.zIndex = '999';
-    document.body.appendChild(animContainer);
-
-    let index = 0;
-
-    function animateDeal() {
-        if (index >= total * 2) {
-            updateUI();
-            document.body.removeChild(animContainer);
-            setTimeout(() => {
-                nextTurn();
-            }, 500);
-            return;
-        }
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style.position = 'absolute';
-        card.style.width = '100px';
-        card.style.height = '140px';
-        card.style.background = 'var(--primary-light)';
-        card.style.border = '2px solid var(--primary-accent)';
-        card.style.borderRadius = '10px';
-        card.style.transition = 'all 0.5s ease';
-
-        animContainer.appendChild(card);
-
-        const isP1 = index % 2 === 0;
-        const cardData = cards[index];
-        if (isP1) p1Deck.push(cardData);
-        else p2Deck.push(cardData);
-
-        setTimeout(() => {
-            const target = isP1 ? deck1 : deck2;
-            const rect = target.getBoundingClientRect();
-            card.style.transform = `translate(${rect.left - window.innerWidth / 2 + 50}px, ${rect.top - window.innerHeight / 2 + 50}px) scale(0.4)`;
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                card.remove();
-                index++;
-                updateUI();
-                animateDeal();
-            }, 200);
-        }, 20);
-    }
-
-    animateDeal();
+    // console.log(cards);
+    p1Deck = cards.slice(0, 20);
+    p2Deck = cards.slice(20, 40);
+    updateUI();
+    nextTurn();
 }
-
-// function restartGame() {
-//     p1Deck = [];
-//     p2Deck = [];
-//     p1Score = 0;
-//     p2Score = 0;
-//     currentPlayer = 1;
-//     currentCards = {};
-
-//     shuffle(cards);
-//     p1Deck = cards.slice(0, 20);
-//     p2Deck = cards.slice(20, 40);
-
-//     updateUI();
-//     nextTurn();
-// }
-
-
 function restartGame() {
     p1Deck = [];
     p2Deck = [];
@@ -1389,9 +1305,13 @@ function restartGame() {
     currentPlayer = 1;
     currentCards = {};
 
-    startGame(); // Use animation again
-}
+    shuffle(cards);
+    p1Deck = cards.slice(0, 20);
+    p2Deck = cards.slice(20, 40);
 
+    updateUI();
+    nextTurn();
+}
 
 function nextTurn() {
     updateUI();
@@ -1466,7 +1386,7 @@ function compareStat(stat) {
 
             setTimeout(() => {
                 handleComparison(stat, p1, p2);
-            }, 1500); // Wait after flipping Player 1's card
+            }, 1000); // Wait after flipping Player 1's card
         }, 700); // Delay before flipping Player 1's card
 
     } else {
@@ -1540,10 +1460,6 @@ function createCard(card, revealed) {
     wrapper.appendChild(cardDiv);
     return wrapper;
 }
-console.log("Card rendering:", cards);
+// console.log("Card rendering:", cards);
 
-// startGame();
-window.onload = () => {
-    console.log(cards.length);
-    startGame(); // This starts the animation + game setup
-};
+startGame();
