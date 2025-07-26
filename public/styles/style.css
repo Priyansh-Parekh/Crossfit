@@ -849,62 +849,46 @@ section p {
 }
 
 /* --- Footer Styling --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 footer {
-  background-color: #010a0f;
-  color: #fff;
+  /* Using your theme's primary light color for the main footer area */
+  background-color: var(--primary-light);
+  color: var(--text-primary);
   margin-top: auto;
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
+  border-top: 2px solid var(--primary-accent);
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
-  /* Stack columns on small screens by default */
   gap: 2rem;
-  /* Spacing between sections */
   padding: 3rem 2rem;
-  /* More generous padding inside the footer content */
   max-width: 1200px;
   margin: 0 auto;
-  /* Lighter border */
   flex-wrap: wrap;
 }
 
 @media (min-width: 768px) {
   .footer-content {
     flex-direction: row;
-    /* Layout in a row */
     justify-content: space-between;
     align-items: flex-start;
-    /* Align items to the top for better layout */
-    flex-wrap: wrap;
   }
 
   .footer-left {
     flex: 1;
-    /* Equal flexible space */
     text-align: left;
   }
 
   .footer-center {
     flex: 1.5;
-    /* Give more space to links */
     display: flex;
-    /* Ensure flexbox for centering links */
     justify-content: center;
   }
 
   .footer-right {
     flex: 1;
-    /* Equal flexible space */
     text-align: right;
-    /* Align right for social icons section */
   }
 }
 
@@ -919,12 +903,10 @@ footer {
 @media (min-width: 768px) {
   .footer-logo {
     justify-content: flex-start;
-    /* Align left on larger screens */
   }
 }
 
 .footer-logo img {
-  /* width: 45px; */
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
@@ -934,13 +916,15 @@ footer {
   margin-top: 15px;
   font-size: 2rem;
   font-weight: 700;
-  color: #ff4c30;
+  /* Using accent color from your theme */
+  color: var(--primary-accent);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-logo a:hover {
-  color: #fff;
+  /* Using primary text color from your theme */
+  color: var(--text-primary);
 }
 
 .footer-links {
@@ -959,7 +943,7 @@ footer {
 }
 
 .footer-links a {
-  color: #fff;
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
@@ -967,7 +951,7 @@ footer {
 }
 
 .footer-links a:hover {
-  color: #ff4c30;
+  color: var(--primary-accent);
 }
 
 .social-section {
@@ -979,7 +963,7 @@ footer {
 
 .social-section p {
   font-size: 1rem;
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 500;
   white-space: nowrap;
   text-align: center;
@@ -988,49 +972,40 @@ footer {
 @media (min-width: 768px) {
   .social-section {
     text-align: center;
-    /* Align right on larger screens */
   }
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 @media (min-width: 768px) {
   .social-icons {
     justify-content: center;
-    /* Align right on larger screens */
   }
-}
-
-.social-icons {
-  display: flex;
-  gap: 1.2rem;
 }
 
 .social-icon {
   font-size: 24px;
-  color: #bbbbbb;
+  /* Using secondary text color for a subtle look */
+  color: var(--text-secondary);
   transition: color 0.3s ease;
   text-decoration: none;
 }
 
-/* Hover brand colors */
+/* Hover brand colors (unchanged as they are brand-specific) */
 .social-icon.instagram:hover {
   color: #E4405F;
-  /* Instagram gradient pink */
 }
 
 .social-icon.facebook:hover {
   color: #0866FF;
-  /* Facebook blue */
 }
 
 .social-icon.reddit:hover {
   color: #FF4500;
-  /* Reddit orange */
 }
 
 .footer-bottom {
@@ -1039,7 +1014,7 @@ footer {
   align-items: center;
   padding: 1rem 2rem;
   font-size: 0.95rem;
-  background-color: #001e28;
+  background-color: var(--primary-dark);
 }
 
 .footer-bottom-content {
