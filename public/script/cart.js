@@ -1,11 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    // Select all buttons that DO NOT have the 'listener-attached' class yet.
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn:not(.listener-attached)');
 
     addToCartButtons.forEach(button => {
+        // Immediately add the class to prevent other scripts from re-attaching a listener.
+        button.classList.add('listener-attached');
+
         button.addEventListener('click', async (event) => {
-            const productId = event.target.dataset.id;
-            button.disabled = true; // Prevent multiple clicks
-            button.textContent = 'Adding...';
+            // Prevent the form or link from submitting if it's inside one
+            event.preventDefault(); 
+            
+            const productId = event.currentTarget.dataset.id;
+            
+            // Disable the button to prevent rapid-fire clicks while processing
+            button.disabled = true; 
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
 
             try {
                 const response = await fetch(`/cart/add/${productId}`, {
@@ -16,19 +26,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert(result.message); // Simple feedback
+                    // Provide visual feedback on success
+                    button.innerHTML = '<i class="fas fa-check"></i> Added!';
+                    // Optional: Revert text after a delay
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                    }, 2000);
                 } else {
                     alert(`Error: ${result.message}`);
-                    if (response.status === 401) {
-                        window.location.href = '/login'; // Redirect to login if not authenticated
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    if (response.status === 401 || response.status === 403) {
+                        window.location.href = '/login';
                     }
                 }
             } catch (error) {
                 console.error('Failed to add to cart:', error);
                 alert('An error occurred. Please try again.');
-            } finally {
-                button.disabled = false; // Re-enable button
-                button.innerHTML = 'Add to Cart 🛒';
+                button.innerHTML = originalText;
+                button.disabled = false;
             }
         });
     });
