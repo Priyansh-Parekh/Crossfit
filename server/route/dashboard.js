@@ -441,6 +441,34 @@ route.post('/clubs/fire_player', login, async (req, res) => {
     }
 })
 
+// Add this route inside your server/route/dashboard.js file
+
+route.post('/viewer/add_balance', login, async (req, res) => {
+    try {
+        const user = req.user;
+        const { amount } = req.body;
+
+        // Convert amount to a number and validate it
+        const amountToAdd = Number(amount);
+        if (isNaN(amountToAdd) || amountToAdd <= 0) {
+            // In a real app, you'd render an error page
+            return res.status(400).send("Invalid amount specified.");
+        }
+
+        // Using the $inc operator to atomically add the amount to the user's balance
+        await viewers.updateOne(
+            { _id: user._id },
+            { $inc: { balance: amountToAdd } }
+        );
+
+        // Redirect back to the dashboard to show the updated balance
+        res.redirect('/dashboard/viewer');
+
+    } catch (error) {
+        console.log("Error adding balance:", error);
+        res.status(500).send("An error occurred while adding credits.");
+    }
+});
 
 
 

@@ -98,4 +98,52 @@ router.get('/', isAuthenticatedViewer, async (req, res) => {
     }
 });
 
+// --- Add this route to the end of your server/route/cart.js file ---
+
+router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const cart = await Cart.findOne({ userId }).populate('items.productId');
+
+        if (!cart || cart.items.length === 0) {
+            return res.status(400).json({ message: "Your cart is empty." });
+        }
+
+        // Calculate total cost from the backend to ensure price accuracy
+        const totalCost = cart.items.reduce((sum, item) => {
+            return item.productId ? sum + (item.quantity * item.productId.price) : sum;
+        }, 0);
+
+        // Check if user has enough balance
+        if (req.user.balance < totalCost) {
+            return res.status(400).json({ message: "Insufficient funds." });
+        }
+
+        // --- Process the transaction ---
+        // 1. Deduct stock quantity for each item
+        for (const item of cart.items) {
+            await Merchandise.updateOne(
+                { _id: item.productId._id },
+                { $inc: { stock_quantity: -item.quantity } }
+            );
+        }
+
+        // 2. Deduct the total cost from the user's balance
+        await Viewer.updateOne(
+            { _id: userId },
+            { $inc: { balance: -totalCost } }
+        );
+
+        // 3. Clear the user's cart
+        await Cart.deleteOne({ userId });
+
+        res.status(200).json({ message: "Purchase successful! Your items are on their way." });
+
+    } catch (error) {
+        console.error("Checkout Error:", error);
+        res.status(500).json({ message: "An error occurred during checkout." });
+    }
+});
+
+
 module.exports = router;

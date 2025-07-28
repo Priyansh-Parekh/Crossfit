@@ -1,60 +1,44 @@
-const dotenv = require('dotenv')
-dotenv.config()
 const mongoose = require('mongoose');
-mongoose.connect(process.env.URI)
-    .then(() => console.log('✅ Connected to MongoDB Atlas!'))
-    .catch(err => console.error('❌ Connection error:', err));
+const { Schema } = mongoose;
 
+// This is an example of what your viewer schema might look like.
+// The important part is adding the 'balance' field.
 
-
-
-// 1. VIEWERS SCHEMA 👤  mode
-const Viewer = new mongoose.Schema({
+const ViewerSchema = new Schema({
     name: {
         type: String,
-        trim: true
+        required: true
     },
     email: {
         type: String,
-        unique: true,
-        lowercase: true,
-        trim: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        minlength: 6
-    },
-    profile_picture: {
-        type: String,
-        default: null
+        required: true
     },
     user_type: {
         type: String,
         default: 'viewer'
     },
+    profile_picture: String,
     status: {
         type: String,
-        default: 'active',
-        enum: ['active', 'inactive']
+        default: 'active'
     },
-    location: String,
     favorite_teams: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Club_DATA'
-    }]
-}, {
-    timestamps: true
-});
+    }],
+    
+    // --- ADD THIS FIELD ---
+    balance: {
+        type: Number,
+        required: true,
+        default: 0 // Start all new users with a balance of 0
+    }
 
+}, { timestamps: true });
 
-
-// Add indexes for better performance
-// Viewer.index({ email: 1 });    Redundant index as email is already unique
-// Club.index({ email: 1 });
-// League.index({ email: 1 });
-// Player.index({ registered_club: 1 });
-// Merchandise.index({ clubId: 1 });
-// Match.index({ club1: 1, club2: 1 });
-
-
-module.exports= mongoose.model('Viewer_DATA',Viewer,'Viewer_DATA');
+module.exports = mongoose.model('Viewer_DATA', ViewerSchema, 'Viewer_DATA');
