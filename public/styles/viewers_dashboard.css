@@ -455,7 +455,7 @@
 
 /* ========== FORMS STYLING ========== */
 #viewers-dashboard-form-grouping {
-  display: none;
+  /* display: none; */
   margin-top: 1.5rem;
   animation: formSlideDown 0.5s ease-out;
 }
@@ -466,7 +466,7 @@
   width: 100px;
   position: relative;
   border-radius: 15px;
-  background-color:azure;
+  background-color: azure;
 }
 
 @keyframes formSlideDown {
@@ -663,7 +663,7 @@
 
 /* Modal Content Box */
 .modal-content {
-  background-color: var(--primary-light); /* Use your theme's color */
+  background-color: var(--primary-light);
   margin: auto;
   padding: 30px;
   border: 1px solid var(--border-light);

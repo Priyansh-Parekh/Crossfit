@@ -52,12 +52,13 @@ const login = async (req, res, next) => {
 // --- Route to Display All Merchandise ---
 route.get('/', login, async (req, res) => {
     try {
-        const allMerchandise = await Merchandise.find({ status: 'available' }).sort({ createdAt: -1 });
+        const allMerchandise = await merchandise.find({ status: 'available' }).sort({ createdAt: -1 });
         res.render('merchandise', {
             merchandise: allMerchandise,
             user: req.user
         });
     } catch (error) {
+        console.error( error);
         res.redirect('/error');
     }
 });

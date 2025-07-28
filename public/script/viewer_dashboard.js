@@ -1,50 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Favorite Teams Add Form Toggle
   const favForm = document.querySelector("#viewers-dashboard-fav-add-form");
-  const favBtn = document.querySelectorAll(".viewers-dashboard-fav-add");
+  const favBtn = document.querySelector(".viewers-dashboard-fav-add");
+  if (favForm && favBtn) {
+    favBtn.addEventListener("click", () => {
+      favForm.style.display = favForm.style.display === "block" ? "none" : "block";
+    });
+  }
+
+  // Favorite Teams Remove Form Toggle
   const remForm = document.querySelector("#viewers-dashboard-fav-remove-form");
-  const remBtn = document.querySelectorAll(".viewers-dashboard-fav-remove-trigger");
-
-  favBtn.forEach(btn => {
-    btn.addEventListener("click", () => {
-      favForm.style.display = favForm.style.display === "flex" ? "none" : "flex";
+  const remBtn = document.querySelector(".viewers-dashboard-fav-remove-trigger");
+  if (remForm && remBtn) {
+    remBtn.addEventListener("click", () => {
+      remForm.style.display = remForm.style.display === "block" ? "none" : "block";
     });
-  });
+  }
 
-  remBtn.forEach(btn => {
-    btn.addEventListener("click", () => {
-      remForm.style.display = remForm.style.display === "flex" ? "none" : "flex";
+  // Buy Credits Modal Logic
+  const buyCreditsBtn = document.getElementById('buy-credits-btn');
+  const modal = document.getElementById('buy-credits-modal');
+  const closeModalBtn = document.querySelector('.close-modal');
+
+  if (buyCreditsBtn && modal && closeModalBtn) {
+    // Show the modal when the "Buy Credits" button is clicked
+    buyCreditsBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
     });
-  });
-});
 
-// Add this code to your viewer_dashboard.js file
+    // Hide the modal when the 'x' is clicked
+    closeModalBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Find the elements for the "Buy Credits" modal
-    const buyCreditsBtn = document.getElementById('buy-credits-btn'); 
-    const modal = document.getElementById('buy-credits-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
+    // Hide the modal if the user clicks outside the modal content (on the overlay)
+    window.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
 
-    // This 'if' block makes the script safe to run on any page
-    if (buyCreditsBtn && modal && closeModalBtn) {
-        
-        // Show the modal when the "Buy Credits" button is clicked
-        buyCreditsBtn.addEventListener('click', () => {
-            modal.style.display = 'flex';
-        });
-
-        // Hide the modal when the 'x' is clicked
-        closeModalBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        // Hide the modal if the user clicks on the dark overlay area
-        window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
-    }
-
-    // ... (your other viewer_dashboard.js logic can go here)
 });
