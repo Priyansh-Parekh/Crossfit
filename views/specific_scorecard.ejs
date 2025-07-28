@@ -24,7 +24,6 @@
             <%= thismatch.toss_winner.name %> won the toss and chose to <%= thismatch.toss_choice%>
         </div>
     </div>
-<% console.log(thismatch.secondInnings) %>
     <% let clubfirst=thismatch.firstInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
         <% let clubsecond=thismatch.secondInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
 
@@ -102,8 +101,8 @@
                                             <h3>Batting - <%= thismatch.firstInnings.name %>
                                             </h3>
                                             <table class="live-score-specific-table">
-                                                <thead>
-                                                    <tr>
+                                                <thead style="text-align: center;">
+                                                    <tr style="text-align: center;">
                                                         <th>Batsman</th>
                                                         <th>Runs</th>
                                                         <th>Balls</th>
@@ -149,8 +148,8 @@
                                             <h3>Bowling - <%= thismatch.secondInnings.name %>
                                             </h3>
                                             <table class="live-score-specific-table">
-                                                <thead>
-                                                    <tr>
+                                                <thead style="text-align: center;">
+                                                    <tr style="text-align: center;">
                                                         <th>Bowler</th>
                                                         <th>Overs</th>
                                                         <th>Runs</th>
@@ -197,8 +196,8 @@
                                                 <h3>Batting - <%= thismatch.secondInnings.name %>
                                                 </h3>
                                                 <table class="live-score-specific-table">
-                                                    <thead>
-                                                        <tr>
+                                                    <thead style="text-align: center;">
+                                                        <tr style="text-align: center;">
                                                             <th>Batsman</th>
                                                             <th>Runs</th>
                                                             <th>Balls</th>
@@ -244,8 +243,8 @@
                                                 <h3>Bowling - <%= thismatch.firstInnings.name %>
                                                 </h3>
                                                 <table class="live-score-specific-table">
-                                                    <thead>
-                                                        <tr>
+                                                    <thead style="text-align: center;">
+                                                        <tr >
                                                             <th>Bowler</th>
                                                             <th>Overs</th>
                                                             <th>Runs</th>

@@ -136,12 +136,16 @@ const match_populate = async (match) => {
 
 //live score  Page
 route.get('/', login, datas, async (req, res) => {
-    let user = req.user;
-    AllMatch = req.data.matches;
-    // Populate all matches in parallel
-    await Promise.all(AllMatch.map(match => match_populate(match)));
-
-    res.render("live_scores", { user, matches });
+  
+    try {
+        let user = req.user;
+        AllMatch = req.data.matches;
+        // Populate all matches in parallel
+        await Promise.all(AllMatch.map(match => match_populate(match)));
+        res.render("live_scores", { user, matches });
+    } catch (error) {
+        res.redirect('/error');
+    }
 })
 
 
@@ -156,6 +160,7 @@ route.get('/scorecard/:_id', login, async (req, res) => {
         res.render('specific_scorecard', { user,thismatch })
     } catch (error) {
         console.log(error)
+        res.redirect('/error');
     }
 })
 

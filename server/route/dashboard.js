@@ -249,7 +249,7 @@ route.get('/clubs', login, datas, async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error loading club dashboard.");
+        res.redirect('/error');
     }
 });
 
@@ -286,7 +286,7 @@ route.post('/merchandise/upload', login, upload.single('productImage'), async (r
     } catch (error) {
         // This will now print a more detailed error to your console
         console.error("MONGOOSE SAVE ERROR:", error);
-        res.status(500).send("Failed to save to database. Check server console for details.");
+        res.redirect('/error');
     }
 });
 
@@ -316,7 +316,7 @@ route.post('/clubs/change_info', login, async (req, res) => {
         res.redirect('/dashboard/clubs')
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Editing Details");
+        res.redirect('/error');
     }
 })
 
@@ -333,7 +333,7 @@ route.post('/clubs/change_logo', login, upload.single('club_logo'), async (req, 
         res.redirect('/dashboard/clubs')
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Editing Details");
+        res.redirect('/error');
     }
 })
 
@@ -364,7 +364,7 @@ route.post('/clubs/create_challange', login, async (req, res) => {
         res.redirect('/dashboard/clubs')
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Challanging club");
+        res.redirect('/error');
     }
 })
 
@@ -377,7 +377,7 @@ route.post('/clubs/challange_accept', login, async (req, res) => {
         res.redirect('/dashboard/clubs');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error changing status ");
+        res.redirect('/error');
     }
 })
 
@@ -393,7 +393,7 @@ route.post('/clubs/challange_reject', login, async (req, res) => {
         res.redirect('/dashboard/clubs');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error changing status ");
+        res.redirect('/error');
     }
 })
 
@@ -422,7 +422,7 @@ route.post('/clubs/add_player', login, upload.single('profile_picture'), async (
         res.redirect('/dashboard/clubs');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Adding Player ");
+        res.redirect('/error');
     }
 })
 
@@ -437,7 +437,7 @@ route.post('/clubs/fire_player', login, async (req, res) => {
         res.redirect('/dashboard/clubs');   
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Firing Player ");
+        res.redirect('/error');
     }
 })
 
@@ -505,7 +505,7 @@ route.post('/viewer/add_fav_club', login, async (req, res) => {
         res.redirect('/dashboard/viewer');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error adding favorite team");
+        res.redirect('/error');
     }
 });
 
@@ -523,7 +523,7 @@ route.post('/viewer/remove_fav_club', login, async (req, res) => {
         res.redirect('/dashboard/viewer');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error adding favorite team");
+        res.redirect('/error');
     }
 });
 
@@ -543,7 +543,7 @@ route.post('/viewer/status', login, async (req, res) => {
         res.redirect('/dashboard/viewer');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error adding favorite team");
+        res.redirect('/error');
     }
 });
 
@@ -563,7 +563,7 @@ route.post('/viewer/add_profile_picture', login, upload.single('profile_picture'
         res.redirect('/dashboard/viewer');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error adding favorite team");
+        res.redirect('/error');
     }
 });
 

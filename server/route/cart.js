@@ -68,7 +68,7 @@ router.post('/add/:productId', isAuthenticatedViewer, async (req, res) => {
         res.status(200).json({ message: 'Product added to cart!' });
     } catch (err) {
         console.error("Error adding to cart:", err);
-        res.status(500).json({ message: 'Server error while adding to cart.' });
+        res.redirect('/error');
     }
 });
 
@@ -94,7 +94,7 @@ router.get('/', isAuthenticatedViewer, async (req, res) => {
         res.render('cart', { cart, total: total.toFixed(2), user: req.user });
     } catch (err) {
         console.error("Error viewing cart:", err);
-        res.status(500).send('Server Error');
+        res.redirect('/error');
     }
 });
 

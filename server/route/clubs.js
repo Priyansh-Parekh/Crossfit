@@ -138,7 +138,7 @@ route.get('/update_leader', login, async (req, res) => {
         await populate_cricket_club_data(user)
         res.render('leader_selection', { user })
     } catch (error) {
-
+        res.redirect('/error');
     }
 })
 
@@ -152,7 +152,7 @@ route.post('/update_leader', login, async (req, res) => {
         await user.save();
         res.redirect('/dashboard/clubs')
     } catch (error) {
-
+        res.redirect('/error');
     }
 })
 

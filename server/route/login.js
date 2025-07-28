@@ -79,7 +79,7 @@ route.post('/login_viewers', async (req, res) => {
         }
     }catch(error) {
         console.error(error);
-        res.status(500).send("Error logging in user");
+        res.redirect('/error');
     }
 
 })
@@ -109,7 +109,7 @@ route.post('/login_clubs', async (req, res) => {
         }
     }catch(error) {
         console.error(error);
-        res.status(500).send("Error logging in user");
+        res.redirect('/error');
     }
 
 })
@@ -138,7 +138,7 @@ route.post('/login_leagues', async (req, res) => {
         }
     }catch(error) {
         console.error(error);
-        res.status(500).send("Error logging in user");
+        res.redirect('/error');
     }
 
 })

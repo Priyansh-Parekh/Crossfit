@@ -173,7 +173,7 @@ route.get('/match_setup/:_id', login, async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.send("Not Found the page")
+        res.redirect('/error');
     }
 
 })
@@ -246,7 +246,7 @@ route.post('/submit_setup/:_id', login, async (req, res) => {
         res.redirect('/dashboard/clubs')
 
     } catch (error) {
-
+        res.redirect('/error');
     }
 })
 
@@ -262,7 +262,7 @@ route.get('/update_score/:_id', login, async (req, res) => {
 
         res.render('update_score', { user, thismatch })
     } catch (error) {
-
+        res.redirect('/error');
     }
 })
 
@@ -287,7 +287,7 @@ route.post('/live-selection/:_id', login, async (req, res) => {
         res.redirect(`/match/update_score/${thismatch._id}`);
     } catch (error) {
         console.log(error);
-        res.send("failed to send");
+        res.redirect('/error');
     }
 
 })
@@ -497,7 +497,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Failed to update live score" });
+        res.redirect('/error');
     }
 });
 
@@ -539,7 +539,7 @@ route.post('/submit_result/:_id', login, async (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).json({ error: "Failed to update result " });
+        res.redirect('/error');
     }
 })
 
@@ -557,7 +557,7 @@ route.post('/make_live/:_id', login, async (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).json({ error: "Failed to update result " });
+        res.redirect('/error');
     }
 })
 
@@ -587,7 +587,7 @@ route.get('/refresh/live_score/:id', async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error fetching live data' });
+        res.redirect('/error');
     }
 });
 

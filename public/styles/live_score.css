@@ -9,6 +9,7 @@
             box-shadow: 0 4px 20px rgba(255, 140, 0, 0.1);
             border: 1px solid rgba(255, 140, 0, 0.3);
             margin-bottom: 20px;
+            margin-top: 20px;
             padding: 25px;
             display: flex;
             align-items: center;
@@ -124,3 +125,51 @@
             text-shadow: 0 0 5px rgba(255, 140, 0, 0.4);
             margin-bottom: 10px;
         }
+
+.live-score-page-no-login {
+    max-width: 500px;
+    margin: 60px auto 60px auto;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(255, 140, 0, 0.12);
+    text-align: center;
+    border: 1px solid rgba(255, 140, 0, 0.25);
+}
+
+.live-score-page-no-login h1 {
+    color: #ff8c00;
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+    text-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+}
+
+.live-score-page-no-login p {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 28px;
+    opacity: 0.85;
+}
+
+.live-score-page-login-btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff8c00, #ffa500);
+    color: #000;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.live-score-page-login-btn:hover {
+    background: linear-gradient(45deg, #ffa500, #ff8c00);
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+    transform: translateY(-2px);
+}

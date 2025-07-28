@@ -108,4 +108,9 @@ route.get('/about', login, async (req, res) => {
     res.render("about", { user });
 });
 
+route.get('/error',login,async(req,res)=>{
+    let user = req.user;
+    res.render("error",{user});
+})
+
 module.exports = route;

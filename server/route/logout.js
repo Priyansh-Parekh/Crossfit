@@ -60,6 +60,7 @@ route.post('/viewer', login, async (req, res) => {
         res.redirect("/");
     } catch (error) {
         console.log(error);
+        res.redirect('/error');
     }
 })
 
@@ -70,6 +71,7 @@ route.post('/clubs', login, async (req, res) => {
         res.redirect("/");
     } catch (error) {
         console.log(error);
+        res.redirect('/error');
     }
 })
 
@@ -80,6 +82,7 @@ route.post('/leagues', login, async (req, res) => {
         res.redirect("/");
     } catch (error) {
         console.log(error);
+        res.redirect('/error');
     }
 })
 
