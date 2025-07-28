@@ -154,8 +154,10 @@
 
 .live-score-specific-current-players > p {
     margin: 10px 0;
+    text-align: left;
     font-size: 16px;
     padding: 8px 12px;
+    color: #ff6b6b;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     border-left: 4px solid #ffd700;
@@ -203,6 +205,7 @@
 
 .live-score-specific-table thead {
     background: rgba(255, 215, 0, 0.2);
+
 }
 
 .live-score-specific-table th {

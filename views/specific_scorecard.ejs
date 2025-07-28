@@ -80,8 +80,8 @@
                                     data-match-id="<%= thismatch._id %>">
                                     <h3>On Field</h3>
                                     <p id="live-score-specific-stricker-score"><strong>Striker:</strong>
-                                        <p><%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%=
-                                            thismatch.stricker_score.balls %> balls)</p>
+                                        <%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%=
+                                                    thismatch.stricker_score.balls %> balls)
                                     </p>
                                     <p id="live-score-specific-nonstricker-score"><strong>Non-Striker:</strong>
                                         <%= thismatch.nonstricker.name %> (<%= thismatch.nonstricker_score.runs %> runs,
@@ -101,7 +101,7 @@
                                             <h3>Batting - <%= thismatch.firstInnings.name %>
                                             </h3>
                                             <table class="live-score-specific-table">
-                                                <thead>
+                                                <thead style="text-align: center;">
                                                     <tr style="text-align: center;">
                                                         <th>Batsman</th>
                                                         <th>Runs</th>
@@ -148,7 +148,7 @@
                                             <h3>Bowling - <%= thismatch.secondInnings.name %>
                                             </h3>
                                             <table class="live-score-specific-table">
-                                                <thead>
+                                                <thead style="text-align: center;">
                                                     <tr style="text-align: center;">
                                                         <th>Bowler</th>
                                                         <th>Overs</th>
@@ -196,7 +196,7 @@
                                                 <h3>Batting - <%= thismatch.secondInnings.name %>
                                                 </h3>
                                                 <table class="live-score-specific-table">
-                                                    <thead>
+                                                    <thead style="text-align: center;">
                                                         <tr style="text-align: center;">
                                                             <th>Batsman</th>
                                                             <th>Runs</th>
@@ -243,8 +243,8 @@
                                                 <h3>Bowling - <%= thismatch.firstInnings.name %>
                                                 </h3>
                                                 <table class="live-score-specific-table">
-                                                    <thead>
-                                                        <tr style="text-align: center;">
+                                                    <thead style="text-align: center;">
+                                                        <tr >
                                                             <th>Bowler</th>
                                                             <th>Overs</th>
                                                             <th>Runs</th>

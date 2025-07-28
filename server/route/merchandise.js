@@ -10,26 +10,47 @@ const League = require("../models/league");
 
 // --- Your Login Middleware ---
 // This middleware checks for a logged-in user from any of your user types
-const loginMiddleware = async (req, res, next) => {
+// login middelware
+const login = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token || token === "none") {
-            req.user = null;
+            req.user = "none";
             return next();
         }
-        const decoded = jwt.verify(token, "secret-word"); // Replace "secret-word" with your actual secret
-        let user = await Viewer.findOne({ email: decoded.email }) ||
-                   await Club.findOne({ email: decoded.email }) ||
-                   await League.findOne({ email: decoded.email });
-        req.user = user;
+
+        const decoded = jwt.verify(token, "secret-word");
+
+        // Try to find the user in each collection
+        let user = await viewers.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        user = await clubs.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        user = await leagues.findOne({ email: decoded.email });
+        if (user) {
+            req.user = user;
+            return next();
+        }
+
+        // If not found in any collection
+        req.user = "none";
     } catch (err) {
-        req.user = null;
+        console.error("Authentication error:", err);
+        req.user = "none";
     }
     next();
 };
 
 // --- Route to Display All Merchandise ---
-route.get('/', loginMiddleware, async (req, res) => {
+route.get('/', login, async (req, res) => {
     try {
         const allMerchandise = await Merchandise.find({ status: 'available' }).sort({ createdAt: -1 });
         res.render('merchandise', {
@@ -37,7 +58,6 @@ route.get('/', loginMiddleware, async (req, res) => {
             user: req.user
         });
     } catch (error) {
-        console.error("Error fetching merchandise:", error);
         res.redirect('/error');
     }
 });
