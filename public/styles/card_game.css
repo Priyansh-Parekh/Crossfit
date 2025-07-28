@@ -1,0 +1,309 @@
+/* Updated with your preferred color palette */
+:root {
+    /* Your Color Palette */
+    --primary-dark: #001e28;
+    --primary-accent: #ff4c30;
+    --primary-light: #002d3d;
+    --accent-light: #ff6b4f;
+    --accent-dark: #e63e26;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --border-light: #003d52;
+    --white: #ffffff;
+    --shadow-subtle: rgba(0, 0, 0, 0.3);
+    --shadow-accent: rgba(255, 76, 48, 0.15);
+    --shadow-glow: rgba(255, 76, 48, 0.2);
+
+    /* Original variable for the deck pattern */
+    --deck-pattern: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 10px, transparent 10px, transparent 20px);
+}
+
+.card-game {
+    margin: 0;
+    /* Changed from --bg to --primary-dark */
+    background: var(--primary-dark);
+    /* Changed from #fff to --text-primary */
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.card-game h1 {
+    margin-top: 30px;
+    font-size: 2.5rem;
+}
+
+.score-board {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    color: var(--text-secondary); /* Using a secondary text color for less emphasis */
+}
+
+.table {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 60px;
+    box-sizing: border-box;
+}
+
+.player-area {
+    text-align: center;
+    width: 150px;
+    transform: translateY(-20px);
+}
+
+#card-right {
+    transform: translate(-100px, -20px);
+}
+
+.deck {
+    width: 250px;
+    height: 400px;
+    margin: 10px auto;
+    border-radius: 12px;
+    /* Updated border color */
+    border: 2px solid var(--border-light);
+    position: relative;
+    /* Using the deck-pattern variable which is retained */
+    background: var(--primary-light) var(--deck-pattern);
+    /* Updated shadow to use a palette variable */
+    box-shadow: 0 4px 20px var(--shadow-subtle);
+}
+
+/* This ::before is now redundant if the background is set on .deck itself, but leaving it in case it's used by JS */
+.deck::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.arena {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 60px;
+}
+
+.card {
+    width: 250px;
+    height: 400px;
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    position: relative;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    /* Updated box-shadow to use a theme color */
+    box-shadow: 0 10px 25px var(--shadow-subtle);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Updated gradient to use palette colors */
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    /* Updated border to use primary accent color */
+    border: 3px solid var(--primary-accent);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.player-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    /* Updated border to use primary accent color */
+    border: 3px solid var(--primary-accent);
+    margin-bottom: 12px;
+}
+
+.stat {
+    font-size: 20px;
+    margin: 3px;
+}
+
+.buttons {
+    margin: 30px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    /* Updated background to use primary accent color */
+    background: var(--primary-accent);
+    /* Changed color from #000 to white for better contrast with the new accent */
+    color: var(--text-primary);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    /* Using the light accent color for hover */
+    background: var(--accent-light);
+}
+.card.winner {
+    /* Updated winner glow to use the primary accent color */
+    box-shadow: 0 0 20px 6px var(--primary-accent);
+    transform: scale(1.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.player-info {
+    text-align: center;
+    padding: 25px 10px;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    /* Updated border to use primary accent color */
+    border: 3px solid var(--primary-accent);
+    /* Updated shadow to use accent shadow variable */
+    box-shadow: 0 0 10px var(--shadow-glow);
+    transition: transform 0.3s ease;
+}
+
+.player-avatar:hover {
+    transform: scale(1.05);
+}
+
+.player-name {
+    font-size: 1.4rem;
+    /* Updated color to use primary accent */
+    color: var(--primary-accent);
+    margin-bottom: 6px;
+    /* Updated text-shadow to use accent shadow variable */
+    text-shadow: 0 0 5px var(--shadow-glow);
+}
+
+.card-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05); /* Kept this subtle effect */
+    padding: 6px 12px;
+    border-radius: 6px;
+    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1); /* Kept this subtle effect */
+}
+
+/* Add to your existing CSS file */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px var(--shadow-glow);
+  }
+  50% {
+    box-shadow: 0 0 24px 6px var(--shadow-glow);
+  }
+}
+
+@keyframes floatText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Apply the animations */
+.deck {
+  /* Add this line to your existing .deck style */
+  animation: pulseGlow 5s ease-in-out infinite;
+}
+
+h1 {
+    /* Add this line to your existing h1 style */
+    animation: floatText 6s ease-in-out infinite;
+}
+
+/* Keyframes for the new animations */
+@keyframes dealFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-250px) translateY(40px) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0);
+  }
+}
+
+@keyframes dealFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(250px) translateY(40px) rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0);
+  }
+}
+
+@keyframes scoreUpdate {
+  50% {
+    transform: scale(1.1);
+    color: var(--primary-accent);
+  }
+}
+
+/* --- CSS classes to be triggered by your JavaScript --- */
+
+/* 1. Add 'deal' class to the .arena element */
+.arena.deal #card1 {
+  animation: dealFromLeft 0.5s ease-out forwards;
+}
+
+.arena.deal #card2 {
+  animation: dealFromRight 0.5s ease-out forwards;
+}
+
+/* 2. Add '.loser' class to the losing card */
+.card.loser {
+  transition: all 0.4s ease;
+  opacity: 0.4;
+  filter: saturate(0); /* Desaturate the losing card */
+  transform: scale(0.95);
+}
+
+/* 3. Add 'updated' class to the #score element */
+#score.updated {
+  animation: scoreUpdate 0.7s ease-in-out;
+}

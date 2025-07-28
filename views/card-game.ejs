@@ -1,0 +1,39 @@
+<div class="card-game">
+  <h1>Fantasy Card Battle</h1>
+  <div class="score-board" id="score">Player 1: 0 | Player 2: 0</div>
+  <div style="margin-bottom: 20px;">
+    <!-- <button onclick="startGame()">Start Game</button> -->
+    <button onclick="restartGame()">Restart Game</button>
+  </div>
+
+  <div class="table">
+    <div class="player-area" id="card-left">
+      <div class="deck" id="deck1">
+        <div class="player-info">
+          <div class="player-avatar" style="background-image: url('/images/player.png')"></div>
+          <h3 class="player-name">Player 1</h3>
+          <div class="card-count"><span id="p1count">10</span> cards</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="arena">
+      <div class="card" id="card1"></div>
+      <div class="card" id="card2"></div>
+    </div>
+
+    <div class="player-area" id="card-right">
+      <div class="deck" id="deck2">
+        <div class="player-info">
+          <div class="player-avatar" style="background-image: url('/images/computer.png')"></div>
+          <h3 class="player-name">Computer</h3>
+          <div class="card-count"><span id="p2count">10</span> cards</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="buttons" id="buttons"></div>
+</div>
