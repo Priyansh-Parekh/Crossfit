@@ -1,8 +1,7 @@
-<!-- Link to Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Link to the specific stylesheet for this page -->
-<link rel="stylesheet" href="/css/merch.css">
 
+
+<% if (user!=='none') { %>
+    
 <main class="merch-container">
     <!-- 1. Page Header Section -->
     <div class="merch-header">
@@ -84,52 +83,12 @@
         </div>
     </div>
 </main>
-
-<!-- Client-side scripts -->
-<script src="/script/cart.js"></script>
-<script src="/script/merch-filters.js"></script>
-```
-
----
-
-<!-- ### 2. Client-Side JavaScript for Filtering
-
-Create a **new file** in `public/js/` to handle the interactive filtering logic.
+ <% } else { %>
+    <div class="live-score-page-no-login">
+        <h1>Please log in to view live scores</h1>
+        <p>You need to be logged in to access live match updates and scorecards.</p>
+        <a href="/#home-roles" class="live-score-page-login-btn">Login</a>
+    </div>
+<% } %>
 
 
-```javascript
-document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll('.merch-filter-btn');
-    const productCards = document.querySelectorAll('.merch-card');
-    const noResultsMessage = document.querySelector('.merch-no-results');
-
-    // Handle filter button clicks
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const selectedCategory = button.dataset.category;
-
-            // Update active state on buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            let visibleProducts = 0;
-
-            // Show/hide product cards based on category
-            productCards.forEach(card => {
-                const cardCategory = card.dataset.category;
-                const shouldBeVisible = selectedCategory === 'all' || selectedCategory === cardCategory;
-
-                card.style.display = shouldBeVisible ? 'flex' : 'none';
-                
-                if (shouldBeVisible) {
-                    visibleProducts++;
-                }
-            });
-            
-            // Show a message if no products match the filter
-            if (noResultsMessage) {
-               noResultsMessage.style.display = visibleProducts === 0 ? 'block' : 'none';
-            }
-        });
-    });
-}); -->
