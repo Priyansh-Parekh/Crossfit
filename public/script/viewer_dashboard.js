@@ -18,28 +18,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Buy Credits Modal Logic
-  const buyCreditsBtn = document.getElementById('buy-credits-btn');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('buy-credits-modal');
-  const closeModalBtn = document.querySelector('.close-modal');
+  const openBtn = document.getElementById('buy-credits-btn');
+  const closeBtn = modal ? modal.querySelector('.viewers-dashboard-close-modal') : null;
 
-  if (buyCreditsBtn && modal && closeModalBtn) {
-    // Show the modal when the "Buy Credits" button is clicked
-    buyCreditsBtn.addEventListener('click', () => {
-      modal.style.display = 'block';
-    });
-
-    // Hide the modal when the 'x' is clicked
-    closeModalBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    // Hide the modal if the user clicks outside the modal content (on the overlay)
-    window.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
+  function openModal() {
+    if (!modal) return;
+    modal.style.display = 'flex'; // make visible for animation
+    // Trigger reflow and add class for animation
+    requestAnimationFrame(() => {
+      modal.classList.add('show');
     });
   }
 
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('show');
+    modal.addEventListener('transitionend', function handler() {
+      if (modal) modal.style.display = 'none';
+      modal.removeEventListener('transitionend', handler);
+    });
+  }
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+  }
 });
+
