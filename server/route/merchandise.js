@@ -2,15 +2,15 @@ const express = require('express');
 const route = express.Router();
 const jwt = require('jsonwebtoken');
 
-// --- Models ---
-const Merchandise = require("../models/merchandise");
-const Viewer = require("../models/viewer");
-const Club = require("../models/club");
-const League = require("../models/league");
+//fetching models
+const matches = require("../models/match");
+const players = require("../models/player");
+const merchandise = require("../models/merchandise");
+const leagues = require("../models/league");
+const clubs = require("../models/club");
+const viewers = require("../models/viewer");
 
-// --- Your Login Middleware ---
-// This middleware checks for a logged-in user from any of your user types
-// login middelware
+
 const login = async (req, res, next) => {
     try {
         const token = req.cookies.token;
