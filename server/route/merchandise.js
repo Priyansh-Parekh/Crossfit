@@ -38,7 +38,7 @@ route.get('/', loginMiddleware, async (req, res) => {
         });
     } catch (error) {
         console.error("Error fetching merchandise:", error);
-        res.status(500).send("Internal Server Error");
+        res.redirect('/error');
     }
 });
 

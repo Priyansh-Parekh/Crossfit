@@ -116,7 +116,7 @@ route.post('/register_viewers', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Error creating user");
+        res.redirect('/error');
     }
 
 })
@@ -150,7 +150,7 @@ route.post('/register_clubs', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Error creating user");
+        res.redirect('/error');
     }
 
 })
@@ -184,7 +184,7 @@ route.post('/register_leagues', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Error creating user");
+        res.redirect('/error');
     }
 
 })

@@ -152,7 +152,7 @@
     text-align: center;
 }
 
-.live-score-specific-current-players p {
+.live-score-specific-current-players > p {
     margin: 10px 0;
     font-size: 16px;
     padding: 8px 12px;

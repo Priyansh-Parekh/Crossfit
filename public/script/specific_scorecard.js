@@ -5,8 +5,6 @@ async function fetchMatchData() {
     try {
         const res = await fetch(`/match/refresh/live_score/${matchId}`);
         const data = await res.json();
-        // Call function to update UI
-        // console.log(data)
         updateMatchUI(data);
     } catch (err) {
         console.error("Error fetching match data:", err);

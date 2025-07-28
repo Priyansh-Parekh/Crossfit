@@ -81,6 +81,7 @@ const login = async (req, res, next) => {
     } catch (err) {
         console.error("Authentication error:", err);
         req.user = "none";
+        res.redirect('/error');
     }
     next();
 };
@@ -88,8 +89,13 @@ const login = async (req, res, next) => {
 
 //leagues Page
 route.get('/',login, async (req, res) => {
-    let user = req.user;
+    
+    try {
+        let user = req.user;
     res.render("leagues",{user});
+    } catch (error) {
+        res.redirect('/error');
+    }
 })
 
 

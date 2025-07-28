@@ -24,7 +24,6 @@
             <%= thismatch.toss_winner.name %> won the toss and chose to <%= thismatch.toss_choice%>
         </div>
     </div>
-<% console.log(thismatch.secondInnings) %>
     <% let clubfirst=thismatch.firstInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
         <% let clubsecond=thismatch.secondInnings._id===thismatch.club1._id? 'club1' : 'club2' ; %>
 
@@ -81,8 +80,8 @@
                                     data-match-id="<%= thismatch._id %>">
                                     <h3>On Field</h3>
                                     <p id="live-score-specific-stricker-score"><strong>Striker:</strong>
-                                        <%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%=
-                                                    thismatch.stricker_score.balls %> balls)
+                                        <p><%= thismatch.stricker.name %> (<%= thismatch.stricker_score.runs %> runs, <%=
+                                            thismatch.stricker_score.balls %> balls)</p>
                                     </p>
                                     <p id="live-score-specific-nonstricker-score"><strong>Non-Striker:</strong>
                                         <%= thismatch.nonstricker.name %> (<%= thismatch.nonstricker_score.runs %> runs,
@@ -103,7 +102,7 @@
                                             </h3>
                                             <table class="live-score-specific-table">
                                                 <thead>
-                                                    <tr>
+                                                    <tr style="text-align: center;">
                                                         <th>Batsman</th>
                                                         <th>Runs</th>
                                                         <th>Balls</th>
@@ -150,7 +149,7 @@
                                             </h3>
                                             <table class="live-score-specific-table">
                                                 <thead>
-                                                    <tr>
+                                                    <tr style="text-align: center;">
                                                         <th>Bowler</th>
                                                         <th>Overs</th>
                                                         <th>Runs</th>
@@ -198,7 +197,7 @@
                                                 </h3>
                                                 <table class="live-score-specific-table">
                                                     <thead>
-                                                        <tr>
+                                                        <tr style="text-align: center;">
                                                             <th>Batsman</th>
                                                             <th>Runs</th>
                                                             <th>Balls</th>
@@ -245,7 +244,7 @@
                                                 </h3>
                                                 <table class="live-score-specific-table">
                                                     <thead>
-                                                        <tr>
+                                                        <tr style="text-align: center;">
                                                             <th>Bowler</th>
                                                             <th>Overs</th>
                                                             <th>Runs</th>
