@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   const cricketBtn = document.getElementById('club-enlistpage-filter-cricket');
-  const footballBtn = document.getElementById('club-enlistpage-filter-football');
   const clubCards = document.querySelectorAll('.club-enlistpage-club-card');
   const noResults = document.getElementById('club-enlistpage-no-results');
   const searchBar = document.getElementById('club-enlistpage-searchbar');
@@ -22,37 +21,32 @@ document.addEventListener('DOMContentLoaded', function () {
         card.style.display = 'none';
       }
     });
-    if (visibleCount === 0) {
-      noResults.style.display = 'block';
-    } else {
-      noResults.style.display = 'none';
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
   }
 
-  function handleFilterClick(sport, btn) {
-    return function () {
-      if (activeFilter === sport) {
-        // Toggle off
+  if (cricketBtn) {
+    cricketBtn.addEventListener('click', function () {
+      if (activeFilter === 'cricket') {
+        // toggle off
         activeFilter = null;
         cricketBtn.classList.remove('active');
-        footballBtn.classList.remove('active');
       } else {
-        activeFilter = sport;
-        cricketBtn.classList.toggle('active', sport === 'cricket');
-        footballBtn.classList.toggle('active', sport === 'football');
+        activeFilter = 'cricket';
+        cricketBtn.classList.add('active');
       }
       applyFilter();
-    };
+    });
   }
 
-  cricketBtn.addEventListener('click', handleFilterClick('cricket', cricketBtn));
-  footballBtn.addEventListener('click', handleFilterClick('football', footballBtn));
+  if (searchBar) {
+    searchBar.addEventListener('input', function () {
+      searchText = searchBar.value.trim().toLowerCase();
+      applyFilter();
+    });
+  }
 
-  searchBar.addEventListener('input', function () {
-    searchText = searchBar.value.trim().toLowerCase();
-    applyFilter();
-  });
-
-  // Initial state: show all
+  // Initial: show all
   applyFilter();
 });

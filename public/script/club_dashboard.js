@@ -12,13 +12,12 @@ function showSection(id, clickedButton) {
   document.querySelectorAll(".club-dashboard-option-menu button").forEach(btn =>
     btn.classList.remove("club-dashboard-active")
   );
-  clickedButton.classList.add("club-dashboard-active");
+  if (clickedButton) clickedButton.classList.add("club-dashboard-active");
 }
 
 function goToSection(id) {
-  const targetBtn = [...document.querySelectorAll(".club-dashboard-option-menu button")]
-    .find(btn => btn.textContent.toLowerCase().includes(id.replace('-', ' ')));
-
+  const buttons = document.querySelectorAll(".club-dashboard-option-menu button");
+  const targetBtn = [...buttons].find(btn => btn.textContent.toLowerCase().includes(id.replace('-', ' ')));
   if (targetBtn) targetBtn.click();
 }
 
@@ -70,67 +69,92 @@ document.addEventListener("DOMContentLoaded", function () {
   let originalData = {};
   let pendingData = {};
 
-  // Edit Mode
-  editBtn.onclick = function () {
-    profileView.style.display = "none";
-    profileEdit.style.display = "block";
-    editBtn.style.display = "none";
-    saveBtn.style.display = "inline-flex";
-    cancelBtn.style.display = "inline-flex";
-
-  };
-
-  cancelBtn.onclick = function () {
-    profileView.style.display = "block";
-    profileEdit.style.display = "none";
-    editBtn.style.display = "inline-flex";
-    saveBtn.style.display = "none";
-    cancelBtn.style.display = "none";
-    emailError.textContent = "";
-    phoneError.textContent = "";
-    bioError.textContent = "";
-  };
-
-  saveBtn.onclick = function (e) {
-    e.preventDefault();
-    // Bio validation
-    const bioVal = clubBioInput.value.trim();
-    if (bioVal.split(/\s+/).length > 500) {
-      bioError.textContent = "Bio must be 500 words or less";
-      valid = false;
-    }
-
-
-    // Prepare pending data
-    pendingData = {
-      name: clubNameInput.value,
-      founded: clubFoundedInput.value,
-      bio: clubBioInput.value
+  if (editBtn) {
+    // Edit Mode
+    editBtn.onclick = function () {
+      if(profileView) profileView.style.display = "none";
+      if(profileEdit) profileEdit.style.display = "block";
+      editBtn.style.display = "none";
+      if (saveBtn) saveBtn.style.display = "inline-flex";
+      if (cancelBtn) cancelBtn.style.display = "inline-flex";
     };
+  }
 
-    // Show password modal
-    passwordModalBg.style.display = "flex";
-    passwordInput.value = "";
-    passwordError.textContent = "";
-    passwordInput.focus();
-  };
+  if (cancelBtn) {
+    cancelBtn.onclick = function () {
+      if(profileView) profileView.style.display = "block";
+      if(profileEdit) profileEdit.style.display = "none";
+      if(editBtn) editBtn.style.display = "inline-flex";
+      if(saveBtn) saveBtn.style.display = "none";
+      cancelBtn.style.display = "none";
+      if(emailError) emailError.textContent = "";
+      if(phoneError) phoneError.textContent = "";
+      if(bioError) bioError.textContent = "";
+    };
+  }
 
-  cancelPasswordBtn.onclick = function () {
-    passwordModalBg.style.display = "none";
-  };
+  if (saveBtn) {
+    saveBtn.onclick = function (e) {
+      e.preventDefault();
+      let valid = true;
 
+      // Bio validation
+      if (clubBioInput) {
+        const bioVal = clubBioInput.value.trim();
+        if (bioVal.split(/\s+/).length > 500) {
+          if(bioError) bioError.textContent = "Bio must be 500 words or less";
+          valid = false;
+        } else {
+          if(bioError) bioError.textContent = "";
+        }
+      }
+
+      if (!valid) return;
+
+      // Prepare pending data
+      pendingData = {
+        name: clubNameInput ? clubNameInput.value : "",
+        founded: clubFoundedInput ? clubFoundedInput.value : "",
+        bio: clubBioInput ? clubBioInput.value : ""
+      };
+
+      // Show password modal
+      if(passwordModalBg){
+        passwordModalBg.style.display = "flex";
+      }
+      if(passwordInput){
+        passwordInput.value = "";
+        passwordError.textContent = "";
+        passwordInput.focus();
+      }
+    };
+  }
+
+  if (cancelPasswordBtn) {
+    cancelPasswordBtn.onclick = function () {
+      if(passwordModalBg) passwordModalBg.style.display = "none";
+    };
+  }
 });
 
+if (document.getElementById("saveProfileBtn")) {
+  document.getElementById("saveProfileBtn").addEventListener("click", function (event) {
+    // Before submitting Form B, copy values from Form A
+    const hiddenName = document.getElementById("hiddenName");
+    const hiddenFoundedYear = document.getElementById("hiddenFoundedYear");
+    const hiddenBio = document.getElementById("hiddenBio");
+    const hiddenSlogan = document.getElementById("hiddenSlogan");
+    const clubNameInput = document.getElementById("clubNameInput");
+    const clubFoundedInput = document.getElementById("clubFoundedInput");
+    const clubBioInput = document.getElementById("clubBioInput");
+    const clubSloganInput = document.getElementById("clubSloganInput");
 
-
-document.getElementById("saveProfileBtn").addEventListener("click", function (event) {
-  // Before submitting Form B, copy values from Form A
-  document.getElementById("hiddenName").value = document.getElementById("clubNameInput").value;
-  document.getElementById("hiddenFoundedYear").value = document.getElementById("clubFoundedInput").value;
-  document.getElementById("hiddenBio").value = document.getElementById("clubBioInput").value;
-  document.getElementById("hiddenSlogan").value = document.getElementById("clubSloganInput").value;
-});
-
+    if(hiddenName && clubNameInput) hiddenName.value = clubNameInput.value;
+    if(hiddenFoundedYear && clubFoundedInput) hiddenFoundedYear.value = clubFoundedInput.value;
+    if(hiddenBio && clubBioInput) hiddenBio.value = clubBioInput.value;
+    if(hiddenSlogan && clubSloganInput) hiddenSlogan.value = clubSloganInput.value;
+  });
+}
 
 const tabs = document.querySelectorAll(".club-dashboard-challenge-tab");
 const contents = document.querySelectorAll(".club-dashboard-challenge-content");
@@ -140,62 +164,61 @@ tabs.forEach(tab => {
     tabs.forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
     contents.forEach(content => content.classList.add("hidden"));
-    document.getElementById(`challenge-${tab.dataset.target}`).classList.remove("hidden");
+    const contentToShow = document.getElementById(`challenge-${tab.dataset.target}`);
+    if(contentToShow) contentToShow.classList.remove("hidden");
   });
 });
 
-
-
-// upload.single('club_logo')
-
-
-
-let toggle_challange_btn = document.querySelector('.club-dashboard-create-btn');
-let challange_form = document.querySelector('#createChallengeForm');
+// Toggle challenge form
+const toggle_challange_btn = document.querySelector('.club-dashboard-create-btn');
+const challange_form = document.querySelector('#createChallengeForm');
 let toggle_count = 0;
-toggle_challange_btn.addEventListener('click', () => {
-  if (toggle_count % 2 === 0) {
-    challange_form.style.display = 'grid';
-  } else {
-    challange_form.style.display = 'none';
-  }
-  toggle_count++;
-})
 
-document.querySelector('.club-dashboard-adding-new-player-btn').addEventListener('click', () => {
-  document.getElementById('add-player-form').classList.toggle('hidden');
-});
+if(toggle_challange_btn && challange_form){
+  toggle_challange_btn.addEventListener('click', () => {
+    if (toggle_count % 2 === 0) {
+      challange_form.style.display = 'grid';
+    } else {
+      challange_form.style.display = 'none';
+    }
+    toggle_count++;
+  });
+}
 
+const addPlayerBtn = document.querySelector('.club-dashboard-adding-new-player-btn');
+const addPlayerForm = document.getElementById('add-player-form');
 
+if(addPlayerBtn && addPlayerForm){
+  addPlayerBtn.addEventListener('click', () => {
+    addPlayerForm.classList.toggle('hidden');
+  });
+}
 
-
-let live_section_live_trigger = document.querySelector(".club-liveupdate-live-title");
-let live_section_upcoming_trigger = document.querySelector(".club-liveupdate-upcoming-title");
-let live_section = document.querySelector(".club-dashboard-live-sect");
-let upcoming_section = document.querySelector(".club-dashboard-upcoming-sect");
+const live_section_live_trigger = document.querySelector(".club-liveupdate-live-title");
+const live_section_upcoming_trigger = document.querySelector(".club-liveupdate-upcoming-title");
+const live_section = document.querySelector(".club-dashboard-live-sect");
+const upcoming_section = document.querySelector(".club-dashboard-upcoming-sect");
 let live_count_match = 0;
 let upcoming_count_match = 0;
 
-
-
-live_section_live_trigger.addEventListener("click", () => {
-  if (live_count_match % 2 === 0) {
-    live_section.style.display = "grid";
+if(live_section_live_trigger && live_section){
+  live_section_live_trigger.addEventListener("click", () => {
+    if (live_count_match % 2 === 0) {
+      live_section.style.display = "grid";
+    } else {
+      live_section.style.display = "none";
+    }
     live_count_match++;
-  } else {
-    live_section.style.display = "none";
-    live_count_match++;
-  }
+  });
+}
 
-})
-
-live_section_upcoming_trigger.addEventListener("click", () => {
-  if (upcoming_count_match % 2 === 0) {
-    upcoming_section.style.display = "grid"
+if(live_section_upcoming_trigger && upcoming_section){
+  live_section_upcoming_trigger.addEventListener("click", () => {
+    if (upcoming_count_match % 2 === 0) {
+      upcoming_section.style.display = "grid";
+    } else {
+      upcoming_section.style.display = "none";
+    }
     upcoming_count_match++;
-  } else {
-    upcoming_section.style.display = "none"
-    upcoming_count_match++;
-  }
-
-})
+  });
+}

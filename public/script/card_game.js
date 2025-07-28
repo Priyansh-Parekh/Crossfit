@@ -1272,7 +1272,6 @@ const cards = [
 ];
 
 
-
 let p1Deck = [], p2Deck = [], p1Score = 0, p2Score = 0, currentPlayer = 1, currentCards = {};
 
 function shuffle(array) {
@@ -1283,20 +1282,23 @@ function shuffle(array) {
 }
 
 function updateUI() {
-    document.getElementById("p1count").textContent = p1Deck.length;
-    document.getElementById("p2count").textContent = p2Deck.length;
-    document.getElementById("score").textContent = `Player 1: ${p1Score} | Player 2: ${p2Score}`;
+    const p1countElem = document.getElementById("p1count");
+    const p2countElem = document.getElementById("p2count");
+    const scoreElem = document.getElementById("score");
+
+    if (p1countElem) p1countElem.textContent = p1Deck.length;
+    if (p2countElem) p2countElem.textContent = p2Deck.length;
+    if (scoreElem) scoreElem.textContent = `Player 1: ${p1Score} | Player 2: ${p2Score}`;
 }
 
 function startGame() {
-    // console.log(cards);
     shuffle(cards);
-    // console.log(cards);
     p1Deck = cards.slice(0, 20);
     p2Deck = cards.slice(20, 40);
     updateUI();
     nextTurn();
 }
+
 function restartGame() {
     p1Deck = [];
     p2Deck = [];
@@ -1316,13 +1318,13 @@ function restartGame() {
 function nextTurn() {
     updateUI();
 
-    // if (p1Deck.length === 0 || p2Deck.length === 0) {
-    //     const result = p1Score > p2Score ? "Player 1 Wins!" : p2Score > p1Score ? "Player 2 Wins!" : "It's a Draw!";
-    //     setTimeout(() => alert("Game Over!\n" + result), 500);
-    //     return;
-    // }
     if (p1Deck.length === 0 || p2Deck.length === 0) {
-        const result = p1Score > p2Score ? "Player 1 Wins!" : p2Score > p1Score ? "Player 2 Wins!" : "It's a Draw!";
+        const result = p1Score > p2Score
+            ? "Player 1 Wins!"
+            : p2Score > p1Score
+                ? "Player 2 Wins!"
+                : "It's a Draw!";
+
         setTimeout(() => {
             alert("Game Over!\n" + result + "\nRestarting...");
             restartGame();
@@ -1336,27 +1338,33 @@ function nextTurn() {
 
     const card1 = document.getElementById("card1");
     const card2 = document.getElementById("card2");
-    card1.innerHTML = "";
-    card2.innerHTML = "";
+    if (card1) card1.innerHTML = "";
+    if (card2) card2.innerHTML = "";
 
-    const p1Card = createCard(p1, true);
-    const p2Card = createCard(p2, false);
-    card1.appendChild(p1Card);
-    card2.appendChild(p2Card);
+    if (card1) {
+        const p1Card = createCard(p1, true);
+        card1.appendChild(p1Card);
+    }
+    if (card2) {
+        const p2Card = createCard(p2, false);
+        card2.appendChild(p2Card);
+    }
 
     const buttons = document.getElementById("buttons");
-    buttons.innerHTML = "";
+    if (buttons) buttons.innerHTML = "";
 
     const stats = Object.keys(p1.stats);
 
     if (currentPlayer === 1) {
         // Player 1 turn – show buttons for stat selection
-        stats.forEach(stat => {
-            const btn = document.createElement("button");
-            btn.textContent = stat;
-            btn.onclick = () => compareStat(stat);
-            buttons.appendChild(btn);
-        });
+        if (buttons) {
+            stats.forEach(stat => {
+                const btn = document.createElement("button");
+                btn.textContent = stat;
+                btn.onclick = () => compareStat(stat);
+                buttons.appendChild(btn);
+            });
+        }
     } else {
         // Player 2 (AI) turn – auto pick stat, then compare
         setTimeout(() => {
@@ -1371,18 +1379,17 @@ function compareStat(stat) {
     const card2 = document.querySelector("#card2 .card-inner");
     const { p1, p2 } = currentCards;
     const buttons = document.getElementById("buttons");
-    buttons.innerHTML = `<strong>${stat.toUpperCase()} chosen!</strong>`;
+
+    if (buttons) buttons.innerHTML = `<strong>${stat.toUpperCase()} chosen!</strong>`;
 
     // Clear previous highlights
     document.querySelectorAll('.card').forEach(c => c.classList.remove('winner'));
 
     if (currentPlayer === 1) {
-        // Player 1 turn: flip Player 2 card
-        card2.style.transform = "rotateY(180deg)";
+        if (card2) card2.style.transform = "rotateY(180deg)";
 
         setTimeout(() => {
-            // Flip Player 1's card after delay
-            card1.style.transform = "rotateY(180deg)";
+            if (card1) card1.style.transform = "rotateY(180deg)";
 
             setTimeout(() => {
                 handleComparison(stat, p1, p2);
@@ -1390,12 +1397,10 @@ function compareStat(stat) {
         }, 700); // Delay before flipping Player 1's card
 
     } else {
-        // Player 2 (AI) turn: flip Player 2 card first
-        card2.style.transform = "rotateY(180deg)";
+        if (card2) card2.style.transform = "rotateY(180deg)";
 
         setTimeout(() => {
-            // Flip Player 1's card after delay
-            card1.style.transform = "rotateY(180deg)";
+            if (card1) card1.style.transform = "rotateY(180deg)";
 
             setTimeout(() => {
                 handleComparison(stat, p1, p2);
@@ -1403,14 +1408,18 @@ function compareStat(stat) {
         }, 700); // Delay between card flips
     }
 }
+
 function handleComparison(stat, p1, p2) {
+    const card1Elem = document.getElementById("card1");
+    const card2Elem = document.getElementById("card2");
+
     if (p1.stats[stat] > p2.stats[stat]) {
-        document.getElementById("card1").classList.add("winner");
+        if (card1Elem) card1Elem.classList.add("winner");
         p1Score++;
         p1Deck.push(p1, p2);
         currentPlayer = 1;
     } else if (p2.stats[stat] > p1.stats[stat]) {
-        document.getElementById("card2").classList.add("winner");
+        if (card2Elem) card2Elem.classList.add("winner");
         p2Score++;
         p2Deck.push(p1, p2);
         currentPlayer = 2;
@@ -1428,7 +1437,6 @@ function handleComparison(stat, p1, p2) {
     }, 1500);
 }
 
-
 function createCard(card, revealed) {
     const cardDiv = document.createElement("div");
     cardDiv.className = "card-inner";
@@ -1440,9 +1448,8 @@ function createCard(card, revealed) {
     const back = document.createElement("div");
     back.className = "card-back";
     back.innerHTML = `
-    <div class="player-img" style="background-image: url('/images/${card.player}.jpeg')"></div>
+    <div class="player-img" style="background-image: url('${card.image}')"></div>
     <h3>${card.player}</h3>
-
     ${Object.entries(card.stats).map(([k, v]) => `<div class='stat'><strong>${k}:</strong> ${v}</div>`).join("")}
   `;
 
@@ -1460,6 +1467,9 @@ function createCard(card, revealed) {
     wrapper.appendChild(cardDiv);
     return wrapper;
 }
-// console.log("Card rendering:", cards);
 
-startGame();
+// ---------------------------------------
+// Start the game after DOM loaded
+document.addEventListener("DOMContentLoaded", () => {
+    startGame();
+});
