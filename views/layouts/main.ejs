@@ -33,9 +33,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/merch.css">
     <title>Crossfit</title>
+    
+    <!-- Lottie Player for Animation -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <!-- Crossfit One-Time Loading Screen Styles -->
+    <style>
+        .crossfit-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #081A26;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease;
+        }
+
+        .crossfit-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Prevent body scroll during loading */
+        body.crossfit-loading {
+            overflow: hidden;
+        }
+    </style>
 </head>
 
-<body>
+<body class="crossfit-loading">
+    <!-- Crossfit One-Time Loading Screen -->
+    <div class="crossfit-loader">
+        <lottie-player 
+            src="/script/animation.json" 
+            background="transparent" 
+            speed="1" 
+            style="width: 100vw; height: 100vh;" 
+            loop 
+            autoplay>
+        </lottie-player>
+    </div>
+    
     <%- include('../partials/header') %>
         <section class="main-content">
             <%- body %>
@@ -57,6 +101,52 @@
             <script src="/script/card_game.js"></script>
             <script src="/script/cart.js"></script>
             <script src="/script/merch-filters.js"></script>
+
+            <!-- Crossfit One-Time Loading Screen Script -->
+            <script>
+                (function() {
+                    // Check if user has visited before in this session
+                    const hasVisitedBefore = sessionStorage.getItem('crossfitVisited');
+                    const loaderWrapper = document.querySelector('.crossfit-loader');
+                    const body = document.body;
+
+                    // If user has visited before, immediately hide loader
+                    if (hasVisitedBefore) {
+                        if (loaderWrapper) {
+                            loaderWrapper.style.display = 'none';
+                        }
+                        body.classList.remove('crossfit-loading');
+                        return;
+                    }
+
+                    // First visit - set the flag
+                    sessionStorage.setItem('crossfitVisited', 'true');
+
+                    // Wait for all content to load, then show animation for 3 seconds
+                    window.addEventListener('load', function() {
+                        setTimeout(function() {
+                            if (loaderWrapper) {
+                                // Add hidden class to trigger fade-out
+                                loaderWrapper.classList.add('hidden');
+
+                                // Listen for transition end to completely remove element
+                                loaderWrapper.addEventListener('transitionend', function() {
+                                    loaderWrapper.remove();
+                                    body.classList.remove('crossfit-loading');
+                                }, { once: true });
+                            }
+                        }, 3000); // 3 seconds as requested
+                    });
+
+                    // Fallback: Remove loader after maximum 10 seconds
+                    setTimeout(function() {
+                        if (loaderWrapper && loaderWrapper.parentNode) {
+                            loaderWrapper.remove();
+                            body.classList.remove('crossfit-loading');
+                        }
+                    }, 10000);
+                })();
+            </script>
 
 </body>
 
