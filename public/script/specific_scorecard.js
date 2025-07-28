@@ -56,7 +56,7 @@ function updateMatchUI(data) {
       // Players batting for first innings club
       if (String(data.firstInnings._id) === String(player.playerId.registered_club)) {
         const row = `
-          <tr>
+          <tr style = "color: ${player.batting.out ? 'red' : 'white'}">
             <td>${player.playerId.name}</td>
             <td>${player.batting.runs}</td>
             <td>${player.batting.balls}</td>
