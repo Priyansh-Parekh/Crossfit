@@ -11,7 +11,7 @@
         <li><a href="/live_scores">Live-Score</a></li>
         <li><a href="/merchandise">Merchandise</a></li>
         <li><a href="/clubs">Clubs</a></li>
-        <% if (user) { %>
+        <% if (user.user_type==='viewer') { %>
         <li>
           <a href="/cart" class="nav-link">
             <i class="fas fa-shopping-cart"></i> Cart
