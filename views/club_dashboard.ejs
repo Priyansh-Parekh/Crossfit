@@ -472,11 +472,12 @@
 
                 <% if (!isSetupDone) { %>
                   <p class="club-liveupdate-note">Remember to choose your players and Leaders for this match!</p>
+                    <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
                   <% } else { %>
                     <p class="club-liveupdate-note">If you want to edit your setup</p>
                     <% } %>
 
-                      <a href="/match/match_setup/<%= match.matchId._id %>" class="club-liveupdate-btn">Match Setup</a>
+                    
 
           </div>
           <% if (match.matchId.setup_club1 && match.matchId.setup_club2) { %>
