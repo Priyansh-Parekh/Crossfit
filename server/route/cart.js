@@ -135,7 +135,7 @@ router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
         );
 
         // 3. Clear the user's cart
-        await Cart.deleteOne({ userId });
+        await Cart.deleteOne({ userId }); 
 
         res.status(200).json({ message: "Purchase successful! Your items are on their way." });
 

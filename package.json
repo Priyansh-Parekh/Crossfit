@@ -31,7 +31,8 @@
     "geolib": "^3.3.4",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.1",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
