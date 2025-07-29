@@ -650,15 +650,27 @@ body {
 
 .club-dashboard-upload-area {
   width: 100%;
+  /* max-width: 420px; */
+  margin: 32px auto 24px auto;
   box-sizing: border-box;
-  border: 2px dashed var(--border-light); /* Changed from #ddd */
-  border-radius: 12px;
-  padding: 40px;
+  border: 2px dashed var(--primary-accent);
+  border-radius: 16px;
+  padding: 48px 24px 36px 24px;
   text-align: center;
-  margin-bottom: 30px;
-  transition: all 0.3s ease;
-  background-color: var(--primary-dark); /* Added distinct bg */
+  background-color: var(--primary-dark);
   cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.club-dashboard-upload-area.dragover {
+  border-color: var(--accent-dark);
+  background-color: var(--primary-light);
+  box-shadow: 0 4px 16px rgba(37, 117, 252, 0.10);
 }
 
 .club-dashboard-upload-area:hover {
