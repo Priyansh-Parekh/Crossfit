@@ -128,9 +128,13 @@ const match_populate = async (match) => {
         { path: 'secondInnings' },
         { path: 'bowler' },
         { path: 'man_of_match' },
-        { path: 'playerStats.playerId'}
+        {
+            path: 'playerStats.playerId',
+            populate: { path: 'registered_club' }  // <-- Add this populate
+        }
     ]);
 };
+
 
 
 
