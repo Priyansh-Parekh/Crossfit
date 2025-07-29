@@ -505,43 +505,81 @@ route.post('/live_score/:_id', login, async (req, res) => {
 
 route.post('/submit_result/:_id', login, async (req, res) => {
     try {
-        let user = req.user;
-        await populate_cricket_club_data(user);
-        let match_id = req.params._id;
-        match_id = new mongoose.Types.ObjectId(match_id);
-        let thismatch = await matches.findById(match_id);
-        await match_populate(thismatch);
-        let { man_of_match } = req.body.man_of_match;
-        man_of_match = new mongoose.Types.ObjectId(man_of_match);
-        thismatch.man_of_match = man_of_match;
-        let loser ;
-        if (thismatch.score.club1.runs > thismatch.score.club2.runs) {
-            thismatch.winner = thismatch.club1._id;
-            loser = thismatch.club2._id;
-        } else if (thismatch.score.club1.runs < thismatch.score.club2.runs) {
-            thismatch.winner = thismatch.club2._id;
-            loser = thismatch.club1._id;
+      const user = req.user;
+      await populate_cricket_club_data(user);
+  
+      // Validate and parse match ID
+      const matchId = new mongoose.Types.ObjectId(req.params._id);
+      const thisMatch = await matches.findById(matchId);
+      if (!thisMatch) {
+        return res.status(404).redirect('/error');
+      }
+      await match_populate(thisMatch);
+  
+      // Extract man_of_match safely
+      const { man_of_match: manOfMatchId } = req.body;
+      if (!manOfMatchId) {
+        return res.status(400).send('man_of_match is required');
+      }
+      const manOfMatchObjId = new mongoose.Types.ObjectId(manOfMatchId);
+  
+      // Prevent duplicate man_of_match
+      if (thisMatch.man_of_match && thisMatch.man_of_match.equals(manOfMatchObjId)) {
+        return res.status(400).send('This player is already set as Man of the Match');
+      }
+      thisMatch.man_of_match = manOfMatchObjId;
+  
+      // Determine winner and loser
+      let loserClubId;
+      if (thisMatch.score.club1.runs > thisMatch.score.club2.runs) {
+        thisMatch.winner = thisMatch.club1._id;
+        loserClubId = thisMatch.club2._id;
+      } else if (thisMatch.score.club1.runs < thisMatch.score.club2.runs) {
+        thisMatch.winner = thisMatch.club2._id;
+        loserClubId = thisMatch.club1._id;
+      } else {
+        // Tie or no result
+        thisMatch.winner = null;
+        loserClubId = null;
+      }
+  
+      // Mark the match as played for the user once
+      const playedEntry = user.match_played.find(m => m.matchId.equals(thisMatch._id));
+      if (playedEntry) {
+        if (!playedEntry.played) {
+          playedEntry.played = true;
         }
-        console.log(user.match_played)
-        user.match_played.forEach(match => {
-            if(match.matchId._id === thismatch._id){
-                match.played = true;
-            }
-        });
-        let winner = await  clubs.findById(thismatch.winner);
-        winner.match_won.push(thismatch._id);
-        loser = await clubs.findById(loser);
-        loser.match_lose.push(thismatch._id);
-        thismatch.status = 'completed';
-        thismatch.submit_result = true;
-        await thismatch.save();
-        res.redirect(`/match/update_score/${thismatch._id}`);
+      } else {
+        user.match_played.push({ matchId: thisMatch._id, played: true });
+      }
+      await user.save();
+  
+      // Update clubs: avoid duplicate entries
+      if (thisMatch.winner) {
+        const winnerClub = await clubs.findById(thisMatch.winner);
+        if (!winnerClub.match_won.includes(thisMatch._id)) {
+          winnerClub.match_won.push(thisMatch._id);
+          await winnerClub.save();
+        }
+  
+        const loserClub = await clubs.findById(loserClubId);
+        if (!loserClub.match_lose.includes(thisMatch._id)) {
+          loserClub.match_lose.push(thisMatch._id);
+          await loserClub.save();
+        }
+      }
+  
+      // Finalize match
+      thisMatch.status = 'completed';
+      thisMatch.submit_result = true;
+      await thisMatch.save();
+  
+      return res.redirect(`/match/update_score/${thisMatch._id}`);
     } catch (error) {
-
-        console.log(error);
-        res.redirect('/error');
+      console.error('Error submitting match result:', error);
+      return res.redirect('/error');
     }
-})
+  });
 
 route.post('/make_live/:_id', login, async (req, res) => {
     try {
