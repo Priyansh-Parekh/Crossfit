@@ -400,11 +400,15 @@ route.post('/clubs/challange_reject', login, async (req, res) => {
 route.post('/clubs/add_player', login, upload.single('profile_picture'), async (req, res) => {
     try {
         let user = req.user;
-        const imagePath = req.file.path;
-        // Read and convert to Base64   upload, bu
-        const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
-        const mimeType = req.file.mimetype; // e.g., 'image/png'
-        const dataURI = `data:${mimeType};base64,${base64Image}`;
+        let dataURI = null;
+
+        // Only process profile picture if uploaded
+        if (req.file && req.file.path) {
+            const imagePath = req.file.path;
+            const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
+            const mimeType = req.file.mimetype;
+            dataURI = `data:${mimeType};base64,${base64Image}`;
+        }
 
         let { name, age, batting_style, total_runs, type, total_balls, bowling_style, wickets, overs_deliverd, runs_given, jersey_number } = req.body;
         age = Number(age);
@@ -414,32 +418,46 @@ route.post('/clubs/add_player', login, upload.single('profile_picture'), async (
         overs_deliverd = Number(overs_deliverd);
         runs_given = Number(runs_given);
         jersey_number = Number(jersey_number);
-        let SR = total_runs / total_balls;
-        let economy = runs_given / overs_deliverd;
-        let player = await players.create({ name, age, batting_style, total_runs, registered_club: user._id, total_balls, SR, economy, type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number, profile_picture: dataURI })
-        await user.players.push(player._id)
-        await user.save()
+
+        let SR = total_balls > 0 ? total_runs / total_balls : 0;
+        let economy = overs_deliverd > 0 ? runs_given / overs_deliverd : 0;
+
+        let player = await players.create({
+            name, age, batting_style, total_runs, registered_club: user._id, total_balls, SR, economy,
+            type, bowling_style, wickets, overs_deliverd, runs_given, jersey_number,
+            profile_picture: dataURI // Will be `null` if no file is provided
+        });
+
+        user.players.push(player._id);
+        await user.save();
+
         res.redirect('/dashboard/clubs');
     } catch (error) {
         console.log(error);
         res.redirect('/error');
     }
-})
+});
+
 
 route.post('/clubs/fire_player', login, async (req, res) => {
     try {
         let user = req.user;
-        let player_id = req.body.player_id
-        player_id = new mongoose.Types.ObjectId(player_id)
-        let player = await players.findByIdAndDelete(player_id);  //model->create data
-        await user.players.pull({ player_id }); 
+        let player_id = req.body.player_id;
+        player_id = new mongoose.Types.ObjectId(player_id);
+        // Delete player document
+        let player = await players.findByIdAndDelete(player_id);
+
+        // Remove player_id from user's players array
+        user.players.pull(player_id);  // <-- FIXED LINE
+
         await user.save();
-        res.redirect('/dashboard/clubs');   
+        res.redirect('/dashboard/clubs');
     } catch (error) {
         console.log(error);
         res.redirect('/error');
     }
-})
+});
+
 
 // Add this route inside your server/route/dashboard.js file
 

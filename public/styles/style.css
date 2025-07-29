@@ -1190,6 +1190,10 @@ footer {
     justify-content: center;
     /* Center social icons */
   }
+  .footer-links{
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 /* For very small mobile devices */
@@ -1227,6 +1231,7 @@ footer {
     font-size: 2.5rem;
     /* Adjust emoji size */
   }
+ 
 }
 
 

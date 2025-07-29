@@ -173,3 +173,82 @@
     box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
     transform: translateY(-2px);
 }
+@media (max-width: 768px) {
+    .live-score-page-match-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 8px;
+      margin: 10px 0;
+    }
+  
+    .live-score-page-teams {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 8px;
+    }
+  
+    .live-score-page-team {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+      width: 100%;
+    }
+    .live-score-page-team-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .live-score-page-team-name {
+      font-size: 1rem;
+      word-break: break-word;
+    }
+    .live-score-page-vs {
+      font-size: 1.1rem;
+      margin: 5px 0;
+      text-align: center;
+      width: 100%;
+      display: block;
+    }
+    .live-score-page-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.98rem;
+      margin: 10px 0 0 0;
+      width: 100%;
+    }
+    .live-score-page-score p {
+      margin: 2px 0;
+      text-align: center;
+    }
+    .live-score-page-status {
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      justify-content: center;
+    }
+    .live-score-page-live-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      margin-right: 6px;
+      /* Feel free to add background if you use colors */
+    }
+    .live-score-page-live-btn {
+      display: inline-block;
+      margin: 10px auto 0 auto;
+      padding: 6px 12px;
+      font-size: 1rem;
+      text-align: center;
+      width: 90%;
+      max-width: 200px;
+    }
+  }
+  
