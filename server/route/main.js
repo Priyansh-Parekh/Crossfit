@@ -108,6 +108,11 @@ route.get('/about', login, async (req, res) => {
     res.render("about", { user });
 });
 
+route.get('/contact-us', login, async (req, res) => {
+    let user = req.user;
+    res.render("contact-us", { user });
+});
+
 route.get('/error',login,async(req,res)=>{
     let user = req.user;
     res.render("error",{user});
