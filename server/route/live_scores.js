@@ -152,7 +152,7 @@ route.get('/', login, datas, async (req, res) => {
 route.get('/scorecard/:_id', login, async (req, res) => {
     try {
         let user = req.user;
-        await populate_cricket_club_data(user);
+        // await populate_cricket_club_data(user);
         let match_id = req.params._id;
         match_id = new mongoose.Types.ObjectId(match_id);
         let thismatch = await matches.findById(match_id);

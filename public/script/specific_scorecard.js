@@ -96,6 +96,7 @@ function updateMatchUI(data) {
     secondInning_bat_score.innerHTML = '';
     data.playerStats.forEach(player => {
       // Players batting for second innings club
+      let batsmens = []
       if (String(data.secondInnings._id) === String(player.playerId.registered_club)) {
         const row = `
           <tr style = "color: ${player.batting.out ? 'red' : 'white'}">

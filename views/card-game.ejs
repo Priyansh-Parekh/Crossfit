@@ -10,7 +10,21 @@
     <div class="player-area" id="card-left">
       <div class="deck" id="deck1">
         <div class="player-info">
-          <div class="player-avatar" style="background-image: url('/images/player.png')"></div>
+          <div class="player-avatar"  >
+            <% if (user.user_type === 'viewer') { %>
+              <% if (user.profile_picture) { %>
+                <img class="player-avatar" src="<%= user.profile_picture %>" alt="Player Avatar">
+              <% } else { %>
+                <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
+              <% } %>
+              <% } else if (user.user_type === 'club') { %>
+                <% if (user.logo) { %>
+                  <img class="player-avatar" src="<%= user.logo %>" alt="Player Avatar">
+                <% } else { %>
+                  <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
+                <% } %>
+            <% } %>
+          </div>
           <h3 class="player-name">Player 1</h3>
           <div class="card-count"><span id="p1count">10</span> cards</div>
         </div>
