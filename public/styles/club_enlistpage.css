@@ -242,5 +242,8 @@
     .btn{width:100%;}
     .club-enlistpage-filter-buttons{gap:.6rem;}
     .club-enlistpage-club-card{max-width:95vw;}
+    .club-enlistpage-searchbar{
+      max-height: fit-content;
+    }
   }
   
