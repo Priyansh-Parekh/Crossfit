@@ -52,13 +52,19 @@ const login = async (req, res, next) => {
 // --- Route to Display All Merchandise ---
 route.get('/', login, async (req, res) => {
     try {
-        const allMerchandise = await merchandise.find({ status: 'available' }).sort({ createdAt: -1 });
+        const allMerchandise = await merchandise.find({ 
+            status: 'available',
+            clubId: { $exists: true, $ne: null } // Only get merchandise with valid clubId
+        })
+            .populate('clubId', 'name') // Populate clubId with club name
+            .sort({ createdAt: -1 });
+        
         res.render('merchandise', {
             merchandise: allMerchandise,
             user: req.user
         });
     } catch (error) {
-        console.error( error);
+        console.error('Merchandise route error:', error);
         res.redirect('/error');
     }
 });

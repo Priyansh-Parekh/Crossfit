@@ -35,7 +35,7 @@
                 <!-- The data-category attribute is essential for filtering -->
                 <div class="merch-card" data-category="<%= product.category %>">
                     <div class="merch-card__image-wrapper">
-                        <img src="<%= product.imageUrl || '/img/default_product.png' %>" class="merch-card__image" alt="<%= product.name %>">
+                        <img src="<%= product.imageUrl || '/images/default_product.png' %>" class="merch-card__image" alt="<%= product.name %>">
                         
                         <!-- Stock Status Badge -->
                         <% if (product.stock_quantity === 0) { %>
@@ -48,6 +48,7 @@
                         <span class="merch-card__category"><%= product.category %></span>
                         <h5 class="merch-card__title"><%= product.name %></h5>
                         <p class="merch-card__description"><%= product.description.substring(0, 80) %>...</p>
+                        <p class="merch-card__club_name"><%= product.clubId ? product.clubId.name : 'Unknown Club' %></p>
                     </div>
                     <div class="merch-card__footer">
                         <strong class="merch-card__price">₹<%= product.price.toFixed(2) %></strong>
