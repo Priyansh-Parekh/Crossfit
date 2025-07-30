@@ -10,19 +10,21 @@
     <div class="player-area" id="card-left">
       <div class="deck" id="deck1">
         <div class="player-info">
-          <div class="player-avatar"  >
+          <div class="player-avatar">
             <% if (user.user_type === 'viewer') { %>
-              <% if (user.profile_picture) { %>
-                <img class="player-avatar" src="<%= user.profile_picture %>" alt="Player Avatar">
-              <% } else { %>
-                <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
-              <% } %>
-              <% } else if (user.user_type === 'club') { %>
-                <% if (user.logo) { %>
-                  <img class="player-avatar" src="<%= user.logo %>" alt="Player Avatar">
-                <% } else { %>
-                  <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
-                <% } %>
+            <% if (user.profile_picture) { %>
+            <img class="player-avatar" src="<%= user.profile_picture %>" alt="Player Avatar">
+            <% } else { %>
+            <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
+            <% } %>
+            <% } else if (user.user_type === 'club') { %>
+            <% if (user.logo) { %>
+            <img class="player-avatar" src="<%= user.logo %>" alt="Player Avatar">
+            <% } else { %>
+            <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
+            <% } %>
+            <% } else { %>
+            <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
             <% } %>
           </div>
           <h3 class="player-name"><%= user.name %></h3>
