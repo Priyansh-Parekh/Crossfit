@@ -1288,7 +1288,7 @@ function updateUI() {
 
     if (p1countElem) p1countElem.textContent = p1Deck.length;
     if (p2countElem) p2countElem.textContent = p2Deck.length;
-    if (scoreElem) scoreElem.textContent = `Player 1: ${p1Score} | Player 2: ${p2Score}`;
+    if (scoreElem) scoreElem.textContent = `Player 1: ${p1Score} | computer: ${p2Score}`;
 }
 
 function startGame() {
@@ -1448,7 +1448,7 @@ function createCard(card, revealed) {
     const back = document.createElement("div");
     back.className = "card-back";
     back.innerHTML = `
-    <div class="player-img" style="background-image: url('${card.image}')"></div>
+    <div class="player-img" style="background-image: url('/images/${card.player}.jpeg')"></div>
     <h3>${card.player}</h3>
     ${Object.entries(card.stats).map(([k, v]) => `<div class='stat'><strong>${k}:</strong> ${v}</div>`).join("")}
   `;
