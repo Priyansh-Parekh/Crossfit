@@ -1,100 +1,102 @@
 <section class="match-setup-section">
-    <h2 class="match-setup-title">Match Setup</h2>
-    <form action="/match/submit_setup/<%=thismatch._id  %>" method="POST" class="match-setup-form">
-        
+  <h2 class="match-setup-title">Match Setup</h2>
+  <form action="/match/submit_setup/<%=thismatch._id  %>" method="POST" class="match-setup-form">
 
-        <div style="display: flex; gap: 3em;">
-           <div class="match-setup-group">
-            <label for="captain">Captain</label>
-            <select id="captain" name="captain" required>
-                <option  disabled selected >--select--</option>
-                <% user.players.forEach(player=> { %>
-                    <option value="<%= player._id %>">
-                        <%= player.name %>
-                    </option>
-                    <% }) %>
-            </select>
-        </div>
 
-        
+    <div style="display: flex; gap: 3em;">
+      <div class="match-setup-group">
+        <label for="captain">Captain</label>
+        <select id="captain" name="captain" required>
+          <option disabled selected>--select--</option>
+          <% user.players.forEach(player=> { %>
+          <option value="<%= player._id %>">
+            <%= player.name %>
+          </option>
+          <% }) %>
+        </select>
+      </div>
 
-        <div class="match-setup-group">
-            <label for="vice_captain">Vice Captain</label>
-            <select id="vice_captain" required name="vice_captain">
-                <option  disabled selected >--select--</option>
-                <% user.players.forEach(player=> { %>
-                    <option value="<%= player._id %>">
-                        <%= player.name %>
-                    </option>
-                    <% }) %>
-            </select>
-        </div>
 
-        <div class="match-setup-group">
-            <label for="wicket_keeper">Wicket Keeper</label>
-            <select id="wicket_keeper" name="wicket_keeper" required>
-                <option  disabled selected >--select--</option>
-                <% user.players.forEach(player=> { %>
-                    <% if (player.type === "wicket_keeper") { %>
-                        <option value="<%= player._id %>">
-                            <%= player.name %>
-                        </option>
-                    <% } %>
-                    <% }) %>
-            </select>
-        </div>
-        </div>
 
-        <div class="match-setup-subtitle">Select 8 Other Players</div>
-        <div class="match-setup-multiple-selects">
-            <% for (let i=0; i < 8; i++) { %>
-                <select name="other_players[]" required>
-                    <option  disabled selected >--select--</option>
-                    <% user.players.forEach(player=> { %>
-                        <option value="<%= player._id %>">
-                            <%= player.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <% } %>
-        </div>
+      <div class="match-setup-group">
+        <label for="vice_captain">Vice Captain</label>
+        <select id="vice_captain" required name="vice_captain">
+          <option disabled selected>--select--</option>
+          <% user.players.forEach(player=> { %>
+          <option value="<%= player._id %>">
+            <%= player.name %>
+          </option>
+          <% }) %>
+        </select>
+      </div>
 
-        <div class="match-setup-subtitle">Select 3 Extra Players</div>
-        <div class="match-setup-multiple-selects">
-            <% for (let i=0; i < 3; i++) { %>
-                <select name="extra_players[]" required>
-                    <option  disabled selected >--select--</option>
-                    <% user.players.forEach(player=> { %>
-                        <option value="<%= player._id %>">
-                            <%= player.name %>
-                        </option>
-                        <% }) %>
-                </select>
-                <% } %>
-        </div>
+      <div class="match-setup-group">
+        <label for="wicket_keeper">Wicket Keeper</label>
+        <select id="wicket_keeper" name="wicket_keeper" required>
+          <option disabled selected>--select--</option>
+          <% user.players.forEach(player=> { %>
+          <% if (player.type === "wicket_keeper") { %>
+          <option value="<%= player._id %>">
+            <%= player.name %>
+          </option>
+          <% } %>
+          <% }) %>
+        </select>
+      </div>
+    </div>
 
-        <div class="match-setup-group">
-            <label for="toss_winner">Toss Winner</label>
-            <select id="toss_winner" name="toss_winner" required>
-                <option  disabled selected >--select--</option>
-                <option value="<%= thismatch.club1._id %>">
-                    <%= thismatch.club1.name %>
-                </option>
-                <option value="<%= thismatch.club2._id %>">
-                    <%= thismatch.club2.name %>
-                </option>
-            </select>
-        </div>
+    <div class="match-setup-subtitle">Select 8 Other Players</div>
+    <div class="match-setup-multiple-selects">
+      <% for (let i=0; i < 8; i++) { %>
+      <select name="other_players[]" required>
+        <option disabled selected>--select--</option>
+        <% user.players.forEach(player=> { %>
+        <option value="<%= player._id %>">
+          <%= player.name %>
+        </option>
+        <% }) %>
+      </select>
+      <% } %>
+    </div>
 
-        <div class="match-setup-group">
-            <label for="toss_choice">Toss Choice</label>
-            <select id="toss_choice" required name="toss_choice">
-                <option  disabled selected >--select--</option>
-                <option value="Bat">Bat</option>
-                <option value="Bowl">Bowl</option>
-            </select>
-        </div>
+    <div class="match-setup-subtitle">Select 3 Extra Players</div>
+    <div class="match-setup-multiple-selects">
+      <% for (let i=0; i < 3; i++) { %>
+      <select name="extra_players[]" required>
+        <option disabled selected>--select--</option>
+        <% user.players.forEach(player=> { %>
+        <option value="<%= player._id %>">
+          <%= player.name %>
+        </option>
+        <% }) %>
+      </select>
+      <% } %>
+    </div>
 
-        <button type="submit" class="match-setup-submit-btn">Submit Setup</button>
-    </form>
+    <div class="match-setup-group">
+      <label for="toss_winner">Toss Winner</label>
+      <select id="toss_winner" name="toss_winner" required>
+        <option disabled selected>--select--</option>
+        <option value="<%= thismatch.club1._id %>">
+          <%= thismatch.club1.name %>
+        </option>
+        <option value="<%= thismatch.club2._id %>">
+          <%= thismatch.club2.name %>
+        </option>
+      </select>
+    </div>
+
+    <div class="match-setup-group">
+      <label for="toss_choice">Toss Choice</label>
+      <select id="toss_choice" required name="toss_choice">
+        <option disabled selected>--select--</option>
+        <option value="Bat">Bat</option>
+        <option value="Bowl">Bowl</option>
+      </select>
+    </div>
+
+    <button type="submit" class="match-setup-submit-btn">Submit Setup</button>
+  </form>
 </section>
+
+<script src="/script/match_setup.js"></script>

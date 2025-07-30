@@ -1,0 +1,114 @@
+<main class="club-leader-selection-main">
+  <!-- Animated background and faint emojis -->
+  <div class="club-leader-selection-animated-bg"></div>
+  <section class="club-leader-selection-section">
+    <div class="club-leader-selection-container">
+
+      <form class="club-leader-selection-form" method="POST" action="/clubs/update_leader" autocomplete="off">
+        <div class="club-leader-selection-title">
+          <span class="emoji">🏏</span> Club Leader Selection
+        </div>
+
+        <!-- CAPTAIN SELECT -->
+        <div class="club-leader-selection-group">
+          <label class="club-leader-selection-label" for="club-leader-selection-captain">
+            Captain <span class="emoji">🥇</span>
+          </label>
+          <select
+            class="club-leader-selection-select"
+            id="club-leader-selection-captain"
+            name="captain"
+            required>
+            <option value="">-- Select Captain --</option>
+            <% user.players.forEach(function(player) { %>
+              <option value="<%= player._id %>" <% if(user.captain && user.captain._id && user.captain._id.toString() === player._id.toString()){ %>selected<% } %>>
+                <%= player.name %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <!-- VICE CAPTAIN SELECT -->
+        <div class="club-leader-selection-group">
+          <label class="club-leader-selection-label" for="club-leader-selection-vicecap">
+            Vice Captain <span class="emoji">🥈</span>
+          </label>
+          <select
+            class="club-leader-selection-select"
+            id="club-leader-selection-vicecap"
+            name="vice_captain"
+            required>
+            <option value="">-- Select Vice Captain --</option>
+            <% user.players.forEach(function(player) { %>
+              <option value="<%= player._id %>" <% if(user.vice_captain && user.vice_captain._id && user.vice_captain._id.toString() === player._id.toString()){ %>selected<% } %>>
+                <%= player.name %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <!-- WICKET KEEPER SELECT -->
+        <div class="club-leader-selection-group">
+          <label class="club-leader-selection-label" for="club-leader-selection-wk">
+            Wicket Keeper <span class="emoji">🧤</span>
+          </label>
+          <select
+            class="club-leader-selection-select"
+            id="club-leader-selection-wk"
+            name="wicket_keeper"
+            required>
+            <option value="">-- Select Wicket Keeper --</option>
+            <% user.players.forEach(function(player) { %>
+              <option value="<%= player._id %>" <% if(user.wicket_keeper && user.wicket_keeper._id && user.wicket_keeper._id.toString() === player._id.toString()){ %>selected<% } %>>
+                <%= player.name %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button class="club-leader-selection-submit-btn" type="submit">
+          Save Selection
+        </button>
+      </form>
+
+    </div>
+  </section>
+</main>
+
+<!-- Leader selection duplicate-prevention JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const captainSelect = document.getElementById('club-leader-selection-captain');
+  const vicecapSelect = document.getElementById('club-leader-selection-vicecap');
+  // Wicketkeeper select is not restricted
+
+  if (!captainSelect || !vicecapSelect) return;
+
+  function updateOptions() {
+    const selectedCaptain = captainSelect.value;
+    const selectedVicecap = vicecapSelect.value;
+
+    Array.from(captainSelect.options).forEach(option => {
+      if (option.value === '') {
+        option.disabled = false;
+        return;
+      }
+      option.disabled = (option.value === selectedVicecap) && !option.selected;
+    });
+
+    Array.from(vicecapSelect.options).forEach(option => {
+      if (option.value === '') {
+        option.disabled = false;
+        return;
+      }
+      option.disabled = (option.value === selectedCaptain) && !option.selected;
+    });
+  }
+
+  updateOptions();
+
+  captainSelect.addEventListener('change', updateOptions);
+  vicecapSelect.addEventListener('change', updateOptions);
+});
+</script>

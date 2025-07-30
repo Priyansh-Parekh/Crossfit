@@ -11,21 +11,21 @@
       </div>
       <div class="viewers-dashboard-card-value">
         <% if (user.profile_picture) { %>
-          <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
-            <label for="viewers-dashboard-profile-picture-input-1">
-              <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
-            </label>
-            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" id="viewers-dashboard-profile-picture-input-1" required >
-            <button>Update Profile Picture</button>
-          </form>
+        <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
+          <label for="viewers-dashboard-profile-picture-input-1">
+            <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
+          </label>
+          <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" id="viewers-dashboard-profile-picture-input-1" required>
+          <button>Update Profile Picture</button>
+        </form>
         <% } else { %>
-          <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
-            <label for="viewers-dashboard-profile-picture-input-2">
-              <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;"  >
-            </label>
-            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" required id="viewers-dashboard-profile-picture-input-2" >
-            <button>Add Profile Picture</button>
-          </form>
+        <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
+          <label for="viewers-dashboard-profile-picture-input-2">
+            <img src="/images/avatar.png" alt="Profile" style="width: 80px; border-radius: 50%;">
+          </label>
+          <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" required id="viewers-dashboard-profile-picture-input-2">
+          <button>Add Profile Picture</button>
+        </form>
         <% } %>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <div class="viewers-dashboard-card-title">Balance</div>
         </div>
         <div class="viewers-dashboard-card-value">
-          ₹<%= user.balance?.toFixed(2) || '0.00' %> 
+          ₹<%= user.balance?.toFixed(2) || '0.00' %>
         </div>
         <!-- ADD THIS BUTTON -->
         <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
@@ -76,29 +76,29 @@
     </div>
 
     <% if (user.favorite_teams.length > 0) { %>
-      <div class="viewers-dashboard-merchandise-grid">
-        <% user.favorite_teams.forEach(team => { %>
-          <div class="viewers-dashboard-merchandise-card">
-            <div class="viewers-dashboard-merchandise-image">
-              <% if (team.logo) { %>
-                <img src="<%= team.logo %>" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
-              <% } else { %>
-                <img src="/images/avatar.png" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
-              <% } %>
-            </div>
-            <div class="viewers-dashboard-merchandise-info">
-              <div class="viewers-dashboard-merchandise-title">
-                <a href="/clubs/list/<%= team._id %>"><%= team.name %></a>
-              </div>
-              <div class="viewers-dashboard-merchandise-category">
-                <%= team.sport || 'Sport' %>
-              </div>
-            </div>
+    <div class="viewers-dashboard-merchandise-grid">
+      <% user.favorite_teams.forEach(team => { %>
+      <div class="viewers-dashboard-merchandise-card">
+        <div class="viewers-dashboard-merchandise-image">
+          <% if (team.logo) { %>
+          <img src="<%= team.logo %>" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
+          <% } else { %>
+          <img src="/images/avatar.png" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
+          <% } %>
+        </div>
+        <div class="viewers-dashboard-merchandise-info">
+          <div class="viewers-dashboard-merchandise-title">
+            <a href="/clubs/list/<%= team._id %>"><%= team.name %></a>
           </div>
-        <% }) %>
+          <div class="viewers-dashboard-merchandise-category">
+            <%= team.sport || 'Sport' %>
+          </div>
+        </div>
       </div>
+      <% }) %>
+    </div>
     <% } else { %>
-      <p>No favorite teams added yet.</p>
+    <p>No favorite teams added yet.</p>
     <% } %>
 
     <!-- Add/Remove Club Buttons -->
@@ -111,9 +111,9 @@
       <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/viewer/add_fav_club" method="post">
         <label for="viewers-dashboard-fav-add-select" class="viewers-dashboard-label">Select Club to Add it to Favourite:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-add-select" class="viewers-dashboard-select">
-          <option disabled selected >--select--</option>
+          <option disabled selected>--select--</option>
           <% refinedclubs.forEach(club => { %>
-            <option value="<%= club._id %>"><%= club.name %></option>
+          <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
         </select>
         <button type="submit" class="viewers-dashboard-add-button">Add Club</button>
@@ -123,9 +123,9 @@
       <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/viewer/remove_fav_club" method="post">
         <label for="viewers-dashboard-fav-remove-select" class="viewers-dashboard-label">Select Favorite Club to Remove:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-remove-select" class="viewers-dashboard-select">
-          <option disabled selected >--select--</option>
+          <option disabled selected>--select--</option>
           <% user.favorite_teams.forEach(club => { %>
-            <option value="<%= club._id %>"><%= club.name %></option>
+          <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
         </select>
         <button type="submit" class="viewers-dashboard-remove-button">Remove Club</button>
@@ -154,21 +154,23 @@
     </table>
   </div>
 
-<!-- 1. The "Buy Credits" Button -->
-<!-- Place this inside your "Balance" card -->
-<div class="viewers-dashboard-card">
+  <!-- 1. The "Buy Credits" Button -->
+  <!-- Place this inside your "Balance" card -->
+  <div class="viewers-dashboard-card">
     <div class="viewers-dashboard-card-header">
-        <div class="viewers-dashboard-card-title">Balance</div>
+      <div class="viewers-dashboard-card-title">Balance</div>
     </div>
     <div class="viewers-dashboard-card-value">
-        ₹<%= user.balance?.toFixed(2) || '0.00' %> 
+      ₹<%= user.balance?.toFixed(2) || '0.00' %>
     </div>
     <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
+  </div>
+
+
+
+
 </div>
 
 
 
-  
-</div>
-
-
+<script src="/script/viewer_dashboard.js"></script>
