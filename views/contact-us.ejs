@@ -13,10 +13,11 @@
         <h2 class="form-container-heading">Send Us a Message</h2>
         
         <div class="contact-success-message" id="contact-us-success" style="display: none;">
-            <p>Thanks for reaching out! We've received your message and will get back to you shortly.</p>
+            <p>Your email client should now be open. Please review and send the message.</p>
         </div>
 
-        <form class="contact-form-body" id="contact-us-form" action="/contact" method="POST">
+        <!-- The <form> tag is now for structure, not for a POST request -->
+        <form class="contact-form-body" id="contact-us-form">
             <!-- Form Field Group: First Name -->
             <div class="form-field-group">
                 <label for="contact-us-first-name" class="form-field-label">First Name</label>
@@ -55,12 +56,12 @@
                 <div class="form-field-control">
                     <select id="contact-us-subject" name="subject" class="form-select" required>
                         <option value="">Select a subject</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="membership">Membership Information</option>
-                        <option value="training">Training Programs</option>
-                        <option value="support">Technical Support</option>
-                        <option value="feedback">Feedback</option>
-                        <option value="other">Other</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Membership Information">Membership Information</option>
+                        <option value="Training Programs">Training Programs</option>
+                        <option value="Technical Support">Technical Support</option>
+                        <option value="Feedback">Feedback</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
             </div>
@@ -75,10 +76,10 @@
 
             <!-- Form Submit -->
             <div class="form-submit-group">
-                 <!-- This empty div is for alignment with labels -->
-                <div class="form-field-label"></div>
+                <div class="form-field-label"></div> <!-- This empty div is for alignment -->
                 <div class="form-field-control">
-                    <button type="submit" class="form-submit-btn">Send Message</button>
+                    <!-- The button type is now "button" to prevent a default form submission -->
+                    <button type="button" id="submit-button" class="form-submit-btn">Send Message</button>
                 </div>
             </div>
         </form>
@@ -91,19 +92,16 @@
             <h3 class="info-card-title">Visit Us</h3>
             <p class="info-card-text">123 Fitness Street<br>CrossFit City, CF 12345</p>
         </div>
-
         <div class="info-card">
             <div class="info-card-icon"><i class="fas fa-phone"></i></div>
             <h3 class="info-card-title">Call Us</h3>
             <p class="info-card-text"><a href="tel:+1234567890" class="info-card-link">+1 (234) 567-890</a></p>
         </div>
-
         <div class="info-card">
             <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
             <h3 class="info-card-title">Email Us</h3>
             <p class="info-card-text"><a href="mailto:info@crossfit.com" class="info-card-link">info@crossfit.com</a></p>
         </div>
-
         <div class="info-card">
             <div class="info-card-icon"><i class="fas fa-clock"></i></div>
             <h3 class="info-card-title">Operating Hours</h3>
@@ -112,4 +110,62 @@
     </div>
 </div>
 
-<script src="/script/contact-us.js"></script>
+<!-- ================================================== -->
+<!--  NEW JAVASCRIPT FOR HANDLING THE MAILTO FUNCTION   -->
+<!-- ================================================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-us-form');
+        const submitButton = document.getElementById('submit-button');
+        const successMessage = document.getElementById('contact-us-success');
+
+        submitButton.addEventListener('click', function(event) {
+            // Check if the form is valid before proceeding
+            if (!form.checkValidity()) {
+                // If not valid, trigger the browser's validation UI and stop
+                form.reportValidity();
+                return;
+            }
+            
+            // 1. Get all the data from the form fields
+            const firstName = document.getElementById('contact-us-first-name').value;
+            const lastName = document.getElementById('contact-us-last-name').value;
+            const email = document.getElementById('contact-us-email').value;
+            const phone = document.getElementById('contact-us-phone').value;
+            const subject = document.getElementById('contact-us-subject').value;
+            const message = document.getElementById('contact-us-message').value;
+
+            // 2. Construct the email body
+            // encodeURIComponent ensures special characters are handled correctly
+            const emailBody = `
+Hello,
+
+You have a new message from your website contact form.
+
+---
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+---
+
+Message:
+${message}
+            `;
+
+            // 3. Create the mailto link
+            const mailtoLink = `mailto:mohammedmatin762@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+
+            // 4. Open the user's email client
+            window.location.href = mailtoLink;
+
+            // 5. Show a success message and reset the form
+            successMessage.style.display = 'block';
+            form.reset();
+            
+            // Hide the message after a few seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+    });
+</script>
