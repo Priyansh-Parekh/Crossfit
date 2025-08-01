@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
                 language: 'en',
                 sortBy: 'publishedAt',
                 pageSize: 12, // It will now only get the first 12 articles
-                apiKey: process.env.NEWS_API_KEY
+                apiKey: '11bfd9f345674276a2c3ecb3e4e2a62c'
             }
         });
         res.json(response.data);
