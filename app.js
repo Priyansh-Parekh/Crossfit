@@ -47,6 +47,7 @@ app.use('/register', require('./server/route/register'));
 app.use('/dashboard', require('./server/route/dashboard'));
 app.use('/match', require('./server/route/match'));
 app.use('/cart', require('./server/route/cart'));
+app.use('/api/news', require('./server/route/news'));
 
 
 // --- SERVER LISTENER ---

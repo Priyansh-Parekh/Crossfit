@@ -1,461 +1,146 @@
- .news-hero {
-     padding: 4rem 0;
-     text-align: center;
-     animation: fadeInUp 1s ease-out 0.2s both;
- }
-
- .news-hero h1 {
-     font-size: 3.5rem;
-     margin-bottom: 1rem;
-     color: white;
-     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
- }
-
- .news-hero p {
-     font-size: 1.2rem;
-     opacity: 0.9;
-     margin-bottom: 2rem;
- }
-
- .news-breaking-badge {
-     display: inline-block;
-     background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-     color: white;
-     padding: 0.5rem 1rem;
-     border-radius: 25px;
-     font-weight: bold;
-     margin-bottom: 1rem;
-     animation: glow 2s infinite alternate;
- }
-
- .club-enlistpage-filter-buttons {
-     display: flex;
-     justify-content: center;
-     gap: 20px;
-     margin-left: 30px;
-     margin-bottom: 40px;
-     flex-wrap: wrap;
- }
-
- .btn {
-     margin-left: 1vh;
- }
-
- .club-enlistpage-filter-btn,
- .btn {
-     padding: 12px 25px;
-     border: none;
-     border-radius: 25px;
-     font-size: 1rem;
-     font-weight: 600;
-     cursor: pointer;
-     transition: all 0.3s ease;
-     text-transform: uppercase;
-     letter-spacing: 1px;
- }
-
- .club-enlistpage-filter-btn-cricket,
- .btn {
-     background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-     color: white;
-     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
- }
-
- .club-enlistpage-filter-btn-cricket:hover {
-     transform: translateY(-2px);
-     box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
- }
-
- .club-enlistpage-filter-btn-football {
-     background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-     color: white;
-     box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
- }
-
- .club-enlistpage-filter-btn-football:hover {
-     transform: translateY(-2px);
-     box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
- }
-/* 
- .club-enlistpage-filter-btn-basketball {
-     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-     color: white;
-     box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
- }
-
- .club-enlistpage-filter-btn-basketball:hover {
-     transform: translateY(-2px);
-     box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
- } */
-
- .news-grid {
-     display: grid;
-     grid-template-columns: 2fr 1fr;
-     gap: 2rem;
-     margin-bottom: 3rem;
-     background-color: #001e28;
- }
-
- .news-main-story {
-     background: rgba(255, 255, 255, 0.95);
-     /* backdrop-filter: blur(20px); */
-     border-radius: 20px;
-     overflow: hidden;
-     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-     transition: transform 0.3s ease, box-shadow 0.3s ease;
-     animation: fadeInLeft 0.8s ease-out 0.4s both;
-     margin-left: 10px;
- }
-
- .news-main-story:hover {
-     transform: translateY(-100px);
-     box-shadow: 0 5px 60px #ff4c30;
-     background-color: #1c3a47;
-     border: 1px solid #fff;
-     .news-story-title {
-         color: #fff;
-     }
- }
-
- .news-story-image {
-     width: 100%;
-     height: 300px;
-     background: linear-gradient(45deg, #667eea, #764ba2);
-     position: relative;
-     overflow: hidden;
- }
-
- .news-story-image::before {
-     content: '📰';
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     font-size: 4rem;
-     opacity: 0.3;
- }
-
- .news-story-content {
-     padding: 2rem;
- }
-
- .news-story-title {
-     font-size: 1.8rem;
-     font-weight: bold;
-     margin-bottom: 1rem;
-     color: #333;
-     line-height: 1.3;
- }
-
- .news-story-excerpt {
-     color: #666;
-     line-height: 1.6;
-     margin-bottom: 1rem;
- }
-
- .news-story-meta {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     color: #888;
-     font-size: 0.9rem;
- }
-
- .news-author {
-     font-weight: 500;
-     color: #667eea;
- }
-
- .news-sidebar {
-     display: flex;
-     flex-direction: column;
-     gap: 1.5rem;
-     animation: fadeInRight 0.8s ease-out 0.6s both;
-     margin-right: 10px;
- }
-
- .news-sidebar-item {
-     background: #fff;
-     /* backdrop-filter: blur(20px); */
-     border-radius: 15px;
-     padding: 1.5rem;
-     transition: all 0.3s ease;
-     cursor: pointer;
-     border: 1px solid #fff;
- }
-
- .news-sidebar-item:hover {
-     transform: translateX(10px);
-     /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); */
-     background-color: rgba(28, 58, 71, 0.6);
-     box-shadow: 0 5px 15px #ff4c30;
-
-     .news-sidebar-title {
-         color: #fff;
-     }
- }
-
- .news-sidebar-title {
-     font-size: 1.1rem;
-     font-weight: bold;
-     margin-bottom: 0.5rem;
-     color: #333;
- }
-
- .news-sidebar-excerpt {
-     color: #666;
-     font-size: 0.9rem;
-     line-height: 1.4;
- }
-
- .news-trending {
-     background: #001e28;
-     backdrop-filter: blur(20px);
-     border-radius: 20px;
-     padding: 2rem;
-     margin-bottom: 3rem;
-     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-     animation: fadeInUp 0.8s ease-out 0.8s both;
- }
-
- .news-trending h2 {
-     font-size: 2rem;
-     margin-bottom: 1.5rem;
-     color: #fff;
-     text-align: center;
-     position: relative;
- }
-
- .news-trending h2::after {
-     content: '';
-     position: absolute;
-     bottom: -10px;
-     left: 50%;
-     width: 50px;
-     height: 3px;
-     /* background: linear-gradient(45deg, #667eea, #764ba2); */
-     background-color: #ff4c30;
-     transform: translateX(-50%);
-     border-radius: 2px;
- }
-
- .news-trending-list {
-     display: grid;
-     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-     gap: 1.5rem;
- }
-
- .news-trending-item {
-     padding: 1.5rem;
-     border-radius: 15px;
-     background-color: #fff;
-     /* background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); */
-     border: 1px solid rgba(255, 255, 255, 0.2);
-     transition: all 0.3s ease;
-     cursor: pointer;
- }
-
- /* .news-trending-item  */
-
- .news-trending-item:hover {
-     transform: scale(1.05);
-     background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-     border: 2px solid #ff4c30;
- }
-
- .news-trending-item:hover h3 {
-     color: #fff;
- }
-
- .news-trending-number {
-     font-size: 2rem;
-     font-weight: bold;
-     color: #121212;
-     margin-bottom: 0.5rem;
- }
-
- .news-trending-item:hover .news-trending-number {
-    color: #fff;
- }
-
- .news-live-indicator {
-     display: inline-flex;
-     align-items: center;
-     gap: 0.5rem;
-     background: #ff4757;
-     color: white;
-     padding: 0.3rem 0.8rem;
-     border-radius: 20px;
-     font-size: 0.8rem;
-     font-weight: bold;
- }
-
- .news-live-dot {
-     width: 8px;
-     height: 8px;
-     background: white;
-     border-radius: 50%;
-     animation: blink 1s infinite;
- }
-
- .news-footer {
-     background: rgba(0, 0, 0, 0.9);
-     color: white;
-     text-align: center;
-     padding: 2rem 0;
-     margin-top: 3rem;
- }
-
- .news-floating-elements {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     pointer-events: none;
-     z-index: -1;
- }
-
- .news-floating-element {
-     position: absolute;
-     background: rgba(255, 255, 255, 0.1);
-     border-radius: 50%;
-     animation: float 6s ease-in-out infinite;
- }
-
- .news-floating-element:nth-child(1) {
-     width: 80px;
-     height: 80px;
-     top: 20%;
-     left: 10%;
-     animation-delay: 0s;
- }
-
- .news-floating-element:nth-child(2) {
-     width: 60px;
-     height: 60px;
-     top: 60%;
-     right: 10%;
-     animation-delay: 2s;
- }
-
- .news-floating-element:nth-child(3) {
-     width: 40px;
-     height: 40px;
-     top: 80%;
-     left: 20%;
-     animation-delay: 4s;
- }
-
- @keyframes slideDown {
-     from {
-         transform: translateY(-100%);
-         opacity: 0;
-     }
-
-     to {
-         transform: translateY(0);
-         opacity: 1;
-     }
- }
-
- @keyframes fadeInUp {
-     from {
-         transform: translateY(50px);
-         opacity: 0;
-     }
-
-     to {
-         transform: translateY(0);
-         opacity: 1;
-     }
- }
-
- @keyframes fadeInLeft {
-     from {
-         transform: translateX(-50px);
-         opacity: 0;
-     }
-
-     to {
-         transform: translateX(0);
-         opacity: 1;
-     }
- }
-
- @keyframes fadeInRight {
-     from {
-         transform: translateX(50px);
-         opacity: 0;
-     }
-
-     to {
-         transform: translateX(0);
-         opacity: 1;
-     }
- }
-
- @keyframes pulse {
-
-     0%,
-     100% {
-         transform: scale(1);
-     }
-
-     50% {
-         transform: scale(1.05);
-     }
- }
-
- @keyframes glow {
-     0% {
-         box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
-     }
-
-     100% {
-         box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
-     }
- }
-
- @keyframes blink {
-
-     0%,
-     50% {
-         opacity: 1;
-     }
-
-     51%,
-     100% {
-         opacity: 0.3;
-     }
- }
-
- @keyframes float {
-
-     0%,
-     100% {
-         transform: translateY(0px) rotate(0deg);
-     }
-
-     50% {
-         transform: translateY(-20px) rotate(180deg);
-     }
- }
-
- @media (max-width: 768px) {
-     .news-nav-links {
-         display: none;
-     }
-
-     .news-hero h1 {
-         font-size: 2.5rem;
-     }
-
-     .news-grid {
-         grid-template-columns: 1fr;
-     }
-
-     .news-trending-list {
-         grid-template-columns: 1fr;
-     }
- }
+/* public/css/news.css */
+
+/* Keep your existing .news-container, .news-title, .news-grid, etc. */
+.news-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.news-title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-accent);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  grid-auto-rows: 400px; /* Give cards a fixed height */
+}
+
+/* New Image-First Card Styles */
+.img-news-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-subtle);
+  text-decoration: none;
+}
+
+.img-news-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Dark overlay for text readability */
+.img-news-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 10%, rgba(0, 0, 0, 0) 60%);
+  z-index: 1;
+}
+
+.img-news-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.25rem;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.img-news-card__title {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.img-news-card__description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+  opacity: 0; /* Hidden by default */
+  max-height: 0; /* Hidden by default */
+  transition: opacity 0.4s ease, max-height 0.4s ease, margin-top 0.4s ease;
+}
+
+/* Hover Effects */
+.img-news-card:hover .img-news-card__image {
+  transform: scale(1.1);
+}
+
+.img-news-card:hover .img-news-card__description {
+  opacity: 1;
+  max-height: 100px; /* Reveal the description */
+}
+
+/* Add your existing loader styles here */
+.loader-container {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  padding: 4rem 0;
+}
+.loader-container.hidden { display: none; }
+.spinner {
+  width: 40px; height: 40px;
+  border: 4px solid var(--border-light);
+  border-top-color: var(--primary-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Add these styles to your news.css file */
+.topic-selector {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.topic-btn {
+  background-color: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 0.5rem 1.5rem;
+  margin: 0 0.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.topic-btn:hover {
+  background-color: var(--primary-accent);
+  color: var(--text-primary);
+  border-color: var(--primary-accent);
+}
+
+.topic-btn.active {
+  background-color: var(--primary-accent);
+  color: var(--text-primary);
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 10px var(--shadow-accent);
+}

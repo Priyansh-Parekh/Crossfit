@@ -1,98 +1,17 @@
-<section class="news-hero">
-    <div class="news-container">
-        <div class="news-breaking-badge">🔴 BREAKING NEWS</div>
-        <h1>Stay Informed, Stay Ahead in the World of Sports</h1>
-        <p>Your trusted source for breaking news and in-depth analysis from the global sports arena</p>
-    
-        <div class="club-enlistpage-filter-buttons">
-            <button class="club-enlistpage-filter-btn club-enlistpage-filter-btn-cricket"
-                id="club-enlistpage-filter-cricket">🏏 Cricket</button>
-        </div>    
-    <div class="news-live-indicator">
-            <div class="news-live-dot"></div>
-            LIVE UPDATES
-        </div>
-    </div>
-</section>
+<main class="news-container">
+  <h1 class="news-title">Latest Sports News</h1>
 
-<section class="news-container">
-    <div class="news-grid">
-        <article class="news-main-story">
-            <div class="news-story-image"></div>
-            <div class="news-story-content">
-                <h2 class="news-story-title">India Dominates England in Thrilling Cricket Test Series</h2>
-                <p class="news-story-excerpt">India secured a commanding victory against England in the crucial third Test match at Lord's,
-                    levelling the series 2-1. Shubman Gill's record-breaking innings and Jasprit Bumrah's
-                    fiery spell were highlights, as the team shows strong form heading into the next match.</p>
-                <div class="news-story-meta">
-                    <span class="news-author">By Rohit Sharma</span>
-                    <span class="news-time">3 hours ago</span>
-                </div>
-            </div>
-        </article>
+  <div class="topic-selector">
+    <button class="topic-btn active" data-topic="cricket">Cricket</button>
+    <button class="topic-btn" data-topic="football">Football</button>
+    <button class="topic-btn" data-topic="basketball">Basketball</button>
+  </div>
 
-        <aside class="news-sidebar">
-            <div class="news-sidebar-item">
-                <h3 class="news-sidebar-title">NBA Draft Shakes Up Eastern Conference</h3>
-                <p class="news-sidebar-excerpt">Top picks change the landscape for several Eastern Conference contenders...
-                </p>
-            </div>
-            <div class="news-sidebar-item">
-                <h3 class="news-sidebar-title">Transfer Window Frenzy in European Football</h3>
-                <p class="news-sidebar-excerpt">Major clubs make shock signings as the summer transfer window heats up...</p>
-            </div>
-            <div class="news-sidebar-item">
-                <h3 class="news-sidebar-title">Cricket World Cup Qualifiers Kick Off</h3>
-                <p class="news-sidebar-excerpt">Associate nations battle for a spot in the upcoming Cricket World Cup...</p>
-            </div>
-            <div class="news-sidebar-item">
-                <h3 class="news-sidebar-title">Basketball Legends Eyeing Retirement?</h3>
-                <p class="news-sidebar-excerpt">Speculation surrounds the future of several veteran NBA stars...</p>
-            </div>
-        </aside>
-    </div>
-</section>
-
-<section class="news-container">
-    <div class="news-trending">
-        <h2>🔥 Trending Sports Stories</h2>
-        <div class="news-trending-list">
-            <div class="news-trending-item">
-                <div class="news-trending-number">#1</div>
-                <h3>PSG Thrashes Real Madrid in Club World Cup Semi-Final</h3>
-                <p>Paris Saint-Germain delivered a dominant 4-0 performance against Real Madrid, securing their spot
-                    in the Club World Cup final.</p>
-            </div>
-            <div class="news-trending-item">
-                <div class="news-trending-number">#2</div>
-                <h3>Devin Booker Agrees to Historic $145M Suns Extension</h3>
-                <p>Phoenix Suns guard Devin Booker signs a massive two-year, $145 million max extension, cementing
-                    his future with the team.</p>
-            </div>
-            <div class="news-trending-item">
-                <div class="news-trending-number">#3</div>
-                <h3>Rishabh Pant Nears Indian Record for Test Sixes</h3>
-                <p>Indian wicketkeeper Rishabh Pant is on the verge of surpassing Virender Sehwag's record for most
-                    sixes in Test cricket.</p>
-            </div>
-            <div class="news-trending-item">
-                <div class="news-trending-number">#4</div>
-                <h3>Women's Euro 2025 Sees Upset in Opening Match</h3>
-                <p>The reigning champions suffered an unexpected defeat in the highly anticipated opening game of the
-                    Women's Euro 2025 tournament.</p>
-            </div>
-            <div class="news-trending-item">
-                <div class="news-trending-number">#5</div>
-                <h3>Rising Stars Shine in NBA Summer League</h3>
-                <p>Rookie sensations and promising young talents are making waves in the ongoing NBA Summer League,
-                    showcasing their potential.</p>
-            </div>
-            <div class="news-trending-item">
-                <div class="news-trending-number">#6</div>
-                <h3>Emerging Talent from Rajasthan Joins ISL Club</h3>
-                <p>Martand Raina becomes the first player from Rajasthan to secure a transfer to an Indian Super League
-                    club, marking a historic moment for regional football.</p>
-            </div>
-        </div>
-    </div>
-</section>
+  <div class="news-grid" id="news-grid">
+  </div>
+  <div class="loader-container" id="loader">
+    <div class="spinner"></div>
+    <p>Loading News...</p>
+  </div>
+</main>
+<script src="/script/news_script.js"></script>

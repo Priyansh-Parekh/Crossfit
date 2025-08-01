@@ -113,6 +113,11 @@ route.get('/contact-us', login, async (req, res) => {
     res.render("contact-us", { user });
 });
 
+route.get('/news', (req, res) => {
+  // This will look for and render the file views/news.ejs
+  res.render('news', { title: 'Latest News' }); 
+});
+
 route.get('/error',login,async(req,res)=>{
     let user = req.user;
     res.render("error",{user});
