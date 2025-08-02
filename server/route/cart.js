@@ -6,8 +6,10 @@ const jwt = require('jsonwebtoken');
 const Cart = require('../models/Cart.js');
 const Merchandise = require('../models/merchandise.js');
 const Viewer = require("../models/viewer.js");
+const Club = require("../models/club.js"); // <-- Import the Club model
+const Order = require("../models/Order.js"); // <-- Import the new Order model
 
-// --- Advanced Auth Middleware (Handles both page loads and API calls) ---
+// --- Auth Middleware ---
 const isAuthenticatedViewer = async (req, res, next) => {
     try {
         const token = req.cookies.token;
@@ -39,9 +41,35 @@ const isAuthenticatedViewer = async (req, res, next) => {
     }
 };
 
-// --- Route to Add Item to Cart ---
+// --- GET Route to View Cart Page ---
+router.get('/', isAuthenticatedViewer, async (req, res) => {
+    try {
+        const cart = await Cart.findOne({ userId: req.user._id }).populate({
+            path: 'items.productId',
+            model: 'Merchandise_DATA'
+        });
+
+        if (!cart) {
+            return res.render('cart', { cart: null, total: 0, user: req.user });
+        }
+
+        const total = cart.items.reduce((sum, item) => {
+            if (item.productId) {
+                return sum + (item.quantity * item.productId.price);
+            }
+            return sum;
+        }, 0);
+
+        res.render('cart', { cart, total: total.toFixed(2), user: req.user });
+    } catch (err) {
+        console.error("Error viewing cart:", err);
+        res.redirect('/error');
+    }
+});
+
+// --- POST Route to Add Item to Cart ---
 router.post('/add/:productId', isAuthenticatedViewer, async (req, res) => {
-    const { productId } = req.params;
+   const { productId } = req.params;
     const userId = req.user._id;
 
     try {
@@ -72,69 +100,76 @@ router.post('/add/:productId', isAuthenticatedViewer, async (req, res) => {
     }
 });
 
-// --- Route to View Cart Page ---
-router.get('/', isAuthenticatedViewer, async (req, res) => {
-    try {
-        const cart = await Cart.findOne({ userId: req.user._id }).populate({
-            path: 'items.productId',
-            model: 'Merchandise_DATA'
-        });
-
-        if (!cart) {
-            return res.render('cart', { cart: null, total: 0, user: req.user });
-        }
-
-        const total = cart.items.reduce((sum, item) => {
-            if (item.productId) {
-                return sum + (item.quantity * item.productId.price);
-            }
-            return sum;
-        }, 0);
-
-        res.render('cart', { cart, total: total.toFixed(2), user: req.user });
-    } catch (err) {
-        console.error("Error viewing cart:", err);
-        res.redirect('/error');
-    }
-});
-
-// --- Add this route to the end of your server/route/cart.js file ---
-
+// --- UPDATED Checkout Route ---
 router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
     try {
         const userId = req.user._id;
-        const cart = await Cart.findOne({ userId }).populate('items.productId');
+        // Populate product details, including the clubId for each product
+        const cart = await Cart.findOne({ userId }).populate({
+            path: 'items.productId',
+            model: 'Merchandise_DATA',
+            select: 'price stock_quantity clubId' // Select only the fields we need
+        });
 
         if (!cart || cart.items.length === 0) {
             return res.status(400).json({ message: "Your cart is empty." });
         }
 
-        // Calculate total cost from the backend to ensure price accuracy
-        const totalCost = cart.items.reduce((sum, item) => {
-            return item.productId ? sum + (item.quantity * item.productId.price) : sum;
-        }, 0);
+        const totalCost = cart.items.reduce((sum, item) => item.productId ? sum + (item.quantity * item.productId.price) : sum, 0);
 
-        // Check if user has enough balance
         if (req.user.balance < totalCost) {
             return res.status(400).json({ message: "Insufficient funds." });
         }
 
-        // --- Process the transaction ---
-        // 1. Deduct stock quantity for each item
+        // --- NEW: Process Transaction and Update Club Stats ---
+        const orderItems = [];
+        let totalItemsSold = 0;
+
         for (const item of cart.items) {
+            const product = item.productId;
+            if (!product) continue; // Skip if a product was deleted
+
+            // 1. Update stock for the merchandise
             await Merchandise.updateOne(
-                { _id: item.productId._id },
+                { _id: product._id },
                 { $inc: { stock_quantity: -item.quantity } }
             );
+
+            // 2. Update the club's revenue and items sold
+            await Club.updateOne(
+                { _id: product.clubId },
+                { 
+                    $inc: { 
+                        totalRevenue: item.quantity * product.price,
+                        merchandiseSold: item.quantity
+                    } 
+                }
+            );
+            
+            // Prepare item for the order history
+            orderItems.push({
+                productId: product._id,
+                quantity: item.quantity,
+                price: product.price,
+                clubId: product.clubId
+            });
+            totalItemsSold += item.quantity;
         }
 
-        // 2. Deduct the total cost from the user's balance
+        // 3. Create a permanent order record
+        await Order.create({
+            viewerId: userId,
+            items: orderItems,
+            totalAmount: totalCost
+        });
+
+        // 4. Deduct the total cost from the viewer's balance
         await Viewer.updateOne(
             { _id: userId },
             { $inc: { balance: -totalCost } }
         );
 
-        // 3. Clear the user's cart
+        // 5. Clear the user's cart
         await Cart.deleteOne({ userId }); 
 
         res.status(200).json({ message: "Purchase successful! Your items are on their way." });
@@ -144,6 +179,5 @@ router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
         res.status(500).json({ message: "An error occurred during checkout." });
     }
 });
-
 
 module.exports = router;
