@@ -11,11 +11,12 @@
       </div>
       <div class="viewers-dashboard-card-value">
         <% if (user.profile_picture) { %>
+          
           <form action="/dashboard/viewer/add_profile_picture" id="viewers-dashboard-profile-picture-form" method="post" enctype="multipart/form-data">
             <label for="viewers-dashboard-profile-picture-input-1">
               <img src="<%= user.profile_picture %>" alt="Profile Picture" style="width: 80px; border-radius: 50%;">
             </label>
-            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" id="viewers-dashboard-profile-picture-input-1" required >
+            <input type="file" name="profile_picture" accept="image/*" class="viewers-dashboard-profile-picture-input" id="viewers-dashboard-profile-picture-input-1" requierd >
             <button>Update Profile Picture</button>
           </form>
         <% } else { %>
@@ -30,28 +31,27 @@
       </div>
     </div>
 
-    <div id="viewer-dashboard-div-wrapper">
-      <!-- Balance -->
-      <div class="viewers-dashboard-card">
-        <div class="viewers-dashboard-card-header">
-          <div class="viewers-dashboard-card-title">Balance</div>
-        </div>
-        <div class="viewers-dashboard-card-value">
-          ₹<%= user.balance?.toFixed(2) || '0.00' %> 
-        </div>
-        <!-- ADD THIS BUTTON -->
-        <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
+   <div id="viewer-dashboard-div-wrapper">
+     <!-- Balance -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Balance</div>
       </div>
-
-      <!-- Email -->
-      <div class="viewers-dashboard-card">
-        <div class="viewers-dashboard-card-header">
-          <div class="viewers-dashboard-card-title">Email</div>
-        </div>
-        <div class="viewers-dashboard-card-value"><%= user.email %></div>
+      <div class="viewers-dashboard-card-value">
+        ₹<%= user.balance?.toFixed(2) || '0.00' %>
       </div>
+          <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
     </div>
 
+    <!-- Email -->
+    <div class="viewers-dashboard-card">
+      <div class="viewers-dashboard-card-header">
+        <div class="viewers-dashboard-card-title">Email</div>
+      </div>
+      <div class="viewers-dashboard-card-value"><%= user.email %></div>
+    </div>
+
+   </div>
     <!-- Status -->
     <div class="viewers-dashboard-card">
       <div class="viewers-dashboard-card-header">
@@ -62,11 +62,14 @@
           <%= user.status %>
         </span>
       </div>
-      <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/viewer/status" method="post">
-        <input type="hidden" name="status" value="<%= user.status %>">
-        <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
-      </form>
+       <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/viewer/status" method="post">
+          <input type="hidden" name="status" value="<%= user.status %>">
+          <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
+        </form>
     </div>
+
+    
+
   </div>
 
   <!-- Favorite Teams Section -->
@@ -81,9 +84,9 @@
           <div class="viewers-dashboard-merchandise-card">
             <div class="viewers-dashboard-merchandise-image">
               <% if (team.logo) { %>
-                <img src="<%= team.logo %>" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="<%= team.logo %>" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: contain;">
               <% } else { %>
-                <img src="/images/avatar.png" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="/images/avatar.png" alt="<%= team.name %>" style="width: 100%; height: 100%; object-fit: contain;">
               <% } %>
             </div>
             <div class="viewers-dashboard-merchandise-info">
@@ -111,7 +114,7 @@
       <form class="viewers-dashboard-fav-add-form" id="viewers-dashboard-fav-add-form" action="/dashboard/viewer/add_fav_club" method="post">
         <label for="viewers-dashboard-fav-add-select" class="viewers-dashboard-label">Select Club to Add it to Favourite:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-add-select" class="viewers-dashboard-select">
-          <option disabled selected >--select--</option>
+      <option  disabled selected >--select--</option>
           <% refinedclubs.forEach(club => { %>
             <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
@@ -123,7 +126,7 @@
       <form class="viewers-dashboard-fav-remove-form" id="viewers-dashboard-fav-remove-form" action="/dashboard/viewer/remove_fav_club" method="post">
         <label for="viewers-dashboard-fav-remove-select" class="viewers-dashboard-label">Select Favorite Club to Remove:</label>
         <select name="favorite_teams" id="viewers-dashboard-fav-remove-select" class="viewers-dashboard-select">
-          <option disabled selected >--select--</option>
+          <option  disabled selected >--select--</option>
           <% user.favorite_teams.forEach(club => { %>
             <option value="<%= club._id %>"><%= club.name %></option>
           <% }) %>
@@ -153,22 +156,22 @@
       </tr>
     </table>
   </div>
-
-<!-- 1. The "Buy Credits" Button -->
-<!-- Place this inside your "Balance" card -->
-<div class="viewers-dashboard-card">
-    <div class="viewers-dashboard-card-header">
-        <div class="viewers-dashboard-card-title">Balance</div>
-    </div>
-    <div class="viewers-dashboard-card-value">
-        ₹<%= user.balance?.toFixed(2) || '0.00' %> 
-    </div>
-    <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
 </div>
 
-
-
-  
+<div id="buy-credits-modal" class="viewers-dashboard-modal-overlay" style="display: none;">
+    <div class="viewers-dashboard-modal-content">
+        <span class="viewers-dashboard-close-modal close-modal">&times;</span>
+        <h2 class="viewers-dashboard-modal-title">Buy Credits</h2>
+        <p class="viewers-dashboard-modal-description">Enter the amount you wish to add to your balance.</p>
+        <form id="buy-credits-form" class="viewers-dashboard-modal-form">
+            <div class="viewers-dashboard-form-group">
+                <label for="amount" class="viewers-dashboard-form-label">Amount (₹)</label>
+                <input type="number" id="amount" name="amount" min="100" step="50" placeholder="e.g., 500" required class="viewers-dashboard-form-control">
+            </div>
+            <button type="submit" id="razorpay-btn" class="viewers-dashboard-modal-button">Proceed to Pay</button>
+        </form>
+    </div>
 </div>
 
-
+<!-- The Razorpay Script (must be included on this page) -->  
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>

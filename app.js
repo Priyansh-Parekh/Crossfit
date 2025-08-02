@@ -1,29 +1,30 @@
+// 1. Load environment variables FIRST. This is the crucial fix.
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const expressLayout = require('express-ejs-layouts');
-const mongoose = require('mongoose'); // Added Mongoose require
+const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 
 // --- DATABASE CONNECTION ---
-// This block connects your application to MongoDB.
 const connectDB = async () => {
   try {
-    const connString = process.env.URI || 'mongodb+srv://priyanshparekh24:Pass%4025@ace-up-data.wkfpvme.mongodb.net/Crossfit'
-    
+    const connString = process.env.URI;
+    if (!connString) {
+        console.error('❌ URI not found in .env file. Please add it.');
+        process.exit(1);
+    }
     await mongoose.connect(connString);
-    
     console.log('✅ MongoDB Connected Successfully');
   } catch (err) {
     console.error('❌ MongoDB Connection Error:', err.message);
-    // Exit process with failure if connection fails
     process.exit(1);
   }
 };
-
 connectDB();
-
 
 // --- MIDDLEWARE ---
 app.set('view engine', 'ejs');
@@ -34,8 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(expressLayout);
 app.use(cookieParser());
 
-
 // --- ROUTES ---
+// Now that .env is loaded, all routes can safely access process.env
 app.use('/', require('./server/route/main'));
 app.use('/clubs', require('./server/route/clubs'));
 app.use('/leagues', require('./server/route/leagues'));
@@ -47,10 +48,10 @@ app.use('/register', require('./server/route/register'));
 app.use('/dashboard', require('./server/route/dashboard'));
 app.use('/match', require('./server/route/match'));
 app.use('/cart', require('./server/route/cart'));
+app.use('/payment', require('./server/route/payment'));
 
 
 // --- SERVER LISTENER ---
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
-  console.log(`📁 Views directory: ${path.join(__dirname, 'views')}`);
 });
