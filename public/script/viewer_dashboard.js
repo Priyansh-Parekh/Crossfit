@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 2. Configure and open Razorpay Checkout
                 const options = {
-                    key: 'rzp_live_eUiQlEQgnR9Jaz', // IMPORTANT: Replace with your Razorpay Test Key ID
+                    key: 'rzp_test_XWbJpZeBIaV3qP', // IMPORTANT: Replace with your Razorpay Test Key ID
                     amount: order.amount,
                     currency: order.currency,
                     name: "Crossfit Credits",

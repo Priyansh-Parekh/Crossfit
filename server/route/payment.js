@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Viewer = require('../models/viewer.js'); // Adjust path if needed
 
-// --- Authentication Middleware (to identify the logged-in viewer) ---
+// --- Authentication Middleware ---
 const login = async (req, res, next) => {
     try {
         const token = req.cookies.token;
@@ -22,10 +22,10 @@ const login = async (req, res, next) => {
     }
 };
 
-// --- Initialize Razorpay Instance using Environment Variables ---
+// --- Initialize Razorpay Instance ---
 const razorpayInstance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
+    key_id: 'rzp_test_XWbJpZeBIaV3qP',
+    key_secret: 'Osz6Y8RXwkO1u5aWKKroMn9P'
 });
 
 // --- Route to CREATE a payment order ---
@@ -69,7 +69,6 @@ router.post('/verify_payment', login, async (req, res) => {
                 { _id: req.user._id },
                 { $inc: { balance: Number(amount) } }
             );
-            // Redirect to dashboard with a success message
             res.redirect('/dashboard/viewer?payment=success');
         } else {
             res.redirect('/dashboard/viewer?payment=failed');
