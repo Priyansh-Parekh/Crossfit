@@ -39,7 +39,6 @@ app.use(cookieParser());
 // Now that .env is loaded, all routes can safely access process.env
 app.use('/', require('./server/route/main'));
 app.use('/clubs', require('./server/route/clubs'));
-app.use('/leagues', require('./server/route/leagues'));
 app.use('/live_scores', require('./server/route/live_scores'));
 app.use('/merchandise', require('./server/route/merchandise'));
 app.use('/login', require('./server/route/login'));

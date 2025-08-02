@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const matches = require("../models/match");
 const players = require("../models/player");
 const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
@@ -34,11 +33,6 @@ const login = async (req, res, next) => {
             return next();
         }
 
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
 
         // If not found in any collection
         req.user = "none";
