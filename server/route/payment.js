@@ -3,31 +3,34 @@ const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const Viewer = require('../models/viewer.js'); 
+const Viewer = require('../models/viewer.js'); // Adjust path if needed
 
 // --- Authentication Middleware ---
 const login = async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        if (!token) 
-          return res.status(401).json({ error: 'Not authenticated' });
+        if (!token) return res.status(401).json({ error: 'Not authenticated' });
         
-        const decoded = jwt.verify(token, "secret-word"); 
+        const decoded = jwt.verify(token, "secret-word"); // Use your actual secret
+        const user = await Viewer.findOne({ email: decoded.email });
 
-        req.user = await Viewer.findById(decoded.id);
-        if (!req.user) 
-          return res.status(404).json({ error: 'User not found' });
+        if (!user) return res.status(404).json({ error: 'User not found' });
         
+        req.user = user;
         next();
     } catch (err) {
         res.status(401).json({ error: 'Invalid token' });
     }
 };
 
-// --- Initialize Razorpay Instance using Environment Variables ---
+
+
+
+// --- Initialize Razorpay Instance ---
+// IMPORTANT: It's best practice to store these keys in a .env file.
 const razorpayInstance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
+    key_id: 'rzp_live_eUiQlEQgnR9Jaz',
+    key_secret: 'PZRIrgQj4vWsxlmMVVtdSZYr' 
 });
 
 // --- Route to CREATE a payment order ---
@@ -61,7 +64,7 @@ router.post('/verify_payment', login, async (req, res) => {
         const { order_id, payment_id, signature, amount } = req.body;
 
         const generated_signature = crypto
-            .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+            .createHmac('sha256', razorpayInstance.key_secret)
             .update(order_id + "|" + payment_id)
             .digest('hex');
 
@@ -71,7 +74,6 @@ router.post('/verify_payment', login, async (req, res) => {
                 { _id: req.user._id },
                 { $inc: { balance: Number(amount) } }
             );
-            // Redirect to dashboard with a success message
             res.redirect('/dashboard/viewer?payment=success');
         } else {
             res.redirect('/dashboard/viewer?payment=failed');
