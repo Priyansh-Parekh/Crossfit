@@ -6,16 +6,14 @@ const jwt = require('jsonwebtoken');
 const Cart = require('../models/Cart.js');
 const Merchandise = require('../models/merchandise.js');
 const Viewer = require("../models/viewer.js");
-const Club = require("../models/club.js"); // <-- Import the Club model
-const Order = require("../models/Order.js"); // <-- Import the new Order model
+const Club = require("../models/club.js");
+const Order = require("../models/Order.js");
 
 // --- Auth Middleware ---
 const isAuthenticatedViewer = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            // If there's no token, the user is not logged in.
-            // Redirect them to the login page.
             return res.redirect('/login');
         }
         
@@ -23,31 +21,25 @@ const isAuthenticatedViewer = async (req, res, next) => {
         const user = await Viewer.findOne({ email: decoded.email });
 
         if (!user) {
-            // If the logged-in user is a club or league, they can't have a cart.
-            // For API calls (like 'Add to Cart'), send a JSON error.
             if (req.xhr || req.headers.accept.indexOf('json') > -1) {
                 return res.status(403).json({ message: 'Only viewers can perform this action.' });
             }
-            // For page loads (like clicking the cart icon), redirect them to the homepage.
             return res.redirect('/');
         }
         
         req.user = user;
         next();
     } catch (err) {
-        // If the token is invalid for any reason, clear it and send to login.
         res.clearCookie('token');
         return res.redirect('/login');
     }
 };
 
-// --- GET Route to View Cart Page ---
+// --- Route to View Cart Page ---
 router.get('/', isAuthenticatedViewer, async (req, res) => {
     try {
-        const cart = await Cart.findOne({ userId: req.user._id }).populate({
-            path: 'items.productId',
-            model: 'Merchandise_DATA'
-        });
+        const cart = await Cart.findOne({ userId: req.user._id })
+            .populate('items.productId'); // This populates all product details
 
         if (!cart) {
             return res.render('cart', { cart: null, total: 0, user: req.user });
@@ -61,13 +53,13 @@ router.get('/', isAuthenticatedViewer, async (req, res) => {
         }, 0);
 
         res.render('cart', { cart, total: total.toFixed(2), user: req.user });
-    } catch (err) {
+    } catch (err) { // <-- ADDED THE MISSING '{' HERE
         console.error("Error viewing cart:", err);
         res.redirect('/error');
     }
 });
 
-// --- POST Route to Add Item to Cart ---
+// --- Route to Add Item to Cart ---
 router.post('/add/:productId', isAuthenticatedViewer, async (req, res) => {
    const { productId } = req.params;
     const userId = req.user._id;
@@ -100,15 +92,53 @@ router.post('/add/:productId', isAuthenticatedViewer, async (req, res) => {
     }
 });
 
-// --- UPDATED Checkout Route ---
+// --- Route to DECREASE Item Quantity ---
+router.post('/decrease/:productId', isAuthenticatedViewer, async (req, res) => {
+    const { productId } = req.params;
+    const userId = req.user._id;
+
+    try {
+        const cart = await Cart.findOne({ userId });
+        const item = cart.items.find(p => p.productId.equals(productId));
+
+        if (!item) return res.status(404).json({ message: "Item not found in cart." });
+
+        if (item.quantity > 1) {
+            await Cart.updateOne(
+                { userId, "items.productId": productId },
+                { $inc: { "items.$.quantity": -1 } }
+            );
+        } else {
+            await Cart.updateOne(
+                { userId },
+                { $pull: { items: { productId: productId } } }
+            );
+        }
+        res.status(200).json({ message: "Cart updated." });
+    } catch (err) {
+        console.error("Error decreasing quantity:", err);
+        res.status(500).json({ message: "Server error." });
+    }
+});
+
+// --- Route to REMOVE Item Entirely ---
+router.post('/remove/:productId', isAuthenticatedViewer, async (req, res) => {
+    const { productId } = req.params;
+    await Cart.updateOne(
+        { userId: req.user._id },
+        { $pull: { items: { productId: productId } } }
+    );
+    res.status(200).json({ message: "Item removed." });
+});
+
+
+// --- Checkout Route ---
 router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
     try {
         const userId = req.user._id;
-        // Populate product details, including the clubId for each product
         const cart = await Cart.findOne({ userId }).populate({
             path: 'items.productId',
-            model: 'Merchandise_DATA',
-            select: 'price stock_quantity clubId' // Select only the fields we need
+            select: 'price stock_quantity clubId'
         });
 
         if (!cart || cart.items.length === 0) {
@@ -121,21 +151,16 @@ router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
             return res.status(400).json({ message: "Insufficient funds." });
         }
 
-        // --- NEW: Process Transaction and Update Club Stats ---
         const orderItems = [];
-        let totalItemsSold = 0;
-
         for (const item of cart.items) {
             const product = item.productId;
-            if (!product) continue; // Skip if a product was deleted
+            if (!product) continue;
 
-            // 1. Update stock for the merchandise
             await Merchandise.updateOne(
                 { _id: product._id },
                 { $inc: { stock_quantity: -item.quantity } }
             );
 
-            // 2. Update the club's revenue and items sold
             await Club.updateOne(
                 { _id: product.clubId },
                 { 
@@ -146,30 +171,25 @@ router.post('/checkout', isAuthenticatedViewer, async (req, res) => {
                 }
             );
             
-            // Prepare item for the order history
             orderItems.push({
                 productId: product._id,
                 quantity: item.quantity,
                 price: product.price,
                 clubId: product.clubId
             });
-            totalItemsSold += item.quantity;
         }
 
-        // 3. Create a permanent order record
         await Order.create({
             viewerId: userId,
             items: orderItems,
             totalAmount: totalCost
         });
 
-        // 4. Deduct the total cost from the viewer's balance
         await Viewer.updateOne(
             { _id: userId },
             { $inc: { balance: -totalCost } }
         );
 
-        // 5. Clear the user's cart
         await Cart.deleteOne({ userId }); 
 
         res.status(200).json({ message: "Purchase successful! Your items are on their way." });

@@ -2,17 +2,16 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CartSchema = new Schema({
-    // Link the cart to a specific user (assuming your user model is 'Viewer_DATA')
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'Viewer_DATA',
+        ref: 'Viewer_DATA', // Links to your Viewer model
         required: true,
-        unique: true // Each user has only one cart
+        unique: true
     },
     items: [{
         productId: {
             type: Schema.Types.ObjectId,
-            ref: 'Merchandise_DATA', // Reference to your merchandise model
+            ref: 'Merchandise_DATA', // This MUST match your merchandise model name
             required: true
         },
         quantity: {
