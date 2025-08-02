@@ -1,8 +1,8 @@
 <section class="home-hero" id="home">
     <div class="home-hero-content">
-        <h1>Welcome to Crossfit</h1>
-        <p>Your ultimate sports hub for news, live scores, merchandise, and engaging card games. Connect with teams,
-            organize tournaments, and experience sports like never before.</p>
+        <h1 class="home-hero-title">Welcome to Crossfit</h1>
+        <p class="home-hero-subtitle">Your ultimate sports hub for news, live scores, merchandise, and engaging card
+            games. Connect with teams, organize tournaments, and experience sports like never before.</p>
         <div class="home-cta-buttons">
             <a href="#home-features" class="home-cta-btn home-primary">Explore Features</a>
             <a href="#home-roles" class="home-cta-btn home-secondary">Get Started</a>
@@ -13,37 +13,59 @@
 <!-- Features Section -->
 <section class="home-features" id="home-features">
     <div class="home-features-container">
-        <h2>Powerful Features</h2>
+        <h2 class="home-features-title">Explore the Core Features</h2>
+        <p class="home-features-subtitle">Everything you need for a complete sports experience, all in one place.</p>
+        
         <div class="home-features-grid">
+
+            <!-- Feature Card 1: Sports News -->
             <div class="home-feature-card">
-                <span class="home-feature-icon">📰</span>
-                <h3>Latest Sports News</h3>
-                <p>Stay updated with the latest news from football, cricket, and basketball. Get breaking news, match
-                    analysis, and exclusive interviews.</p>
+                <div class="home-feature-icon-wrapper">
+                    <i class="fas fa-newspaper home-feature-icon"></i>
+                </div>
+                <h3 class="home-feature-title">Latest Sports News</h3>
+                <p class="home-feature-description">Breaking news, in-depth analysis, and exclusive interviews from the world of sports.</p>
+                <a href="/news" class="home-feature-button">Read News</a>
             </div>
+
+            <!-- Feature Card 2: Live Scores -->
             <div class="home-feature-card">
-                <span class="home-feature-icon">📊</span>
-                <h3>Live Scores & Stats</h3>
-                <p>Real-time match scores, player performance metrics, and interactive heatmaps for comprehensive game
-                    analysis.</p>
+                <div class="home-feature-icon-wrapper">
+                    <i class="fas fa-chart-line home-feature-icon"></i>
+                </div>
+                <h3 class="home-feature-title">Live Scores & Stats</h3>
+                <p class="home-feature-description">Follow games in real-time with live scores, player stats, and detailed match data.</p>
+                <a href="/live_scores" class="home-feature-button">View Scores</a>
             </div>
+
+            <!-- Feature Card 3: Merchandise -->
             <div class="home-feature-card">
-                <span class="home-feature-icon">🛍</span>
-                <h3>Sports Merchandise</h3>
-                <p>Shop authentic team merchandise, jerseys, and accessories. Clubs can upload and manage their own
-                    products.</p>
+                <div class="home-feature-icon-wrapper">
+                    <i class="fas fa-shopping-bag home-feature-icon"></i>
+                </div>
+                <h3 class="home-feature-title">Sports Merchandise</h3>
+                <p class="home-feature-description">Shop for authentic jerseys, gear, and accessories from your favorite teams and clubs.</p>
+                <a href="/merchandise" class="home-feature-button">Go to Shop</a>
             </div>
+
+            <!-- Feature Card 4: Card Games -->
             <div class="home-feature-card">
-                <span class="home-feature-icon">🃏</span>
-                <h3>Cricket Card Games</h3>
-                <p>Engage with interactive cricket card games. Collect, trade, and play with digital cricket cards
-                    featuring your favorite players.</p>
+                <div class="home-feature-icon-wrapper">
+                    <i class="fas fa-clone home-feature-icon"></i>
+                </div>
+                <h3 class="home-feature-title">Cricket Card Games</h3>
+                <p class="home-feature-description">Collect, trade, and compete with digital player cards in our engaging cricket game.</p>
+                <a href="/card-game" class="home-feature-button">Play Now</a>
             </div>
+
+            <!-- Feature Card 5: Team Management -->
             <div class="home-feature-card">
-                <span class="home-feature-icon">🧑‍🤝‍🧑</span>
-                <h3>Team Management</h3>
-                <p>Clubs can manage their profiles, update scores, challenge other teams, and build their online
-                    presence.</p>
+                <div class="home-feature-icon-wrapper">
+                    <i class="fas fa-users home-feature-icon"></i>
+                </div>
+                <h3 class="home-feature-title">Team Management</h3>
+                <p class="home-feature-description">A dedicated hub for clubs to manage profiles, challenge rivals, and build their community.</p>
+                <a href="/clubs" class="home-feature-button">Manage Team</a>
             </div>
         </div>
     </div>
@@ -51,12 +73,21 @@
 
 <!-- Sports Section -->
 <section class="home-sports" id="home-sports">
-    <h2>Sports We Cover</h2>
-    <div class="home-sports-grid">
-        <div class="home-sport-card sport-cricket" onclick="navigateToSport('cricket')">
-            <h3>🏏 Cricket</h3>
-            <p>Comprehensive cricket coverage including live scores, player performance, and exclusive card game
-                features.</p>
+    <div class="home-sports-container">
+        <h2 class="home-section-title">The Heart of the Game</h2>
+        <p class="home-section-subtitle">We're starting with comprehensive coverage of cricket, with more sports on the way.</p>
+        
+        <!-- Featured Sport Card for Cricket -->
+        <div class="home-sport-card">
+            <div class="home-sport-logo-wrapper">
+                <!-- Font Awesome Cricket Icon -->
+                <i class="fa-solid fa-bowling-ball home-sport-icon"></i>
+            </div>
+            <div class="home-sport-content">
+                <h3 class="home-sport-title">Cricket</h3>
+                <p class="home-sport-description">Dive into the world of cricket with comprehensive coverage, including live scores, in-depth player performance stats, and access to our exclusive cricket card game.</p>
+                <a href="/news?sport=cricket" class="home-sport-button">Explore Cricket</a>
+            </div>
         </div>
     </div>
 </section>
@@ -66,7 +97,7 @@
     <h2>Join as</h2>
     <div class="home-roles-grid">
         <div class="home-role-card">
-            <h3>👤 Sports Viewer</h3>
+            <h3><i class="fa-solid fa-user-group home-role-icon"></i> Sports Viewer</h3>
             <ul class="home-role-features">
                 <li>Follow your favorite teams</li>
                 <li>Participate in card games</li>
@@ -74,26 +105,27 @@
                 <li>Comment on news articles</li>
                 <li>Access live scores and stats</li>
             </ul>
-             <div class="home-role-buttons">
-                     <% if(user==="none" ){ %>
+            <div class="home-role-buttons">
+                <% if(user==="none" ){ %>
                     <form action="/login/login_viewers" method="get">
                         <button class="home-role-btn home-role-login-btn">Login</button>
                     </form>
                     <form action="/register/register_viewers" method="get">
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
-                    <%}else if(user.user_type=="viewer"){%>
-                        <form action="/logout/viewer" method="post">
-                            <button class="home-role-btn home-role-logout-btn">Log Out</button>
-                        </form>
-                        <%} %>
-                </div>
+                <%}else if(user.user_type=="viewer" ){%>
+                    <form action="/logout/viewer" method="post">
+                        <button class="home-role-btn home-role-logout-btn">Log Out</button>
+                    </form>
+                <%} %>
+            </div>
         </div>
-        <div class="home-role-card" id="home-middle-role-card">
-           
-        </div>
+        
+        <!-- This empty card is preserved from your original code -->
+        <div class="home-role-card" id="home-middle-role-card"></div>
+
         <div class="home-role-card">
-            <h3>🏟️ Sports Club</h3>
+            <h3><i class="fa-solid fa-shield-halved home-role-icon"></i> Sports Club</h3>
             <ul class="home-role-features">
                 <li>Manage team profile and information</li>
                 <li>Update live match scores</li>
@@ -101,20 +133,20 @@
                 <li>Upload and manage merchandise</li>
                 <li>Build fan following</li>
             </ul>
-              <div class="home-role-buttons">
-                     <% if(user==="none" ){ %>
+            <div class="home-role-buttons">
+                <% if(user==="none" ){ %>
                     <form action="/login/login_clubs" method="get">
                         <button class="home-role-btn home-role-login-btn">Login</button>
                     </form>
                     <form action="/register/register_clubs" method="get">
                         <button class="home-role-btn home-role-register-btn">Register</button>
                     </form>
-                     <%}else if(user.user_type=="club"){%>
-                        <form action="/logout/clubs" method="post">
-                            <button class="home-role-btn home-role-logout-btn">Log Out</button>
-                        </form>
-                        <%} %>
-                </div>
+                <%}else if(user.user_type=="club" ){%>
+                    <form action="/logout/clubs" method="post">
+                        <button class="home-role-btn home-role-logout-btn">Log Out</button>
+                    </form>
+                <%} %>
+            </div>
         </div>
     </div>
 </section>
