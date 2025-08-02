@@ -15,11 +15,11 @@ router.get('/', async (req, res) => {
     try {
         const response = await axios.get('https://newsapi.org/v2/everything', {
             params: {
-                q: topic,
-                language: 'en',
-                sortBy: 'publishedAt',
-                pageSize: 12, // It will now only get the first 12 articles
-                apiKey: '11bfd9f345674276a2c3ecb3e4e2a62c'
+            q: topic,
+            language: 'en',
+            sortBy: 'publishedAt',
+            pageSize: 12, // It will now only get the first 12 articles
+            apiKey: process.env.NEWS_API_KEY
             }
         });
         res.json(response.data);
