@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fragment+Mono:ital@0;1&family=Montserrat:wght@100..900&display=swap');
 
 :root {
-  /* Your Color Palette */
   --primary-dark: #001e28;
   --primary-accent: #ff4c30;
   --primary-light: #002d3d;
@@ -15,8 +14,6 @@
   --shadow-subtle: rgba(0, 0, 0, 0.3);
   --shadow-accent: rgba(255, 76, 48, 0.15);
   --shadow-glow: rgba(255, 76, 48, 0.2);
-
-  /* Original variable for the deck pattern */
   --deck-pattern: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 10px, transparent 10px, transparent 20px);
 }
 
@@ -28,23 +25,17 @@
 
 html {
   scroll-behavior: smooth;
-  /* Smooth scrolling for anchor links */
 }
 
 body {
   width: 100%;
   min-height: 100vh;
-  /* Ensure body takes full viewport height */
   font-family: 'Barlow', sans-serif;
-  background-color: #001e28;
-  /* Light background for content */
+  background-color: var(--primary-dark);
   color: #333;
-  /* Default text color */
   display: flex;
   flex-direction: column;
-  /* For sticky footer */
   line-height: 1.6;
-  /* Default line height for better readability */
 }
 
 body::-webkit-scrollbar {
@@ -424,8 +415,6 @@ section p {
   color: #ffffff;
 }
 
-
-
 .home-cta-btn {
   display: inline-block;
   padding: 1rem 2.5rem;
@@ -483,10 +472,7 @@ section p {
 .home-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  /* Responsive grid for features */
   gap: 2rem;
-  /* Spacing between cards */
-  /* Removed padding: 0 2rem; from here as it's already on the section */
 }
 
 .home-feature-card {
@@ -520,7 +506,6 @@ section p {
   margin-bottom: 1rem;
   transition: transform 1s;
   display: block;
-  /* Ensure it takes full width for centering */
 }
 
 .home-feature-card:hover .home-feature-icon {

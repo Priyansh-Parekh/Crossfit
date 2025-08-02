@@ -1,52 +1,54 @@
 <% if (user!=='none') { %>
-    <div class="live-score-page-container">
-        <% let check = true %>
-        <% AllMatch.forEach(match=> { %>
-            <% if (match.status==='live' ) { %>
-                <% check = false %>
-                <div class="live-score-page-match-card" data-match-id="<%= match._id %>" >
-                    <div class="live-score-page-teams">
-                        <div class="live-score-page-team">
-                            <img src="<%= match.club1.logo %>" alt="logo" class="live-score-page-team-logo">
-                            <span class="live-score-page-team-name">
-                                <%= match.club1.name %>
-                            </span>
-                        </div>
-                        <span class="live-score-page-vs">VS</span>
-                        <div class="live-score-page-team">
-                            <img src="<%= match.club2.logo %>" alt="logo" class="live-score-page-team-logo">
-                            <span class="live-score-page-team-name">
-                                <%= match.club2.name %>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="live-score-page-score">
-                        <p>
-                            <%= match.score.club1.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club1.overs %> )
-                        </p>
-                        <p>
-                            <%= match.score.club2.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club2.overs %> )
-                        </p>
-                    </div>
-                    <div>
-                        <div class="live-score-page-status">
-                            <span class="live-score-page-live-indicator"></span>LIVE
-                        </div>
-                        <a href="/live_scores/scorecard/<%= match._id %>" class="live-score-page-live-btn">Live Scorecard</a>
-                    </div>
-                </div>
-                <% } %>
-                    <% }) %>
-                    <% if (check) { %>
-                        <div class="live-score-page-no-match">
-                            <h1>No Live Matches</h1>
-                        </div>
-                    <% } %>
+<div class="live-score-page-container">
+  <% let check = true %>
+  <% AllMatch.forEach(match=> { %>
+  <% if (match.status==='live' ) { %>
+  <% check = false %>
+  <div class="live-score-page-match-card" data-match-id="<%= match._id %>">
+    <div class="live-score-page-teams">
+      <div class="live-score-page-team">
+        <img src="<%= match.club1.logo %>" alt="logo" class="live-score-page-team-logo">
+        <span class="live-score-page-team-name">
+          <%= match.club1.name %>
+        </span>
+      </div>
+      <span class="live-score-page-vs">VS</span>
+      <div class="live-score-page-team">
+        <img src="<%= match.club2.logo %>" alt="logo" class="live-score-page-team-logo">
+        <span class="live-score-page-team-name">
+          <%= match.club2.name %>
+        </span>
+      </div>
     </div>
+    <div class="live-score-page-score">
+      <p>
+        <%= match.score.club1.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club1.overs %> )
+      </p>
+      <p>
+        <%= match.score.club2.runs %>/<%= match.score.club1.wickets %> - (<%= match.score.club2.overs %> )
+      </p>
+    </div>
+    <div>
+      <div class="live-score-page-status">
+        <span class="live-score-page-live-indicator"></span>LIVE
+      </div>
+      <a href="/live_scores/scorecard/<%= match._id %>" class="live-score-page-live-btn">Live Scorecard</a>
+    </div>
+  </div>
+  <% } %>
+  <% }) %>
+  <% if (check) { %>
+  <div class="live-score-page-no-match">
+    <h1>No Live Matches</h1>
+  </div>
+  <% } %>
+</div>
 <% } else { %>
-    <div class="live-score-page-no-login">
-        <h1>Please log in to view live scores</h1>
-        <p>You need to be logged in to access live match updates and scorecards.</p>
-        <a href="/#home-roles" class="live-score-page-login-btn">Login</a>
-    </div>
+<div class="live-score-page-no-login">
+  <h1>Please log in to view live scores</h1>
+  <p>You need to be logged in to access live match updates and scorecards.</p>
+  <a href="/#home-roles" class="live-score-page-login-btn">Login</a>
+</div>
 <% } %>
+
+<script src="/script/live_score.js"></script>
