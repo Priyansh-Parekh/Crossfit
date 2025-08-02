@@ -90,8 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const order = await orderResponse.json();
 
-                // RAZORPAY_KEY_ID=rzp_live_eUiQlEQgnR9Jaz
-                // RAZORPAY_KEY_SECRET=PZRIrgQj4vWsxlmMVVtdSZYr
                 // 2. Configure and open Razorpay Checkout
                 const options = {
                     key: 'rzp_live_eUiQlEQgnR9Jaz', // IMPORTANT: Replace with your Razorpay Test Key ID
