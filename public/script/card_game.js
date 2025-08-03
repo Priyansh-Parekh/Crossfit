@@ -1288,7 +1288,7 @@ function updateUI() {
 
     if (p1countElem) p1countElem.textContent = p1Deck.length;
     if (p2countElem) p2countElem.textContent = p2Deck.length;
-    if (scoreElem) scoreElem.textContent = `Player 1: ${p1Score} | computer: ${p2Score}`;
+    if (scoreElem) scoreElem.textContent = `${loggedInName}: ${p1Score} | computer: ${p2Score}`;
 }
 
 function startGame() {
