@@ -167,11 +167,11 @@
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
           <div>
             <% if (user.captain) { %>
-            <h4>
+            <h4 style="color: #333;">
               <%= user.captain.name %>
             </h4>
             <% }else{ %>
-            <h4>Not Assigned</h4>
+            <h4 style="color: #333;">Not Assigned</h4>
             <% } %>
             <p style="color: #666; margin: 0;">Captain</p>
           </div>
@@ -190,7 +190,7 @@
         <% if (user.vice_captain) { %>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
           <div>
-            <h4>
+            <h4 style="color: #333;">
               <%= user.vice_captain.name.trim() %>
             </h4>
             <p style="color: #666; margin: 0;">Vice Captain</p>
@@ -206,7 +206,7 @@
         <% }else{ %>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
           <div>
-            <h4>
+            <h4 style="color: #333;">
               Not Assigned
             </h4>
             <p style="color: #666; margin: 0;">Vice Captain</p>
@@ -223,7 +223,7 @@
         <% if (user.wicket_keeper) { %>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
           <div>
-            <h4>
+            <h4 style="color: #333;">
               <%= user.wicket_keeper.name.trim()  %>
             </h4>
             <p style="color: #666; margin: 0;">Wicket Keeper</p>
@@ -240,7 +240,7 @@
         <% } else { %>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
           <div>
-            <h4>Not Assigned</h4>
+            <h4 style="color: #333;">Not Assigned</h4>
             <p style="color: #666; margin: 0;">Wicket Keeper</p>
           </div>
           <div style="text-align: right;">
