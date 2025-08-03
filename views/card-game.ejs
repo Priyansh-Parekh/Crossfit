@@ -27,7 +27,7 @@
             <img class="player-avatar" src="/images/avatar.png" alt="Default Avatar">
             <% } %>
           </div>
-          <h3 class="player-name"><%= user.name %></h3>
+          <h3 class="player-name"><%= user.name ? user.name : 'anonymous' %></h3>
           <div class="card-count"><span id="p1count">10</span> cards</div>
         </div>
       </div>
@@ -49,6 +49,9 @@
       </div>
 
     </div>
+<script>
+  const loggedInName = <%- JSON.stringify(user && user.name ? user.name : "anonymous") %>;
+</script>
   </div>
 
   <div class="buttons" id="buttons"></div>
