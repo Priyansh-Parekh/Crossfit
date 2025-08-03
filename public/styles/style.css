@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fragment+Mono:ital@0;1&family=Montserrat:wght@100..900&display=swap');
 
 :root {
-  /* Your Color Palette */
   --primary-dark: #001e28;
   --primary-accent: #ff4c30;
   --primary-light: #002d3d;
@@ -15,8 +13,6 @@
   --shadow-subtle: rgba(0, 0, 0, 0.3);
   --shadow-accent: rgba(255, 76, 48, 0.15);
   --shadow-glow: rgba(255, 76, 48, 0.2);
-
-  /* Original variable for the deck pattern */
   --deck-pattern: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 10px, transparent 10px, transparent 20px);
 }
 
@@ -28,38 +24,20 @@
 
 html {
   scroll-behavior: smooth;
-  /* Smooth scrolling for anchor links */
 }
 
 body {
   width: 100%;
   min-height: 100vh;
-  /* Ensure body takes full viewport height */
   font-family: 'Barlow', sans-serif;
-  background-color: #001e28;
-  /* Light background for content */
-  color: #333;
-  /* Default text color */
+  background-color: var(--primary-dark);
   display: flex;
   flex-direction: column;
-  /* For sticky footer */
   line-height: 1.6;
-  /* Default line height for better readability */
 }
 
 body::-webkit-scrollbar {
   display: none;
-}
-
-/* --- Global Utilities / Resets --- */
-a {
-  text-decoration: none;
-  color: inherit;
-  /* Inherit color by default for header links */
-}
-
-a:visited {
-  color: inherit;
 }
 
 /* --- Header Styling --- */
@@ -100,7 +78,6 @@ header img:hover {
 
 .header-logo-container a {
   font-family: 'Barlow', Tahoma, Geneva, Verdana, sans-serif;
-  /* Using palette variable */
   color: var(--primary-accent);
   font-size: 1.5rem;
   font-weight: 700;
@@ -109,7 +86,7 @@ header img:hover {
 }
 
 .header-logo-container a:hover {
-  color: var(--text-primary);
+  color: var(--white);
 }
 
 .header-links {
@@ -124,24 +101,21 @@ header img:hover {
   gap: 2rem;
 }
 
-header li {
+.header-desktop-nav .header-links li {
   margin-left: 1.2rem;
 }
 
-header li a {
+.header-desktop-nav .header-links a {
   text-decoration: none;
-  /* Using palette variable */
-  color: var(--primary-accent);
+  color: var(--white);
   font-size: 1.15rem;
   transition: color 0.2s ease, border-bottom 0.2s ease;
   white-space: nowrap;
   padding-bottom: 10px;
   border-bottom: 2px solid transparent;
-  /* Prepare for hover effect */
 }
 
-header li a:hover {
-  /* Using palette variables */
+.header-desktop-nav .header-links a:hover {
   border-bottom: 2px solid var(--primary-accent);
   color: var(--text-primary);
 }
@@ -150,7 +124,6 @@ header .links-button {
   background-color: var(--primary-accent);
   color: var(--text-primary);
   border: 2px solid transparent;
-  /* Prepare for hover effect */
   font-size: 1rem;
   padding: 0.75rem 1.75rem;
   font-weight: 600;
@@ -161,7 +134,6 @@ header .links-button {
 }
 
 header .links-button:hover {
-  /* Updated hover effect to be consistent with the theme */
   background-color: transparent;
   border: 2px solid var(--primary-accent);
   color: var(--primary-accent);
@@ -169,11 +141,17 @@ header .links-button:hover {
 }
 
 header .links-button:active {
-  /* Using a palette color for the active state */
   background-color: var(--accent-dark);
   border-color: var(--accent-dark);
   color: var(--text-primary);
   transform: translateY(0);
+}
+
+header .links-button a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1rem;
+  white-space: nowrap;
 }
 
 /* --- User Menu --- */
@@ -187,9 +165,7 @@ header .links-button:active {
   height: 40px;
   object-fit: cover;
   border-radius: 50%;
-  /* Swapped hardcoded green for the primary accent color */
   border: 2px solid var(--primary-accent);
-  /* Using palette shadow */
   box-shadow: 0 2px 6px var(--shadow-subtle);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -197,16 +173,13 @@ header .links-button:active {
 
 .header-user-avatar:hover {
   transform: scale(1.05);
-  /* Using palette accent glow */
   box-shadow: 0 0 10px var(--shadow-glow);
 }
 
 .header-dropdown {
   position: absolute;
   top: 120%;
-  /* Adjusted for better spacing */
   right: 0;
-  /* Converted to dark theme */
   background: var(--primary-light);
   box-shadow: 0 4px 12px var(--shadow-subtle);
   border-radius: 0.5rem;
@@ -222,13 +195,11 @@ header .links-button:active {
   padding: 0.75rem 1rem;
   font-size: 1rem;
   text-decoration: none;
-  /* Using palette text color */
   color: var(--text-secondary);
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .header-dropdown a:hover {
-  /* Using palette colors for hover */
   background: var(--border-light);
   color: var(--text-primary);
 }
@@ -251,7 +222,6 @@ header .links-button:active {
 .header-hamburger {
   display: none;
   font-size: 1.8rem;
-  /* Swapped hardcoded purple for the accent color */
   color: var(--primary-accent);
   cursor: pointer;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -269,13 +239,12 @@ header .links-button:active {
   position: absolute;
   top: 120%;
   right: 0;
-  /* Converted to dark theme */
   background: var(--primary-light);
   box-shadow: 0 4px 12px var(--shadow-subtle);
   border-radius: 0.5rem;
-  padding: 0.5rem 0;
   width: 14rem;
   z-index: 999;
+  padding: 0.5rem 0;
 }
 
 .header-mobile-dropdown ul {
@@ -285,7 +254,6 @@ header .links-button:active {
   gap: 0;
 }
 
-/* Make mobile dropdown links same as desktop */
 .header-mobile-dropdown a {
   display: flex;
   align-items: center;
@@ -330,522 +298,530 @@ header .links-button:active {
 /* --- Main Content Area --- */
 main {
   flex-grow: 1;
-  /* Allows main content to push footer to the bottom */
   width: 100%;
   max-width: 1200px;
-  /* Max width for content for better readability on large screens */
   margin: 0 auto;
-  /* Center content horizontally */
   padding: 2rem;
-  /* Overall padding for content sections, preventing content from touching edges */
 }
 
 section {
-  /* padding: 1rem 0; */
-  /* Vertical spacing between sections */
   text-align: center;
 }
 
 section h1,
 section h2 {
   font-size: 2.8rem;
-  /* Larger headings for impact and hierarchy */
   margin-bottom: 1.5rem;
   color: #2c3e50;
-  /* Darker heading color for strong contrast */
 }
 
 section p {
   font-size: 1.1rem;
   line-height: 1.7;
-  /* Increased line height for better readability */
   max-width: 800px;
-  /* Max width for paragraphs to prevent overly long lines */
   margin: 0 auto 2rem auto;
-  /* Center paragraphs and provide bottom spacing */
-  color: #555;
-  /* Softer text color */
 }
 
 /* --- Hero Section --- */
 .home-hero {
-  background: linear-gradient(135deg,
-      #0d0d0d 0%,
-      #B22222 20%,
-      #FF4500 40%,
-      #FF8C00 60%,
-      #FFD700 80%,
-      #1E2A38 100%);
+  background-color: var(--primary-dark);
+  background-image: radial-gradient(circle at 50% 30%, hsla(12, 99%, 59%, 0.15), transparent 40%),
+    linear-gradient(160deg, var(--primary-dark) 60%, var(--primary-light) 100%);
   font-family: 'Barlow', sans-serif;
-  color: #121212;
   padding: 8rem 2rem;
-  /* Generous vertical padding for a grand feel */
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-  /* Make hero section tall */
-  border-bottom-right-radius: 10px;
-  /* Slightly rounded corners for visual appeal */
-  border-bottom-left-radius: 10px;
-  /* Slightly rounded corners for visual appeal */
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  /* Subtle shadow for depth */
+  min-height: 90vh;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 2px solid var(--border-light);
 }
 
 .home-hero-content {
-  max-width: 900px;
-  /* Constrain content width within the hero */
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.home-hero h1 {
-  font-size: 4rem;
-  /* Prominent title for the hero section */
+.home-hero-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
   margin-bottom: 1rem;
-  color: #121212;
-  /* White text on dark background for contrast */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Subtle shadow for readability */
+  text-shadow: 0 0 25px var(--shadow-glow), 0 2px 5px var(--shadow-subtle);
+  letter-spacing: -0.02em;
 }
 
-.home-hero p {
-  font-size: 1.3rem;
-  /* Larger paragraph in hero for emphasis */
-  color: #121212;
-  /* Off-white for softer look */
+.home-hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
   margin-bottom: 3rem;
+  line-height: 1.7;
+  max-width: 680px;
 }
 
 .home-cta-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 1.5rem;
-  /* Spacing between CTA buttons */
-  color: #ffffff;
 }
-
-
 
 .home-cta-btn {
   display: inline-block;
   padding: 1rem 2.5rem;
-  border-radius: 30px;
-  /* Pill-shaped buttons */
+  border-radius: 50px;
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for buttons */
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
 }
 
 .home-primary {
-  background-color: #000000;
-  color: #ffffff;
-  border: 3px solid #ff4c30;
-  /* Solid border matching background */
+  background-color: var(--primary-accent);
+  color: var(--text-primary);
+  box-shadow: 0 5px 15px var(--shadow-glow);
 }
 
 .home-primary:hover {
-  background-color: #121212;
-  /* border-color: #3f0685; */
-  transform: translateY(-3px);
-  /* Lift effect */
+  background-color: var(--accent-light);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow-glow);
 }
 
 .home-secondary {
   background-color: transparent;
-  color: white;
-  border: 3px solid white;
-  /* White border for contrast */
+  color: var(--text-secondary);
+  border-color: var(--text-secondary);
 }
 
 .home-secondary:hover {
-  background-color: #121212;
-  /* color: #5409b2; */
-  transform: translateY(-3px);
+  background-color: hsla(12, 99%, 59%, 0.1);
+  border-color: var(--accent-light);
+  color: var(--accent-light);
+  transform: translateY(-4px);
 }
 
 /* --- Features Section --- */
 .home-features {
-  background-color: #001e28;
-  /* White background for features section */
-  border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-  /* Soft shadow for the entire section */
-  padding: 4rem 2rem;
-  /* Consistent padding inside the section */
+  background-color: var(--primary-dark);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.home-features h2 {
-  margin-bottom: 3rem;
-  color: white;
+/* --- Section Title & Subtitle --- */
+.home-features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
+.home-features-title {
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.home-features-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Features Grid Layout --- */
 .home-features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  /* Responsive grid for features */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  /* Spacing between cards */
-  /* Removed padding: 0 2rem; from here as it's already on the section */
 }
 
+/* --- Feature Card Base Style --- */
 .home-feature-card {
-  background-color: #ff5722;
-  /* Slightly off-white for cards */
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  /* Card shadow */
+  background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border-top: 5px solid #5409b2;
-  /* Accent top border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.home-feature-card h3 {
-  color: #f3f4ff;
-}
-
+/* --- Card Hover Effect --- */
 .home-feature-card:hover {
-  transform: translateY(-8px);
-  /* Lift effect on hover */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  /* Enhanced shadow on hover */
-  cursor: default;
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 40px var(--shadow-accent);
+  border-color: var(--primary-accent);
+}
 
+/* --- Feature Icon --- */
+.home-feature-icon-wrapper {
+  background-color: var(--primary-accent);
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
 .home-feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  transition: transform 1s;
-  display: block;
-  /* Ensure it takes full width for centering */
+  font-size: 2rem;
+  color: var(--text-primary);
 }
 
-.home-feature-card:hover .home-feature-icon {
-  transform: scale(1.2, 1.2);
+.home-feature-card:hover .home-feature-icon-wrapper {
+  transform: scale(1.1);
 }
 
-.home-feature-card h3 {
+/* --- Card Title & Description --- */
+.home-feature-title {
   font-size: 1.5rem;
+  color: var(--text-primary);
   margin-bottom: 0.75rem;
-  color: #f3f4ff;
+  font-weight: 600;
 }
 
-.home-feature-card p {
-  /* display: none; */
-  font-size: 0.95rem;
-  color: #f3f4ff;
+.home-feature-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 0;
-  /* Remove extra margin */
+  margin-bottom: 2rem;
+  flex-grow: 1;
+  /* Ensures cards have same height by pushing button down */
+}
+
+/* --- Feature Action Button --- */
+.home-feature-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 2px solid var(--text-secondary);
+  color: var(--text-secondary);
+  background-color: transparent;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  /* Aligns button to the bottom */
+}
+
+.home-feature-button:hover {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: var(--text-primary);
+  transform: scale(1.05);
 }
 
 /* --- Sports Section --- */
 .home-sports {
-  background-color: #001e28;
-  /* Light gray background */
-  border-radius: 10px;
-  padding: 4rem 2rem;
-  /* Consistent padding */
+    background-color: var(--primary-dark);
+    padding: 6rem 2rem;
+    border-top: 1px solid var(--border-light);
 }
 
-.home-sports h2 {
-  margin-bottom: 3rem;
-  color: #ffffff;
+.home-sports-container {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.home-sports-grid {
-  display: flex;
-  justify-content: center;
-  /* Center the cards */
-  gap: 4rem;
-  flex-wrap: wrap;
-  /* Allow wrapping on smaller screens */
+/* --- Reusable Section Title & Subtitle --- */
+.home-section-title {
+    text-align: center;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
+.home-section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Featured Sport Card --- */
 .home-sport-card {
-  background-color: white;
-  padding: 1.5rem 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  text-align: left;
-  /* Align text to the left */
-  width: 350px;
-  /* Fixed width for consistency */
-  cursor: default;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-left 0.2s ease-in-out;
-  /* border-left: 5px solid transparent; */
-}
-
-/* Cricket card styles */
-.sport-cricket {
-  background-color: #34699a;
-  /* light blue */
-  /* border-left: 5px solid #0d47a1; */
-}
-
-/* Football card styles */
-.sport-football {
-  background-color: #ef9316;
-  /* light green */
-  /* border-left: 5px solid #33691e; */
-}
-
-/* Basketball card styles */
-.sport-basketball {
-  background-color: #df4838;
-  /* light orange */
-  /* border-left: 5px solid #e65100; */
+    background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
 }
 
 .home-sport-card:hover {
-  transform: translateY(-8px);
-  transform: scale(1.2, 1.2);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  border: 5px solid #121212;
-  /* Accent border on hover */
+    transform: translateY(-8px);
+    border-color: var(--primary-accent);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.home-sport-card h3 {
-  font-size: 1.6rem;
-  margin-bottom: 0.75rem;
-  color: #121212;
-  /* Accent color for sport titles */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+/* --- Sport Logo --- */
+.home-sport-logo-wrapper {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, hsla(12, 99%, 59%, 0.1), transparent 70%);
+    border-radius: 12px;
 }
 
-.home-sport-card h3 span {
-  /* Emoji icon */
-  font-size: 2rem;
-  color: #111;
+/* NEW: Font Awesome Icon Style */
+.home-sport-icon {
+    font-size: 5rem; /* Large, clear icon */
+    color: var(--primary-accent);
+    transition: transform 0.4s ease;
 }
 
-.home-sport-card p {
-  font-size: 0.95rem;
-  color: #121212;
-  line-height: 1.6;
-  margin-bottom: 0;
+.home-sport-card:hover .home-sport-icon {
+    transform: scale(1.15); /* Simple, clean scale effect */
+}
+
+/* --- Sport Content --- */
+.home-sport-content {
+    text-align: left;
+}
+
+.home-sport-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.home-sport-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.home-sport-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 2px solid var(--text-secondary);
+    color: var(--text-secondary);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.home-sport-button:hover {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+    color: var(--text-primary);
+}
+
+/* --- Responsive Adjustments for smaller screens --- */
+@media (max-width: 768px) {
+    .home-sport-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .home-sport-content {
+        text-align: center;
+    }
+
+    .home-sport-logo-wrapper {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 1rem; /* Add space when stacked */
+    }
+
+    .home-sport-icon {
+        font-size: 4rem; /* Slightly smaller icon for mobile */
+    }
 }
 
 /* --- User Roles Section --- */
 .home-user-roles {
-  background-color: #001e28;
-  border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-  padding: 4rem 2rem;
-  /* Consistent padding */
+    background-color: var(--primary-dark);
+    padding: 6rem 2rem;
+    border-top: 1px solid var(--border-light);
 }
 
 .home-user-roles h2 {
-  margin-bottom: 3rem;
-  color: #fff;
+    text-align: center;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    color: var(--text-primary);
+    margin-bottom: 4rem;
+    font-weight: 700;
 }
 
+/* --- Roles Grid --- */
 .home-roles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  /* Removed padding: 0 2rem; from here as it's already on the section */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start; /* Align cards to the top */
 }
 
+/* --- Role Card Styling --- */
 .home-role-card {
-  background-color: #1c3a47;
-  padding: 2.5rem;
-  /* More padding */
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  text-align: left;
-  /* Align text to the left */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border: 1px solid #eee;
-  /* Subtle border */
+    background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure cards take full height of grid row */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .home-role-card:hover {
-  transform: translateY(-8px) scale(1.05, 1.05);
-  /* transform:; */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  border-color: #ff4c30;
-  background-color: #012733;
-  /* Highlight border on hover */
+    transform: translateY(-8px);
+    border-color: var(--primary-accent);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* This will hide the empty middle card cleanly */
+#home-middle-role-card {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* --- Card Title and Icon --- */
 .home-role-card h3 {
-  font-size: 1.7rem;
-  margin-bottom: 1.5rem;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
 }
 
-.home-role-card h3 span {
-  /* Emoji icon */
-  font-size: 2.2rem;
-  color: #111;
+.home-role-icon {
+    color: var(--primary-accent);
+    font-size: 1.5rem;
+    width: 25px; /* Ensures alignment */
+    text-align: center;
 }
 
+/* --- Feature List Styling --- */
 .home-role-features {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    flex-grow: 1; /* Pushes buttons to the bottom */
 }
 
 .home-role-features li {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: flex-start;
-  /* Align list item content to the start */
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
 }
 
+/* Replaces the cheap emoji with a clean Font Awesome checkmark */
 .home-role-features li::before {
-  content: '✅';
-  /* Checkmark icon */
-  margin-right: 0.8rem;
-  font-size: 1.1rem;
-  line-height: 1;
-  /* For better vertical alignment */
-  flex-shrink: 0;
-  /* Prevent checkmark from shrinking */
+    content: '\f00c'; /* Font Awesome check icon unicode */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--primary-accent);
+    margin-right: 0.8rem;
+    font-size: 0.9rem;
+    margin-top: 0.25rem; /* Better vertical alignment */
 }
 
-/* --- User Roles Section Buttons --- */
-
-/* Container for the buttons within role cards */
+/* --- Buttons Container --- */
 .home-role-buttons {
-  display: flex;
-  flex-direction: column;
-  /* Stack buttons by default */
-  gap: 0.8rem;
-  /* Space between buttons */
-  margin-top: 1.5rem;
-  /* Space above buttons from list items */
-  width: 100%;
-  /* Take full width of the card */
+    display: flex;
+    gap: 1rem;
+    margin-top: auto; /* Pushes buttons to the bottom */
 }
 
-/* Base style for all buttons within role cards */
+.home-role-buttons form {
+    flex: 1; /* Makes forms share space equally */
+}
+
+/* --- General Button Styles --- */
 .home-role-btn {
-  display: block;
-  /* Make buttons take full width of their container */
-  width: 100%;
-  padding: 0.8rem 1.5rem;
-  /* Consistent padding */
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  /* Reset default button border */
-  border-radius: 8px;
-  /* Slightly rounded corners */
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
 }
 
-/* Style for the Login button (Primary) */
+/* --- Login Button (Primary Action) --- */
 .home-role-login-btn {
-  background-color: #ff4c30;
-  /* Your primary accent color */
-  color: #ffffff;
-  /* border: 2px solid #5409b2; */
-  /* Solid border matching background */
+    background-color: var(--primary-accent);
+    color: var(--text-primary);
+    border-color: var(--primary-accent);
 }
 
 .home-role-login-btn:hover {
-  background-color: #fff;
-  /* Darker shade on hover */
-  border: 2px solid #ff4c30;
-  color: #121212;
-  transform: translateY(-2px);
-  /* Slight lift effect */
+    background-color: var(--accent-light);
+    border-color: var(--accent-light);
+    transform: translateY(-2px);
 }
 
-.home-role-login-btn:active {
-  background-color: #121212;
-  transform: translateY(0);
-  color: #fff;
-}
-
-/* Style for the Register button (Secondary/Outline) */
+/* --- Register Button (Secondary Action) --- */
 .home-role-register-btn {
-  background-color: transparent;
-  color: #ff4c30;
-  /* Text color matching primary accent */
-  border: 2px solid #ff4c30;
-  /* Outline border */
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-light);
 }
 
 .home-role-register-btn:hover {
-  background-color: #121212;
-  /* Fill with primary color on hover */
-  color: #ffffff;
-  /* White text on hover */
-  transform: translateY(-2px);
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+    transform: translateY(-2px);
 }
 
-.home-role-register-btn:active {
-  background-color: #ff4c30;
-  border-color: #121212;
-  transform: translateY(0);
-}
-
-/* Style for the Log Out button (Primary) */
+/* --- Logout Button (Danger Action) --- */
 .home-role-logout-btn {
-  margin-left: 2px;
-  background-color: #d90d0d;
-  /* Your primary accent color */
-  color: #ffffff;
-  border: 2px solid #d90d0d;
-  /* Solid border matching background */
+    background-color: #5c1a1a; /* A deep, less jarring red */
+    color: #fecaca;
+    border-color: #992626;
+    width: 100%;
 }
 
 .home-role-logout-btn:hover {
-  color: #d90d0d;
-  background-color: #ffffff;
-  /* Darker shade on hover */
-  border-color: #ffffff;
-  transform: translateY(-2px);
-  /* Slight lift effect */
-}
-
-.home-role-logout-btn:active {
-  background-color: #d90d0d;
-  transform: translateY(0);
-}
-
-/* Responsive adjustments for buttons within role cards */
-@media (min-width: 768px) {
-
-  /* For wider screens, make buttons side-by-side if desired, or keep stacked for cleaner look */
-  .home-role-buttons {
-    flex-direction: row;
-    /* Layout buttons in a row */
-    justify-content: center;
-    /* Center them if there's extra space */
-    gap: 1rem;
-    /* Adjust spacing for row layout */
-  }
-
-  .home-role-btn {
-    width: auto;
-    /* Allow buttons to size based on content + padding */
-    min-width: 120px;
-    /* Ensure a minimum width */
-  }
-}
-
-@media (max-width: 480px) {
-  .home-role-btn {
-    padding: 0.7rem 1rem;
-    /* Slightly less padding on very small screens */
-    font-size: 0.95rem;
-  }
+    background-color: #802020;
+    border-color: #ef4444;
+    color: var(--text-primary);
+    transform: translateY(-2px);
 }
 
 /* --- Footer Styling --- */
@@ -1190,7 +1166,8 @@ footer {
     justify-content: center;
     /* Center social icons */
   }
-  .footer-links{
+
+  .footer-links {
     display: flex;
     flex-direction: row;
   }
@@ -1231,7 +1208,7 @@ footer {
     font-size: 2.5rem;
     /* Adjust emoji size */
   }
- 
+
 }
 
 

@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken');
 const matches = require("../models/match");
 const players = require("../models/player");
 const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
@@ -37,12 +36,7 @@ const login = async (req, res, next) => {
             return next();
         }
 
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
+        
         // If not found in any collection
         req.user = "none";
     } catch (err) {
@@ -75,15 +69,6 @@ route.post('/clubs', login, async (req, res) => {
     }
 })
 
-//league logout
-route.post('/leagues', login, async (req, res) => {
-    try {
-        res.clearCookie("token");
-        res.redirect("/");
-    } catch (error) {
-        console.log(error);
-        res.redirect('/error');
-    }
-})
+
 
 module.exports = route;

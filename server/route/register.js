@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken');
 const matches = require("../models/match");
 const players = require("../models/player");
 const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
@@ -38,11 +37,6 @@ const login = async (req, res, next) => {
             return next();
         }
 
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
 
         // If not found in any collection
         req.user = "none";
@@ -59,12 +53,11 @@ const datas = async (req, res, next) => {
     try {
 
         // fetching data
-        const [clubData, matchData, playerData, merchData, leagueData, viewerData] = await Promise.all([
+        const [clubData, matchData, playerData, merchData, viewerData] = await Promise.all([
             clubs.find({}),
             matches.find({}),
             players.find({}),
             merchandise.find({}),
-            leagues.find({}),
             viewers.find({})
         ]);
 
@@ -73,7 +66,6 @@ const datas = async (req, res, next) => {
             matches: matchData,
             players: playerData,
             merchandise: merchData,
-            leagues: leagueData,
             viewers: viewerData
         };
 
@@ -101,9 +93,8 @@ route.post('/register_viewers', async (req, res) => {
         ///checking that user of this email already exist or not.
         let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
-        let inleague = await leagues.findOne({ email });
 
-        let check = inclub || inviewer || inleague;
+        let check = inclub || inviewer;
         if (check) {
             res.redirect("/error");
         } else {
@@ -135,9 +126,8 @@ route.post('/register_clubs', async (req, res) => {
         //checking that user of this email already exist or not.
         let inclub = await clubs.findOne({ email });
         let inviewer = await viewers.findOne({ email });
-        let inleague = await leagues.findOne({ email });
 
-        let check = inclub || inviewer || inleague
+        let check = inclub || inviewer
         if (check) {
             res.redirect("/error");
         } else {
@@ -156,38 +146,8 @@ route.post('/register_clubs', async (req, res) => {
 })
 
 
-// leagues page
-route.get('/register_leagues', login, async (req, res) => {
-    let user = req.user;
-    res.render("register_leagues", { user });
-})
 
-route.post('/register_leagues', async (req, res) => {
-    try {
 
-        let { name, sport, email, password, bio, organizer_name, founded_year } = req.body;
-        //checking that user of this email already exist or not.
-        let inclub = await clubs.findOne({ email });
-        let inviewer = await viewers.findOne({ email });
-        let inleague = await leagues.findOne({ email });
-
-        let check = inclub || inviewer || inleague
-        if (check) {
-            res.redirect("/error");
-        } else {
-            //providing more sequrity to its password/
-            let salt = await bcrypt.genSalt(10);
-            let hash = await bcrypt.hash(password, salt);
-            let user = await leagues.create({ name, sport, email, password: hash, bio, organizer_name, founded_year })
-
-            res.redirect("/register/register_leagues");
-        }
-    } catch (error) {
-        console.error(error);
-        res.redirect('/error');
-    }
-
-})
 
 
 module.exports = route;

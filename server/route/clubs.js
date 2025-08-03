@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken');
 const matches = require("../models/match");
 const players = require("../models/player");
 const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
@@ -19,12 +18,11 @@ const datas = async (req, res, next) => {
     try {
 
         // fetching data
-        const [clubData, matchData, playerData, merchData, leagueData, viewerData] = await Promise.all([
+        const [clubData, matchData, playerData, merchData, viewerData] = await Promise.all([
             clubs.find({}),
             matches.find({}),
             players.find({}),
             merchandise.find({}),
-            leagues.find({}),
             viewers.find({})
         ]);
 
@@ -33,7 +31,6 @@ const datas = async (req, res, next) => {
             matches: matchData,
             players: playerData,
             merchandise: merchData,
-            leagues: leagueData,
             viewers: viewerData
         };
 
@@ -69,13 +66,7 @@ const login = async (req, res, next) => {
             req.user = user;
             return next();
         }
-
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
+        
         // If not found in any collection
         req.user = "none";
     } catch (err) {

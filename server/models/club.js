@@ -14,7 +14,8 @@ const Club = new mongoose.Schema({
         type: String,
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        index: true
     },
     password: {
         type: String,
@@ -24,6 +25,15 @@ const Club = new mongoose.Schema({
         type: String,
         default: null
     },
+    totalRevenue: {
+        type: Number,
+        default: 0
+    },
+    merchandiseSold: {
+        type: Number,
+        default: 0
+    },
+
     bio: {
         type: String,
         trim: true
@@ -88,6 +98,7 @@ const Club = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player_DATA'
     }
+   
 }, {
     timestamps: true
 });

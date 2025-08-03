@@ -52,10 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Logic for Razorpay "Buy Credits" Modal ---
     const buyCreditsBtn = document.getElementById('buy-credits-btn');
     const modal = document.getElementById('buy-credits-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
+    const closeModalBtn = modal ? modal.querySelector('.viewers-dashboard-close-modal') : null;
     const buyCreditsForm = document.getElementById('buy-credits-form');
 
     if (buyCreditsBtn && modal && closeModalBtn && buyCreditsForm) {
@@ -76,74 +78,69 @@ document.addEventListener('DOMContentLoaded', () => {
             razorpayBtn.disabled = true;
             razorpayBtn.textContent = 'Creating Order...';
 
-            // 1. Create an order on your backend
-            const orderResponse = await fetch('/payment/create_order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount: amount })
-            });
+            try {
+                // 1. Create an order on your backend
+                const orderResponse = await fetch('/payment/create_order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: amount })
+                });
 
-            if (!orderResponse.ok) {
-                alert('Failed to create payment order. Please try again.');
-                razorpayBtn.disabled = false;
-                razorpayBtn.textContent = 'Proceed to Pay';
-                return;
-            }
+                if (!orderResponse.ok) throw new Error('Failed to create order.');
 
-            const order = await orderResponse.json();
+                const order = await orderResponse.json();
 
-            // 2. Configure and open Razorpay Checkout
-            const options = {
-                key: 'YOUR_KEY_ID', // IMPORTANT: Replace with your Razorpay Key ID
-                amount: order.amount,
-                currency: order.currency,
-                name: "Crossfit Credits",
-                description: "Purchase of in-app credits",
-                order_id: order.id,
-                // This form will be submitted to your verification route
-                handler: function (response) {
-                    const verificationForm = document.createElement('form');
-                    verificationForm.method = 'POST';
-                    verificationForm.action = '/payment/verify_payment';
+                // 2. Configure and open Razorpay Checkout
+                const options = {
+                    key: 'rzp_test_XWbJpZeBIaV3qP', // IMPORTANT: Replace with your Razorpay Test Key ID
+                    amount: order.amount,
+                    currency: order.currency,
+                    name: "Crossfit Credits",
+                    description: "Purchase of in-app credits",
+                    order_id: order.id,
+                    handler: function (response) {
+                        // This function creates and submits a hidden form to your verification route
+                        const verificationForm = document.createElement('form');
+                        verificationForm.method = 'POST';
+                        verificationForm.action = '/payment/verify_payment';
+                        
+                        const fields = {
+                            payment_id: response.razorpay_payment_id,
+                            order_id: response.razorpay_order_id,
+                            signature: response.razorpay_signature,
+                            amount: amount
+                        };
 
-                    const fields = {
-                        payment_id: response.razorpay_payment_id,
-                        order_id: response.razorpay_order_id,
-                        signature: response.razorpay_signature,
-                        amount: amount
-                    };
-
-                    for (const key in fields) {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = key;
-                        input.value = fields[key];
-                        verificationForm.appendChild(input);
+                        for (const key in fields) {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = fields[key];
+                            verificationForm.appendChild(input);
+                        }
+                        
+                        document.body.appendChild(verificationForm);
+                        verificationForm.submit();
+                    },
+                    theme: {
+                        color: "#FF4C30" // Your orange theme color
                     }
-                    
-                    document.body.appendChild(verificationForm);
-                    verificationForm.submit();
-                },
-                prefill: {
-                    // You can prefill user data here if you have it
-                    // name: "Manoj Kumar",
-                    // email: "manoj.kumar@example.com",
-                },
-                theme: {
-                    color: "#2575fc"
-                }
-            };
+                };
 
-            const rzp1 = new Razorpay(options);
-            rzp1.open();
+                const rzp1 = new Razorpay(options);
+                rzp1.open();
+                
+                rzp1.on('payment.failed', function (response){
+                    alert("Payment failed: " + response.error.description);
+                    razorpayBtn.disabled = false;
+                    razorpayBtn.textContent = 'Proceed to Pay';
+                });
 
-            rzp1.on('payment.failed', function (response){
-                alert("Payment failed. Please try again.");
-                console.error(response.error);
+            } catch (error) {
+                alert('An error occurred. Please try again.');
                 razorpayBtn.disabled = false;
                 razorpayBtn.textContent = 'Proceed to Pay';
-            });
+            }
         });
     }
 });
-

@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken');
 const matches = require("../models/match");
 const players = require("../models/player");
 const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
 const clubs = require("../models/club");
 const viewers = require("../models/viewer");
 
@@ -37,13 +36,6 @@ const login = async (req, res, next) => {
             req.user = user;
             return next();
         }
-
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
         // If not found in any collection
         req.user = "none";
     } catch (err) {
@@ -113,38 +105,5 @@ route.post('/login_clubs', async (req, res) => {
     }
 
 })
-
-// leagues page
-route.get('/login_leagues',login, async (req, res) => {
-    let user = req.user;
-    res.render("login_leagues",{user});
-})
-
-route.post('/login_leagues', async (req, res) => {
-    try {
-        const check = await leagues.findOne({ name : req.body.name });
-        if(!check){
-            res.send("User not found");
-        }
-
-        const isMatch = await bcrypt.compare(req.body.password, check.password);
-        if(isMatch) {
-            // If the password matches, create a JWT token
-            const token = jwt.sign({ name: check.name }, "secret-word");
-            res.cookie("token", token);
-            res.redirect("/dashboard/leagues");
-        } else {
-            res.status(401).send("Incorrect password");
-        }
-    }catch(error) {
-        console.error(error);
-        res.redirect('/error');
-    }
-
-})
-
-
-
-
 
 module.exports = route;

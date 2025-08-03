@@ -2,70 +2,44 @@ const express = require('express');
 const route = express.Router();
 const jwt = require('jsonwebtoken');
 
-//fetching models
-const matches = require("../models/match");
-const players = require("../models/player");
-const merchandise = require("../models/merchandise");
-const leagues = require("../models/league");
-const clubs = require("../models/club");
-const viewers = require("../models/viewer");
+// --- Models ---
+const Merchandise = require("../models/merchandise");
+const Viewer = require("../models/viewer");
+const Club = require("../models/club");
 
-
-const login = async (req, res, next) => {
+// --- Login Middleware ---
+const loginMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token || token === "none") {
             req.user = "none";
             return next();
         }
-
         const decoded = jwt.verify(token, "secret-word");
-
-        // Try to find the user in each collection
-        let user = await viewers.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
-        user = await clubs.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
-        user = await leagues.findOne({ email: decoded.email });
-        if (user) {
-            req.user = user;
-            return next();
-        }
-
-        // If not found in any collection
-        req.user = "none";
+        let user = await Viewer.findOne({ email: decoded.email }) ||
+                   await Club.findOne({ email: decoded.email });
+        req.user = user || "none";
     } catch (err) {
-        console.error("Authentication error:", err);
         req.user = "none";
     }
     next();
 };
 
 // --- Route to Display All Merchandise ---
-route.get('/', login, async (req, res) => {
+route.get('/', loginMiddleware, async (req, res) => {
     try {
-        const allMerchandise = await merchandise.find({ 
-            status: 'available',
-            clubId: { $exists: true, $ne: null } // Only get merchandise with valid clubId
-        })
-            .populate('clubId', 'name') // Populate clubId with club name
+        // ADDED .populate('clubId') TO FETCH THE CLUB'S NAME
+        const allMerchandise = await Merchandise.find({ status: 'available' })
+            .populate('clubId') // This line fetches the club details
             .sort({ createdAt: -1 });
-        
+
         res.render('merchandise', {
             merchandise: allMerchandise,
             user: req.user
         });
     } catch (error) {
-        console.error('Merchandise route error:', error);
-        res.redirect('/error');
+        console.error("Error fetching merchandise:", error);
+        res.status(500).send("Internal Server Error");
     }
 });
 

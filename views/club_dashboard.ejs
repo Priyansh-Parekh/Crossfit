@@ -51,34 +51,28 @@
       <div class="club-dashboard-card-change">Keep It Up</div>
     </div>
     <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
-      <div class="club-dashboard-card-header">
-        <div class="club-dashboard-card-title">Total Revenue</div>
-        <div class="club-dashboard-card-icon">
-          <i class="fas fa-rupee-sign"></i>
+        <div class="club-dashboard-card-header">
+            <div class="club-dashboard-card-title">Total Revenue</div>
+            <div class="club-dashboard-card-icon">
+                <i class="fas fa-rupee-sign"></i>
+            </div>
         </div>
-      </div>
-      <% if (user.revenue) { %>
-      <div class="club-dashboard-card-value">₹<%= user.revenue %>
-      </div>
-      <% }else{ %>
-      <div class="club-dashboard-card-value">₹0</div>
-      <% } %>
-      <div class="club-dashboard-card-change">Make your Mark</div>
+        <!-- FIX: Changed user.revenue to user.totalRevenue -->
+        <div class="club-dashboard-card-value">₹<%= user.totalRevenue ? user.totalRevenue.toFixed(2) : '0.00' %></div>
+        <div class="club-dashboard-card-change">Make your Mark</div>
     </div>
     <div class="club-dashboard-card" onclick="goToSection('club-dashboard-merchandise')">
-      <div class="club-dashboard-card-header">
-        <div class="club-dashboard-card-title">Merchandise Sold</div>
-        <div class="club-dashboard-card-icon">
-          <i class="fas fa-shopping-cart"></i>
+        <div class="club-dashboard-card-header">
+            <div class="club-dashboard-card-title">Merchandise Sold</div>
+            <div class="club-dashboard-card-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
         </div>
-      </div>
-      <div class="club-dashboard-card-value">
-        <%= user.merchandise.length %>
-      </div>
-      <div class="club-dashboard-card-change">Keep in Stock</div>
+        <!-- FIX: Changed user.merchandise.length to user.merchandiseSold -->
+        <div class="club-dashboard-card-value"><%= user.merchandiseSold || 0 %></div>
+        <div class="club-dashboard-card-change">Keep in Stock</div>
     </div>
-  </div>
-
+</div>
   <div class="club-dashboard-action-buttons">
     <button class="club-dashboard-btn club-dashboard-btn-primary" onclick="showSection('club-dashboard-players')">
       <i class="fas fa-plus"></i>
