@@ -38,6 +38,14 @@ const ViewerSchema = new Schema({
         type: Number,
         required: true,
         default: 0 // Start all new users with a balance of 0
+    },
+
+    address: {
+        street: { type: String, trim: true },
+        city: { type: String, trim: true },
+        state: { type: String, trim: true },
+        postalCode: { type: String, trim: true },
+        country: { type: String, trim: true, default: 'India' }
     }
 
 }, { timestamps: true });

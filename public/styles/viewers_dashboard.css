@@ -928,3 +928,77 @@
     font-size: 1.6rem;
   }
 }
+
+.viewers-dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.viewers-dashboard-table th,
+.viewers-dashboard-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #023242; /* Your primary-light color */
+}
+
+.viewers-dashboard-table th {
+    color: #94a3b8; /* Your text-secondary color */
+    font-weight: 600;
+    width: 30%;
+}
+
+.viewers-dashboard-table td {
+    color: #ffffff; /* Your text-primary color */
+    font-weight: 500;
+}
+
+/* Address Form Styling */
+#address-form {
+    display: none; /* Hidden by default */
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #023242; /* Separator line */
+}
+
+.viewers-dashboard-form-group {
+    margin-bottom: 1rem;
+}
+
+.viewers-dashboard-form-group label {
+    display: block;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.viewers-dashboard-form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #023242;
+    border-radius: 8px;
+    background-color: #001e28; /* Your primary-dark color */
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.viewers-dashboard-form-control:focus {
+    outline: none;
+    border-color: #ff4c30; /* Your orange accent */
+}
+
+/* Button Styling */
+.viewers-dashboard-button {
+    background-color: #ff4c30;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.viewers-dashboard-button:hover {
+    background-color: #e63e26; /* Darker orange */
+}

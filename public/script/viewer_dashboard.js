@@ -52,6 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (all your other existing dashboard JS logic for Razorpay, favorites, etc.)
+
+    // --- Logic for Toggling Address Form ---
+    const editAddressBtn = document.getElementById('edit-address-btn');
+    const addressForm = document.getElementById('address-form');
+
+    // This 'if' check prevents errors on other pages
+    if (editAddressBtn && addressForm) {
+        editAddressBtn.addEventListener('click', () => {
+            // Toggle the form's visibility
+            addressForm.style.display = addressForm.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Logic for Razorpay "Buy Credits" Modal ---

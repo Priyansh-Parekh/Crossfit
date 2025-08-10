@@ -43,15 +43,15 @@
         <button id="buy-credits-btn" class="viewers-dashboard-button">Buy Credits</button>
       </div>
 
-    <!-- Email -->
-    <div class="viewers-dashboard-card">
-      <div class="viewers-dashboard-card-header">
-        <div class="viewers-dashboard-card-title">Email</div>
+      <!-- Email -->
+      <div class="viewers-dashboard-card">
+        <div class="viewers-dashboard-card-header">
+          <div class="viewers-dashboard-card-title">Email</div>
+        </div>
+        <div class="viewers-dashboard-card-value"><%= user.email %></div>
       </div>
-      <div class="viewers-dashboard-card-value"><%= user.email %></div>
-    </div>
 
-   </div>
+    </div>
     <!-- Status -->
     <div class="viewers-dashboard-card">
       <div class="viewers-dashboard-card-header">
@@ -62,14 +62,11 @@
           <%= user.status %>
         </span>
       </div>
-       <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/viewer/status" method="post">
-          <input type="hidden" name="status" value="<%= user.status %>">
-          <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
-        </form>
+      <form id="viewers-dashboard-status-form" class="viewers-dashboard-form" action="/dashboard/viewer/status" method="post">
+        <input type="hidden" name="status" value="<%= user.status %>">
+        <button id="viewers-dashboard-status-button" class="viewers-dashboard-button">Change</button>
+      </form>
     </div>
-
-    
-
   </div>
 
   <!-- Favorite Teams Section -->
@@ -156,7 +153,55 @@
       </tr>
     </table>
   </div>
-</div>
+
+ <div class="viewers-dashboard-section">
+      <div class="viewers-dashboard-section-header">
+          <h3 class="viewers-dashboard-section-title">Shipping Address</h3>
+      </div>
+
+      <!-- This table will display the current address, matching the Account Info style -->
+      <table class="viewers-dashboard-table" id="address-display-view">
+          <% if (user.address && user.address.street) { %>
+              <tr>
+                  <th>Address</th>
+                  <td>
+                      <%= user.address.street %><br>
+                      <%= user.address.city %>, <%= user.address.state %> - <%= user.address.postalCode %><br>
+                      <%= user.address.country %>
+                  </td>
+              </tr>
+          <% } else { %>
+              <tr>
+                  <td colspan="2">No shipping address on file. Please add one for merchandise delivery.</td>
+              </tr>
+          <% } %>
+      </table>
+
+      <button id="edit-address-btn" class="viewers-dashboard-button">
+          <%= (user.address && user.address.street) ? 'Update Address' : 'Add Address' %>
+      </button>
+
+      <!-- This is the hidden form for adding/editing the address -->
+      <form id="address-form" action="/dashboard/viewer/update_address" method="POST" style="display: none;">
+          <div class="viewers-dashboard-form-group">
+              <label for="street">Street Address</label>
+              <input type="text" id="street" name="street" class="viewers-dashboard-form-control" value="<%= user.address?.street || '' %>" required>
+          </div>
+          <div class="viewers-dashboard-form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" class="viewers-dashboard-form-control" value="<%= user.address?.city || '' %>" required>
+          </div>
+          <div class="viewers-dashboard-form-group">
+              <label for="state">State</label>
+              <input type="text" id="state" name="state" class="viewers-dashboard-form-control" value="<%= user.address?.state || '' %>" required>
+          </div>
+          <div class="viewers-dashboard-form-group">
+              <label for="postalCode">Postal Code</label>
+              <input type="text" id="postalCode" name="postalCode" class="viewers-dashboard-form-control" value="<%= user.address?.postalCode || '' %>" required>
+          </div>
+          <button type="submit" class="viewers-dashboard-button">Save Address</button>
+      </form>
+  </div>
 
 <div id="buy-credits-modal" class="viewers-dashboard-modal-overlay" style="display: none;">
     <div class="viewers-dashboard-modal-content">
@@ -174,7 +219,75 @@
     </div>
 </div>
 
-<!-- The Razorpay Script (must be included on this page) -->  
+<!-- The Razorpay Script (must be included on this page) -->  
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <script src="/script/viewer_dashboard.js"></script>
+
+<!-- Add these styles to your viewers_dashboard.css file or in a <style> tag -->
+<!-- <style>
+    .address-section {
+        background-color: var(--bg-dark-secondary, #1E1E1E);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color, #2F2F2F);
+        margin-top: 2rem;
+    }
+
+    #address-display-view p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-secondary, #A0A0A0);
+        margin-bottom: 1.5rem;
+        background-color: var(--bg-dark-primary, #121212);
+        padding: 1rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--accent-primary, #FF4C30);
+    }
+
+    #address-form {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .viewers-dashboard-form-group label {
+        display: block;
+        font-weight: 500;
+        color: var(--text-secondary, #A0A0A0);
+        margin-bottom: 0.5rem;
+    }
+
+    .viewers-dashboard-form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color, #2F2F2F);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: var(--bg-dark-primary, #121212);
+      color: var(--text-primary, #EAEAEA);
+    }
+
+    .viewers-dashboard-form-control:focus {
+      outline: none;
+      border-color: var(--accent-primary, #FF4C30);
+      box-shadow: 0 0 0 3px rgba(255, 76, 48, 0.2);
+    }
+
+    .viewers-dashboard-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid var(--accent-primary, #FF4C30);
+        background-color: var(--accent-primary, #FF4C30);
+        color: #fff;
+    }
+
+    .viewers-dashboard-button:hover {
+        background-color: transparent;
+        color: var(--accent-primary, #FF4C30);
+    }
+</style> -->

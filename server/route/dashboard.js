@@ -332,4 +332,35 @@ route.post('/viewer/status', login, async (req, res) => {
     }
 });
 
+route.post('/viewer/update_address', login, async (req, res) => {
+    try {
+        if (req.user === "none" || req.user.user_type !== 'viewer') {
+            return res.redirect('/login');
+        }
+
+        const { street, city, state, postalCode } = req.body;
+
+        // Find the viewer and update their address using the $set operator
+        await viewers.updateOne(
+            { _id: req.user._id },
+            { 
+                $set: {
+                    "address.street": street,
+                    "address.city": city,
+                    "address.state": state,
+                    "address.postalCode": postalCode,
+                    "address.country": "India" // Defaulting to India
+                }
+            }
+        );
+        
+        // Redirect back to the dashboard to show the updated address
+        res.redirect('/dashboard/viewer');
+
+    } catch (error) {
+        console.error("Error updating address:", error);
+        res.redirect('/error');
+    }
+});
+
 module.exports = route;
