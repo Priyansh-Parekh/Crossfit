@@ -133,27 +133,7 @@
     </div>
   </div>
 
-  <!-- Account Info Section -->
-  <div class="viewers-dashboard-section">
-    <div class="viewers-dashboard-section-header">
-      <h3 class="viewers-dashboard-section-title">Account Info</h3>
-    </div>
-    <table class="viewers-dashboard-table">
-      <tr>
-        <th>User Type</th>
-        <td><%= user.user_type %></td>
-      </tr>
-      <tr>
-        <th>Created At</th>
-        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
-      </tr>
-      <tr>
-        <th>Last Updated</th>
-        <td><%= new Date(user.updatedAt).toLocaleDateString() %></td>
-      </tr>
-    </table>
-  </div>
-
+<!-- Shipping Address -->
  <div class="viewers-dashboard-section">
       <div class="viewers-dashboard-section-header">
           <h3 class="viewers-dashboard-section-title">Shipping Address</h3>
@@ -202,6 +182,29 @@
           <button type="submit" class="viewers-dashboard-button">Save Address</button>
       </form>
   </div>
+  
+  <!-- Account Info Section -->
+  <div class="viewers-dashboard-section">
+    <div class="viewers-dashboard-section-header">
+      <h3 class="viewers-dashboard-section-title">Account Info</h3>
+    </div>
+    <table class="viewers-dashboard-table">
+      <tr>
+        <th>User Type</th>
+        <td><%= user.user_type %></td>
+      </tr>
+      <tr>
+        <th>Created At</th>
+        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+      </tr>
+      <tr>
+        <th>Last Updated</th>
+        <td><%= new Date(user.updatedAt).toLocaleDateString() %></td>
+      </tr>
+    </table>
+  </div>
+
+ 
 
 <div id="buy-credits-modal" class="viewers-dashboard-modal-overlay" style="display: none;">
     <div class="viewers-dashboard-modal-content">
