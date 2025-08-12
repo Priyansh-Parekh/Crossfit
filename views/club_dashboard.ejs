@@ -97,6 +97,7 @@
       <div class="club-dashboard-section-header">
         <h2 class="club-dashboard-section-title">Recent Matches</h2>
       </div>
+    
       <table class="club-dashboard-table">
         <thead>
           <tr>
@@ -106,53 +107,47 @@
             <th>Score</th>
           </tr>
         </thead>
+    
         <tbody>
-          <tr>
-
-            <% if ( user.match_played.length>0) { %>
-            <% let recent_match_count=0; %>
-            <% user.match_played.forEach(match=> { %>
-            <% if (recent_match_count>= 5) return; %>
-            <% if (match.played===true) { %>
-            <% recent_match_count++; %>
-            <% let Opponent=match.matchId.club1===user._id ? match.matchId.club2 : match.matchId.club1; %>
-          <tr>
-            <td>
-              <%= Opponent.name %>
-            </td>
-            <td>
-              <%= match.matchId.matchDate.toDateString() %>
-            </td>
-            <td>
-              <span class="club-dashboard-status-badge club-dashboard-status  <%= match.matchId.winner===user._id ? 'Won' : 'Lose' %>">
-                <%= match.matchId.winner===user._id ? 'Won' : 'Lose' %>
-              </span>
-            </td>
-            <td>
-              <%= match.matchId.score.club1.runs %>/<%= match.matchId.score.club1.wickets %> vs
-              <%= match.matchId.score.club2.runs %>/<%= match.matchId.score.club2.wickets %>
-            </td>
-          </tr>
-          <% } else if(recent_match_count===0) { %>
-
-          <tr>
-            <td colspan="4">No Matches Played Yet</td>
-          </tr>
-
-          <% return %>
+          <% if (user.match_played.length > 0) { %>
+            <% let recent_match_count = 0; %>
+            <% user.match_played.forEach(match => { %>
+              <% if (recent_match_count >= 5) return; %>
+              <% if (match.played === true) { %>
+                <% recent_match_count++; %>
+                <% let Opponent = match.matchId.club1 === user._id ? match.matchId.club2 : match.matchId.club1; %>
+    
+                <tr>
+                  <td><%= Opponent.name %></td>
+                  <td><%= match.matchId.matchDate.toDateString() %></td>
+                  <td>
+                    <span class="club-dashboard-status-badge <%= match.matchId.winner === user._id ? 'won' : 'lose' %>">
+                      <%= match.matchId.winner === user._id ? 'Won' : 'Lose' %>
+                    </span>
+                  </td>
+                  <td>
+                    <%= match.matchId.score.club1.runs %>/<%= match.matchId.score.club1.wickets %> vs
+                    <%= match.matchId.score.club2.runs %>/<%= match.matchId.score.club2.wickets %>
+                  </td>
+                </tr>
+              <% } %>
+            <% }) %>
+    
+            <% if (recent_match_count === 0) { %>
+              <tr>
+                <td colspan="4">No Matches Played Yet</td>
+              </tr>
+            <% } %>
+    
+          <% } else { %>
+            <tr>
+              <td colspan="4">No Matches Played Yet</td>
+            </tr>
           <% } %>
-          <% }) %>
-
-          <% } else{%>
-          <td colspan="4">No Matches Played Yet</td>
-          <% } %>
-
-          </tr>
-
         </tbody>
       </table>
     </div>
-
+    
     <div class="club-dashboard-section">
       <div class="club-dashboard-section-header">
         <h2 class="club-dashboard-section-title">Your Team Leaders</h2>
