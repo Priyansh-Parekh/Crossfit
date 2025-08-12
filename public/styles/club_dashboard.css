@@ -300,92 +300,127 @@ body {
 }
 
 /* Players Section */
+/* ===== Container Grid ===== */
 .club-dashboard-players-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 20px;
+  background: #f4f6f9;
 }
 
+/* ===== Player Card Styling ===== */
 .club-dashboard-player-card {
-  background: var(--primary-light); /* Changed from #fff */
+  background: white;
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px var(--shadow-subtle); /* Changed from rgba(0,0,0,0.1) */
+  padding: 1.2rem;
   text-align: center;
-  border: 1px solid var(--border-light); /* Changed from #f0f0f0 */
-  transition: all 0.3s ease; /* Added transition for hover effect */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .club-dashboard-player-card:hover {
-  transform: translateY(-4px); /* Added hover effect to match other cards */
-  box-shadow: 0 8px 25px var(--shadow-glow);
-  border-color: var(--primary-accent);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
+/* ===== Player Image ===== */
 .club-dashboard-player-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
-  margin-bottom: 15px;
-  border: 3px solid var(--border-light); /* Added border to pop on dark bg */
+  border-radius: 50%;
+  border: 3px solid #4CAF50;
+  margin-bottom: 0.5rem;
 }
 
+/* ===== Player Name ===== */
 .club-dashboard-player-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary); /* Changed from #333 */
-  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0.2rem 0;
+  color: #333;
 }
 
+/* ===== Player Type ===== */
 .club-dashboard-player-type {
-  font-size: 14px;
-  color: var(--primary-accent); /* Changed from blue to theme accent */
-  font-weight: 500;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+  background: #eef3ff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: inline-block;
 }
 
+/* ===== Stats ===== */
 .club-dashboard-player-card p {
-  font-size: 14px;
-  color: var(--text-secondary); /* Standardized to secondary text color */
   margin: 5px 0;
+  color: #555;
+  font-size: 0.9rem;
 }
 
-/* Note: Semantic status colors are kept distinct from the main theme colors for clarity. */
-.club-dashboard-status-available {
-  color: #4ade80; /* Bright green for dark backgrounds */
-}
-
-.club-dashboard-status-injured {
-  color: var(--primary-accent); /* Mapped to accent color for 'warning' */
-}
-
-.club-dashboard-status-suspended {
-  color: #facc15; /* Bright yellow for dark backgrounds */
-}
-
-/* Fire player button styled as a destructive, secondary action */
-.club-dashboard-fire-player-form {
-  margin-top: 15px;
-}
-
-.club-dashboard-fire-player-btn {
-  background: transparent;
-  color: var(--primary-accent);
-  border: 1px solid var(--primary-accent);
-  padding: 8px 16px;
+/* ===== Status Styling ===== */
+.club-dashboard-status-active {
+  color: white;
+  background: #4CAF50;
+  padding: 4px 8px;
   border-radius: 6px;
-  font-size: 12px;
+  display: inline-block;
+}
+
+.club-dashboard-status-inactive {
+  color: white;
+  background: #ff4d4d;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* ===== Jersey Number Highlight ===== */
+.club-dashboard-player-card p:last-of-type {
+  font-weight: bold;
+  color: #222;
+}
+
+/* ===== Fire Button ===== */
+.club-dashboard-fire-player-btn {
+  margin-top: 10px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
 }
 
 .club-dashboard-fire-player-btn:hover {
-  background: var(--accent-dark);
-  border-color: var(--accent-dark);
-  color: var(--white);
+  background: #e60000;
 }
+
+/* ===== No Data Styling ===== */
+.club-dashboard-no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+  font-size: 1.1rem;
+  grid-column: 1/-1;
+}
+
+/* ===== Responsive Fixes ===== */
+@media (max-width: 500px) {
+  .club-dashboard-player-card {
+    padding: 1rem;
+  }
+  .club-dashboard-player-img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
 
 /* Add Player Form */
 .club-dashboard-add-player-form {
