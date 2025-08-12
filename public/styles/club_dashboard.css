@@ -818,137 +818,156 @@ body {
 
 /* Matches Section */
 /* Title for the section */
-.club-dashboard-previous-matches-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--border-light);
+
+
+/* ===== Club Dashboard Styles with Your Theme Colors ===== */
+
+.club-dashboard-section {
+  padding: 20px;
+  background: var(--primary-dark);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow-subtle);
 }
 
-/* This is the container for all match entries. */
+/* ===== Title ===== */
+.club-dashboard-previous-matches-title {
+  font-size: 2rem; /* Increased from 1.8rem */
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  border-left: 5px solid var(--primary-accent);
+  padding-left: 12px;
+}
+
+/* ===== Grid Layout ===== */
 .club-dashboard-previous-matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider cards */
+  gap: 20px;
+}
+
+/* ===== Card Styling ===== */
+.club-dashboard-previous-matches-card {
+  background: var(--primary-light);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px; /* More breathing room */
+  box-shadow: 0 4px 10px var(--shadow-subtle);
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Creates space between each match entry */
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* The following elements repeat for each match. I've styled them to look like a single, cohesive row. */
-/* A container to group the main match details together */
-.club-dashboard-previous-matches-teams-container,
-.club-dashboard-previous-matches-date,
-.club-dashboard-previous-matches-result-status,
-.club-dashboard-previous-matches-scorecard-link {
-  display: flex;
-  align-items: center;
+.club-dashboard-previous-matches-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow-accent);
 }
 
-/* Row wrapper for all elements of a single match */
-.club-dashboard-previous-matches-grid > div,
-.club-dashboard-previous-matches-grid > a {
-  background: var(--primary-light);
-  padding: 15px 20px;
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: 1fr auto auto; /* Teams | Result | Link */
-  gap: 20px;
-  align-items: center;
-}
-
-/* The date is styled to appear above each match row */
+/* ===== Date Styling ===== */
 .club-dashboard-previous-matches-date {
-  grid-column: 1 / -1; /* Make date span all columns */
-  background: none;
-  border: none;
-  padding: 10px 0 5px;
+  font-size: 1.05rem; /* was 0.95rem */
+  font-weight: 600;
   color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 14px;
+  margin-bottom: 14px;
 }
 
-/* Container for the two competing teams and "VS" text */
-.club-dashboard-previous-matches-teams-container {
+/* ===== Teams Layout ===== */
+.club-dashboard-previous-matches-teams {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  grid-column: 1 / 2; /* Position in the first column */
+  margin-bottom: 18px;
 }
 
-.club-dashboard-previous-matches-team {
+.team {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.club-dashboard-previous-matches-team-logo {
-  width: 35px;
-  height: 35px;
+.team .logo {
+  width: 44px; /* was 38px */
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border-light);
 }
 
-.club-dashboard-previous-matches-team-name {
-  font-size: 16px;
+.team .name {
+  font-size: 1.1rem; /* was 1rem */
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.club-dashboard-previous-matches-vs {
-  font-size: 14px;
+/* ===== VS Text ===== */
+.vs-text {
   font-weight: 700;
-  color: var(--primary-accent);
+  color: var(--text-light);
+  font-size: 1.2rem; /* was 1.1rem */
+  padding: 0 8px;
 }
 
-/* Result Status (Won/Lost) */
-.club-dashboard-previous-matches-result-status {
-  justify-content: center;
-  grid-column: 2 / 3; /* Position in the second column */
+/* ===== Bottom Section ===== */
+.club-dashboard-previous-matches-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
 }
 
-.club-dashboard-previous-matches-status-badge {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
+/* ===== Status Badges ===== */
+.status-badge {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.95rem; /* was 0.85rem */
   text-transform: uppercase;
-  color: var(--white);
 }
 
-/* Specific styles for the "Won" badge */
-.club-dashboard-previous-matches-won {
-  background-color: #10b981; /* A clear 'success' green for dark themes */
+.status-badge.won {
+  background: rgba(0, 255, 170, 0.15);
+  color: #00ff9d;
+  border: 1px solid #00ff9d;
 }
 
-/* Specific styles for the "Lost" badge using theme accent */
-.club-dashboard-previous-matches-lost {
-  background-color: var(--primary-accent);
+.status-badge.lost {
+  background: rgba(255, 76, 48, 0.15);
+  color: var(--primary-accent);
+  border: 1px solid var(--primary-accent);
 }
 
-/* Scorecard link styled as a secondary button */
-.club-dashboard-previous-matches-scorecard-link {
-  background: var(--primary-dark);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-light);
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+/* ===== Scorecard Link ===== */
+.scorecard-link {
+  font-size: 1rem; /* was 0.9rem */
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s ease;
-  justify-content: center;
-  grid-column: 3 / 4; /* Position in the third column */
+  background: var(--primary-accent);
+  color: var(--white);
+  padding: 7px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.club-dashboard-previous-matches-scorecard-link:hover {
-  background: var(--primary-accent);
-  border-color: var(--primary-accent);
-  color: var(--white);
-  transform: translateY(-1px);
+.scorecard-link:hover {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px var(--shadow-glow);
 }
+
+/* ===== No Matches Card ===== */
+.no-matches {
+  text-align: center;
+  font-size: 1.05rem; /* was 1rem */
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--primary-light);
+  border: 1px dashed var(--border-light);
+  box-shadow: none;
+}
+
+
+
 
 /* Challenges Section */
 /* Main wrapper for the challenge section */
