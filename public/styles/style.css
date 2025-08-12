@@ -826,179 +826,154 @@ section p {
 
 /* --- Footer Styling --- */
 footer {
-  /* Using your theme's primary light color for the main footer area */
-  background-color: var(--primary-light);
-  color: var(--text-primary);
+  background-color: var(--primary-dark);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-light);
   margin-top: auto;
-  font-family: 'Poppins', sans-serif;
-  border-top: 2px solid var(--primary-accent);
+  /* Pushes footer to the bottom */
 }
 
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 3rem 2rem;
+  display: grid;
+  /* Using CSS Grid for a robust, responsive layout */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
-@media (min-width: 768px) {
-  .footer-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .footer-left {
-    flex: 1;
-    text-align: left;
-  }
-
-  .footer-center {
-    flex: 1.5;
-    display: flex;
-    justify-content: center;
-  }
-
-  .footer-right {
-    flex: 1;
-    text-align: right;
-  }
+/* --- Footer Columns (Left, Center, Right) --- */
+.footer-left,
+.footer-center,
+.footer-right {
+  display: flex;
+  flex-direction: column;
 }
 
+/* --- Logo Section --- */
 .footer-logo {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
-@media (min-width: 768px) {
-  .footer-logo {
-    justify-content: flex-start;
-  }
-}
-
 .footer-logo img {
-  height: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .footer-logo a {
-  margin-top: 15px;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  /* Using accent color from your theme */
-  color: var(--primary-accent);
+  color: var(--text-primary);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-logo a:hover {
-  /* Using primary text color from your theme */
-  color: var(--text-primary);
+  color: var(--primary-accent);
 }
 
+/* --- Footer Links (Center Column) --- */
 .footer-links {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .footer-links {
-    flex-direction: row;
-    gap: 1.8rem;
-    justify-content: center;
-  }
+  gap: 1rem;
 }
 
 .footer-links a {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 1rem;
-  transition: color 0.3s ease;
-  white-space: nowrap;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+  position: relative;
 }
 
 .footer-links a:hover {
   color: var(--primary-accent);
+  padding-left: 8px;
 }
 
-.social-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.4rem;
-}
-
+/* --- Social Section (Right Column) --- */
 .social-section p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-primary);
-  font-weight: 500;
-  white-space: nowrap;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .social-section {
-    text-align: center;
-  }
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  /* white-space: nowrap; <-- REMOVED this to fix mobile layout break */
 }
 
 .social-icons {
   display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-}
-
-@media (min-width: 768px) {
-  .social-icons {
-    justify-content: center;
-  }
+  gap: 1rem;
 }
 
 .social-icon {
-  font-size: 24px;
-  /* Using secondary text color for a subtle look */
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  transition: color 0.3s ease;
+  background-color: var(--primary-light);
+  border: 1px solid var(--border-light);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-/* Hover brand colors (unchanged as they are brand-specific) */
+.social-icon:hover {
+  transform: translateY(-4px);
+  color: #ffffff;
+}
+
 .social-icon.instagram:hover {
-  color: #E4405F;
+  background-color: #E4405F;
+  border-color: #E4405F;
 }
 
 .social-icon.facebook:hover {
-  color: #0866FF;
+  background-color: #0866FF;
+  border-color: #0866FF;
 }
 
 .social-icon.reddit:hover {
-  color: #FF4500;
+  background-color: #FF4500;
+  border-color: #FF4500;
 }
 
+/* --- Bottom Bar --- */
 .footer-bottom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 2rem;
-  font-size: 0.95rem;
-  background-color: var(--primary-dark);
+  background-color: #000;
+  /* Slightly darker for contrast */
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-light);
 }
 
 .footer-bottom-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  max-width: 900px;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 639px) { /* Corresponds to the point where the grid might stack */
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        align-items: center; /* This centers the content horizontally */
+        text-align: center;
+    }
 }
 
 /* --- Responsive Adjustments --- */
