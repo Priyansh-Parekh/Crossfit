@@ -300,127 +300,122 @@ body {
 }
 
 /* Players Section */
-/* ===== Container Grid ===== */
 .club-dashboard-players-grid {
+  background: var(--primary-dark);
+  padding: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  padding: 20px;
-  background: #f4f6f9;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.6rem;
 }
 
-/* ===== Player Card Styling ===== */
 .club-dashboard-player-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.2rem;
+  background: var(--primary-light);
+  border-radius: 15px;
+  padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px var(--shadow-subtle);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s;
   position: relative;
+  color: var(--text-primary);
+  max-width: 300px;
 }
-
 .club-dashboard-player-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 35px var(--shadow-glow);
+  border-color: var(--primary-accent);
+  transform: translateY(-6px) scale(1.035);
 }
 
-/* ===== Player Image ===== */
 .club-dashboard-player-img {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #4CAF50;
-  margin-bottom: 0.5rem;
+  border: 4px solid var(--border-light);
+  margin-bottom: 0.75rem;
+  box-shadow: 0 0 0 4px transparent;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.club-dashboard-player-img:hover {
+  box-shadow: 0 0 0 4px var(--primary-accent);
+  border-color: var(--primary-accent);
 }
 
-/* ===== Player Name ===== */
 .club-dashboard-player-name {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin: 0.2rem 0;
-  color: #333;
+  color: var(--text-primary);
+  margin: 0.4rem 0;
+  letter-spacing: 0.5px;
 }
 
-/* ===== Player Type ===== */
 .club-dashboard-player-type {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 0.5rem;
-  background: #eef3ff;
-  padding: 4px 10px;
-  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.02);
+  padding: 4px 14px;
+  border-radius: 7px;
   display: inline-block;
+  margin-bottom: 0.6rem;
 }
 
-/* ===== Stats ===== */
 .club-dashboard-player-card p {
-  margin: 5px 0;
-  color: #555;
-  font-size: 0.9rem;
+  color:white;
+  font-size: 1rem;
+  margin: 7px 0;
 }
 
-/* ===== Status Styling ===== */
 .club-dashboard-status-active {
-  color: white;
-  background: #4CAF50;
-  padding: 4px 8px;
-  border-radius: 6px;
+  background: green;
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
   display: inline-block;
+  margin-top: 0.3rem;
 }
-
 .club-dashboard-status-inactive {
-  color: white;
-  background: #ff4d4d;
-  padding: 4px 8px;
-  border-radius: 6px;
+  background: var(--accent-dark);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
   display: inline-block;
+  margin-top: 0.3rem;
 }
 
-/* ===== Jersey Number Highlight ===== */
-.club-dashboard-player-card p:last-of-type {
-  font-weight: bold;
-  color: #222;
-}
-
-/* ===== Fire Button ===== */
 .club-dashboard-fire-player-btn {
-  margin-top: 10px;
-  background: #ff4d4d;
-  color: white;
+  margin-top: 18px;
+  background: var(--primary-accent);
+  color: var(--white);
   border: none;
-  padding: 8px 12px;
+  padding: 10px 22px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s ease;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 4px 14px var(--shadow-accent);
+  transition: background 0.2s, box-shadow 0.2s;
 }
-
 .club-dashboard-fire-player-btn:hover {
-  background: #e60000;
+  background: var(--accent-dark);
+  box-shadow: 0 7px 19px var(--shadow-glow);
 }
 
-/* ===== No Data Styling ===== */
 .club-dashboard-no-data {
-  text-align: center;
-  padding: 2rem;
-  color: #888;
-  font-size: 1.1rem;
+  background: var(--primary-light);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  border-radius: 12px;
   grid-column: 1/-1;
+  padding: 2.5rem;
 }
 
-/* ===== Responsive Fixes ===== */
-@media (max-width: 500px) {
-  .club-dashboard-player-card {
-    padding: 1rem;
-  }
-  .club-dashboard-player-img {
-    width: 70px;
-    height: 70px;
-  }
+@media (max-width: 600px) {
+  .club-dashboard-player-card { padding: 1rem;}
+  .club-dashboard-player-img { width: 70px; height: 70px;}
 }
-
 
 /* Add Player Form */
 .club-dashboard-add-player-form {

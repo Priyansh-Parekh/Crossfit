@@ -250,60 +250,6 @@
 </div>
 
 <div id="club-dashboard-players" class="club-dashboard-current">
-  <!-- Players List Grid -->
-  <div class="club-dashboard-players-grid">
-    <% if (user.players.length> 0) { %>
-    <% user.players.forEach(player=> { %>
-    <div class="club-dashboard-player-card">
-      <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image" class="club-dashboard-player-img">
-      <h3 class="club-dashboard-player-name">
-        <%= player.name %>
-      </h3>
-      <p class="club-dashboard-player-type">
-        <%= player.type %>
-      </p>
-
-      <% if (player.type==='Batsman' ) { %>
-      <p>Batting Style: <%= player.batting_style %>
-      </p>
-      <p>Total Runs: <%= player.total_runs %>
-      </p>
-      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-      </p>
-      <% } else if (player.type==='Bowler' ) { %>
-      <p>Bowling Style: <%= player.bowling_style %>
-      </p>
-      <p>Wickets: <%= player.wickets %>
-      </p>
-      <p>Economy: <%= (player.economy).toFixed(2) %>
-      </p>
-      <% } else if (player.type==='All_Rounder' ) { %>
-      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-      </p>
-      <p>Economy: <%= (player.SR).toFixed(2) %>
-      </p>
-      <% } %>
-
-      <p>Status:
-      <p class="club-dashboard-status-<%= player.status %> ">
-        <%= player.status %>
-      </p>
-      </p>
-      <p>Jersey #: <%= player.jersey_number %>
-      </p>
-      <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
-        <input type="hidden" name="player_id" value="<%= player._id %>">
-        <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
-      </form>
-
-    </div>
-    <% }) %>
-    <% } else { %>
-    <div class="club-dashboard-no-data">
-      No players added yet.
-    </div>
-    <% } %>
-  </div>
 
   <div class="club-dashboard-action-buttons">
     <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
@@ -354,6 +300,59 @@
     </form>
   </div>
 
+  <!-- Players List Grid -->
+  <div class="club-dashboard-players-grid">
+    <% if (user.players.length> 0) { %>
+    <% user.players.forEach(player=> { %>
+    <div class="club-dashboard-player-card">
+      <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image" class="club-dashboard-player-img">
+      <h3 class="club-dashboard-player-name">
+        <%= player.name %>
+      </h3>
+      <p class="club-dashboard-player-type">
+        <%= player.type %>
+      </p>
+
+      <% if (player.type==='Batsman' ) { %>
+      <p>Batting Style: <%= player.batting_style %>
+      </p>
+      <p>Total Runs: <%= player.total_runs %>
+      </p>
+      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+      </p>
+      <% } else if (player.type==='Bowler' ) { %>
+      <p>Bowling Style: <%= player.bowling_style %>
+      </p>
+      <p>Wickets: <%= player.wickets %>
+      </p>
+      <p>Economy: <%= (player.economy).toFixed(2) %>
+      </p>
+      <% } else if (player.type==='All_Rounder' ) { %>
+      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+      </p>
+      <p>Economy: <%= (player.SR).toFixed(2) %>
+      </p>
+      <% } %>
+      <p class="club-dashboard-status-<%= player.status %> ">
+        <%= player.status %>
+      </p>
+      <p>Jersey #: <%= player.jersey_number %>
+      </p>
+      <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
+        <input type="hidden" name="player_id" value="<%= player._id %>">
+        <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
+      </form>
+
+    </div>
+    <% }) %>
+    <% } else { %>
+    <div class="club-dashboard-no-data">
+      No players added yet.
+    </div>
+    <% } %>
+  </div>
+
+ 
 
 
 </div>
