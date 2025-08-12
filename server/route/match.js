@@ -147,15 +147,15 @@ const overs_increase = (overs) => {
 };
 
 
-const updateClubMatchPlayed = async (clubId) => {
+const updateClubMatchPlayed = async (clubId,thisMatch_id) => {
     const club = await clubs.findById(clubId);
-    const playedEntry = club.match_played.find(m => m.matchId.equals(thisMatch._id));
+    const playedEntry = club.match_played.find(m => m.matchId.equals(thisMatch_id));
     if (playedEntry) {
         if (!playedEntry.played) {
             playedEntry.played = true;
         }
     } else {
-        club.match_played.push({ matchId: thisMatch._id, played: true });
+        club.match_played.push({ matchId: thisMatch_id, played: true });
     }
     await club.save();
 };
@@ -546,8 +546,8 @@ route.post('/submit_result/:_id', login, async (req, res) => {
         }
 
         // Mark the match as played for the user once
-        await updateClubMatchPlayed(thisMatch.club1._id);
-        await updateClubMatchPlayed(thisMatch.club2._id);
+        await updateClubMatchPlayed(thisMatch.club1._id,thisMatch._id);
+        await updateClubMatchPlayed(thisMatch.club2._id,thisMatch._id);
 
         // Update clubs: avoid duplicate entries
         if (thisMatch.winner) {
