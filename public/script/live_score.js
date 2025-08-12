@@ -24,5 +24,5 @@ setInterval(() => {
         const matchId = card.dataset.matchId;
         fetchLiveScore(matchId);
     });
-}, 20000); 
+}, 10000); 
 

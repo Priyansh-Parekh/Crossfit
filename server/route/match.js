@@ -147,7 +147,18 @@ const overs_increase = (overs) => {
 };
 
 
-
+const updateClubMatchPlayed = async (clubId) => {
+    const club = await clubs.findById(clubId);
+    const playedEntry = club.match_played.find(m => m.matchId.equals(thisMatch._id));
+    if (playedEntry) {
+        if (!playedEntry.played) {
+            playedEntry.played = true;
+        }
+    } else {
+        club.match_played.push({ matchId: thisMatch._id, played: true });
+    }
+    await club.save();
+};
 
 
 
@@ -360,7 +371,7 @@ route.post('/live_score/:_id', login, async (req, res) => {
             thismatch.bowler.overs_deliverd = overs_increase(thismatch.bowler.overs_deliverd)
         }
         thismatch.bowler.runs_given += stricker_runs;
-        thismatch.bowler.economy =( thismatch.bowler.runs_given / thismatch.bowler.overs_deliverd).toFixed(1);
+        thismatch.bowler.economy = (thismatch.bowler.runs_given / thismatch.bowler.overs_deliverd).toFixed(1);
         if (wicket === 'yes') {
             thismatch.bowler.wickets++;
         }
@@ -496,81 +507,74 @@ route.post('/live_score/:_id', login, async (req, res) => {
 
 route.post('/submit_result/:_id', login, async (req, res) => {
     try {
-      const user = req.user;
-      await populate_cricket_club_data(user);
-  
-      // Validate and parse match ID
-      const matchId = new mongoose.Types.ObjectId(req.params._id);
-      const thisMatch = await matches.findById(matchId);
-      if (!thisMatch) {
-        return res.status(404).redirect('/error');
-      }
-      await match_populate(thisMatch);
-  
-      // Extract man_of_match safely
-      const { man_of_match: manOfMatchId } = req.body;
-      if (!manOfMatchId) {
-        return res.status(400).send('man_of_match is required');
-      }
-      const manOfMatchObjId = new mongoose.Types.ObjectId(manOfMatchId);
-  
-      // Prevent duplicate man_of_match
-      if (thisMatch.man_of_match && thisMatch.man_of_match.equals(manOfMatchObjId)) {
-        return res.status(400).send('This player is already set as Man of the Match');
-      }
-      thisMatch.man_of_match = manOfMatchObjId;
-  
-      // Determine winner and loser
-      let loserClubId;
-      if (thisMatch.score.club1.runs > thisMatch.score.club2.runs) {
-        thisMatch.winner = thisMatch.club1._id;
-        loserClubId = thisMatch.club2._id;
-      } else if (thisMatch.score.club1.runs < thisMatch.score.club2.runs) {
-        thisMatch.winner = thisMatch.club2._id;
-        loserClubId = thisMatch.club1._id;
-      } else {
-        // Tie or no result
-        thisMatch.winner = null;
-        loserClubId = null;
-      }
-  
-      // Mark the match as played for the user once
-      const playedEntry = user.match_played.find(m => m.matchId.equals(thisMatch._id));
-      if (playedEntry) {
-        if (!playedEntry.played) {
-          playedEntry.played = true;
+        const user = req.user;
+        await populate_cricket_club_data(user);
+
+        // Validate and parse match ID
+        const matchId = new mongoose.Types.ObjectId(req.params._id);
+        const thisMatch = await matches.findById(matchId);
+        if (!thisMatch) {
+            return res.status(404).redirect('/error');
         }
-      } else {
-        user.match_played.push({ matchId: thisMatch._id, played: true });
-      }
-      await user.save();
-  
-      // Update clubs: avoid duplicate entries
-      if (thisMatch.winner) {
-        const winnerClub = await clubs.findById(thisMatch.winner);
-        if (!winnerClub.match_won.includes(thisMatch._id)) {
-          winnerClub.match_won.push(thisMatch._id);
-          await winnerClub.save();
+        await match_populate(thisMatch);
+
+        // Extract man_of_match safely
+        const { man_of_match: manOfMatchId } = req.body;
+        if (!manOfMatchId) {
+            return res.status(400).send('man_of_match is required');
         }
-  
-        const loserClub = await clubs.findById(loserClubId);
-        if (!loserClub.match_lose.includes(thisMatch._id)) {
-          loserClub.match_lose.push(thisMatch._id);
-          await loserClub.save();
+        const manOfMatchObjId = new mongoose.Types.ObjectId(manOfMatchId);
+
+        // Prevent duplicate man_of_match
+        if (thisMatch.man_of_match && thisMatch.man_of_match.equals(manOfMatchObjId)) {
+            return res.status(400).send('This player is already set as Man of the Match');
         }
-      }
-  
-      // Finalize match
-      thisMatch.status = 'completed';
-      thisMatch.submit_result = true;
-      await thisMatch.save();
-  
-      return res.redirect(`/match/update_score/${thisMatch._id}`);
+        thisMatch.man_of_match = manOfMatchObjId;
+
+        // Determine winner and loser
+        let loserClubId;
+        if (thisMatch.score.club1.runs > thisMatch.score.club2.runs) {
+            thisMatch.winner = thisMatch.club1._id;
+            loserClubId = thisMatch.club2._id;
+        } else if (thisMatch.score.club1.runs < thisMatch.score.club2.runs) {
+            thisMatch.winner = thisMatch.club2._id;
+            loserClubId = thisMatch.club1._id;
+        } else {
+            // Tie or no result
+            thisMatch.winner = null;
+            loserClubId = null;
+        }
+
+        // Mark the match as played for the user once
+        await updateClubMatchPlayed(thisMatch.club1._id);
+        await updateClubMatchPlayed(thisMatch.club2._id);
+
+        // Update clubs: avoid duplicate entries
+        if (thisMatch.winner) {
+            const winnerClub = await clubs.findById(thisMatch.winner);
+            if (!winnerClub.match_won.includes(thisMatch._id)) {
+                winnerClub.match_won.push(thisMatch._id);
+                await winnerClub.save();
+            }
+
+            const loserClub = await clubs.findById(loserClubId);
+            if (!loserClub.match_lose.includes(thisMatch._id)) {
+                loserClub.match_lose.push(thisMatch._id);
+                await loserClub.save();
+            }
+        }
+
+        // Finalize match
+        thisMatch.status = 'completed';
+        thisMatch.submit_result = true;
+        await thisMatch.save();
+
+        return res.redirect(`/match/update_score/${thisMatch._id}`);
     } catch (error) {
-      console.error('Error submitting match result:', error);
-      return res.redirect('/error');
+        console.error('Error submitting match result:', error);
+        return res.redirect('/error');
     }
-  });
+});
 
 route.post('/make_live/:_id', login, async (req, res) => {
     try {
@@ -611,8 +615,8 @@ route.get('/refresh/live_score/:id', async (req, res) => {
             bowler: thismatch.bowler,
             bowler_score: thismatch.bowler_score,
             firstInnings: thismatch.firstInnings,
-            secondInnings:thismatch.secondInnings,
-            playerStats : thismatch.playerStats
+            secondInnings: thismatch.secondInnings,
+            playerStats: thismatch.playerStats
         });
     } catch (err) {
         console.error(err);

@@ -148,7 +148,7 @@ function updateMatchUI(data) {
 }
 
 // ✅ Auto refresh every 20 seconds
-setInterval(fetchMatchData, 20000);
+setInterval(fetchMatchData, 10000);
 
 // ✅ Optional: call once immediately to load right away
 fetchMatchData();
