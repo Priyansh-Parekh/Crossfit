@@ -97,6 +97,7 @@
       <div class="club-dashboard-section-header">
         <h2 class="club-dashboard-section-title">Recent Matches</h2>
       </div>
+    
       <table class="club-dashboard-table">
         <thead>
           <tr>
@@ -106,53 +107,47 @@
             <th>Score</th>
           </tr>
         </thead>
+    
         <tbody>
-          <tr>
-
-            <% if ( user.match_played.length>0) { %>
-            <% let recent_match_count=0; %>
-            <% user.match_played.forEach(match=> { %>
-            <% if (recent_match_count>= 5) return; %>
-            <% if (match.played===true) { %>
-            <% recent_match_count++; %>
-            <% let Opponent=match.matchId.club1===user._id ? match.matchId.club2 : match.matchId.club1; %>
-          <tr>
-            <td>
-              <%= Opponent.name %>
-            </td>
-            <td>
-              <%= match.matchId.matchDate.toDateString() %>
-            </td>
-            <td>
-              <span class="club-dashboard-status-badge club-dashboard-status  <%= match.matchId.winner===user._id ? 'Won' : 'Lose' %>">
-                <%= match.matchId.winner===user._id ? 'Won' : 'Lose' %>
-              </span>
-            </td>
-            <td>
-              <%= match.matchId.score.club1.runs %>/<%= match.matchId.score.club1.wickets %> vs
-              <%= match.matchId.score.club2.runs %>/<%= match.matchId.score.club2.wickets %>
-            </td>
-          </tr>
-          <% } else if(recent_match_count===0) { %>
-
-          <tr>
-            <td colspan="4">No Matches Played Yet</td>
-          </tr>
-
-          <% return %>
+          <% if (user.match_played.length > 0) { %>
+            <% let recent_match_count = 0; %>
+            <% user.match_played.forEach(match => { %>
+              <% if (recent_match_count >= 5) return; %>
+              <% if (match.played === true) { %>
+                <% recent_match_count++; %>
+                <% let Opponent = match.matchId.club1 === user._id ? match.matchId.club2 : match.matchId.club1; %>
+    
+                <tr>
+                  <td><%= Opponent.name %></td>
+                  <td><%= match.matchId.matchDate.toDateString() %></td>
+                  <td>
+                    <span class="club-dashboard-status-badge <%= match.matchId.winner === user._id ? 'won' : 'lose' %>">
+                      <%= match.matchId.winner === user._id ? 'Won' : 'Lose' %>
+                    </span>
+                  </td>
+                  <td>
+                    <%= match.matchId.score.club1.runs %>/<%= match.matchId.score.club1.wickets %> vs
+                    <%= match.matchId.score.club2.runs %>/<%= match.matchId.score.club2.wickets %>
+                  </td>
+                </tr>
+              <% } %>
+            <% }) %>
+    
+            <% if (recent_match_count === 0) { %>
+              <tr>
+                <td colspan="4">No Matches Played Yet</td>
+              </tr>
+            <% } %>
+    
+          <% } else { %>
+            <tr>
+              <td colspan="4">No Matches Played Yet</td>
+            </tr>
           <% } %>
-          <% }) %>
-
-          <% } else{%>
-          <td colspan="4">No Matches Played Yet</td>
-          <% } %>
-
-          </tr>
-
         </tbody>
       </table>
     </div>
-
+    
     <div class="club-dashboard-section">
       <div class="club-dashboard-section-header">
         <h2 class="club-dashboard-section-title">Your Team Leaders</h2>
@@ -250,60 +245,6 @@
 </div>
 
 <div id="club-dashboard-players" class="club-dashboard-current">
-  <!-- Players List Grid -->
-  <div class="club-dashboard-players-grid">
-    <% if (user.players.length> 0) { %>
-    <% user.players.forEach(player=> { %>
-    <div class="club-dashboard-player-card">
-      <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image" class="club-dashboard-player-img">
-      <h3 class="club-dashboard-player-name">
-        <%= player.name %>
-      </h3>
-      <p class="club-dashboard-player-type">
-        <%= player.type %>
-      </p>
-
-      <% if (player.type==='Batsman' ) { %>
-      <p>Batting Style: <%= player.batting_style %>
-      </p>
-      <p>Total Runs: <%= player.total_runs %>
-      </p>
-      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-      </p>
-      <% } else if (player.type==='Bowler' ) { %>
-      <p>Bowling Style: <%= player.bowling_style %>
-      </p>
-      <p>Wickets: <%= player.wickets %>
-      </p>
-      <p>Economy: <%= (player.economy).toFixed(2) %>
-      </p>
-      <% } else if (player.type==='All_Rounder' ) { %>
-      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
-      </p>
-      <p>Economy: <%= (player.SR).toFixed(2) %>
-      </p>
-      <% } %>
-
-      <p>Status:
-      <p class="club-dashboard-status-<%= player.status %> ">
-        <%= player.status %>
-      </p>
-      </p>
-      <p>Jersey #: <%= player.jersey_number %>
-      </p>
-      <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
-        <input type="hidden" name="player_id" value="<%= player._id %>">
-        <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
-      </form>
-
-    </div>
-    <% }) %>
-    <% } else { %>
-    <div class="club-dashboard-no-data">
-      No players added yet.
-    </div>
-    <% } %>
-  </div>
 
   <div class="club-dashboard-action-buttons">
     <button class="club-dashboard-adding-new-player-btn club-dashboard-btn-primary">
@@ -354,6 +295,59 @@
     </form>
   </div>
 
+  <!-- Players List Grid -->
+  <div class="club-dashboard-players-grid">
+    <% if (user.players.length> 0) { %>
+    <% user.players.forEach(player=> { %>
+    <div class="club-dashboard-player-card">
+      <img src="<%= player.profile_picture || '/images/avatar.png' %>" alt="Player Image" class="club-dashboard-player-img">
+      <h3 class="club-dashboard-player-name">
+        <%= player.name %>
+      </h3>
+      <p class="club-dashboard-player-type">
+        <%= player.type %>
+      </p>
+
+      <% if (player.type==='Batsman' ) { %>
+      <p>Batting Style: <%= player.batting_style %>
+      </p>
+      <p>Total Runs: <%= player.total_runs %>
+      </p>
+      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+      </p>
+      <% } else if (player.type==='Bowler' ) { %>
+      <p>Bowling Style: <%= player.bowling_style %>
+      </p>
+      <p>Wickets: <%= player.wickets %>
+      </p>
+      <p>Economy: <%= (player.economy).toFixed(2) %>
+      </p>
+      <% } else if (player.type==='All_Rounder' ) { %>
+      <p>Strike Rate: <%= (player.SR).toFixed(2) %>
+      </p>
+      <p>Economy: <%= (player.SR).toFixed(2) %>
+      </p>
+      <% } %>
+      <p class="club-dashboard-status-<%= player.status %> ">
+        <%= player.status %>
+      </p>
+      <p>Jersey #: <%= player.jersey_number %>
+      </p>
+      <form action="/dashboard/clubs/fire_player" method="POST" class="club-dashboard-fire-player-form">
+        <input type="hidden" name="player_id" value="<%= player._id %>">
+        <button type="submit" class="club-dashboard-fire-player-btn">🔥 Fire</button>
+      </form>
+
+    </div>
+    <% }) %>
+    <% } else { %>
+    <div class="club-dashboard-no-data">
+      No players added yet.
+    </div>
+    <% } %>
+  </div>
+
+ 
 
 
 </div>
@@ -598,46 +592,44 @@
 <div id="club-dashboard-matches" class="club-dashboard-current">
   <div class="club-dashboard-section">
     <h1 class="club-dashboard-previous-matches-title">Previous Matches</h1>
-
-    <div class="club-dashboard-previous-matches-grid" id="club-dashboard-previous-matches-container">
-      <!-- Match cards will be populated here -->
-      <% user.match_played.forEach(match=> { %>
-      <% if (match.played) { %>
-      <div class="club-dashboard-previous-matches-date">
-        <%= match.matchId.matchDate.toDateString() %>
-      </div>
-
-      <div class="club-dashboard-previous-matches-teams-container">
-        <div class="club-dashboard-previous-matches-team">
-          <img src="<%=match.matchId.club1.logo  %>" alt="logo" class="club-dashboard-previous-matches-team-logo">
-          <div class="club-dashboard-previous-matches-team-name">
-            <%= match.matchId.club1.name %>
+    <div class="club-dashboard-previous-matches-grid">
+      <% let shown = 0; %>
+      <% user.match_played.forEach(match => { %>
+        <% if (match.played) { shown++; %>
+          <div class="club-dashboard-previous-matches-card">
+            <div class="club-dashboard-previous-matches-date">
+              <%= match.matchId.matchDate.toDateString() %>
+            </div>
+  
+            <div class="club-dashboard-previous-matches-teams">
+              <div class="team">
+                <img src="<%= match.matchId.club1.logo %>" alt="logo" class="logo">
+                <span class="name"><%= match.matchId.club1.name %></span>
+              </div>
+              <span class="vs-text">VS</span>
+              <div class="team">
+                <img src="<%= match.matchId.club2.logo %>" alt="logo" class="logo">
+                <span class="name"><%= match.matchId.club2.name %></span>
+              </div>
+            </div>
+  
+            <div class="club-dashboard-previous-matches-bottom">
+              <span class="status-badge <%= match.matchId.winner === user._id ? 'won' : 'lost'%>">
+                <%= match.matchId.winner === user._id ? 'Won' : 'Lose' %>
+              </span>
+              <a href="/live_scores/scorecard/<%= match.matchId._id %>" class="scorecard-link">📊 View Scorecard</a>
+            </div>
           </div>
+        <% } %>
+      <% }); %>
+      <% if (!shown) { %>
+        <div class="club-dashboard-previous-matches-card no-matches">
+          No Matches Played Yet
         </div>
-
-        <div class="club-dashboard-previous-matches-vs">VS</div>
-
-        <div class="club-dashboard-previous-matches-team">
-          <img src="<%= match.matchId.club2.logo %>" alt="logo" class="club-dashboard-previous-matches-team-logo">
-          <div class="club-dashboard-previous-matches-team-name">
-            <%= match.matchId.club2.name %>
-          </div>
-        </div>
-      </div>
-
-      <div class="club-dashboard-previous-matches-result-status">
-        <span class="club-dashboard-previous-matches-status-badge <%= match.matchId.winner === user._id ? 'club-dashboard-previous-matches-won' : 'club-dashboard-previous-matches-lost'%>">
-          <%= match.matchId.winner===user._id ? 'Won' : 'Lose' %>
-        </span>
-      </div>
-
-      <a href="/live_scores/scorecard/<%= match.matchId._id %>" class="club-dashboard-previous-matches-scorecard-link">
-        📊 View Scorecard
-      </a>
       <% } %>
-      <% }) %>
     </div>
   </div>
+  
 </div>
 
 <div id="club-dashboard-challenges" class="club-dashboard-current">
